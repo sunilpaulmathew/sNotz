@@ -160,9 +160,14 @@ public class MainActivity extends AppCompatActivity {
                                 .show();
                         break;
                     case 6:
-                        Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
-                        restore.setType("*/*");
-                        startActivityForResult(restore, 0);
+                        if (Utils.isPermissionDenied(this)) {
+                            ActivityCompat.requestPermissions(this, new String[]{
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        } else {
+                            Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
+                            restore.setType("*/*");
+                            startActivityForResult(restore, 0);
+                        }
                         break;
                     case 7:
                         if (Utils.getBoolean("hidden_note", false, this)) {
