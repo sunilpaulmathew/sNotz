@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name" translatable="false">sNotz</string>
+
+    <string name="app_name_summary">The simplest application to manage notes!</string>
+    <string name="add_text_hint">Add text here…</string>
+    <string name="backup_notes">Backup Notes</string>
+    <string name="backup_notes_message">You\'re notes are backed up as \'%s\'!</string>
+    <string name="cancel">Cancel</string>
+    <string name="change_logs">Change-logs</string>
+    <string name="clear_notes">Clear Notes</string>
+    <string name="clear_notes_message">Please note. All the notes will be deleted!</string>
+    <string name="click_again_message">Click the text twice to increase the visibility of this page…</string>
+    <string name="choose_color">Choose Color</string>
+    <string name="content_hint">Add content here…</string>
+    <string name="delete">Delete</string>
+    <string name="delete_sure_question">Delete %s?</string>
+    <string name="developed_by">Made with \u2665 by</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="hidden_note">Hidden Note</string>
+    <string name="no_internet">Please check your internet connection!</string>
+    <string name="note_color">Note Color</string>
+    <string name="note_color_background">Background</string>
+    <string name="note_color_text">Text</string>
+    <string name="note_invalid_warning">Kindly remove the invalid characters (e.g. double (\") quotation mark) from the text!</string>
+    <string name="note_saving_error">Unfortunately, one or more invalid character(s) present in your text prevent sNotz from saving! Please revise the text to avoid date loss.</string>
+    <string name="ok">OK</string>
+    <string name="press_back_exit">Press the \'Back\' button again to Exit!</string>
+    <string name="restore_error">You\'re selected an invalid backup file. Aborting!</string>
+    <string name="restore_notes">Restore Notes</string>
+    <string name="restore_notes_question">Restore notes from %s?</string>
+    <string name="reverse_order">Reverse Order</string>
+    <string name="search_hint">Search…</string>
+    <string name="share">Share</string>
+    <string name="share_with">Share With</string>
+    <string name="shared_by">Share by sNotz %s</string>
+    <string name="shared_by_message">Get sNotz %s from PlayStore: https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz</string>
+    <string name="show_hidden_notes">Show Hidden Notes</string>
+    <string name="text_empty">Text shouldn\'t be empty. Aborting!</string>
+    <string name="yes">Yes</string>
+</resources>
