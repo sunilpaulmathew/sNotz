@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:attr/colorBackground"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/color_black" >
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/search_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="?android:attr/colorAccent"
+            android:textColor="?android:attr/colorAccent"
+            android:gravity="center_horizontal"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:textStyle="italic"
+            android:hint="@string/search_hint"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/app_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:text="@string/app_name"
+            android:padding="15dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/colorAccent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_search"
+            android:tint="?android:attr/colorAccent"
+            android:layout_marginEnd="90dp"
+            android:padding="5dp"
+            android:background="@null"
+            android:layout_gravity="end" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_settings"
+            android:tint="?android:attr/colorAccent"
+            android:layout_marginEnd="45dp"
+            android:padding="5dp"
+            android:background="@null"
+            android:layout_gravity="end" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/info_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_info"
+            android:tint="?android:attr/colorAccent"
+            android:padding="5dp"
+            android:background="@null"
+            android:layout_gravity="end" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="65dp" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_add" />
+</RelativeLayout>

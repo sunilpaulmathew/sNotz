@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/rv_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:cardUseCompatPadding="true"
+    android:longClickable="true"
+    app:cardCornerRadius="5dp"
+    android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/contents"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:focusable="false"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:padding="10dp"
+                            android:layout_marginEnd="50dp"
+                            android:hint="@string/content_hint"
+                            android:textColor="?android:attr/textColorPrimary" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/expand"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_expand"
+                            android:background="@null"
+                            android:tint="?android:attr/textColorPrimary"
+                            android:layout_gravity="end|top" />
+                </FrameLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:layout_marginTop="-15dp"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:padding="5dp"
+                    android:gravity="end" />
+        </LinearLayout>
+</androidx.cardview.widget.CardView>
