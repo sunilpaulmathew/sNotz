@@ -129,6 +129,15 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 menu.add(Menu.NONE, 6, Menu.NONE, getString(R.string.restore_notes));
             }
+            SubMenu about = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.about));
+            about.add(Menu.NONE, 9, Menu.NONE, getString(R.string.share_app));
+            about.add(Menu.NONE, 10, Menu.NONE, getString(R.string.support));
+            about.add(Menu.NONE, 11, Menu.NONE, getString(R.string.more_apps));
+            about.add(Menu.NONE, 12, Menu.NONE, getString(R.string.report_issue));
+            about.add(Menu.NONE, 13, Menu.NONE, getString(R.string.source_code));
+            if (Utils.isNotDonated(this)) {
+                about.add(Menu.NONE, 14, Menu.NONE, getString(R.string.donations));
+            }
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
@@ -187,6 +196,38 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 8:
                         mBiometricPrompt.authenticate(Utils.mPromptInfo);
+                        break;
+                    case 9:
+                        Intent share_app = new Intent();
+                        share_app.setAction(Intent.ACTION_SEND);
+                        share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+                        share_app.putExtra(Intent.EXTRA_TEXT, getString(R.string.shared_by_message, BuildConfig.VERSION_NAME));
+                        share_app.setType("text/plain");
+                        Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
+                        startActivity(shareIntent);
+                        break;
+                    case 10:
+                        Utils.launchURL(mAppTitle, "https://t.me/smartpack_kmanager", this);
+                        break;
+                    case 11:
+                        Utils.launchURL(mAppTitle, "https://play.google.com/store/apps/dev?id=5836199813143882901", this);
+                        break;
+                    case 12:
+                        Utils.launchURL(mAppTitle, "https://github.com/sunilpaulmathew/sNotz/issues/new", this);
+                        break;
+                    case 13:
+                        Utils.launchURL(mAppTitle, "https://github.com/sunilpaulmathew/sNotz/", this);
+                        break;
+                    case 14:
+                        new AlertDialog.Builder(this)
+                                .setIcon(R.mipmap.ic_launcher)
+                                .setTitle(getString(R.string.donations))
+                                .setMessage(getString(R.string.donations_message))
+                                .setNeutralButton(getString(R.string.cancel), (dialog1, id1) -> {
+                                })
+                                .setPositiveButton(getString(R.string.donation_app), (dialogInterface, i) -> Utils.launchURL(mAppTitle,
+                                        "https://play.google.com/store/apps/details?id=com.smartpack.donate", this))
+                                .show();
                         break;
                 }
                 return false;

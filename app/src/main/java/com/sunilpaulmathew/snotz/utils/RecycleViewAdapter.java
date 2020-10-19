@@ -80,13 +80,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             popupMenu.setOnMenuItemClickListener(popupMenuItem -> {
                 switch (popupMenuItem.getItemId()) {
                     case 0:
-                        Intent share_app = new Intent();
-                        share_app.setAction(Intent.ACTION_SEND);
-                        share_app.putExtra(Intent.EXTRA_SUBJECT, holder.mRVCard.getContext().getString(R.string.shared_by, BuildConfig.VERSION_NAME));
-                        share_app.putExtra(Intent.EXTRA_TEXT, "\"" + sNotz.getNote(this.data.get(position)) + "\"\n\n" +
+                        Intent share_note = new Intent();
+                        share_note.setAction(Intent.ACTION_SEND);
+                        share_note.putExtra(Intent.EXTRA_SUBJECT, holder.mRVCard.getContext().getString(R.string.shared_by, BuildConfig.VERSION_NAME));
+                        share_note.putExtra(Intent.EXTRA_TEXT, "\"" + sNotz.getNote(this.data.get(position)) + "\"\n\n" +
                                 holder.mRVCard.getContext().getString(R.string.shared_by_message, BuildConfig.VERSION_NAME));
-                        share_app.setType("text/plain");
-                        Intent shareIntent = Intent.createChooser(share_app, holder.mRVCard.getContext().getString(R.string.share_with));
+                        share_note.setType("text/plain");
+                        Intent shareIntent = Intent.createChooser(share_note, holder.mRVCard.getContext().getString(R.string.share_with));
                         holder.mRVCard.getContext().startActivity(shareIntent);
                         break;
                     case 1:

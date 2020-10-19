@@ -24,6 +24,7 @@ import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 
 import java.io.BufferedReader;
@@ -43,6 +44,20 @@ public class Utils {
     public static RecyclerView mRecyclerView;
     public static String mName;
     public static String mSearchText = null;
+
+    public static boolean isPackageInstalled(String packageID, Context context) {
+        try {
+            context.getPackageManager().getApplicationInfo(packageID, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException ignored) {
+            return false;
+        }
+    }
+
+    public static boolean isNotDonated(Context context) {
+        if (BuildConfig.DEBUG) return false;
+        return !isPackageInstalled("com.smartpack.donate", context);
+    }
 
     private static boolean isDarkTheme(Context context) {
         int currentNightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
