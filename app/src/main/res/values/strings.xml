@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name" translatable="false">sNotz</string>
 
-    <string name="app_name_summary">The simplest application to manage notes!</string>
     <string name="add_text_hint">Add text here…</string>
+    <string name="app_name_summary">The simplest application to manage notes!</string>
+    <string name="activated">activated</string>
+    <string name="authenticate">Authenticate</string>
+    <string name="authentication_error">Authentication Error: %s</string>
+    <string name="authentication_failed">Authentication Failed</string>
+    <string name="biometric_lock">Use Biometric Lock</string>
+    <string name="biometric_lock_status">Biometric authentication is %s!</string>
     <string name="backup_notes">Backup Notes</string>
     <string name="backup_notes_message">You\'re notes are backed up as \'%s\'!</string>
     <string name="cancel">Cancel</string>
@@ -12,6 +18,7 @@
     <string name="click_again_message">Click the text twice to increase the visibility of this page…</string>
     <string name="choose_color">Choose Color</string>
     <string name="content_hint">Add content here…</string>
+    <string name="deactivated">deactivated</string>
     <string name="delete">Delete</string>
     <string name="delete_sure_question">Delete %s?</string>
     <string name="developed_by">Made with \u2665 by</string>

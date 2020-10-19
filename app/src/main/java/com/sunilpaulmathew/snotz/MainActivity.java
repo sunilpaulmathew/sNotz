@@ -17,13 +17,16 @@ import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -37,6 +40,7 @@ import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.concurrent.Executor;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageButton mInfoButton;
     private AppCompatTextView mAppTitle;
     private AppCompatEditText mSearchWord;
+    private BiometricPrompt mBiometricPrompt;
     private boolean mExit;
     private Handler mHandler = new Handler();
     private String mPath;
@@ -114,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
             if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
                 menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
                         .setChecked(Utils.getBoolean("reverse_order", false, this));
+                if (Utils.isFingerprintAvailable(this)) {
+                menu.add(Menu.NONE, 8, Menu.NONE, getString(R.string.biometric_lock)).setCheckable(true)
+                        .setChecked(Utils.getBoolean("use_biometric", false, this));
+                }
                 menu.add(Menu.NONE, 7, Menu.NONE, getString(R.string.show_hidden_notes)).setCheckable(true)
                         .setChecked(Utils.getBoolean("hidden_note", false, this));
                 menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.backup_notes));
@@ -170,12 +179,15 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 7:
-                        if (Utils.getBoolean("hidden_note", false, this)) {
-                            Utils.saveBoolean("hidden_note", false, this);
+                        if (Utils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
+                            Utils.mHiddenNotes = true;
+                            mBiometricPrompt.authenticate(Utils.mPromptInfo);
                         } else {
-                            Utils.saveBoolean("hidden_note", true, this);
+                            Utils.manageHiddenNotes(this);
                         }
-                        Utils.reloadUI(this);
+                        break;
+                    case 8:
+                        mBiometricPrompt.authenticate(Utils.mPromptInfo);
                         break;
                 }
                 return false;
@@ -187,6 +199,31 @@ public class MainActivity extends AppCompatActivity {
             Intent aboutsNotz = new Intent(this, AboutActivity.class);
             startActivity(aboutsNotz);
         });
+
+        Executor executor = ContextCompat.getMainExecutor(this);
+        mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                Utils.showSnackbar(mAppTitle, getString(R.string.authentication_error, errString));
+            }
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                if (Utils.mHiddenNotes) {
+                    Utils.manageHiddenNotes(MainActivity.this);
+                } else {
+                    Utils.useBiometric(mAppTitle, MainActivity.this);
+                }
+            }
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Utils.showSnackbar(mAppTitle, getString(R.string.authentication_failed));
+            }
+        });
+
+        Utils.showBiometricPrompt(this);
     }
 
     @Override
@@ -223,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed () {
+    public void onBackPressed() {
         if (mSearchWord.getVisibility() == View.VISIBLE) {
             if (Utils.mSearchText != null) {
                 Utils.mSearchText = null;

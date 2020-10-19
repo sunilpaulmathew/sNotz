@@ -19,6 +19,8 @@ import android.text.Html;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -35,6 +37,8 @@ import java.io.OutputStreamWriter;
 
 public class Utils {
 
+    public static BiometricPrompt.PromptInfo mPromptInfo;
+    public static boolean mHiddenNotes = false;
     public static boolean mTextColor = false;
     public static RecyclerView mRecyclerView;
     public static String mName;
@@ -56,6 +60,38 @@ public class Utils {
     public static boolean isPermissionDenied(Context context) {
         String permission = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
         return (context.checkCallingOrSelfPermission(permission) != PackageManager.PERMISSION_GRANTED);
+    }
+
+    public static void showBiometricPrompt(Context context) {
+        mPromptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle(context.getString(R.string.authenticate))
+                .setNegativeButtonText(context.getString(R.string.cancel))
+                .build();
+    }
+
+    public static void useBiometric(View view, Context context) {
+        if (getBoolean("use_biometric", false, context)) {
+            saveBoolean("use_biometric", false, context);
+            showSnackbar(view, context.getString(R.string.biometric_lock_status, context.getString(R.string.deactivated)));
+        } else {
+            saveBoolean("use_biometric", true, context);
+            showSnackbar(view, context.getString(R.string.biometric_lock_status, context.getString(R.string.activated)));
+        }
+    }
+
+    public static void manageHiddenNotes(Context context) {
+        if (getBoolean("hidden_note", false, context)) {
+            saveBoolean("hidden_note", false, context);
+        } else {
+            saveBoolean("hidden_note", true, context);
+        }
+        mHiddenNotes = false;
+        reloadUI(context);
+    }
+
+    public static boolean isFingerprintAvailable(Context context) {
+        FingerprintManagerCompat fingerprintManager = FingerprintManagerCompat.from(context);
+        return fingerprintManager.hasEnrolledFingerprints();
     }
 
     public static int getOrientation(Activity activity) {

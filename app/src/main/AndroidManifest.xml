@@ -4,6 +4,7 @@
     package="com.sunilpaulmathew.snotz">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -17,13 +18,14 @@
         android:requestLegacyExternalStorage="true"
         tools:targetApi="q" >
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".utils.AboutActivity" />
         <activity android:name=".utils.CreateNoteActivity" />
     </application>
