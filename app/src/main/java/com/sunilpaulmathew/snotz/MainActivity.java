@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mSearchButton.setOnClickListener(v -> {
-            mAppTitle.setVisibility(View.GONE);
             mSearchButton.setVisibility(View.GONE);
             mSettingsButton.setVisibility(View.GONE);
             mInfoButton.setVisibility(View.GONE);
@@ -267,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
                 mSearchWord.setText(null);
             }
             mSearchWord.setVisibility(View.GONE);
-            mAppTitle.setVisibility(View.VISIBLE);
             mSearchButton.setVisibility(View.VISIBLE);
             mSettingsButton.setVisibility(View.VISIBLE);
             mInfoButton.setVisibility(View.VISIBLE);
