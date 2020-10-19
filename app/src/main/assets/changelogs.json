@@ -1,3 +1,3 @@
 {
-  "releaseNotes": "v0.1\n - Initial release."
+  "releaseNotes": "v0.2\n - Support Biometric lock.\n - Append hidden status to json file.\n - Allow full data backup.\n - Added a bunch of information to settings menu.\n - Slightly improved app layout.\n - Miscellaneous changes.\n\nv0.1\n - Initial release."
 }
