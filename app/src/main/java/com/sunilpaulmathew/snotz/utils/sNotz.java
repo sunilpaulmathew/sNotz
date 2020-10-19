@@ -49,6 +49,15 @@ public class sNotz {
         return null;
     }
 
+    public static boolean isHidden(String string) {
+        try {
+            JSONObject obj = new JSONObject(string);
+            return obj.getBoolean("hidden");
+        } catch (JSONException ignored) {
+        }
+        return false;
+    }
+
     public static boolean isNoteInvalid(String string) {
         try {
             new JSONObject("{\"note\":\"" + string +
@@ -70,13 +79,13 @@ public class sNotz {
                     if (Utils.mSearchText == null) {
                         if (Utils.getBoolean("hidden_note", false, context)) {
                             mData.add(command.toString());
-                        } else if (!Utils.getBoolean(command.toString(), false, context)) {
+                        } else if (!sNotz.isHidden(command.toString())) {
                             mData.add(command.toString());
                         }
                     } else if (Objects.requireNonNull(getNote(command.toString())).toLowerCase().contains(Utils.mSearchText.toLowerCase())) {
                         if (Utils.getBoolean("hidden_note", false, context)) {
                             mData.add(command.toString());
-                        } else if (!Utils.getBoolean(command.toString(), false, context)) {
+                        } else if (!sNotz.isHidden(command.toString())) {
                             mData.add(command.toString());
                         }
                     }

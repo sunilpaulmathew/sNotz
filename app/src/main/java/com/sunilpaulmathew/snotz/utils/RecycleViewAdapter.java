@@ -75,7 +75,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             Menu menu = popupMenu.getMenu();
             menu.add(Menu.NONE, 0, Menu.NONE, holder.mRVCard.getContext().getString(R.string.share));
             menu.add(Menu.NONE, 1, Menu.NONE, holder.mRVCard.getContext().getString(R.string.hidden_note)).setCheckable(true)
-                    .setChecked(Utils.getBoolean(this.data.get(position), false, holder.mRVCard.getContext()));
+                    .setChecked(sNotz.isHidden(this.data.get(position)));
             menu.add(Menu.NONE, 2, Menu.NONE, holder.mRVCard.getContext().getString(R.string.delete));
             popupMenu.setOnMenuItemClickListener(popupMenuItem -> {
                 switch (popupMenuItem.getItemId()) {
@@ -90,11 +90,18 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         holder.mRVCard.getContext().startActivity(shareIntent);
                         break;
                     case 1:
-                        if (Utils.getBoolean(this.data.get(position), false, holder.mRVCard.getContext())) {
-                            Utils.saveBoolean(this.data.get(position), false, holder.mRVCard.getContext());
+                        String newText;
+                        if (sNotz.isHidden(this.data.get(position))) {
+                            newText = this.data.get(position).replace("\"hidden\":" + true + "}", "\"hidden\":" + false + "}");
                         } else {
-                            Utils.saveBoolean(this.data.get(position), true, holder.mRVCard.getContext());
+                            if (this.data.get(position).contains("\"hidden\":" + false + "}")) {
+                                newText = this.data.get(position).replace("\"hidden\":" + false + "}", "\"hidden\":" + true + "}");
+                            } else {
+                                newText = this.data.get(position).replace("\"}", "\",\"hidden\":" + true + "}");
+                            }
                         }
+                        Utils.create(Objects.requireNonNull(Utils.readFile(holder.mRVCard.getContext().getFilesDir().getPath() + "/snotz"))
+                                .replace(this.data.get(position), newText), holder.mRVCard.getContext().getFilesDir().getPath() + "/snotz");
                         Utils.reloadUI(holder.mRVCard.getContext());
                         break;
                     case 2:
@@ -113,7 +120,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                                     } else {
                                         Utils.deleteFile(mJson);
                                     }
-                                    Utils.reloadUI(holder.mRVCard.getContext());
+                                    data.remove(position);
+                                    notifyDataSetChanged();
                                 })
                                 .show();
                         break;

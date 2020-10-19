@@ -87,12 +87,13 @@ public class CreateNoteActivity extends AppCompatActivity {
                 mJSONNew = Objects.requireNonNull(Utils.readFile(mJSON))
                         .replace(Utils.mName,"{\"note\":\"" + mContents.getText() +
                         "\",\"date\":\"" + DateFormat.getDateTimeInstance().format(System.currentTimeMillis()) +
-                        "\"}");
+                        "\",\"hidden\":" + sNotz.isHidden(Utils.mName) + "}");
             } else if (Utils.existFile(mJSON)) {
                 try {
                     JSONObject note = new JSONObject();
                     note.put("note", mContents.getText());
                     note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.put("hidden", false);
                     String newNote = note.toString();
                     mJSONNew = Objects.requireNonNull(Utils.readFile(mJSON))
                                 .replace("}]", "}," + newNote + "]");
@@ -105,6 +106,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                     JSONObject note = new JSONObject();
                     note.put("note", mContents.getText());
                     note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.put("hidden", false);
                     sNotz.put(note);
                     obj.put("sNotz", sNotz);
                     mJSONNew = obj.toString();
