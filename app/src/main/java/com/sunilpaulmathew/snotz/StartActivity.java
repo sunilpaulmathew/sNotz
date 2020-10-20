@@ -3,6 +3,7 @@ package com.sunilpaulmathew.snotz;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -33,8 +34,19 @@ public class StartActivity extends AppCompatActivity {
 
         mAppLogo = findViewById(R.id.app_logo);
         mAuthenticationStatus = findViewById(R.id.authentication_status);
-        Executor executor = ContextCompat.getMainExecutor(this);
 
+        new Handler().postDelayed(() -> {
+            if (Utils.getBoolean("use_biometric", false, this)) {
+                mBiometricPrompt.authenticate(Utils.mPromptInfo);
+            } else {
+                // Launch MainActivity
+                Intent mainActivity = new Intent(this, MainActivity.class);
+                startActivity(mainActivity);
+                finish();
+            }
+        }, 1000);
+
+        Executor executor = ContextCompat.getMainExecutor(this);
         mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
@@ -64,20 +76,6 @@ public class StartActivity extends AppCompatActivity {
         });
 
         Utils.showBiometricPrompt(this);Utils.showBiometricPrompt(this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        if (Utils.getBoolean("use_biometric", false, this)) {
-            mBiometricPrompt.authenticate(Utils.mPromptInfo);
-        } else {
-            // Launch MainActivity
-            Intent mainActivity = new Intent(this, MainActivity.class);
-            startActivity(mainActivity);
-            finish();
-        }
     }
 
 }
