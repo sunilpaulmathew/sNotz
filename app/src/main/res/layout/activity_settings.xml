@@ -1,0 +1,506 @@
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:attr/colorBackground"
+    android:layout_gravity="start"
+    android:orientation="vertical"
+    android:gravity="start">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_black"
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:orientation="horizontal" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/back_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_back"
+            android:tint="?android:attr/colorAccent"
+            android:background="@color/color_black"
+            android:layout_gravity="start|center_vertical" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/colorAccent"
+            android:text="@string/settings"
+            android:layout_marginStart="50dp"
+            android:gravity="start"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:padding="5dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="-10dp"
+            android:src="@mipmap/ic_launcher_foreground"
+            android:tint="@null" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/app_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/biometric_lock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_fingerprint"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="50dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/biometric_lock"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/biometric_lock_summary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkbox_biometric"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center" />
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/hidden_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_eye"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="50dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/show_hidden_notes"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/show_hidden_notes_summary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkbox_hidden"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center" />
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/background_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_color"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/note_color_background"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/background_color_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/text_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_text"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/note_color_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_color_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/backup_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_backup"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/backup_notes"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/backup_notes_summary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/restore_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_restore"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/restore_notes"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/restore_notes_summary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/clear_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_clear"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/clear_notes"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/clear_notes_summary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/invite_friends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_share"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/invite_friends"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/invite_friends_Summary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/rate_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_playstore"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/rate_us"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/rate_us_Summary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/support"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_support"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/support"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/support_summary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
+</LinearLayout>

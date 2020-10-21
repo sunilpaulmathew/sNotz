@@ -8,10 +8,7 @@
 package com.sunilpaulmathew.snotz.utils;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,14 +45,6 @@ public class AboutActivity extends AppCompatActivity {
         mCancel.setOnClickListener(v -> onBackPressed());
 
         mAppName.setText(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
-        mAppName.setOnClickListener(v -> {
-            Intent settings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-            settings.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
-            settings.setData(uri);
-            startActivity(settings);
-            onBackPressed();
-        });
         String change_log = null;
         try {
             change_log = new JSONObject(Objects.requireNonNull(Utils.readAssetFile(

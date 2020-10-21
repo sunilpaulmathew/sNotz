@@ -44,7 +44,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_search"
             android:tint="?android:attr/colorAccent"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="45dp"
             android:padding="5dp"
             android:background="@null"
             android:layout_gravity="end" />
@@ -53,18 +53,7 @@
             android:id="@+id/settings_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_settings"
-            android:tint="?android:attr/colorAccent"
-            android:layout_marginEnd="45dp"
-            android:padding="5dp"
-            android:background="@null"
-            android:layout_gravity="end" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/info_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_info"
+            android:src="@drawable/ic_dots"
             android:tint="?android:attr/colorAccent"
             android:padding="5dp"
             android:background="@null"

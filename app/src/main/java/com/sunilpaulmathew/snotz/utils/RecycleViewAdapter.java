@@ -99,6 +99,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                             } else {
                                 newText = this.data.get(position).replace("\"}", "\",\"hidden\":" + true + "}");
                             }
+                            Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message));
                         }
                         Utils.create(Objects.requireNonNull(Utils.readFile(holder.mRVCard.getContext().getFilesDir().getPath() + "/snotz"))
                                 .replace(this.data.get(position), newText), holder.mRVCard.getContext().getFilesDir().getPath() + "/snotz");
