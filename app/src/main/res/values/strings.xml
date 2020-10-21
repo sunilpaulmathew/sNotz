@@ -31,6 +31,8 @@
     <string name="donations">Donations</string>
     <string name="donations_message">If you like to appreciate my work, please consider buying SmartPack Donation Package from PlayStore as it is really helpful to continue my projects more active, although it is not at all necessary.</string>
     <string name="donation_app">Buy Donation App</string>
+    <string name="faq">FAQ</string>
+    <string name="faq_summary">Read frequently asked questions</string>
     <string name="hidden_note">Hidden Note</string>
     <string name="hidden_note_message">Visit \Settings\' page to change the visibility of hidden notes!</string>
     <string name="invite_friends">Invite Friends</string>

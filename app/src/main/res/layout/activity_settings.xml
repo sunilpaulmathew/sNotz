@@ -503,4 +503,45 @@
     </FrameLayout>
 
     <View style="@style/Divider"/>
+
+    <FrameLayout
+        android:id="@+id/faq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_faq"
+            android:background="@null"
+            android:layout_gravity="start|center"
+            android:tint="?android:attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:orientation="vertical" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/faq"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/faq_summary"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View style="@style/Divider"/>
 </LinearLayout>

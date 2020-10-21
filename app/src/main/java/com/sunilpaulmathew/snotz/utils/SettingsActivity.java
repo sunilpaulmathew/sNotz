@@ -70,6 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
         FrameLayout mInvite = findViewById(R.id.invite_friends);
         FrameLayout mRateApp = findViewById(R.id.rate_us);
         FrameLayout mSupport = findViewById(R.id.support);
+        FrameLayout mFAQ = findViewById(R.id.faq);
         mCheckBoxBiometric = findViewById(R.id.checkbox_biometric);
         mCheckBoxHidden = findViewById(R.id.checkbox_hidden);
         AppCompatTextView mBgColorSummary = findViewById(R.id.background_color_summary);
@@ -148,6 +149,7 @@ public class SettingsActivity extends AppCompatActivity {
         });
         mRateApp.setOnClickListener(v -> Utils.launchURL(mBack, "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz", this));
         mSupport.setOnClickListener(v -> Utils.launchURL(mBack, "https://t.me/smartpack_kmanager", this));
+        mFAQ.setOnClickListener(v -> Utils.launchURL(mBack, "https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8", this));
 
         Executor executor = ContextCompat.getMainExecutor(this);
         mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
