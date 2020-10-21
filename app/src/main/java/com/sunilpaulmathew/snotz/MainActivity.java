@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sunilpaulmathew.snotz.utils.AboutActivity;
 import com.sunilpaulmathew.snotz.utils.CreateNoteActivity;
@@ -44,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Initialize App Theme
+        // Initialize App Theme & Google Ads
         Utils.initializeAppTheme(this);
+        Utils.initializeGoogleAds(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         mSearchWord.setTextColor(Color.RED);
         FloatingActionButton mFAB = findViewById(R.id.fab);
         Utils.mRecyclerView = findViewById(R.id.recycler_view);
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) Utils.mRecyclerView.getLayoutParams();
 
         Utils.mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
         Utils.mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -152,6 +159,27 @@ public class MainActivity extends AppCompatActivity {
             });
             popupMenu.show();
         });
+
+        AdView mAdView = findViewById(R.id.adView);
+        if (Utils.isNetworkAvailable(this) && Utils.isNotDonated(this)) {
+            mAdView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    mAdView.setVisibility(View.VISIBLE);
+                }
+                @Override
+                public void onAdFailedToLoad(LoadAdError adError) {
+                    layoutParams.setMargins(0,0,0,0);
+                    mAdView.setVisibility(View.GONE);
+                }
+            });
+            AdRequest adRequest = new AdRequest.Builder()
+                    .build();
+            mAdView.loadAd(adRequest);
+        } else {
+            layoutParams.setMargins(0,0,0,0);
+            mAdView.setVisibility(View.GONE);
+        }
     }
 
     @Override
