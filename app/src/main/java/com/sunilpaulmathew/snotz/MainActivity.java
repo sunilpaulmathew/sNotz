@@ -32,6 +32,7 @@ import com.sunilpaulmathew.snotz.utils.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.utils.RecycleViewAdapter;
 import com.sunilpaulmathew.snotz.utils.SettingsActivity;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.WelcomeActivity;
 import com.sunilpaulmathew.snotz.utils.sNotz;
 
 /*
@@ -187,15 +188,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         if (!Utils.getBoolean("welcome_message", false, this)) {
-            new AlertDialog.Builder(this)
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle(getString(R.string.app_name))
-                    .setMessage(getString(R.string.welcome_message))
-                    .setCancelable(false)
-                    .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
-                        Utils.saveBoolean("welcome_message", true, this);
-                    })
-                    .show();
+            Intent welcome = new Intent(this, WelcomeActivity.class);
+            startActivity(welcome);
+            Utils.saveBoolean("welcome_message", true, this);
         }
     }
 

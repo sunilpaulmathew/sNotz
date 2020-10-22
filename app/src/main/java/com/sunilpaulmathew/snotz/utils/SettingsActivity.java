@@ -68,6 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
         FrameLayout mRestoreNotes = findViewById(R.id.restore_notes);
         FrameLayout mClearNotes = findViewById(R.id.clear_notes);
         FrameLayout mInvite = findViewById(R.id.invite_friends);
+        FrameLayout mWelcome = findViewById(R.id.welcome_note);
         FrameLayout mRateApp = findViewById(R.id.rate_us);
         FrameLayout mSupport = findViewById(R.id.support);
         FrameLayout mFAQ = findViewById(R.id.faq);
@@ -146,6 +147,11 @@ public class SettingsActivity extends AppCompatActivity {
             share_app.setType("text/plain");
             Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
             startActivity(shareIntent);
+        });
+        mWelcome.setOnClickListener(v -> {
+            Intent welcome = new Intent(this, WelcomeActivity.class);
+            startActivity(welcome);
+            finish();
         });
         mRateApp.setOnClickListener(v -> Utils.launchURL(mBack, "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz", this));
         mSupport.setOnClickListener(v -> Utils.launchURL(mBack, "https://t.me/smartpack_kmanager", this));

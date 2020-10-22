@@ -33,5 +33,6 @@
         <activity android:name=".utils.AboutActivity" />
         <activity android:name=".utils.CreateNoteActivity" />
         <activity android:name=".utils.SettingsActivity" />
+        <activity android:name=".utils.WelcomeActivity" />
     </application>
 </manifest>

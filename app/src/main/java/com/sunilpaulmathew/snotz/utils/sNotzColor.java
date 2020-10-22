@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -229,6 +230,12 @@ public class sNotzColor extends FrameLayout {
             sColors.set(i, ContextCompat.getColor(context, sColors.get(i)));
         }
         return sColors;
+    }
+
+    public static int getAccentColor(Context context) {
+        TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
+        return value.data;
     }
 
 }
