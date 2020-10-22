@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
+<androidx.cardview.widget.CardView android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,6 +41,124 @@
             android:textIsSelectable="true"
             android:textStyle="bold|italic"
             android:textSize="18sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="5dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:id="@+id/source_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp" >
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:tint="?android:attr/textColorPrimary"
+                        android:src="@drawable/ic_github" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:gravity="center_horizontal"
+                        android:text="@string/source_code" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/play_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp" >
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:tint="?android:attr/textColorPrimary"
+                        android:src="@drawable/ic_playstore" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:gravity="center_horizontal"
+                        android:text="@string/more_apps" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/donations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp" >
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:tint="?android:attr/textColorPrimary"
+                        android:src="@drawable/ic_donate" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:gravity="center_horizontal"
+                        android:text="@string/donations" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/report_issue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp" >
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:tint="?android:attr/textColorPrimary"
+                        android:src="@drawable/ic_bug" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:gravity="center_horizontal"
+                        android:text="@string/report_issue" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
