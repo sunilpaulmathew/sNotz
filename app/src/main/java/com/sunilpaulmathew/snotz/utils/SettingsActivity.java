@@ -83,8 +83,6 @@ public class SettingsActivity extends AppCompatActivity {
         if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
             mBackupNotes.setVisibility(View.VISIBLE);
             mClearNotes.setVisibility(View.VISIBLE);
-        } else {
-            mRestoreNotes.setVisibility(View.VISIBLE);
         }
 
         mBack.setOnClickListener(v -> onBackPressed());
@@ -227,7 +225,12 @@ public class SettingsActivity extends AppCompatActivity {
                     .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                     })
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                        Utils.create(Utils.readFile(mPath), getFilesDir().getPath() + "/snotz");
+                        if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
+                            Utils.create(Objects.requireNonNull(Utils.readFile(getFilesDir().getPath() + "/snotz")).replace("}]", "}," +
+                                    sNotz.getNotesFromBackup(mPath) + "]"), getFilesDir().getPath() + "/snotz");
+                        } else {
+                            Utils.create(Utils.readFile(mPath), getFilesDir().getPath() + "/snotz");
+                        }
                         Utils.reloadUI(this);
                         onBackPressed();
                     })

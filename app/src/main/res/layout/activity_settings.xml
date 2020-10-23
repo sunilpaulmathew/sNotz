@@ -310,7 +310,6 @@
                 android:id="@+id/restore_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:gravity="center"
                 android:padding="10dp" >
 

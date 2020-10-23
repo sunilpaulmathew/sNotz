@@ -1,9 +1,5 @@
 package com.sunilpaulmathew.snotz.utils;
 
-/*
- * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 17, 2020
- */
-
 import android.content.Context;
 
 import org.json.JSONArray;
@@ -15,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+/*
+ * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 17, 2020
+ */
 
 public class sNotz {
 
@@ -79,13 +79,13 @@ public class sNotz {
                     if (Utils.mSearchText == null) {
                         if (Utils.getBoolean("hidden_note", false, context)) {
                             mData.add(command.toString());
-                        } else if (!sNotz.isHidden(command.toString())) {
+                        } else if (!isHidden(command.toString())) {
                             mData.add(command.toString());
                         }
                     } else if (Objects.requireNonNull(getNote(command.toString())).toLowerCase().contains(Utils.mSearchText.toLowerCase())) {
                         if (Utils.getBoolean("hidden_note", false, context)) {
                             mData.add(command.toString());
-                        } else if (!sNotz.isHidden(command.toString())) {
+                        } else if (!isHidden(command.toString())) {
                             mData.add(command.toString());
                         }
                     }
@@ -97,6 +97,20 @@ public class sNotz {
             }
         }
         return mData;
+    }
+
+    public static String getNotesFromBackup(String path) {
+        List<String> mRestoreData = new ArrayList<>();
+        if (Utils.existFile(path)) {
+            for (int i = 0; i < Objects.requireNonNull(getsNotzItems(Utils.readFile(path))).length(); i++) {
+                try {
+                    JSONObject command = Objects.requireNonNull(getsNotzItems(Utils.readFile(path))).getJSONObject(i);
+                    mRestoreData.add(command.toString());
+                } catch (JSONException ignored) {
+                }
+            }
+        }
+        return mRestoreData.toString().substring(1, mRestoreData.toString().length()-1);
     }
 
     public static boolean validBackup(String path) {
