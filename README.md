@@ -2,13 +2,16 @@
 
 ![sNotz](app/src/main/res/mipmap-xxxhdpi/ic_launcher.png?raw=true)
 
-[![](https://img.shields.io/badge/sNotz-v0.2-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
+[![](https://img.shields.io/badge/sNotz-v0.3-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
 ![](https://img.shields.io/github/contributors/sunilpaulmathew/sNotz)
 
 ### sNotz is the simplest application to manage notes.
 
 ## Download
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt=""
+     height="80">](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 [<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
      alt=""
      height="80">](https://github.com/sunilpaulmathew/sNotz/blob/master/release/com.sunilpaulmathew.snotz.apk?raw=true)

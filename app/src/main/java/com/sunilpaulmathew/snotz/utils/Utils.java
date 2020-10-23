@@ -1,9 +1,5 @@
 package com.sunilpaulmathew.snotz.utils;
 
-/*
- * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
- */
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -36,6 +32,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+
+/*
+ * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
+ */
 
 public class Utils {
 
