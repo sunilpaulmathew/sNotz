@@ -39,6 +39,7 @@ If you like to appreciate my work, please consider donating to me (either via [P
 
 ## Credits
 * [Grarak](https://github.com/Grarak/), Code contributions (I took some code from [Kernel Adiutor](https://github.com/Grarak/KernelAdiutor/))
+* [MONSTER_PC](https://t.me/MONSTER_PC), Russian & Ukrainian Translations
 
 ## License
 
