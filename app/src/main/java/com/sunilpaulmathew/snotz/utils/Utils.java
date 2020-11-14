@@ -19,7 +19,6 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
@@ -71,10 +70,6 @@ public class Utils {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-    }
-
-    public static void initializeGoogleAds(Context context) {
-        MobileAds.initialize(context, "ca-app-pub-7791710838910455~5523904828");
     }
 
     public static boolean isPermissionDenied(Context context) {
