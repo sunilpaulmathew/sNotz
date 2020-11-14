@@ -13,13 +13,13 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.utils.AboutActivity;
 import com.sunilpaulmathew.snotz.utils.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.utils.RecycleViewAdapter;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppCompatImageButton mSearchButton;
     private AppCompatImageButton mMenu;
-    private AppCompatTextView mAppTitle;
+    private MaterialTextView mAppTitle;
     private AppCompatEditText mSearchWord;
     private boolean mExit;
     private Handler mHandler = new Handler();

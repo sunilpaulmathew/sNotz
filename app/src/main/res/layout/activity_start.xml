@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/authentication_status"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

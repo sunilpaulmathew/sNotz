@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
 
 import java.util.ArrayList;
@@ -170,7 +170,7 @@ public class sNotzColor extends FrameLayout {
             subView.addView(circle);
         }
 
-        new AlertDialog.Builder(context).setView(linearLayout)
+        new MaterialAlertDialogBuilder(context).setView(linearLayout)
                 .setTitle(R.string.choose_color)
                 .setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> {
                 })

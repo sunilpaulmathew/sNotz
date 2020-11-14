@@ -14,8 +14,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 
@@ -36,10 +36,10 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        AppCompatTextView mAppName = findViewById(R.id.app_title);
+        MaterialTextView mAppName = findViewById(R.id.app_title);
         AppCompatImageView mSunil = findViewById(R.id.sunil);
-        AppCompatTextView mChange_logs = findViewById(R.id.change_logs);
-        AppCompatTextView mCancel = findViewById(R.id.cancel_button);
+        MaterialTextView mChange_logs = findViewById(R.id.change_logs);
+        MaterialTextView mCancel = findViewById(R.id.cancel_button);
         LinearLayout mSourceCode = findViewById(R.id.source_code);
         LinearLayout mMoreApps = findViewById(R.id.play_store);
         LinearLayout mReportIssue = findViewById(R.id.report_issue);

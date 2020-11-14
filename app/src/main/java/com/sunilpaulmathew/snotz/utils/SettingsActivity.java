@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -36,6 +35,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
@@ -130,7 +130,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             } else if (position == 7) {
                 if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
-                    new AlertDialog.Builder(this)
+                    new MaterialAlertDialogBuilder(this)
                             .setMessage(getString(R.string.clear_notes_message))
                             .setNegativeButton(R.string.cancel, (dialog, which) -> {
                             })
@@ -329,7 +329,7 @@ public class SettingsActivity extends AppCompatActivity {
                 Utils.showSnackbar(mBack, getString(R.string.restore_error));
                 return;
             }
-            new AlertDialog.Builder(this)
+            new MaterialAlertDialogBuilder(this)
                     .setMessage(getString(R.string.restore_notes_question, new File(mPath).getName()))
                     .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                     })

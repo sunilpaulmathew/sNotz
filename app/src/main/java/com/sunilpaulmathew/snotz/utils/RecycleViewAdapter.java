@@ -17,13 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 
@@ -108,7 +108,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     case 2:
                         String mJson = holder.mRVCard.getContext().getFilesDir().toString() + "/snotz";
                         String[] sNotzContents = Objects.requireNonNull(sNotz.getNote(this.data.get(position))).split("\\s+");
-                        new AlertDialog.Builder(holder.mRVCard.getContext())
+                        new MaterialAlertDialogBuilder(holder.mRVCard.getContext())
                                 .setMessage(holder.mRVCard.getContext().getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
                                         sNotz.getNote(this.data.get(position)) : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
@@ -149,9 +149,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private AppCompatImageButton mExpand;
-        private AppCompatTextView mContents;
-        private AppCompatTextView mDate;
-        private CardView mRVCard;
+        private MaterialTextView mContents;
+        private MaterialTextView mDate;
+        private MaterialCardView mRVCard;
 
         public ViewHolder(View view) {
             super(view);

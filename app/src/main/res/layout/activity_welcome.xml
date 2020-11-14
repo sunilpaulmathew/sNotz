@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         android:background="@color/color_black" >
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -88,7 +88,7 @@
                     android:layout_gravity="end|top" />
             </FrameLayout>
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
         android:layout_marginStart="15dp"
         android:src="@drawable/ic_click" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/click_note_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
         android:layout_alignParentEnd="true"
         android:src="@drawable/ic_click" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/longclick_note_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
             android:padding="5dp"
             android:background="@null" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -216,7 +216,7 @@
             android:textStyle="bold"
             android:textColor="?android:attr/colorAccent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -229,7 +229,7 @@
             android:textStyle="bold"
             android:textColor="?android:attr/colorAccent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
         android:layout_marginEnd="45dp"
         android:src="@drawable/ic_click" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/click_fab_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

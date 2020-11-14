@@ -14,9 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 
 import java.text.DateFormat;
@@ -37,14 +37,14 @@ public class WelcomeActivity extends AppCompatActivity {
         AppCompatImageView mFABClick = findViewById(R.id.click_fab);
         AppCompatImageView mNoteClick = findViewById(R.id.click_note);
         AppCompatImageView mNoteLongClick = findViewById(R.id.longclick_note);
-        AppCompatTextView mOne = findViewById(R.id.one);
-        AppCompatTextView mTwo = findViewById(R.id.two);
-        AppCompatTextView mThree = findViewById(R.id.three);
-        AppCompatTextView mSkip = findViewById(R.id.skip);
-        AppCompatTextView mFABClickMessage = findViewById(R.id.click_fab_message);
-        AppCompatTextView mNoteClickMessage = findViewById(R.id.click_note_message);
-        AppCompatTextView mNoteLongClickMessage = findViewById(R.id.longclick_note_message);
-        AppCompatTextView mDate = findViewById(R.id.date);
+        MaterialTextView mOne = findViewById(R.id.one);
+        MaterialTextView mTwo = findViewById(R.id.two);
+        MaterialTextView mThree = findViewById(R.id.three);
+        MaterialTextView mSkip = findViewById(R.id.skip);
+        MaterialTextView mFABClickMessage = findViewById(R.id.click_fab_message);
+        MaterialTextView mNoteClickMessage = findViewById(R.id.click_note_message);
+        MaterialTextView mNoteLongClickMessage = findViewById(R.id.longclick_note_message);
+        MaterialTextView mDate = findViewById(R.id.date);
 
         mOne.setTextColor(ContextCompat.getColor(this, R.color.color_orange));
         mTwo.setTextColor(sNotzColor.getAccentColor(this));

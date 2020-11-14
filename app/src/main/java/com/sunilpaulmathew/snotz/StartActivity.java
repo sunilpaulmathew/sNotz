@@ -9,10 +9,10 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.utils.Utils;
 
 import java.util.concurrent.Executor;
@@ -24,7 +24,7 @@ import java.util.concurrent.Executor;
 public class StartActivity extends AppCompatActivity {
 
     private AppCompatImageView mAppLogo;
-    private AppCompatTextView mAuthenticationStatus;
+    private MaterialTextView mAuthenticationStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

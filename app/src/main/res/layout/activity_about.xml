@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:layout_width="match_parent"
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
@@ -20,7 +21,7 @@
             android:src="@mipmap/ic_launcher_round"
             android:layout_gravity="center" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/app_title"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -30,7 +31,7 @@
             android:textStyle="bold"
             android:textColor="?android:attr/colorAccent"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
@@ -42,7 +43,7 @@
             android:textStyle="bold|italic"
             android:textSize="18sp" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -71,7 +72,7 @@
                         android:tint="?android:attr/textColorPrimary"
                         android:src="@drawable/ic_github" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -97,7 +98,7 @@
                         android:tint="?android:attr/textColorPrimary"
                         android:src="@drawable/ic_playstore" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -123,7 +124,7 @@
                         android:tint="?android:attr/textColorPrimary"
                         android:src="@drawable/ic_bug" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -132,7 +133,7 @@
                         android:text="@string/report_issue" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -147,7 +148,7 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical" >
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -172,7 +173,7 @@
                         android:src="@drawable/ic_aswathy"
                         android:layout_gravity="center" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="?android:attr/colorAccent"
@@ -193,7 +194,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -204,7 +205,7 @@
                         android:textIsSelectable="true"
                         android:textSize="18sp" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/change_logs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -219,7 +220,7 @@
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/cancel_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -231,4 +232,4 @@
         android:textColor="?android:attr/colorAccent"
         android:textSize="18sp"
         android:padding="10dp" />
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

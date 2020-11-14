@@ -6,12 +6,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.widget.NestedScrollView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.sunilpaulmathew.snotz.R;
 
@@ -75,7 +75,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                 return;
             }
             if (sNotz.isNoteInvalid(mContents.getText().toString())) {
-                new AlertDialog.Builder(this)
+                new MaterialAlertDialogBuilder(this)
                         .setMessage(R.string.note_saving_error)
                         .setPositiveButton(R.string.dismiss, (dialog, which) -> {
                         })
