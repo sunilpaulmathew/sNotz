@@ -12,29 +12,37 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.FrameLayout;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 
 import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
@@ -45,124 +53,125 @@ import java.util.concurrent.Executor;
 public class SettingsActivity extends AppCompatActivity {
 
     private AppCompatImageButton mBack;
-    private BiometricPrompt mBiometricPrompt;
-    private CheckBox mCheckBoxBiometric;
-    private CheckBox mCheckBoxHidden;
+    private ArrayList <RecycleViewItem> mData = new ArrayList<>();
     private String mPath;
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
         mBack = findViewById(R.id.back_button);
-        AppCompatTextView mAppName = findViewById(R.id.app_name);
-        AppCompatTextView mApID = findViewById(R.id.app_id);
-        FrameLayout mAppTitle = findViewById(R.id.app_title);
-        FrameLayout mBiometric = findViewById(R.id.biometric_lock);
-        FrameLayout mHiddenNotes = findViewById(R.id.hidden_notes);
-        FrameLayout mBgColor = findViewById(R.id.background_color);
-        FrameLayout mTxtColor = findViewById(R.id.text_color);
-        FrameLayout mBackupNotes = findViewById(R.id.backup_notes);
-        FrameLayout mRestoreNotes = findViewById(R.id.restore_notes);
-        FrameLayout mClearNotes = findViewById(R.id.clear_notes);
-        FrameLayout mInvite = findViewById(R.id.invite_friends);
-        FrameLayout mWelcome = findViewById(R.id.welcome_note);
-        FrameLayout mRateApp = findViewById(R.id.rate_us);
-        FrameLayout mSupport = findViewById(R.id.support);
-        FrameLayout mFAQ = findViewById(R.id.faq);
-        mCheckBoxBiometric = findViewById(R.id.checkbox_biometric);
-        mCheckBoxHidden = findViewById(R.id.checkbox_hidden);
-        AppCompatTextView mBgColorSummary = findViewById(R.id.background_color_summary);
-        AppCompatTextView mTxtColorSummary = findViewById(R.id.text_color_summary);
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        RecycleViewAdapter mRecycleViewAdapter = new RecycleViewAdapter(mData);
+        mRecyclerView.setAdapter(mRecycleViewAdapter);
 
-        if (!Utils.isFingerprintAvailable(this)) {
-            mBiometric.setVisibility(View.GONE);
-        }
-        if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
-            mBackupNotes.setVisibility(View.VISIBLE);
-            mClearNotes.setVisibility(View.VISIBLE);
-        }
+        mData.add(new RecycleViewItem(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", BuildConfig.APPLICATION_ID, getResources().getDrawable(R.mipmap.ic_launcher_round)));
+        mData.add(new RecycleViewItem(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), getResources().getDrawable(R.drawable.ic_fingerprint)));
+        mData.add(new RecycleViewItem(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), getResources().getDrawable(R.drawable.ic_eye)));
+        mData.add(new RecycleViewItem(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), getResources().getDrawable(R.drawable.ic_color)));
+        mData.add(new RecycleViewItem(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), getResources().getDrawable(R.drawable.ic_text)));
+        mData.add(new RecycleViewItem(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), getResources().getDrawable(R.drawable.ic_backup)));
+        mData.add(new RecycleViewItem(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), getResources().getDrawable(R.drawable.ic_restore)));
+        mData.add(new RecycleViewItem(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), getResources().getDrawable(R.drawable.ic_clear)));
+        mData.add(new RecycleViewItem(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), getResources().getDrawable(R.drawable.ic_share)));
+        mData.add(new RecycleViewItem(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), getResources().getDrawable(R.drawable.ic_home)));
+        mData.add(new RecycleViewItem(getString(R.string.rate_us), getString(R.string.rate_us_Summary), getResources().getDrawable(R.drawable.ic_rate)));
+        mData.add(new RecycleViewItem(getString(R.string.support), getString(R.string.support_summary), getResources().getDrawable(R.drawable.ic_support)));
+        mData.add(new RecycleViewItem(getString(R.string.faq), getString(R.string.faq_summary), getResources().getDrawable(R.drawable.ic_faq)));
 
-        mBack.setOnClickListener(v -> onBackPressed());
-        mAppName.setText(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
-        mAppTitle.setOnClickListener(v -> {
-            Intent settings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-            settings.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
-            settings.setData(uri);
-            startActivity(settings);
-            onBackPressed();
-        });
-        mApID.setText(BuildConfig.APPLICATION_ID);
-        mBiometric.setOnClickListener(v -> mBiometricPrompt.authenticate(Utils.mPromptInfo));
-        mCheckBoxBiometric.setChecked(Utils.getBoolean("use_biometric", false, this));
-        mCheckBoxBiometric.setOnClickListener(v -> mBiometricPrompt.authenticate(Utils.mPromptInfo));
-        mHiddenNotes.setOnClickListener(v -> hiddenNotes());
-        mCheckBoxHidden.setChecked(Utils.getBoolean("hidden_note", false, this));
-        mCheckBoxHidden.setOnClickListener(v -> hiddenNotes());
-        mBgColor.setOnClickListener(v -> sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("note_background", this)), "note_background", this));
-        mTxtColor.setOnClickListener(v -> {
-            Utils.mTextColor = true;
-            sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("text_color", this)), "text_color", this);
-        });
-        mBgColorSummary.setText(getString(R.string.color_select_dialog, getString(R.string.note_color_background)));
-        mTxtColorSummary.setText(getString(R.string.color_select_dialog, getString(R.string.note_color_text)));
-
-        mBackupNotes.setOnClickListener(v -> {
-            Utils.create(Utils.readFile(getFilesDir().getPath() + "/snotz"), Environment.getExternalStorageDirectory().toString() + "/snotz.backup/");
-            Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStorageDirectory().toString() + "/snotz.backup/"));
-        });
-        mRestoreNotes.setOnClickListener(v -> {
-            if (Utils.isPermissionDenied(this)) {
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            } else {
-                Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
-                restore.setType("*/*");
-                startActivityForResult(restore, 0);
+        mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
+            if (position == 0) {
+                Intent settings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                settings.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
+                settings.setData(uri);
+                startActivity(settings);
+                finish();
+            } else if (position == 1) {
+                if (Utils.isFingerprintAvailable(this)) {
+                    Utils.mBiometricPrompt.authenticate(Utils.mPromptInfo);
+                } else {
+                    Utils.showSnackbar(mRecyclerView, getString(R.string.biometric_lock_unavailable));
+                }
+                mRecycleViewAdapter.notifyDataSetChanged();
+            } else if (position == 2) {
+                if (Utils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
+                    Utils.mHiddenNotes = true;
+                    Utils.mBiometricPrompt.authenticate(Utils.mPromptInfo);
+                } else {
+                    Utils.manageHiddenNotes(this);
+                }
+                mRecycleViewAdapter.notifyDataSetChanged();
+            } else if (position == 3) {
+                sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("note_background", this)), "note_background", this);
+            } else if (position == 4) {
+                Utils.mTextColor = true;
+                sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("text_color", this)), "text_color", this);
+            } else if (position == 5) {
+                if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
+                    Utils.create(Utils.readFile(getFilesDir().getPath() + "/snotz"), Environment.getExternalStorageDirectory().toString() + "/snotz.backup/");
+                    Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStorageDirectory().toString() + "/snotz.backup/"));
+                } else {
+                    Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
+                }
+            } else if (position == 6) {
+                if (Utils.isPermissionDenied(this)) {
+                    ActivityCompat.requestPermissions(this, new String[]{
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                } else {
+                    Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
+                    restore.setType("*/*");
+                    startActivityForResult(restore, 0);
+                }
+            } else if (position == 7) {
+                if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
+                    new AlertDialog.Builder(this)
+                            .setMessage(getString(R.string.clear_notes_message))
+                            .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                            })
+                            .setPositiveButton(R.string.delete, (dialog, which) -> {
+                                Utils.deleteFile(getFilesDir().getPath() + "/snotz");
+                                Utils.reloadUI(this);
+                                onBackPressed();
+                            })
+                            .show();
+                } else {
+                    Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
+                }
+            } else if (position == 8) {
+                Intent share_app = new Intent();
+                share_app.setAction(Intent.ACTION_SEND);
+                share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+                share_app.putExtra(Intent.EXTRA_TEXT, getString(R.string.shared_by_message, BuildConfig.VERSION_NAME));
+                share_app.setType("text/plain");
+                Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
+                startActivity(shareIntent);
+            } else if (position == 9) {
+                Intent welcome = new Intent(this, WelcomeActivity.class);
+                startActivity(welcome);
+                finish();
+            } else if (position == 10) {
+                Utils.launchURL(mBack, "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz", this);
+            } else if (position == 11) {
+                Utils.launchURL(mBack, "https://t.me/smartpack_kmanager", this);
+            } else if (position == 12) {
+                Utils.launchURL(mBack, "https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8", this);
             }
         });
 
-        mClearNotes.setOnClickListener(v -> {
-            new AlertDialog.Builder(this)
-                    .setMessage(getString(R.string.clear_notes_message))
-                    .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                    })
-                    .setPositiveButton(R.string.delete, (dialog, which) -> {
-                        Utils.deleteFile(getFilesDir().getPath() + "/snotz");
-                        Utils.reloadUI(this);
-                        onBackPressed();
-                    })
-                    .show();
-        });
-        mInvite.setOnClickListener(v -> {
-            Intent share_app = new Intent();
-            share_app.setAction(Intent.ACTION_SEND);
-            share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-            share_app.putExtra(Intent.EXTRA_TEXT, getString(R.string.shared_by_message, BuildConfig.VERSION_NAME));
-            share_app.setType("text/plain");
-            Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
-            startActivity(shareIntent);
-        });
-        mWelcome.setOnClickListener(v -> {
-            Intent welcome = new Intent(this, WelcomeActivity.class);
-            startActivity(welcome);
-            finish();
-        });
-        mRateApp.setOnClickListener(v -> Utils.launchURL(mBack, "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz", this));
-        mSupport.setOnClickListener(v -> Utils.launchURL(mBack, "https://t.me/smartpack_kmanager", this));
-        mFAQ.setOnClickListener(v -> Utils.launchURL(mBack, "https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8", this));
+        mBack.setOnClickListener(v -> onBackPressed());
 
         Executor executor = ContextCompat.getMainExecutor(this);
-        mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+        Utils.mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 Utils.showSnackbar(mBack, getString(R.string.authentication_error, errString));
-                mCheckBoxBiometric.setChecked(Utils.getBoolean("use_biometric", false, SettingsActivity.this));
-                mCheckBoxHidden.setChecked(Utils.getBoolean("hidden_note", false, SettingsActivity.this));
+                mRecycleViewAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -173,30 +182,125 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.useBiometric(mBack, SettingsActivity.this);
                 }
-                mCheckBoxBiometric.setChecked(Utils.getBoolean("use_biometric", false, SettingsActivity.this));
-                mCheckBoxHidden.setChecked(Utils.getBoolean("hidden_note", false, SettingsActivity.this));
+                mRecycleViewAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
                 Utils.showSnackbar(mBack, getString(R.string.authentication_failed));
-                mCheckBoxBiometric.setChecked(Utils.getBoolean("use_biometric", false, SettingsActivity.this));
-                mCheckBoxHidden.setChecked(Utils.getBoolean("hidden_note", false, SettingsActivity.this));
+                mRecycleViewAdapter.notifyDataSetChanged();
             }
         });
 
         Utils.showBiometricPrompt(this);
     }
 
-    private void hiddenNotes() {
-        if (Utils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
-            Utils.mHiddenNotes = true;
-            mBiometricPrompt.authenticate(Utils.mPromptInfo);
-        } else {
-            Utils.manageHiddenNotes(this);
+    private static class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
+
+        private ArrayList<RecycleViewItem> data;
+
+        private static ClickListener mClickListener;
+
+        public RecycleViewAdapter(ArrayList<RecycleViewItem> data) {
+            this.data = data;
         }
-        mCheckBoxHidden.setChecked(Utils.getBoolean("hidden_note", false, this));
+
+        @NonNull
+        @Override
+        public RecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_recycle_view_settings, parent, false);
+            return new RecycleViewAdapter.ViewHolder(rowItem);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecycleViewAdapter.ViewHolder holder, int position) {
+            holder.mTitle.setText(this.data.get(position).getTitle());
+            holder.mDescription.setText(this.data.get(position).getDescription());
+            holder.mIcon.setImageDrawable(this.data.get(position).getIcon());
+            if (position == 1) {
+                holder.mCheckBox.setVisibility(View.VISIBLE);
+                holder.mCheckBox.setChecked(Utils.getBoolean("use_biometric", false, holder.mCheckBox.getContext()));
+                holder.mCheckBox.setOnClickListener(v -> {
+                    if (Utils.isFingerprintAvailable(holder.mCheckBox.getContext())) {
+                        Utils.mBiometricPrompt.authenticate(Utils.mPromptInfo);
+                    } else {
+                        Utils.showSnackbar(holder.mCheckBox, holder.mCheckBox.getContext().getString(R.string.biometric_lock_unavailable));
+                    }
+                    notifyDataSetChanged();
+                });
+            } else if (position == 2) {
+                holder.mCheckBox.setVisibility(View.VISIBLE);
+                holder.mCheckBox.setChecked(Utils.getBoolean("hidden_note", false, holder.mCheckBox.getContext()));
+                holder.mCheckBox.setOnClickListener(v -> {
+                    if (Utils.getBoolean("use_biometric", false, holder.mCheckBox.getContext()) && Utils.isFingerprintAvailable(holder.mCheckBox.getContext())) {
+                        Utils.mHiddenNotes = true;
+                        Utils.mBiometricPrompt.authenticate(Utils.mPromptInfo);
+                    } else {
+                        Utils.manageHiddenNotes(holder.mCheckBox.getContext());
+                    }
+                    notifyDataSetChanged();
+                });
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return this.data.size();
+        }
+
+        public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            private AppCompatImageView mIcon;
+            private MaterialCheckBox mCheckBox;
+            private MaterialTextView mTitle;
+            private MaterialTextView mDescription;
+
+            public ViewHolder(View view) {
+                super(view);
+                view.setOnClickListener(this);
+                this.mIcon = view.findViewById(R.id.icon);
+                this.mTitle = view.findViewById(R.id.title);
+                this.mDescription = view.findViewById(R.id.description);
+                this.mCheckBox = view.findViewById(R.id.checkbox);
+            }
+
+            @Override
+            public void onClick(View view) {
+                mClickListener.onItemClick(getAdapterPosition(), view);
+            }
+        }
+
+        public void setOnItemClickListener(ClickListener clickListener) {
+            RecycleViewAdapter.mClickListener = clickListener;
+        }
+
+        public interface ClickListener {
+            void onItemClick(int position, View v);
+        }
+    }
+
+    private static class RecycleViewItem implements Serializable {
+        private String mTitle;
+        private String mDescription;
+        private Drawable mIcon;
+
+        public RecycleViewItem(String title, String description, Drawable icon) {
+            this.mTitle = title;
+            this.mDescription = description;
+            this.mIcon = icon;
+        }
+
+        public String getTitle() {
+            return mTitle;
+        }
+
+        public String getDescription() {
+            return mDescription;
+        }
+
+        public Drawable getIcon() {
+            return mIcon;
+        }
     }
 
     @Override

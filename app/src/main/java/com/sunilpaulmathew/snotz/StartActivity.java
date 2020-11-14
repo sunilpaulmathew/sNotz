@@ -25,7 +25,6 @@ public class StartActivity extends AppCompatActivity {
 
     private AppCompatImageView mAppLogo;
     private AppCompatTextView mAuthenticationStatus;
-    private BiometricPrompt mBiometricPrompt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class StartActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             if (Utils.getBoolean("use_biometric", false, this)) {
-                mBiometricPrompt.authenticate(Utils.mPromptInfo);
+                Utils.mBiometricPrompt.authenticate(Utils.mPromptInfo);
             } else {
                 // Launch MainActivity
                 Intent mainActivity = new Intent(this, MainActivity.class);
@@ -47,7 +46,7 @@ public class StartActivity extends AppCompatActivity {
         }, 1000);
 
         Executor executor = ContextCompat.getMainExecutor(this);
-        mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+        Utils.mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name" translatable="false">sNotz</string>
 
     <string name="about">About</string>
@@ -11,6 +11,7 @@
     <string name="biometric_lock">Biometric Lock</string>
     <string name="biometric_lock_status">Biometric authentication is %s!</string>
     <string name="biometric_lock_summary">Use biometric authentication to secure sNotz</string>
+    <string name="biometric_lock_unavailable">Biometric support is unavailable on your device</string>
     <string name="backup_notes">Backup Notes</string>
     <string name="backup_notes_message">You\'re notes are backed up as \'%s\'!</string>
     <string name="backup_notes_summary">Backup your notes into \'sdcard\'</string>
@@ -43,6 +44,7 @@
     <string name="no_internet">Please check your internet connection!</string>
     <string name="note_color_background">Background Color</string>
     <string name="note_color_text">Text Color</string>
+    <string name="note_list_empty">You haven\'t create any notes yet!</string>
     <string name="note_invalid_warning">Kindly remove the invalid characters (e.g. double (\") quotation mark) from the text!</string>
     <string name="note_saving_error">Unfortunately, one or more invalid character(s) present in your text prevent sNotz from saving! Please revise the text to avoid date loss.</string>
     <string name="ok">OK</string>

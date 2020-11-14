@@ -38,6 +38,7 @@ import java.io.OutputStreamWriter;
 
 public class Utils {
 
+    public static BiometricPrompt mBiometricPrompt;
     public static BiometricPrompt.PromptInfo mPromptInfo;
     public static boolean mHiddenNotes = false;
     public static boolean mTextColor = false;
