@@ -9,11 +9,9 @@ package com.sunilpaulmathew.snotz.utils;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -44,23 +42,10 @@ public class AboutActivity extends AppCompatActivity {
         AppCompatTextView mCancel = findViewById(R.id.cancel_button);
         LinearLayout mSourceCode = findViewById(R.id.source_code);
         LinearLayout mMoreApps = findViewById(R.id.play_store);
-        LinearLayout mDonations = findViewById(R.id.donations);
         LinearLayout mReportIssue = findViewById(R.id.report_issue);
 
         mSourceCode.setOnClickListener(v -> Utils.launchURL(mSourceCode, "https://github.com/sunilpaulmathew/sNotz/", this));
         mMoreApps.setOnClickListener(v -> Utils.launchURL(mMoreApps, "https://play.google.com/store/apps/dev?id=5836199813143882901", this));
-        if (!Utils.isNotDonated(this)) {
-            mDonations.setVisibility(View.GONE);
-        }
-        mDonations.setOnClickListener(v -> new AlertDialog.Builder(this)
-                .setIcon(R.mipmap.ic_launcher)
-                .setTitle(getString(R.string.donations))
-                .setMessage(getString(R.string.donations_message))
-                .setNeutralButton(getString(R.string.cancel), (dialog1, id1) -> {
-                })
-                .setPositiveButton(getString(R.string.donation_app), (dialogInterface, i) -> Utils.launchURL(mDonations,
-                        "https://play.google.com/store/apps/details?id=com.smartpack.donate", this))
-                .show());
         mReportIssue.setOnClickListener(v -> Utils.launchURL(mReportIssue, "https://github.com/sunilpaulmathew/sNotz/issues/new", this));
         mSunil.setOnClickListener(v -> Utils.launchURL(mSunil, "https://github.com/sunilpaulmathew", this));
         mCancel.setOnClickListener(v -> onBackPressed());

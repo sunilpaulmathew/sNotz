@@ -107,32 +107,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/donations"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp" >
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:background="@null"
-                        android:clickable="false"
-                        android:tint="?android:attr/textColorPrimary"
-                        android:src="@drawable/ic_donate" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:gravity="center_horizontal"
-                        android:text="@string/donations" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/report_issue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
