@@ -223,6 +223,11 @@ public class SettingsActivity extends AppCompatActivity {
             holder.mTitle.setText(this.data.get(position).getTitle());
             holder.mDescription.setText(this.data.get(position).getDescription());
             holder.mIcon.setImageDrawable(this.data.get(position).getIcon());
+            if (position == 0) {
+                holder.mIcon.setColorFilter(null);
+            } else {
+                holder.mIcon.setColorFilter(sNotzColor.getAccentColor(holder.mIcon.getContext()));
+            }
             if (position == 1) {
                 holder.mCheckBox.setVisibility(View.VISIBLE);
                 holder.mCheckBox.setChecked(Utils.getBoolean("use_biometric", false, holder.mCheckBox.getContext()));
