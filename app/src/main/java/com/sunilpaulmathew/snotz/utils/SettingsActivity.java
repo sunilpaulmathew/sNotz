@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -251,6 +252,16 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                     notifyDataSetChanged();
                 });
+            }
+            if (!Utils.isFingerprintAvailable(holder.mTitle.getContext()) && position == 1) {
+                holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+            if (!Utils.existFile(holder.mTitle.getContext().getFilesDir().getPath() + "/snotz")) {
+                if (position == 5 || position == 7) {
+                    holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                }
             }
         }
 
