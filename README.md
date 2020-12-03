@@ -2,7 +2,7 @@
 
 ![sNotz](app/src/main/res/mipmap-xxxhdpi/ic_launcher.png?raw=true)
 
-[![](https://img.shields.io/badge/sNotz-v0.5-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
+[![](https://img.shields.io/badge/sNotz-v0.6-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
 ![](https://img.shields.io/github/contributors/sunilpaulmathew/sNotz)
 
@@ -40,6 +40,7 @@ If you like to appreciate my work, please consider donating to me (either via [P
 ## Credits
 * [Grarak](https://github.com/Grarak/), Code contributions (I took some code from [Kernel Adiutor](https://github.com/Grarak/KernelAdiutor/))
 * [MONSTER_PC](https://t.me/MONSTER_PC), Russian & Ukrainian Translations
+* [Hafitz Setya](https://github.com/breakdowns), Indonesian Translations
 
 ## License
 
