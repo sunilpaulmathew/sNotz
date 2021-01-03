@@ -190,9 +190,10 @@
                         android:layout_gravity="center" />
                 </LinearLayout>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp" >
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
@@ -215,7 +216,7 @@
                         android:textColor="?android:attr/textColorPrimary"
                         android:textIsSelectable="true"
                         android:textSize="15sp" />
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
