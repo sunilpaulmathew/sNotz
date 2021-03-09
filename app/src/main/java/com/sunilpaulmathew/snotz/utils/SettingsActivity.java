@@ -115,8 +115,23 @@ public class SettingsActivity extends AppCompatActivity {
                 sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("text_color", this)), "text_color", this);
             } else if (position == 5) {
                 if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
-                    Utils.create(Utils.readFile(getFilesDir().getPath() + "/snotz"), Environment.getExternalStorageDirectory().toString() + "/snotz.backup/");
-                    Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStorageDirectory().toString() + "/snotz.backup/"));
+                    Utils.dialogEditText(null,
+                            (dialogInterface, i) -> {
+                            }, text -> {
+                                if (text.isEmpty()) {
+                                    Utils.showSnackbar(mBack, getString(R.string.text_empty));
+                                    return;
+                                }
+                                if (!text.endsWith(".backup")) {
+                                    text += ".backup";
+                                }
+                                if (text.contains(" ")) {
+                                    text = text.replace(" ", "_");
+                                }
+                                Utils.create(Utils.readFile(getFilesDir().getPath() + "/snotz"), Environment.getExternalStorageDirectory().toString() + "/" + text);
+                                Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStorageDirectory().toString() + "/" + text));
+                            }, this).setOnDismissListener(dialogInterface -> {
+                    }).show();
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
