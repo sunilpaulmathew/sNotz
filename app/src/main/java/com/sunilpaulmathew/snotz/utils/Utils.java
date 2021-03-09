@@ -3,6 +3,7 @@ package com.sunilpaulmathew.snotz.utils;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -12,13 +13,18 @@ import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
@@ -31,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -71,6 +78,52 @@ public class Utils {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+    }
+
+    public interface OnDialogEditTextListener {
+        void onClick(String text);
+    }
+
+    public static MaterialAlertDialogBuilder dialogEditText(String text, final DialogInterface.OnClickListener negativeListener,
+                                                            final OnDialogEditTextListener onDialogEditTextListener,
+                                                            Context context) {
+        return dialogEditText(text, negativeListener, onDialogEditTextListener, -1, context);
+    }
+
+    public static MaterialAlertDialogBuilder dialogEditText(String text, final DialogInterface.OnClickListener negativeListener,
+                                                            final OnDialogEditTextListener onDialogEditTextListener, int inputType,
+                                                            Context context) {
+        LinearLayout layout = new LinearLayout(context);
+        layout.setPadding(75, 75, 75, 75);
+
+        final AppCompatEditText editText = new AppCompatEditText(context);
+        editText.setGravity(Gravity.CENTER);
+        editText.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        if (text != null) {
+            editText.append(text);
+        }
+        editText.setSingleLine(true);
+        if (inputType >= 0) {
+            editText.setInputType(inputType);
+        }
+
+        layout.addView(editText);
+
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context).setView(layout);
+        if (negativeListener != null) {
+            dialog.setNegativeButton(context.getString(R.string.cancel), negativeListener);
+        }
+        if (onDialogEditTextListener != null) {
+            dialog.setPositiveButton(context.getString(R.string.ok), (dialog1, which)
+                    -> onDialogEditTextListener.onClick(Objects.requireNonNull(editText.getText()).toString()))
+                    .setOnDismissListener(dialog1 -> {
+                        if (negativeListener != null) {
+                            negativeListener.onClick(dialog1, 0);
+                        }
+                    });
+        }
+        return dialog;
     }
 
     public static boolean isPermissionDenied(Context context) {

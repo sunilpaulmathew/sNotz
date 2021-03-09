@@ -11,6 +11,7 @@ package com.sunilpaulmathew.snotz.utils;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -76,7 +77,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             menu.add(Menu.NONE, 0, Menu.NONE, holder.mRVCard.getContext().getString(R.string.share));
             menu.add(Menu.NONE, 1, Menu.NONE, holder.mRVCard.getContext().getString(R.string.hidden_note)).setCheckable(true)
                     .setChecked(sNotz.isHidden(this.data.get(position)));
-            menu.add(Menu.NONE, 2, Menu.NONE, holder.mRVCard.getContext().getString(R.string.delete));
+            menu.add(Menu.NONE, 2, Menu.NONE, holder.mRVCard.getContext().getString(R.string.save_text));
+            menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.delete));
             popupMenu.setOnMenuItemClickListener(popupMenuItem -> {
                 switch (popupMenuItem.getItemId()) {
                     case 0:
@@ -106,6 +108,26 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         Utils.reloadUI(holder.mRVCard.getContext());
                         break;
                     case 2:
+                        Utils.dialogEditText(null,
+                                (dialogInterface, i) -> {
+                                }, text -> {
+                                    if (text.isEmpty()) {
+                                        Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty));
+                                        return;
+                                    }
+                                    if (!text.endsWith(".txt")) {
+                                        text += ".txt";
+                                    }
+                                    if (text.contains(" ")) {
+                                        text = text.replace(" ", "_");
+                                    }
+                                    Utils.create(sNotz.getNote(this.data.get(position)), Environment.getExternalStorageDirectory().toString() + "/" + text);
+                                    Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
+                                            Environment.getExternalStorageDirectory().toString() + "/" + text));
+                                }, holder.mRVCard.getContext()).setOnDismissListener(dialogInterface -> {
+                        }).show();
+                        break;
+                    case 3:
                         String mJson = holder.mRVCard.getContext().getFilesDir().toString() + "/snotz";
                         String[] sNotzContents = Objects.requireNonNull(sNotz.getNote(this.data.get(position))).split("\\s+");
                         new MaterialAlertDialogBuilder(holder.mRVCard.getContext())
