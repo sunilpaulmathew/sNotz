@@ -115,22 +115,17 @@ public class SettingsActivity extends AppCompatActivity {
                 sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("text_color", this)), "text_color", this);
             } else if (position == 5) {
                 if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
-                    Utils.dialogEditText(null,
-                            (dialogInterface, i) -> {
-                            }, text -> {
-                                if (text.isEmpty()) {
-                                    Utils.showSnackbar(mBack, getString(R.string.text_empty));
-                                    return;
-                                }
-                                if (!text.endsWith(".backup")) {
-                                    text += ".backup";
-                                }
-                                if (text.contains(" ")) {
-                                    text = text.replace(" ", "_");
-                                }
-                                Utils.create(Utils.readFile(getFilesDir().getPath() + "/snotz"), Environment.getExternalStorageDirectory().toString() + "/" + text);
-                                Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStorageDirectory().toString() + "/" + text));
-                            }, this).setOnDismissListener(dialogInterface -> {
+                    new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(
+                            R.array.backup_options), (dialogInterface, i) -> {
+                        switch (i) {
+                            case 0:
+                                saveDialog(".backup", Utils.readFile(getFilesDir().getPath() + "/snotz"));
+                                break;
+                            case 1:
+                                saveDialog(".txt", sNotz.sNotzToText(this));
+                                break;
+                        }
+                    }).setOnDismissListener(dialogInterface -> {
                     }).show();
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
@@ -215,6 +210,26 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         Utils.showBiometricPrompt(this);
+    }
+
+    private void saveDialog(String type, String sNotz) {
+        Utils.dialogEditText(null,
+                (dialogInterface, i) -> {
+                }, text -> {
+                    if (text.isEmpty()) {
+                        Utils.showSnackbar(mBack, getString(R.string.text_empty));
+                        return;
+                    }
+                    if (!text.endsWith(type)) {
+                        text += type;
+                    }
+                    if (text.contains(" ")) {
+                        text = text.replace(" ", "_");
+                    }
+                    Utils.create(sNotz, Environment.getExternalStorageDirectory().toString() + "/" + text);
+                    Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStorageDirectory().toString() + "/" + text));
+                }, this).setOnDismissListener(dialogInterface -> {
+        }).show();
     }
 
     private static class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {

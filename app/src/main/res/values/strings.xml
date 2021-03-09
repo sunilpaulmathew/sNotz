@@ -16,6 +16,7 @@
     <string name="backup_notes">Backup Notes</string>
     <string name="backup_notes_message">You\'re notes are backed up as \'%s\'!</string>
     <string name="backup_notes_summary">Backup your notes into \'sdcard\'</string>
+    <string name="backup_snotz">As sNotz Backup</string>
     <string name="bottom_fab_click_message">Click bottom \'Plus\' icon to create a note!</string>
     <string name="cancel">Cancel</string>
     <string name="change_logs">Change-logs</string>

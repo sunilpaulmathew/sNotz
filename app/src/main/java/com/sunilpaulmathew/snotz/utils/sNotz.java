@@ -113,6 +113,18 @@ public class sNotz {
         return mRestoreData.toString().substring(1, mRestoreData.toString().length()-1);
     }
 
+    public static String sNotzToText(Context context) {
+        StringBuilder sb = new StringBuilder();
+        for (int note = 0; note < Objects.requireNonNull(getsNotzItems(Utils.readFile(context.getFilesDir().getPath() + "/snotz"))).length(); note++) {
+            try {
+                JSONObject command = Objects.requireNonNull(getsNotzItems(Utils.readFile(context.getFilesDir().getPath() + "/snotz"))).getJSONObject(note);
+                sb.append(getNote(command.toString())).append("\n... ... ... ... ...\n\n");
+            } catch (JSONException ignored) {
+            }
+        }
+        return sb.toString();
+    }
+
     public static boolean validBackup(String path) {
         return getsNotzItems(Utils.readFile(path)) != null;
     }
