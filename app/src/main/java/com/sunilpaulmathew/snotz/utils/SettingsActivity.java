@@ -70,24 +70,26 @@ public class SettingsActivity extends AppCompatActivity {
         RecycleViewAdapter mRecycleViewAdapter = new RecycleViewAdapter(mData);
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
-        mData.add(new RecycleViewItem(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", BuildConfig.APPLICATION_ID, getResources().getDrawable(R.mipmap.ic_launcher_round)));
-        mData.add(new RecycleViewItem(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), getResources().getDrawable(R.drawable.ic_fingerprint)));
-        mData.add(new RecycleViewItem(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), getResources().getDrawable(R.drawable.ic_eye)));
-        mData.add(new RecycleViewItem(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), getResources().getDrawable(R.drawable.ic_color)));
-        mData.add(new RecycleViewItem(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), getResources().getDrawable(R.drawable.ic_text)));
-        mData.add(new RecycleViewItem(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), getResources().getDrawable(R.drawable.ic_backup)));
-        mData.add(new RecycleViewItem(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), getResources().getDrawable(R.drawable.ic_restore)));
-        mData.add(new RecycleViewItem(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), getResources().getDrawable(R.drawable.ic_clear)));
-        mData.add(new RecycleViewItem(getString(R.string.donations), getString(R.string.donations_summary), getResources().getDrawable(R.drawable.ic_donate)));
-        mData.add(new RecycleViewItem(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), getResources().getDrawable(R.drawable.ic_share)));
-        mData.add(new RecycleViewItem(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), getResources().getDrawable(R.drawable.ic_home)));
-        mData.add(new RecycleViewItem(getString(R.string.translations), getString(R.string.translations_summary), getResources().getDrawable(R.drawable.ic_translate)));
-        mData.add(new RecycleViewItem(getString(R.string.rate_us), getString(R.string.rate_us_Summary), getResources().getDrawable(R.drawable.ic_rate)));
-        mData.add(new RecycleViewItem(getString(R.string.support), getString(R.string.support_summary), getResources().getDrawable(R.drawable.ic_support)));
-        mData.add(new RecycleViewItem(getString(R.string.faq), getString(R.string.faq_summary), getResources().getDrawable(R.drawable.ic_faq)));
+        mData.add(new RecycleViewItem(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", BuildConfig.APPLICATION_ID, getResources().getDrawable(R.mipmap.ic_launcher_round), null));
+        mData.add(new RecycleViewItem(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), getResources().getDrawable(R.drawable.ic_fingerprint), null));
+        mData.add(new RecycleViewItem(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), getResources().getDrawable(R.drawable.ic_eye), null));
+        mData.add(new RecycleViewItem(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), getResources().getDrawable(R.drawable.ic_color), null));
+        mData.add(new RecycleViewItem(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), getResources().getDrawable(R.drawable.ic_text), null));
+        mData.add(new RecycleViewItem(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), getResources().getDrawable(R.drawable.ic_backup), null));
+        mData.add(new RecycleViewItem(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), getResources().getDrawable(R.drawable.ic_restore), null));
+        mData.add(new RecycleViewItem(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), getResources().getDrawable(R.drawable.ic_clear), null));
+        mData.add(new RecycleViewItem(getString(R.string.donations), getString(R.string.donations_summary), getResources().getDrawable(R.drawable.ic_donate), null));
+        mData.add(new RecycleViewItem(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), getResources().getDrawable(R.drawable.ic_share), null));
+        mData.add(new RecycleViewItem(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), getResources().getDrawable(R.drawable.ic_home), null));
+        mData.add(new RecycleViewItem(getString(R.string.translations), getString(R.string.translations_summary), getResources().getDrawable(R.drawable.ic_translate), "https://poeditor.com/join/project?hash=LOg2GmFfbV"));
+        mData.add(new RecycleViewItem(getString(R.string.rate_us), getString(R.string.rate_us_Summary), getResources().getDrawable(R.drawable.ic_rate), "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"));
+        mData.add(new RecycleViewItem(getString(R.string.support), getString(R.string.support_summary), getResources().getDrawable(R.drawable.ic_support), "https://t.me/smartpack_kmanager"));
+        mData.add(new RecycleViewItem(getString(R.string.faq), getString(R.string.faq_summary), getResources().getDrawable(R.drawable.ic_faq), "https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8"));
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
-            if (position == 0) {
+            if (mData.get(position).getUrl() != null) {
+                Utils.launchURL(mBack, mData.get(position).getUrl(), this);
+            } else if (position == 0) {
                 Intent settings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 settings.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
@@ -171,14 +173,6 @@ public class SettingsActivity extends AppCompatActivity {
                 Intent welcome = new Intent(this, WelcomeActivity.class);
                 startActivity(welcome);
                 finish();
-            } else if (position == 11) {
-                Utils.launchURL(mBack, "https://poeditor.com/join/project?hash=LOg2GmFfbV", this);
-            } else if (position == 12) {
-                Utils.launchURL(mBack, "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz", this);
-            } else if (position == 13) {
-                Utils.launchURL(mBack, "https://t.me/smartpack_kmanager", this);
-            } else if (position == 14) {
-                Utils.launchURL(mBack, "https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8", this);
             }
         });
 
@@ -334,13 +328,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private static class RecycleViewItem implements Serializable {
-        private String mTitle;
-        private String mDescription;
+        private String mTitle, mDescription, mURL;
         private Drawable mIcon;
 
-        public RecycleViewItem(String title, String description, Drawable icon) {
+        public RecycleViewItem(String title, String description, Drawable icon, String url) {
             this.mTitle = title;
             this.mDescription = description;
+            this.mURL = url;
             this.mIcon = icon;
         }
 
@@ -350,6 +344,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         public String getDescription() {
             return mDescription;
+        }
+
+        public String getUrl() {
+            return mURL;
         }
 
         public Drawable getIcon() {
