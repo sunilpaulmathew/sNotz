@@ -81,6 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new RecycleViewItem(getString(R.string.donations), getString(R.string.donations_summary), getResources().getDrawable(R.drawable.ic_donate)));
         mData.add(new RecycleViewItem(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), getResources().getDrawable(R.drawable.ic_share)));
         mData.add(new RecycleViewItem(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), getResources().getDrawable(R.drawable.ic_home)));
+        mData.add(new RecycleViewItem(getString(R.string.translations), getString(R.string.translations_summary), getResources().getDrawable(R.drawable.ic_translate)));
         mData.add(new RecycleViewItem(getString(R.string.rate_us), getString(R.string.rate_us_Summary), getResources().getDrawable(R.drawable.ic_rate)));
         mData.add(new RecycleViewItem(getString(R.string.support), getString(R.string.support_summary), getResources().getDrawable(R.drawable.ic_support)));
         mData.add(new RecycleViewItem(getString(R.string.faq), getString(R.string.faq_summary), getResources().getDrawable(R.drawable.ic_faq)));
@@ -171,10 +172,12 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(welcome);
                 finish();
             } else if (position == 11) {
-                Utils.launchURL(mBack, "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz", this);
+                Utils.launchURL(mBack, "https://poeditor.com/join/project?hash=LOg2GmFfbV", this);
             } else if (position == 12) {
-                Utils.launchURL(mBack, "https://t.me/smartpack_kmanager", this);
+                Utils.launchURL(mBack, "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz", this);
             } else if (position == 13) {
+                Utils.launchURL(mBack, "https://t.me/smartpack_kmanager", this);
+            } else if (position == 14) {
                 Utils.launchURL(mBack, "https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8", this);
             }
         });
