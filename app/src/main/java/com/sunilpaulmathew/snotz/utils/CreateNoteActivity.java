@@ -28,6 +28,7 @@ import java.util.Objects;
 
 public class CreateNoteActivity extends AppCompatActivity {
 
+    private AppCompatEditText mContents;
     private NestedScrollView mScrollView;
     private String mJSONNew;
 
@@ -38,7 +39,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         AppCompatImageButton mBack = findViewById(R.id.back_button);
         mBack.setOnClickListener(v -> onBackPressed());
         AppCompatImageButton mSave = findViewById(R.id.save_button);
-        AppCompatEditText mContents = findViewById(R.id.contents);
+        mContents = findViewById(R.id.contents);
         mScrollView = findViewById(R.id.scroll_view);
         Snackbar snackBar = Snackbar.make(mScrollView, getString(R.string.note_invalid_warning), Snackbar.LENGTH_INDEFINITE);
         mScrollView.setBackgroundColor(sNotzColor.setAccentColor("note_background", this));
@@ -123,6 +124,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+        Utils.toggleKeyboard(mContents, this);
         Utils.showSnackbar(mScrollView, getString(R.string.click_again_message));
     }
 

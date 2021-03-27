@@ -16,6 +16,7 @@ import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -124,6 +125,13 @@ public class Utils {
                     });
         }
         return dialog;
+    }
+
+    public static void toggleKeyboard(AppCompatEditText textView, Context context) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (textView.requestFocus()) {
+            imm.showSoftInput(textView, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 
     public static boolean isPermissionDenied(Context context) {

@@ -92,7 +92,10 @@ public class sNotz {
                 } catch (JSONException ignored) {
                 }
             }
-            if (!Utils.getBoolean("reverse_order", false, context)) {
+            if (Utils.getBoolean("az_order", false, context)) {
+                Collections.sort(mData);
+            }
+            if (Utils.getBoolean("reverse_order", false, context)) {
                 Collections.reverse(mData);
             }
         }

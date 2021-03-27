@@ -8,6 +8,7 @@
     <string name="authenticate">Authenticate</string>
     <string name="authentication_error">Authentication Error: %s</string>
     <string name="authentication_failed">Authentication Failed</string>
+    <string name="az_order">A-Z Order</string>
     <string name="billing_client_disconnected">Failed to connect with Google Play Billing client!</string>
     <string name="biometric_lock">Biometric Lock</string>
     <string name="biometric_lock_status">Biometric authentication is %s!</string>
@@ -27,6 +28,7 @@
     <string name="choose_color">Choose Color</string>
     <string name="color_select_dialog">Choose %s of the notes</string>
     <string name="content_hint">Add content here…</string>
+    <string name="created_order">Date Created</string>
     <string name="deactivated">deactivated</string>
     <string name="delete">Delete</string>
     <string name="delete_sure_question">Delete %s?</string>

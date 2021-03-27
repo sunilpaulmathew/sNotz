@@ -34,8 +34,7 @@ import com.sunilpaulmathew.snotz.utils.sNotz;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppCompatImageButton mSearchButton;
-    private AppCompatImageButton mMenu;
+    private AppCompatImageButton mMenu, mSearchButton, mSortButton;
     private MaterialTextView mAppTitle;
     private AppCompatEditText mSearchWord;
     private boolean mExit;
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAppTitle = findViewById(R.id.app_title);
         mSearchButton = findViewById(R.id.search_button);
+        mSortButton = findViewById(R.id.sort_button);
         mMenu = findViewById(R.id.settings_button);
         mSearchWord = findViewById(R.id.search_word);
         mSearchWord.setTextColor(Color.RED);
@@ -72,8 +72,10 @@ public class MainActivity extends AppCompatActivity {
         });
         mSearchButton.setOnClickListener(v -> {
             mSearchButton.setVisibility(View.GONE);
+            mSortButton.setVisibility(View.GONE);
             mMenu.setVisibility(View.GONE);
             mSearchWord.setVisibility(View.VISIBLE);
+            Utils.toggleKeyboard(mSearchWord, this);
         });
 
         mSearchWord.addTextChangedListener(new TextWatcher() {
@@ -90,18 +92,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mMenu.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(this, mMenu);
+        mSortButton.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(this, mSortButton);
             Menu menu = popupMenu.getMenu();
             if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
-                menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
+                menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.created_order)).setCheckable(true)
+                        .setChecked(Utils.getBoolean("date_created", true, this));
+                menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.az_order)).setCheckable(true)
+                        .setChecked(Utils.getBoolean("az_order", false, this));
+                menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
                         .setChecked(Utils.getBoolean("reverse_order", false, this));
             }
-            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.settings));
-            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
+                        if (Utils.getBoolean("date_created", true, this)) {
+                            Utils.saveBoolean("date_created", false, this);
+                        } else {
+                            Utils.saveBoolean("date_created", true, this);
+                            Utils.saveBoolean("az_order", false, this);
+                        }
+                        Utils.reloadUI(this);
+                        break;
+                    case 1:
+                        if (Utils.getBoolean("az_order", false, this)) {
+                            Utils.saveBoolean("az_order", false, this);
+                        } else {
+                            Utils.saveBoolean("az_order", true, this);
+                            Utils.saveBoolean("date_created", false, this);
+                        }
+                        Utils.reloadUI(this);
+                        break;
+                    case 2:
                         if (Utils.getBoolean("reverse_order", false, this)) {
                             Utils.saveBoolean("reverse_order", false, this);
                         } else {
@@ -109,11 +131,24 @@ public class MainActivity extends AppCompatActivity {
                         }
                         Utils.reloadUI(this);
                         break;
-                    case 1:
+                }
+                return false;
+            });
+            popupMenu.show();
+        });
+
+        mMenu.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(this, mMenu);
+            Menu menu = popupMenu.getMenu();
+            menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.settings));
+            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.about));
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case 0:
                         Intent settings = new Intent(this, SettingsActivity.class);
                         startActivity(settings);
                         break;
-                    case 2:
+                    case 1:
                         Intent aboutsNotz = new Intent(this, AboutActivity.class);
                         startActivity(aboutsNotz);
                         break;
@@ -144,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
             }
             mSearchWord.setVisibility(View.GONE);
             mSearchButton.setVisibility(View.VISIBLE);
+            mSortButton.setVisibility(View.VISIBLE);
             mMenu.setVisibility(View.VISIBLE);
             return;
         }
