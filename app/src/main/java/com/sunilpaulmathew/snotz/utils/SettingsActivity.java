@@ -366,7 +366,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (Utils.isDocumentsUI(uri)) {
                 @SuppressLint("Recycle") Cursor cursor = getContentResolver().query(uri, null, null, null, null);
                 if (cursor != null && cursor.moveToFirst()) {
-                    mPath = Environment.getExternalStorageDirectory().toString() + "/Download/" +
+                    mPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" +
                             cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                 }
             } else {

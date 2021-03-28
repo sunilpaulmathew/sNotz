@@ -63,7 +63,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             if (Utils.isDocumentsUI(uri)) {
                 @SuppressLint("Recycle") Cursor cursor = getContentResolver().query(uri, null, null, null, null);
                 if (cursor != null && cursor.moveToFirst()) {
-                    mExternalNote = Environment.getExternalStorageDirectory().toString() + "/Download/" +
+                    mExternalNote = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" +
                             cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                 }
             } else {
@@ -93,6 +93,15 @@ public class CreateNoteActivity extends AppCompatActivity {
                 } else {
                     mContents.setText(Utils.readFile(mExternalNote));
                 }
+            } else {
+                new MaterialAlertDialogBuilder(this)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setTitle(R.string.note_editor)
+                        .setMessage(getString(R.string.file_path_error))
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.cancel, (dialogInterface, i) -> {
+                            finish();
+                        }).show();
             }
         } else if (Utils.mName != null) {
             mContents.setText(sNotz.getNote(Utils.mName));
