@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.sunilpaulmathew.snotz.BuildConfig;
+import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 
 import java.io.BufferedReader;
@@ -188,6 +189,13 @@ public class Utils {
 
     public static void reloadUI(Context context) {
         mRecyclerView.setAdapter(new RecycleViewAdapter(sNotz.getData(context)));
+    }
+
+    public static void restartApp(Activity activity) {
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     public static CharSequence fromHtml(String text) {

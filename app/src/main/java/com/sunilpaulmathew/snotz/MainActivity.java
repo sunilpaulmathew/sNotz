@@ -1,6 +1,5 @@
 package com.sunilpaulmathew.snotz;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -61,14 +59,9 @@ public class MainActivity extends AppCompatActivity {
         Utils.mRecyclerView.setAdapter(new RecycleViewAdapter(sNotz.getData(this)));
 
         mFAB.setOnClickListener(v -> {
-            if (Utils.isPermissionDenied(this)) {
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            } else {
-                Utils.mName = null;
-                Intent createNote = new Intent(this, CreateNoteActivity.class);
-                startActivity(createNote);
-            }
+            Utils.mName = null;
+            Intent createNote = new Intent(this, CreateNoteActivity.class);
+            startActivity(createNote);
         });
         mSearchButton.setOnClickListener(v -> {
             mSearchButton.setVisibility(View.GONE);

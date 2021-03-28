@@ -1,7 +1,14 @@
 package com.sunilpaulmathew.snotz.utils;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.OpenableColumns;
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -9,16 +16,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.core.app.ActivityCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Objects;
 
@@ -30,7 +40,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     private AppCompatEditText mContents;
     private NestedScrollView mScrollView;
-    private String mJSONNew;
+    private String mExternalNote = null, mJSONNew;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +54,50 @@ public class CreateNoteActivity extends AppCompatActivity {
         Snackbar snackBar = Snackbar.make(mScrollView, getString(R.string.note_invalid_warning), Snackbar.LENGTH_INDEFINITE);
         mScrollView.setBackgroundColor(sNotzColor.setAccentColor("note_background", this));
         mContents.setTextColor(sNotzColor.setAccentColor("text_color", this));
+
+        // Handle notes picked from File Manager
+        if (getIntent().getData() != null) {
+            Uri uri = getIntent().getData();
+            assert uri != null;
+            File file = new File(Objects.requireNonNull(uri.getPath()));
+            if (Utils.isDocumentsUI(uri)) {
+                @SuppressLint("Recycle") Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    mExternalNote = Environment.getExternalStorageDirectory().toString() + "/Download/" +
+                            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } else {
+                mExternalNote = Utils.getPath(file);
+            }
+            if (mExternalNote != null && Utils.existFile(mExternalNote)) {
+                if (Utils.isPermissionDenied(this)) {
+                    ActivityCompat.requestPermissions(this, new String[] {
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    finish();
+                }
+                if (sNotz.validBackup(mExternalNote)) {
+                    new MaterialAlertDialogBuilder(this)
+                            .setMessage(getString(R.string.restore_notes_question, new File(mExternalNote).getName()))
+                            .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                            })
+                            .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
+                                if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
+                                    Utils.create(Objects.requireNonNull(Utils.readFile(getFilesDir().getPath() + "/snotz")).replace("}]", "}," +
+                                            sNotz.getNotesFromBackup(mExternalNote) + "]"), getFilesDir().getPath() + "/snotz");
+                                } else {
+                                    Utils.create(Utils.readFile(mExternalNote), getFilesDir().getPath() + "/snotz");
+                                }
+                                Utils.restartApp(this);
+                            })
+                            .show();
+                } else {
+                    mContents.setText(Utils.readFile(mExternalNote));
+                }
+            }
+        } else if (Utils.mName != null) {
+            mContents.setText(sNotz.getNote(Utils.mName));
+        }
+
         mContents.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -66,9 +120,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         mContents.setOnClickListener(v -> {
             mScrollView.setAlpha(1);
         });
-        if (Utils.mName != null) {
-            mContents.setText(sNotz.getNote(Utils.mName));
-        }
+
         mBack.setOnClickListener(v -> onBackPressed());
         mSave.setOnClickListener(v -> {
             if (mContents.getText() == null || mContents.getText().toString().isEmpty()) {
@@ -115,8 +167,12 @@ public class CreateNoteActivity extends AppCompatActivity {
                 }
             }
             Utils.create(mJSONNew, mJSON);
-            Utils.reloadUI(this);
-            onBackPressed();
+            if (mExternalNote != null) {
+                Utils.restartApp(this);
+            } else {
+                Utils.reloadUI(this);
+            }
+            finish();
         });
     }
 

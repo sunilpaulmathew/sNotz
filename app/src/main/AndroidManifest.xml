@@ -28,7 +28,16 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".utils.AboutActivity" />
         <activity android:name=".utils.BillingActivity" />
-        <activity android:name=".utils.CreateNoteActivity" />
+
+        <activity android:name=".utils.CreateNoteActivity"
+            android:label="@string/note_editor" >
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".utils.SettingsActivity" />
         <activity android:name=".utils.WelcomeActivity" />
     </application>

@@ -48,6 +48,7 @@
     <string name="no_internet">Please check your internet connection!</string>
     <string name="note_color_background">Background Color</string>
     <string name="note_color_text">Text Color</string>
+    <string name="note_editor">Note Editor</string>
     <string name="note_list_empty">You haven\'t create any notes yet!</string>
     <string name="note_invalid_warning">Kindly remove the invalid characters (e.g. double (\") quotation mark) from the text!</string>
     <string name="note_saving_error">Unfortunately, one or more invalid character(s) present in your text prevent sNotz from saving! Please revise the text to avoid date loss.</string>
