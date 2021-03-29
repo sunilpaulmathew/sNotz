@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?android:attr/colorBackground"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -32,7 +31,7 @@
                     android:layout_gravity="start"
                     android:src="@drawable/ic_back"
                     android:background="@color/color_black"
-                    android:tint="?android:attr/colorAccent"/>
+                    android:tint="?attr/colorAccent"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -40,7 +39,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginEnd="50dp"
                     android:gravity="center_vertical"
-                    android:textColor="?android:attr/colorAccent"
+                    android:textColor="?attr/colorAccent"
                     android:text="@string/support_development"
                     android:layout_gravity="center"
                     android:textStyle="bold"
@@ -73,6 +72,6 @@
         android:textStyle="bold"
         android:background="@color/color_black"
         android:text="@string/cancel"
-        android:textColor="?android:attr/colorAccent"
+        android:textColor="?attr/colorAccent"
         android:textSize="18sp" />
 </com.google.android.material.card.MaterialCardView>

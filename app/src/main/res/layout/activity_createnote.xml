@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="?android:attr/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -20,7 +19,7 @@
             android:layout_gravity="start"
             android:src="@drawable/ic_back"
             android:background="@null"
-            android:tint="?android:attr/colorAccent"/>
+            android:tint="?attr/colorAccent"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
@@ -33,7 +32,7 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:padding="10dp"
-            android:textColor="?android:attr/colorAccent" />
+            android:textColor="?attr/colorAccent" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/save_button"
@@ -43,7 +42,7 @@
             android:layout_gravity="end"
             android:src="@drawable/ic_save"
             android:background="@null"
-            android:tint="?android:attr/colorAccent"/>
+            android:tint="?attr/colorAccent"/>
     </FrameLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -62,8 +61,6 @@
             android:gravity="top|start"
             android:hint="@string/add_text_hint"
             android:textStyle="bold|italic"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textColorHint="?android:attr/textColorPrimary"
             android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
             android:padding="10dp"
             android:textSize="18sp" />

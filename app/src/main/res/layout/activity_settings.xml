@@ -2,7 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="?android:attr/colorBackground"
     android:layout_gravity="start"
     android:orientation="vertical"
     android:gravity="start">
@@ -20,14 +19,14 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_back"
-            android:tint="?android:attr/colorAccent"
+            android:tint="?attr/colorAccent"
             android:background="@color/color_black"
             android:layout_gravity="start|center_vertical" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?android:attr/colorAccent"
+            android:textColor="?attr/colorAccent"
             android:text="@string/settings"
             android:layout_marginStart="50dp"
             android:gravity="start"

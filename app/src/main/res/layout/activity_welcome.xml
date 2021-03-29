@@ -2,7 +2,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?android:attr/colorBackground"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,13 +22,13 @@
             android:padding="15dp"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:textColor="?android:attr/colorAccent" />
+            android:textColor="?attr/colorAccent" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_search"
-            android:tint="?android:attr/colorAccent"
+            android:tint="?attr/colorAccent"
             android:layout_marginEnd="45dp"
             android:padding="5dp"
             android:background="@null"
@@ -39,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_dots"
-            android:tint="?android:attr/colorAccent"
+            android:tint="?attr/colorAccent"
             android:padding="5dp"
             android:background="@null"
             android:layout_gravity="end" />
@@ -76,15 +75,13 @@
                     android:padding="10dp"
                     android:text="@string/welcome_note"
                     android:layout_marginEnd="50dp"
-                    android:hint="@string/content_hint"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:hint="@string/content_hint" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_expand"
                     android:background="@null"
-                    android:tint="?android:attr/textColorPrimary"
                     android:layout_gravity="end|top" />
             </FrameLayout>
 
@@ -92,7 +89,6 @@
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="?android:attr/textColorPrimary"
                 android:layout_marginTop="-15dp"
                 android:singleLine="true"
                 android:focusable="false"
@@ -166,7 +162,7 @@
             android:layout_gravity="center"
             android:src="@drawable/ic_arrow"
             android:rotation="180"
-            android:tint="?android:attr/colorAccent"
+            android:tint="?attr/colorAccent"
             android:layout_marginEnd="25dp"
             android:padding="5dp"
             android:background="@null" />
@@ -182,7 +178,7 @@
             android:padding="15dp"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:textColor="?android:attr/colorAccent" />
+            android:textColor="?attr/colorAccent" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/arrow_front"
@@ -190,7 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_arrow"
-            android:tint="?android:attr/colorAccent"
+            android:tint="?attr/colorAccent"
             android:layout_marginStart="25dp"
             android:padding="5dp"
             android:background="@null" />

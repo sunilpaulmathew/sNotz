@@ -2,7 +2,6 @@ package com.sunilpaulmathew.snotz.utils;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -21,7 +20,6 @@ import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
-import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 
 import org.json.JSONArray;
@@ -54,6 +52,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         Snackbar snackBar = Snackbar.make(mScrollView, getString(R.string.note_invalid_warning), Snackbar.LENGTH_INDEFINITE);
         mScrollView.setBackgroundColor(sNotzColor.setAccentColor("note_background", this));
         mContents.setTextColor(sNotzColor.setAccentColor("text_color", this));
+        mContents.setHintTextColor(Utils.isDarkTheme(this) ? Color.WHITE : Color.BLACK);
 
         // Handle notes picked from File Manager
         if (getIntent().getData() != null) {
