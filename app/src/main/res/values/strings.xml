@@ -33,6 +33,8 @@
     <string name="delete">Delete</string>
     <string name="delete_sure_question">Delete %s?</string>
     <string name="developed_by">Made with \u2665 by</string>
+    <string name="discard">Discard</string>
+    <string name="discard_note">Discard changes made on this note?</string>
     <string name="dismiss">Dismiss</string>
     <string name="donations">Donations</string>
     <string name="donation_app">Buy Donation App</string>

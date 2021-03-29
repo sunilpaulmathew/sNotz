@@ -38,7 +38,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     private AppCompatEditText mContents;
     private NestedScrollView mScrollView;
-    private String mExternalNote = null, mJSONNew;
+    private String mExternalNote = null, mJSONNew, mNote = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,6 +91,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                             .show();
                 } else {
                     mContents.setText(Utils.readFile(mExternalNote));
+                    mNote = Utils.readFile(mExternalNote);
                 }
             } else {
                 new MaterialAlertDialogBuilder(this)
@@ -104,6 +105,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         } else if (Utils.mName != null) {
             mContents.setText(sNotz.getNote(Utils.mName));
+            mNote = sNotz.getNote(Utils.mName);
         }
 
         mContents.addTextChangedListener(new TextWatcher() {
@@ -194,6 +196,18 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (mNote != null && mContents.getText() != null && !mNote.equals(mContents.getText().toString()) || mNote == null
+                && mContents.getText() != null && !mContents.getText().toString().isEmpty()) {
+            new MaterialAlertDialogBuilder(this)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle(R.string.app_name)
+                    .setMessage(getString(R.string.discard_note))
+                    .setCancelable(false)
+                    .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                    })
+                    .setPositiveButton(R.string.discard, (dialogInterface, i) -> finish()).show();
+            return;
+        }
         if (Utils.mName != null) Utils.mName = null;
         super.onBackPressed();
     }
