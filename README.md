@@ -42,6 +42,7 @@ If you like to appreciate my work, please consider donating to me (either via [P
 * [MONSTER_PC](https://t.me/MONSTER_PC), Russian & Ukrainian Translations
 * [Hafitz Setya](https://github.com/breakdowns), Indonesian Translations
 * [Mikesew1320](https://github.com/Mikesew1320), Amharic Translations
+* Negroibarra301, Spanish Translations
 
 ## License
 
