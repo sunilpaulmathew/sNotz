@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private MaterialTextView mAppTitle;
     private AppCompatEditText mSearchWord;
     private boolean mExit;
-    private Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

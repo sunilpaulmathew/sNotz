@@ -54,7 +54,7 @@ import java.util.concurrent.Executor;
 public class SettingsActivity extends AppCompatActivity {
 
     private AppCompatImageButton mBack;
-    private ArrayList <RecycleViewItem> mData = new ArrayList<>();
+    private final ArrayList <RecycleViewItem> mData = new ArrayList<>();
     private String mPath;
 
     @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
@@ -231,7 +231,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private static class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
-        private ArrayList<RecycleViewItem> data;
+        private final ArrayList<RecycleViewItem> data;
 
         private static ClickListener mClickListener;
 
@@ -298,10 +298,9 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            private AppCompatImageView mIcon;
-            private MaterialCheckBox mCheckBox;
-            private MaterialTextView mTitle;
-            private MaterialTextView mDescription;
+            private final AppCompatImageView mIcon;
+            private final MaterialCheckBox mCheckBox;
+            private final MaterialTextView mTitle, mDescription;
 
             public ViewHolder(View view) {
                 super(view);
@@ -328,8 +327,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private static class RecycleViewItem implements Serializable {
-        private String mTitle, mDescription, mURL;
-        private Drawable mIcon;
+        private final String mTitle, mDescription, mURL;
+        private final Drawable mIcon;
 
         public RecycleViewItem(String title, String description, Drawable icon, String url) {
             this.mTitle = title;
