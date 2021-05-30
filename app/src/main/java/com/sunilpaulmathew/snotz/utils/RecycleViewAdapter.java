@@ -11,6 +11,7 @@ package com.sunilpaulmathew.snotz.utils;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,7 +38,7 @@ import java.util.Objects;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
-    private List<String> data;
+    private final List<String> data;
     public RecycleViewAdapter (List<String> data){
         this.data = data;
     }
@@ -108,24 +109,28 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         Utils.reloadUI(holder.mRVCard.getContext());
                         break;
                     case 2:
-                        Utils.dialogEditText(null,
-                                (dialogInterface, i) -> {
-                                }, text -> {
-                                    if (text.isEmpty()) {
-                                        Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty));
-                                        return;
-                                    }
-                                    if (!text.endsWith(".txt")) {
-                                        text += ".txt";
-                                    }
-                                    if (text.contains(" ")) {
-                                        text = text.replace(" ", "_");
-                                    }
-                                    Utils.create(sNotz.getNote(this.data.get(position)), Environment.getExternalStorageDirectory().toString() + "/" + text);
-                                    Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
-                                            Environment.getExternalStorageDirectory().toString() + "/" + text));
-                                }, holder.mRVCard.getContext()).setOnDismissListener(dialogInterface -> {
-                        }).show();
+                        if (Build.VERSION.SDK_INT >= 30) {
+                            Utils.showSnackbar(holder.mRVCard, "This feature is not yet available for Android 11!");
+                        } else {
+                            Utils.dialogEditText(null,
+                                    (dialogInterface, i) -> {
+                                    }, text -> {
+                                        if (text.isEmpty()) {
+                                            Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty));
+                                            return;
+                                        }
+                                        if (!text.endsWith(".txt")) {
+                                            text += ".txt";
+                                        }
+                                        if (text.contains(" ")) {
+                                            text = text.replace(" ", "_");
+                                        }
+                                        Utils.create(sNotz.getNote(this.data.get(position)), Environment.getExternalStorageDirectory().toString() + "/" + text);
+                                        Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
+                                                Environment.getExternalStorageDirectory().toString() + "/" + text));
+                                    }, holder.mRVCard.getContext()).setOnDismissListener(dialogInterface -> {
+                            }).show();
+                        }
                         break;
                     case 3:
                         String mJson = holder.mRVCard.getContext().getFilesDir().toString() + "/snotz";
@@ -170,10 +175,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private AppCompatImageButton mExpand;
-        private MaterialTextView mContents;
-        private MaterialTextView mDate;
-        private MaterialCardView mRVCard;
+        private final AppCompatImageButton mExpand;
+        private final MaterialTextView mContents, mDate;
+        private final MaterialCardView mRVCard;
 
         public ViewHolder(View view) {
             super(view);

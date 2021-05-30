@@ -117,11 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         Utils.reloadUI(this);
                         break;
                     case 2:
-                        if (Utils.getBoolean("reverse_order", false, this)) {
-                            Utils.saveBoolean("reverse_order", false, this);
-                        } else {
-                            Utils.saveBoolean("reverse_order", true, this);
-                        }
+                        Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", false, this), this);
                         Utils.reloadUI(this);
                         break;
                 }

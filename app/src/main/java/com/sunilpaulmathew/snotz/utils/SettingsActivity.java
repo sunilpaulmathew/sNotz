@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.OpenableColumns;
@@ -117,6 +118,10 @@ public class SettingsActivity extends AppCompatActivity {
                 Utils.mTextColor = true;
                 sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("text_color", this)), "text_color", this);
             } else if (position == 5) {
+                if (Build.VERSION.SDK_INT >= 30) {
+                    Utils.showSnackbar(mRecyclerView, "This feature is not yet available for Android 11!");
+                    return;
+                }
                 if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(
                             R.array.backup_options), (dialogInterface, i) -> {
@@ -134,6 +139,10 @@ public class SettingsActivity extends AppCompatActivity {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
             } else if (position == 6) {
+                if (Build.VERSION.SDK_INT >= 30) {
+                    Utils.showSnackbar(mRecyclerView, "This feature is not yet available for Android 11!");
+                    return;
+                }
                 if (Utils.isPermissionDenied(this)) {
                     ActivityCompat.requestPermissions(this, new String[]{
                             Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);

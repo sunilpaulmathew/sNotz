@@ -158,11 +158,7 @@ public class Utils {
     }
 
     public static void manageHiddenNotes(Context context) {
-        if (getBoolean("hidden_note", false, context)) {
-            saveBoolean("hidden_note", false, context);
-        } else {
-            saveBoolean("hidden_note", true, context);
-        }
+        saveBoolean("hidden_note", !getBoolean("hidden_note", false, context), context);
         mHiddenNotes = false;
         reloadUI(context);
     }

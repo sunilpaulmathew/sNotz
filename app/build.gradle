@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.sunilpaulmathew.snotz"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 9
         versionName "v0.9"
         vectorDrawables.useSupportLibrary = true
@@ -44,6 +44,6 @@ android {
 
 dependencies {
     implementation 'androidx.biometric:biometric:1.1.0'
-    implementation 'com.android.billingclient:billing:3.0.3'
+    implementation 'com.android.billingclient:billing:4.0.0'
     implementation 'com.google.android.material:material:1.4.0-beta01'
 }
