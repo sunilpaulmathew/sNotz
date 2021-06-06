@@ -5,11 +5,14 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.OpenableColumns;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +21,10 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.widget.NestedScrollView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 
 import org.json.JSONArray;
@@ -69,10 +74,20 @@ public class CreateNoteActivity extends AppCompatActivity {
                 mExternalNote = Utils.getPath(file);
             }
             if (mExternalNote != null && Utils.existFile(mExternalNote)) {
-                if (Utils.isPermissionDenied(this)) {
-                    ActivityCompat.requestPermissions(this, new String[] {
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                    finish();
+                if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(this)) {
+                    LinearLayout mPermissionLayout = findViewById(R.id.permission_layout);
+                    MaterialCardView mPermissionGrant = findViewById(R.id.grant_card);
+                    MaterialTextView mPermissionText = findViewById(R.id.permission_text);
+                    mPermissionText.setText(getString(R.string.permission_denied_message));
+                    mPermissionLayout.setVisibility(View.VISIBLE);
+                    mScrollView.setVisibility(View.GONE);
+                    mSave.setVisibility(View.GONE);
+                    mPermissionGrant.setOnClickListener(v -> {
+                        ActivityCompat.requestPermissions(this, new String[] {
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        finish();
+                    });
+                    return;
                 }
                 if (sNotz.validBackup(Utils.readFile(mExternalNote))) {
                     new MaterialAlertDialogBuilder(this)
