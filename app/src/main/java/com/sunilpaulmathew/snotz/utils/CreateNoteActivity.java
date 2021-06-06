@@ -74,7 +74,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                             Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                     finish();
                 }
-                if (sNotz.validBackup(mExternalNote)) {
+                if (sNotz.validBackup(Utils.readFile(mExternalNote))) {
                     new MaterialAlertDialogBuilder(this)
                             .setMessage(getString(R.string.restore_notes_question, new File(mExternalNote).getName()))
                             .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
@@ -82,7 +82,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                             .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
                                 if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
                                     Utils.create(Objects.requireNonNull(Utils.readFile(getFilesDir().getPath() + "/snotz")).replace("}]", "}," +
-                                            sNotz.getNotesFromBackup(mExternalNote) + "]"), getFilesDir().getPath() + "/snotz");
+                                            sNotz.getNotesFromBackup(Utils.readFile(mExternalNote)) + "]"), getFilesDir().getPath() + "/snotz");
                                 } else {
                                     Utils.create(Utils.readFile(mExternalNote), getFilesDir().getPath() + "/snotz");
                                 }

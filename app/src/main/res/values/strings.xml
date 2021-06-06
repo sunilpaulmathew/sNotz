@@ -34,7 +34,7 @@
     <string name="delete_sure_question">Delete %s?</string>
     <string name="developed_by">Made with \u2665 by</string>
     <string name="discard">Discard</string>
-    <string name="discard_note">Discard changes made on this note?</string>
+    <string name="discard_note">Discard changes made on this page?</string>
     <string name="dismiss">Dismiss</string>
     <string name="donations">Donations</string>
     <string name="donation_app">Buy Donation App</string>
@@ -60,6 +60,9 @@
     <string name="rate_us">Rate Us</string>
     <string name="rate_us_Summary">Rate or/and Review sNotz in PlayStore</string>
     <string name="report_issue">Report an Issue</string>
+    <string name="restore">Restore</string>
+    <string name="restore_data_invalid">You\'re entered invalid backup data. Aborting!</string>
+    <string name="restore_message">Simply copy-paste the whole contents of a backup file on this screen and click the \'Restore\' button to continue.</string>
     <string name="restore_error">You\'re selected an invalid backup file. Aborting!</string>
     <string name="restore_notes">Restore Notes</string>
     <string name="restore_notes_summary">Restore notes from a backup file</string>

@@ -39,6 +39,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".utils.RestoreNotesActivity" />
         <activity android:name=".utils.SettingsActivity" />
         <activity android:name=".utils.WelcomeActivity" />
     </application>

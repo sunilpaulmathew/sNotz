@@ -102,15 +102,13 @@ public class sNotz {
         return mData;
     }
 
-    public static String getNotesFromBackup(String path) {
+    public static String getNotesFromBackup(String backupData) {
         List<String> mRestoreData = new ArrayList<>();
-        if (Utils.existFile(path)) {
-            for (int i = 0; i < Objects.requireNonNull(getsNotzItems(Utils.readFile(path))).length(); i++) {
-                try {
-                    JSONObject command = Objects.requireNonNull(getsNotzItems(Utils.readFile(path))).getJSONObject(i);
-                    mRestoreData.add(command.toString());
-                } catch (JSONException ignored) {
-                }
+        for (int i = 0; i < getsNotzItems(backupData).length(); i++) {
+            try {
+                JSONObject command = Objects.requireNonNull(getsNotzItems(backupData)).getJSONObject(i);
+                mRestoreData.add(command.toString());
+            } catch (JSONException ignored) {
             }
         }
         return mRestoreData.toString().substring(1, mRestoreData.toString().length()-1);
@@ -128,8 +126,8 @@ public class sNotz {
         return sb.toString();
     }
 
-    public static boolean validBackup(String path) {
-        return getsNotzItems(Utils.readFile(path)) != null;
+    public static boolean validBackup(String backupData) {
+        return getsNotzItems(backupData) != null;
     }
 
 }

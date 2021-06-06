@@ -10,6 +10,7 @@ package com.sunilpaulmathew.snotz.utils;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Paint;
@@ -18,6 +19,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -43,6 +45,8 @@ import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -118,10 +122,6 @@ public class SettingsActivity extends AppCompatActivity {
                 Utils.mTextColor = true;
                 sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("text_color", this)), "text_color", this);
             } else if (position == 5) {
-                if (Build.VERSION.SDK_INT >= 30) {
-                    Utils.showSnackbar(mRecyclerView, "This feature is not yet available for Android 11!");
-                    return;
-                }
                 if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(
                             R.array.backup_options), (dialogInterface, i) -> {
@@ -140,16 +140,18 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             } else if (position == 6) {
                 if (Build.VERSION.SDK_INT >= 30) {
-                    Utils.showSnackbar(mRecyclerView, "This feature is not yet available for Android 11!");
-                    return;
-                }
-                if (Utils.isPermissionDenied(this)) {
-                    ActivityCompat.requestPermissions(this, new String[]{
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    Intent restore = new Intent(this, RestoreNotesActivity.class);
+                    startActivity(restore);
+                    finish();
                 } else {
-                    Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
-                    restore.setType("*/*");
-                    startActivityForResult(restore, 0);
+                    if (Utils.isPermissionDenied(this)) {
+                        ActivityCompat.requestPermissions(this, new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    } else {
+                        Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
+                        restore.setType("*/*");
+                        startActivityForResult(restore, 0);
+                    }
                 }
             } else if (position == 7) {
                 if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
@@ -219,6 +221,11 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void saveDialog(String type, String sNotz) {
+        if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(this)) {
+            ActivityCompat.requestPermissions(this, new String[] {
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            return;
+        }
         Utils.dialogEditText(null,
                 (dialogInterface, i) -> {
                 }, text -> {
@@ -232,8 +239,22 @@ public class SettingsActivity extends AppCompatActivity {
                     if (text.contains(" ")) {
                         text = text.replace(" ", "_");
                     }
-                    Utils.create(sNotz, Environment.getExternalStorageDirectory().toString() + "/" + text);
-                    Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStorageDirectory().toString() + "/" + text));
+                    if (Build.VERSION.SDK_INT >= 30) {
+                        try {
+                            ContentValues values = new ContentValues();
+                            values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
+                            values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
+                            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+                            Uri uri = getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
+                            OutputStream outputStream = getContentResolver().openOutputStream(uri);
+                            outputStream.write(sNotz.getBytes());
+                            outputStream.close();
+                        } catch (IOException ignored) {
+                        }
+                    } else {
+                        Utils.create(sNotz, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text);
+                    }
+                    Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
                 }, this).setOnDismissListener(dialogInterface -> {
         }).show();
     }
@@ -380,7 +401,7 @@ public class SettingsActivity extends AppCompatActivity {
             } else {
                 mPath = Utils.getPath(file);
             }
-            if (!sNotz.validBackup(mPath)) {
+            if (!sNotz.validBackup(Utils.readFile(mPath))) {
                 Utils.showSnackbar(mBack, getString(R.string.restore_error));
                 return;
             }
@@ -391,7 +412,7 @@ public class SettingsActivity extends AppCompatActivity {
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
                         if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
                             Utils.create(Objects.requireNonNull(Utils.readFile(getFilesDir().getPath() + "/snotz")).replace("}]", "}," +
-                                    sNotz.getNotesFromBackup(mPath) + "]"), getFilesDir().getPath() + "/snotz");
+                                    sNotz.getNotesFromBackup(Utils.readFile(mPath)) + "]"), getFilesDir().getPath() + "/snotz");
                         } else {
                             Utils.create(Utils.readFile(mPath), getFilesDir().getPath() + "/snotz");
                         }
