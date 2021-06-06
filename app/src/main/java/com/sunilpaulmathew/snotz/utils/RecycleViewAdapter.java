@@ -8,11 +8,16 @@
 
 package com.sunilpaulmathew.snotz.utils;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -21,6 +26,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -29,6 +35,8 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Objects;
 
@@ -109,8 +117,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         Utils.reloadUI(holder.mRVCard.getContext());
                         break;
                     case 2:
-                        if (Build.VERSION.SDK_INT >= 30) {
-                            Utils.showSnackbar(holder.mRVCard, "This feature is not yet available for Android 11!");
+                        if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(holder.mRVCard.getContext())) {
+                            ActivityCompat.requestPermissions((Activity) holder.mRVCard.getContext(), new String[] {
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                         } else {
                             Utils.dialogEditText(null,
                                     (dialogInterface, i) -> {
@@ -125,9 +134,23 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                                         if (text.contains(" ")) {
                                             text = text.replace(" ", "_");
                                         }
-                                        Utils.create(sNotz.getNote(this.data.get(position)), Environment.getExternalStorageDirectory().toString() + "/" + text);
+                                        if (Build.VERSION.SDK_INT >= 30) {
+                                            try {
+                                                ContentValues values = new ContentValues();
+                                                values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
+                                                values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
+                                                values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+                                                Uri uri = holder.mRVCard.getContext().getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
+                                                OutputStream outputStream = holder.mRVCard.getContext().getContentResolver().openOutputStream(uri);
+                                                outputStream.write(Objects.requireNonNull(sNotz.getNote(this.data.get(position))).getBytes());
+                                                outputStream.close();
+                                            } catch (IOException ignored) {
+                                            }
+                                        } else {
+                                            Utils.create(sNotz.getNote(this.data.get(position)), Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text);
+                                        }
                                         Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
-                                                Environment.getExternalStorageDirectory().toString() + "/" + text));
+                                                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
                                     }, holder.mRVCard.getContext()).setOnDismissListener(dialogInterface -> {
                             }).show();
                         }
