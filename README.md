@@ -7,6 +7,7 @@
 ![](https://img.shields.io/github/contributors/sunilpaulmathew/sNotz)
 
 ### sNotz is the simplest application to manage notes.
+_Important Notice: The development of this project is abandoned._
 
 ## Download
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
