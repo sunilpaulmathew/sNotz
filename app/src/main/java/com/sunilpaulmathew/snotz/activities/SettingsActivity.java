@@ -187,7 +187,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 Utils.showSnackbar(mBack, getString(R.string.authentication_error, errString));
-                mRecycleViewAdapter.notifyItemChanged(1);
+                mRecycleViewAdapter.notifyItemRangeChanged(1,2);
             }
 
             @Override
@@ -200,14 +200,14 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.useBiometric(mBack, SettingsActivity.this);
                 }
-                mRecycleViewAdapter.notifyItemChanged(1);
+                mRecycleViewAdapter.notifyItemRangeChanged(1,2);
             }
 
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
                 Utils.showSnackbar(mBack, getString(R.string.authentication_failed));
-                mRecycleViewAdapter.notifyItemChanged(1);
+                mRecycleViewAdapter.notifyItemRangeChanged(1,2);
             }
         });
 
