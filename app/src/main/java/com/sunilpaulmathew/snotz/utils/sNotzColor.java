@@ -71,7 +71,7 @@ public class sNotzColor extends FrameLayout {
         assert mCheck != null;
         DrawableCompat.setTint(mCheck, Color.DKGRAY);
 
-        mPaint.setColor(setAccentColor(Utils.mTextColor ? "text_color" : "note_background", getContext()));
+        mPaint.setColor(setAccentColor(Common.isTextColor() ? "text_color" : "note_background", getContext()));
         mPaintBorder.setColor(ContextCompat.getColor(context, R.color.color_brown));
         setWillNotDraw(false);
     }

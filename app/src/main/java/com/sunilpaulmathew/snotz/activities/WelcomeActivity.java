@@ -1,11 +1,4 @@
-/*
- * Copyright (C) 2020-2021 sunilpaulmathew <sunil.kde@gmail.com>
- *
- * This file is part of The Translator, An application to help translate android apps.
- *
- */
-
-package com.sunilpaulmathew.snotz.utils;
+package com.sunilpaulmathew.snotz.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -18,13 +11,13 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.text.DateFormat;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 21, 2020
  */
-
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override

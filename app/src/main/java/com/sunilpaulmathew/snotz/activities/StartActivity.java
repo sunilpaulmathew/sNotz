@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz;
+package com.sunilpaulmathew.snotz.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,9 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textview.MaterialTextView;
+import com.sunilpaulmathew.snotz.MainActivity;
+import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 
 import java.util.concurrent.Executor;
@@ -20,7 +23,6 @@ import java.util.concurrent.Executor;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 19, 2020
  */
-
 public class StartActivity extends AppCompatActivity {
 
     private AppCompatImageView mAppLogo;
@@ -36,17 +38,17 @@ public class StartActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             if (Utils.getBoolean("use_biometric", false, this)) {
-                Utils.mBiometricPrompt.authenticate(Utils.mPromptInfo);
+                Common.getBiometricPrompt().authenticate(Utils.showBiometricPrompt(this));
             } else {
                 // Launch MainActivity
                 Intent mainActivity = new Intent(this, MainActivity.class);
                 startActivity(mainActivity);
                 finish();
             }
-        }, 1000);
+        }, 250);
 
         Executor executor = ContextCompat.getMainExecutor(this);
-        Utils.mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+        Common.mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
@@ -74,7 +76,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        Utils.showBiometricPrompt(this);Utils.showBiometricPrompt(this);
+        Utils.showBiometricPrompt(this);
     }
 
 }

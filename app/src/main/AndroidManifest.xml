@@ -19,7 +19,7 @@
         android:requestLegacyExternalStorage="true"
         tools:targetApi="q" >
         
-        <activity android:name=".StartActivity">
+        <activity android:name=".activities.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,10 +27,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".utils.AboutActivity" />
-        <activity android:name=".utils.BillingActivity" />
+        <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.BillingActivity" />
 
-        <activity android:name=".utils.CreateNoteActivity"
+        <activity android:name=".activities.CreateNoteActivity"
             android:label="@string/note_editor" >
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
@@ -39,8 +39,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".utils.RestoreNotesActivity" />
-        <activity android:name=".utils.SettingsActivity" />
-        <activity android:name=".utils.WelcomeActivity" />
+        <activity android:name=".activities.RestoreNotesActivity" />
+        <activity android:name=".activities.SettingsActivity" />
+        <activity android:name=".activities.WelcomeActivity" />
     </application>
 </manifest>

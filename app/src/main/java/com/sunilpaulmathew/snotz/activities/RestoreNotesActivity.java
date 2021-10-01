@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.utils;
+package com.sunilpaulmathew.snotz.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,13 +10,12 @@ import androidx.appcompat.widget.AppCompatEditText;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
-
-import java.util.Objects;
+import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on June 06, 2021
  */
-
 public class RestoreNotesActivity extends AppCompatActivity {
 
     private AppCompatEditText mText;
@@ -38,13 +37,8 @@ public class RestoreNotesActivity extends AppCompatActivity {
             if (mText.getText() == null || mText.getText().toString().isEmpty()) {
                 return;
             }
-            if (sNotz.validBackup(mText.getText().toString())) {
-                if (Utils.existFile(getFilesDir().getPath() + "/snotz")) {
-                    Utils.create(Objects.requireNonNull(Utils.readFile(getFilesDir().getPath() + "/snotz")).replace("}]", "}," +
-                            sNotz.getNotesFromBackup(mText.getText().toString()) + "]"), getFilesDir().getPath() + "/snotz");
-                } else {
-                    Utils.create(mText.getText().toString(), getFilesDir().getPath() + "/snotz");
-                }
+            if (sNotzUtils.validBackup(mText.getText().toString())) {
+                sNotzUtils.restoreNotes(mText.getText().toString(), this);
                 Utils.reloadUI(this);
                 finish();
             } else {

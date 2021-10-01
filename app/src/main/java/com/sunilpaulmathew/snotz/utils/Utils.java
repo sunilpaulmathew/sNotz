@@ -23,13 +23,13 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,16 +44,7 @@ import java.util.Objects;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
  */
-
 public class Utils {
-
-    public static BiometricPrompt mBiometricPrompt;
-    public static BiometricPrompt.PromptInfo mPromptInfo;
-    public static boolean mHiddenNotes = false;
-    public static boolean mTextColor = false;
-    public static RecyclerView mRecyclerView;
-    public static String mName;
-    public static String mSearchText = null;
 
     public static boolean isPackageInstalled(String packageID, Context context) {
         try {
@@ -75,11 +66,7 @@ public class Utils {
     }
 
     public static void initializeAppTheme(Context context) {
-        if (isDarkTheme(context)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     }
 
     public interface OnDialogEditTextListener {
@@ -140,8 +127,8 @@ public class Utils {
         return (context.checkCallingOrSelfPermission(permission) != PackageManager.PERMISSION_GRANTED);
     }
 
-    public static void showBiometricPrompt(Context context) {
-        mPromptInfo = new BiometricPrompt.PromptInfo.Builder()
+    public static BiometricPrompt.PromptInfo showBiometricPrompt(Context context) {
+        return new BiometricPrompt.PromptInfo.Builder()
                 .setTitle(context.getString(R.string.authenticate))
                 .setNegativeButtonText(context.getString(R.string.cancel))
                 .build();
@@ -157,15 +144,11 @@ public class Utils {
         }
     }
 
-    public static void manageHiddenNotes(Context context) {
-        saveBoolean("hidden_note", !getBoolean("hidden_note", false, context), context);
-        mHiddenNotes = false;
-        reloadUI(context);
-    }
-
     public static boolean isFingerprintAvailable(Context context) {
-        FingerprintManagerCompat fingerprintManager = FingerprintManagerCompat.from(context);
-        return fingerprintManager.hasEnrolledFingerprints();
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
+            return FingerprintManagerCompat.from(context).hasEnrolledFingerprints();
+        }
+        return false;
     }
 
     public static int getOrientation(Activity activity) {
@@ -184,7 +167,7 @@ public class Utils {
     }
 
     public static void reloadUI(Context context) {
-        mRecyclerView.setAdapter(new RecycleViewAdapter(sNotz.getData(context)));
+        Common.getRecyclerView().setAdapter(new NotesAdapter(sNotzData.getData(context)));
     }
 
     public static void restartApp(Activity activity) {
@@ -245,15 +228,15 @@ public class Utils {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(name, value).apply();
     }
 
-    public static boolean existFile(String file) {
+    public static boolean exist(String file) {
         return new File(file).exists();
     }
 
-    public static void deleteFile(String file) {
+    public static void delete(String file) {
         new File(file).delete();
     }
 
-    public static String readFile(String file) {
+    public static String read(String file) {
         BufferedReader buf = null;
         try {
             buf = new BufferedReader(new FileReader(file));
@@ -276,7 +259,7 @@ public class Utils {
         return null;
     }
 
-    static String readAssetFile(Context context, String file) {
+    public static String readAssetFile(Context context, String file) {
         InputStream input = null;
         BufferedReader buf = null;
         try {

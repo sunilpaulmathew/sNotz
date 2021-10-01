@@ -82,6 +82,7 @@
     <string name="show_hidden_notes_summary">Show notes that are set hidden from UI</string>
     <string name="single_click_note_message">Single click on a note to edit!</string>
     <string name="skip">SKIP</string>
+    <string name="sort_by">Sort By</string>
     <string name="source_code">Source Code</string>
     <string name="support">Support</string>
     <string name="support_acknowledged">Donation Acknowledged \u2665</string>
