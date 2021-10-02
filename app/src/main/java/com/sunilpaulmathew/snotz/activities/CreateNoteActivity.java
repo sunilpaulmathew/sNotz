@@ -182,7 +182,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             if (mExternalNote != null) {
                 Utils.restartApp(this);
             } else {
-                Utils.reloadUI(this);
+                Utils.reloadUI(this).execute();
             }
             finish();
         });

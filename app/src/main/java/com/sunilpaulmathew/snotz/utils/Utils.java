@@ -166,8 +166,26 @@ public class Utils {
                 getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
     }
 
-    public static void reloadUI(Context context) {
-        Common.getRecyclerView().setAdapter(new NotesAdapter(sNotzData.getData(context)));
+    public static AsyncTasks reloadUI(Context context) {
+        return new AsyncTasks() {
+            private NotesAdapter mNotesAdapter;
+
+            @Override
+            public void onPreExecute() {
+            }
+
+            @Override
+            public void doInBackground() {
+                mNotesAdapter = new NotesAdapter(sNotzData.getData(context));
+            }
+
+            @Override
+            public void onPostExecute() {
+                try {
+                    Common.getRecyclerView().setAdapter(mNotesAdapter);
+                } catch (NullPointerException ignored) {}
+            }
+        };
     }
 
     public static void restartApp(Activity activity) {

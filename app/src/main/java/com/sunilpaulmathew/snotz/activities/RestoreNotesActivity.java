@@ -39,7 +39,7 @@ public class RestoreNotesActivity extends AppCompatActivity {
             }
             if (sNotzUtils.validBackup(mText.getText().toString())) {
                 sNotzUtils.restoreNotes(mText.getText().toString(), this);
-                Utils.reloadUI(this);
+                Utils.reloadUI(this).execute();
                 finish();
             } else {
                 Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.restore_data_invalid));

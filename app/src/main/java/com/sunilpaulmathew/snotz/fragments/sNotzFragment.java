@@ -62,9 +62,8 @@ public class sNotzFragment extends Fragment {
 
         Common.getRecyclerView().setLayoutManager(new GridLayoutManager(requireActivity(), Utils.getSpanCount(requireActivity())));
         Common.getRecyclerView().addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
-        try {
-            Common.getRecyclerView().setAdapter(new NotesAdapter(sNotzData.getData(requireActivity())));
-        } catch (NullPointerException ignored) {}
+
+        Utils.reloadUI(requireActivity()).execute();
 
         mAddIcon.setColorFilter(sNotzColor.getAccentColor(requireActivity()));
         mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
@@ -94,7 +93,7 @@ public class sNotzFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 Common.setSearchText(s.toString().toLowerCase());
-                Utils.reloadUI(requireActivity());
+                Utils.reloadUI(requireActivity()).execute();
             }
         });
 
@@ -118,11 +117,11 @@ public class sNotzFragment extends Fragment {
                     case 1:
                     case 2:
                         Utils.saveBoolean("date_created", !Utils.getBoolean("date_created", true, requireActivity()), requireActivity());
-                        Utils.reloadUI(requireActivity());
+                        Utils.reloadUI(requireActivity()).execute();
                         break;
                     case 3:
                         Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
-                        Utils.reloadUI(requireActivity());
+                        Utils.reloadUI(requireActivity()).execute();
                         break;
                 }
                 return false;

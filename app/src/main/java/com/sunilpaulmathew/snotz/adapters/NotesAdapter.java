@@ -104,7 +104,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             sNotzUtils.hideNote(this.data.get(position).getNote(), true, item.getContext());
                             Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message));
                         }
-                        Utils.reloadUI(item.getContext());
+                        Utils.reloadUI(item.getContext()).execute();
                         break;
                     case 2:
                         if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(holder.mRVCard.getContext())) {
@@ -154,7 +154,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 })
                                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                                     sNotzUtils.deleteNote(this.data.get(position).getNote(), item.getContext());
-                                    Utils.reloadUI(item.getContext());
+                                    Utils.reloadUI(item.getContext()).execute();
                                 })
                                 .show();
                         break;

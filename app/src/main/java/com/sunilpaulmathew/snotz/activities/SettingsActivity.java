@@ -106,7 +106,7 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, this), this);
                     Common.isHiddenNote(false);
-                    Utils.reloadUI(this);
+                    Utils.reloadUI(this).execute();
                 }
                 mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 3) {
@@ -120,7 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             Utils.saveInt("accent_color", selectedColor, this);
-                            Utils.reloadUI(this);
+                            Utils.reloadUI(this).execute();
                             recreate();
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
@@ -136,7 +136,7 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             Utils.saveInt("text_color", selectedColor, this);
-                            Utils.reloadUI(this);
+                            Utils.reloadUI(this).execute();
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
@@ -180,7 +180,7 @@ public class SettingsActivity extends AppCompatActivity {
                             })
                             .setPositiveButton(R.string.delete, (dialog, which) -> {
                                 Utils.delete(getFilesDir().getPath() + "/snotz");
-                                Utils.reloadUI(this);
+                                Utils.reloadUI(this).execute();
                                 onBackPressed();
                             })
                             .show();
@@ -223,7 +223,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if (Common.isHiddenNote()) {
                     Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, SettingsActivity.this), SettingsActivity.this);
                     Common.isHiddenNote(false);
-                    Utils.reloadUI(SettingsActivity.this);
+                    Utils.reloadUI(SettingsActivity.this).execute();
                 } else {
                     Utils.useBiometric(mBack, SettingsActivity.this);
                 }
@@ -319,7 +319,7 @@ public class SettingsActivity extends AppCompatActivity {
                     })
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
                         sNotzUtils.restoreNotes(Utils.read(mPath), this);
-                        Utils.reloadUI(this);
+                        Utils.reloadUI(this).execute();
                         finish();
                     })
                     .show();

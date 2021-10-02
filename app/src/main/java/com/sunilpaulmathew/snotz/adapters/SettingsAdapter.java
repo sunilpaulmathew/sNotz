@@ -74,7 +74,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 } else {
                     Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, v.getContext()), v.getContext());
                     Common.isHiddenNote(false);
-                    Utils.reloadUI(v.getContext());
+                    Utils.reloadUI(v.getContext()).execute();
                 }
                 notifyItemChanged(position);
             });
