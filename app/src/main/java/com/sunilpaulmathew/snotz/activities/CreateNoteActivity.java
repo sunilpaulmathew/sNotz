@@ -58,22 +58,23 @@ public class CreateNoteActivity extends AppCompatActivity {
         if (Common.getBackgroundColor() != -1) {
             mColorBackground.setCardBackgroundColor(Common.getBackgroundColor());
             mScrollView.setBackgroundColor(Common.getBackgroundColor());
+            mSelectedColorBg = Common.getBackgroundColor();
         } else {
             mColorBackground.setCardBackgroundColor(sNotzColor.getAccentColor(this));
             mScrollView.setBackgroundColor(sNotzColor.getAccentColor(this));
+            mSelectedColorBg = sNotzColor.getAccentColor(this);
         }
         if (Common.getTextColor() != -1) {
             mColorText.setCardBackgroundColor(Common.getTextColor());
             mContents.setTextColor(Common.getTextColor());
             mContents.setHintTextColor(Common.getTextColor());
+            mSelectedColorTxt = Common.getTextColor();
         } else {
             mColorText.setCardBackgroundColor(sNotzColor.getTextColor(this));
             mContents.setTextColor(sNotzColor.getTextColor(this));
             mContents.setHintTextColor(sNotzColor.getTextColor(this));
+            mSelectedColorTxt = sNotzColor.getTextColor(this);
         }
-
-        mSelectedColorBg = sNotzColor.getAccentColor(this);
-        mSelectedColorTxt = sNotzColor.getTextColor(this);
 
         // Handle notes picked from File Manager
         if (getIntent().getData() != null) {
