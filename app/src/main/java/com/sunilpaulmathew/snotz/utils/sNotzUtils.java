@@ -20,12 +20,13 @@ public class sNotzUtils {
     private static JSONObject mJSONObject;
     private static JSONArray mJSONArray;
 
-    private static List<sNotzItems> getNotesFromBackup(String backupData) {
+    private static List<sNotzItems> getNotesFromBackup(String backupData, Context context) {
         List<sNotzItems> mRestoreData = new ArrayList<>();
         for (int i = 0; i < sNotzData.getsNotzItems(backupData).length(); i++) {
             try {
                 JSONObject command = Objects.requireNonNull(sNotzData.getsNotzItems(backupData)).getJSONObject(i);
-                mRestoreData.add(new sNotzItems(sNotzData.getNote(command.toString()), sNotzData.getDate(command.toString()), sNotzData.isHidden(command.toString())));
+                mRestoreData.add(new sNotzItems(sNotzData.getNote(command.toString()), sNotzData.getDate(command.toString()), sNotzData.isHidden(command.toString()),
+                        sNotzData.getBackgroundColor(command.toString(), context), sNotzData.getTextColor(command.toString(), context)));
             } catch (JSONException ignored) {
             }
         }
@@ -48,7 +49,7 @@ public class sNotzUtils {
         return sNotzData.getsNotzItems(backupData) != null;
     }
 
-    public static void addNote(Editable newNote, Context context) {
+    public static void addNote(Editable newNote, int colorBg, int colorTxt, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
         try {
@@ -57,12 +58,16 @@ public class sNotzUtils {
                 note.put("note", items.getNote());
                 note.put("date", items.getTimeStamp());
                 note.put("hidden", items.isHidden());
+                note.put("colorBackground", items.getColorBackground());
+                note.put("colorText", items.getColorText());
                 mJSONArray.put(note);
             }
             JSONObject note = new JSONObject();
             note.put("note", newNote);
             note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
             note.put("hidden", false);
+            note.put("colorBackground", colorBg);
+            note.put("colorText", colorTxt);
             mJSONArray.put(note);
             mJSONObject.put("sNotz", mJSONArray);
             Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
@@ -80,11 +85,13 @@ public class sNotzUtils {
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
                     note.put("hidden", items.isHidden());
+                    note.put("colorBackground", items.getColorBackground());
+                    note.put("colorText", items.getColorText());
                     mJSONArray.put(note);
+                    mJSONObject.put("sNotz", mJSONArray);
+                    Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
                 }
             }
-            mJSONObject.put("sNotz", mJSONArray);
-            Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
         } catch (JSONException ignored) {
         }
     }
@@ -99,12 +106,16 @@ public class sNotzUtils {
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
                     note.put("hidden", items.isHidden());
+                    note.put("colorBackground", items.getColorBackground());
+                    note.put("colorText", items.getColorText());
                     mJSONArray.put(note);
                 } else {
                     JSONObject note = new JSONObject();
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
                     note.put("hidden", hide);
+                    note.put("colorBackground", items.getColorBackground());
+                    note.put("colorText", items.getColorText());
                     mJSONArray.put(note);
                 }
             }
@@ -114,7 +125,7 @@ public class sNotzUtils {
         }
     }
 
-    public static void initializeNotes(Editable newNote, Context context) {
+    public static void initializeNotes(Editable newNote, int colorBg, int colorTxt, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
         try {
@@ -122,6 +133,8 @@ public class sNotzUtils {
             note.put("note", newNote);
             note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
             note.put("hidden", false);
+            note.put("colorBackground", colorBg);
+            note.put("colorText", colorTxt);
             mJSONArray.put(note);
             mJSONObject.put("sNotz", mJSONArray);
             Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
@@ -139,15 +152,19 @@ public class sNotzUtils {
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
                     note.put("hidden", items.isHidden());
+                    note.put("colorBackground", items.getColorBackground());
+                    note.put("colorText", items.getColorText());
                     mJSONArray.put(note);
                 }
             }
             if (validBackup(backupData)) {
-                for (sNotzItems items : getNotesFromBackup(backupData)) {
+                for (sNotzItems items : getNotesFromBackup(backupData, context)) {
                     JSONObject note = new JSONObject();
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
                     note.put("hidden", items.isHidden());
+                    note.put("colorBackground", items.getColorBackground());
+                    note.put("colorText", items.getColorText());
                     mJSONArray.put(note);
                 }
             }
@@ -157,7 +174,7 @@ public class sNotzUtils {
         }
     }
 
-    public static void updateNote(Editable newNote, String oldNote, Context context) {
+    public static void updateNote(Editable newNote, String oldNote, int colorBg, int colorTxt, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
         try {
@@ -166,9 +183,13 @@ public class sNotzUtils {
                 if (items.getNote().equals(oldNote)) {
                     note.put("note", newNote);
                     note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.put("colorBackground", colorBg);
+                    note.put("colorText", colorTxt);
                 } else {
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
+                    note.put("colorBackground", items.getColorBackground());
+                    note.put("colorText", items.getColorText());
                 }
                 note.put("hidden", items.isHidden());
                 mJSONArray.put(note);

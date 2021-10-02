@@ -19,6 +19,8 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.widget.NestedScrollView;
 
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
@@ -37,6 +39,7 @@ import java.util.Objects;
 public class CreateNoteActivity extends AppCompatActivity {
 
     private AppCompatEditText mContents;
+    private int mSelectedColorBg, mSelectedColorTxt;
     private NestedScrollView mScrollView;
     private String mExternalNote = null, mNote = null;
 
@@ -48,10 +51,29 @@ public class CreateNoteActivity extends AppCompatActivity {
         mBack.setOnClickListener(v -> onBackPressed());
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         mContents = findViewById(R.id.contents);
+        MaterialCardView mColorBackground = findViewById(R.id.color_background);
+        MaterialCardView mColorText = findViewById(R.id.color_text);
         mScrollView = findViewById(R.id.scroll_view);
-        mScrollView.setBackgroundColor(sNotzColor.getAccentColor(this));
-        mContents.setTextColor(sNotzColor.getTextColor(this));
-        mContents.setHintTextColor(Utils.isDarkTheme(this) ? Color.WHITE : Color.BLACK);
+
+        if (Common.getBackgroundColor() != -1) {
+            mColorBackground.setCardBackgroundColor(Common.getBackgroundColor());
+            mScrollView.setBackgroundColor(Common.getBackgroundColor());
+        } else {
+            mColorBackground.setCardBackgroundColor(sNotzColor.getAccentColor(this));
+            mScrollView.setBackgroundColor(sNotzColor.getAccentColor(this));
+        }
+        if (Common.getTextColor() != -1) {
+            mColorText.setCardBackgroundColor(Common.getTextColor());
+            mContents.setTextColor(Common.getTextColor());
+            mContents.setHintTextColor(Common.getTextColor());
+        } else {
+            mColorText.setCardBackgroundColor(sNotzColor.getTextColor(this));
+            mContents.setTextColor(sNotzColor.getTextColor(this));
+            mContents.setHintTextColor(sNotzColor.getTextColor(this));
+        }
+
+        mSelectedColorBg = sNotzColor.getAccentColor(this);
+        mSelectedColorTxt = sNotzColor.getTextColor(this);
 
         // Handle notes picked from File Manager
         if (getIntent().getData() != null) {
@@ -110,7 +132,38 @@ public class CreateNoteActivity extends AppCompatActivity {
             mNote = Common.getNote();
         }
 
-        mContents.setOnClickListener(v -> mScrollView.setAlpha(1));
+        mColorBackground.setOnClickListener(v -> ColorPickerDialogBuilder
+                .with(this)
+                .setTitle(R.string.choose_color)
+                .initialColor(sNotzColor.getAccentColor(this))
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(selectedColor -> {
+                })
+                .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
+                    mScrollView.setBackgroundColor(selectedColor);
+                    mColorBackground.setCardBackgroundColor(selectedColor);
+                    mSelectedColorBg = selectedColor;
+                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                }).build().show());
+
+        mColorText.setOnClickListener(v -> ColorPickerDialogBuilder
+                .with(this)
+                .setTitle(R.string.choose_color)
+                .initialColor(sNotzColor.getAccentColor(this))
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(selectedColor -> {
+                })
+                .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
+                    mContents.setTextColor(selectedColor);
+                    mContents.setHintTextColor(selectedColor);
+                    mColorText.setCardBackgroundColor(selectedColor);
+                    mSelectedColorTxt = selectedColor;
+                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                }).build().show());
 
         mBack.setOnClickListener(v -> onBackPressed());
         mSave.setOnClickListener(v -> {
@@ -119,11 +172,12 @@ public class CreateNoteActivity extends AppCompatActivity {
                 return;
             }
             if (Common.getNote() != null) {
-                sNotzUtils.updateNote(mContents.getText(), Common.getNote(), this);
+                sNotzUtils.updateNote(mContents.getText(), Common.getNote(), mSelectedColorBg,
+                        mSelectedColorTxt,  this);
             } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                sNotzUtils.addNote(mContents.getText(), this);
+                sNotzUtils.addNote(mContents.getText(), mSelectedColorBg, mSelectedColorTxt, this);
             } else {
-                sNotzUtils.initializeNotes(mContents.getText(), this);
+                sNotzUtils.initializeNotes(mContents.getText(), mSelectedColorBg, mSelectedColorTxt, this);
             }
             if (mExternalNote != null) {
                 Utils.restartApp(this);
@@ -139,7 +193,6 @@ public class CreateNoteActivity extends AppCompatActivity {
         super.onStart();
 
         Utils.toggleKeyboard(mContents, this);
-        Utils.showSnackbar(mScrollView, getString(R.string.click_again_message));
     }
 
     @Override
@@ -157,6 +210,8 @@ public class CreateNoteActivity extends AppCompatActivity {
             return;
         }
         if (Common.getNote() != null) Common.setNote(null);
+        if (Common.getBackgroundColor() != -1) Common.setBackgroundColor(-1);
+        if (Common.getTextColor() != -1) Common.setTextColor(-1);
         super.onBackPressed();
     }
 

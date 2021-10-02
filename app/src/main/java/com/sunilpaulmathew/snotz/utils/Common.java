@@ -13,7 +13,8 @@ public class Common {
     public static BiometricPrompt mBiometricPrompt = null;
     public static RecyclerView mRecyclerView;
 
-    private static boolean mHiddenNotes = false, mTextColor = false;
+    private static boolean mHiddenNotes = false;
+    private static int mColorBackground = -1, mColorText = -1;
     private static String mNote = null, mSearchText = null;
 
     public static BiometricPrompt getBiometricPrompt() {
@@ -24,8 +25,12 @@ public class Common {
         return mHiddenNotes;
     }
 
-    public static boolean isTextColor() {
-        return mTextColor;
+    public static int getBackgroundColor() {
+        return mColorBackground;
+    }
+
+    public static int getTextColor() {
+        return mColorText;
     }
 
     public static RecyclerView getRecyclerView() {
@@ -48,8 +53,8 @@ public class Common {
         mHiddenNotes = b;
     }
 
-    public static void isTextColor(boolean b) {
-        mTextColor = b;
+    public static void setBackgroundColor(int color) {
+        mColorBackground = color;
     }
 
     public static void setNote(String note) {
@@ -58,6 +63,10 @@ public class Common {
 
     public static void setSearchText(String searchText) {
         mSearchText = searchText;
+    }
+
+    public static void setTextColor(int color) {
+        mColorText = color;
     }
 
 }

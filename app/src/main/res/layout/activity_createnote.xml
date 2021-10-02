@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent" >
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/color_black"
-            android:gravity="end|center_vertical">
+            android:gravity="center_vertical">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/back_button"
@@ -34,16 +34,16 @@
                 android:layout_gravity="start"
                 android:text="@string/app_name"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="25sp"
                 android:padding="10dp"
                 android:textColor="@color/color_teal" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/save_button"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_gravity="end"
+                android:layout_gravity="end|center"
                 android:src="@drawable/ic_save"
                 android:background="@null"
                 android:tint="@color/color_teal"/>
@@ -53,8 +53,7 @@
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:alpha="0.5" >
+            android:scrollbars="vertical" >
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/contents"
@@ -69,6 +68,72 @@
                 android:padding="10dp"
                 android:textSize="18sp" />
         </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_black"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:padding="5dp" >
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:orientation="vertical"
+            android:layout_width="0dp" >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_white"
+                android:text="@string/note_color_background"
+                android:background="@color/color_black"
+                android:textStyle="italic|bold"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:padding="5dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/color_background"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="end|center"
+                android:layout_margin="1dp"
+                app:cardCornerRadius="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:orientation="vertical"
+            android:layout_width="0dp" >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_white"
+                android:text="@string/note_color_text"
+                android:background="@color/color_black"
+                android:textStyle="italic|bold"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:padding="5dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/color_text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="end|center"
+                android:layout_margin="1dp"
+                app:cardCornerRadius="5dp" />
+        </LinearLayout>
     </LinearLayout>
 
     <include layout="@layout/permission_layout" />

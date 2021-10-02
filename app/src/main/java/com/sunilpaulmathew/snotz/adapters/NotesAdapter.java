@@ -44,7 +44,7 @@ import java.util.Objects;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
     private final List<sNotzItems> data;
-    public NotesAdapter(List<sNotzItems> data){
+    public NotesAdapter(List<sNotzItems> data) {
         this.data = data;
     }
 
@@ -64,7 +64,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         } else {
             holder.mContents.setText(this.data.get(position).getNote());
         }
-        holder.mContents.setTextColor(sNotzColor.getTextColor(holder.mContents.getContext()));
+        holder.mContents.setTextColor(data.get(position).getColorText());
         holder.mExpand.setOnClickListener(v -> {
             if (Utils.getBoolean(position + "_expanded", false, holder.mExpand.getContext())) {
                 Utils.saveBoolean(position + "_expanded", false, holder.mExpand.getContext());
@@ -164,14 +164,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             popupMenu.show();
             return true;
         });
-        holder.mRVCard.setCardBackgroundColor(sNotzColor.getAccentColor(holder.mRVCard.getContext()));
+        holder.mRVCard.setCardBackgroundColor(data.get(position).getColorBackground());
         holder.mRVCard.setOnClickListener(v -> {
             Common.setNote(this.data.get(position).getNote());
+            Common.setBackgroundColor(this.data.get(position).getColorBackground());
+            Common.setTextColor(this.data.get(position).getColorText());
             Intent editNote = new Intent(holder.mRVCard.getContext(), CreateNoteActivity.class);
             holder.mRVCard.getContext().startActivity(editNote);
         });
         holder.mDate.setText(this.data.get(position).getTimeStamp());
-        holder.mDate.setTextColor(sNotzColor.getTextColor(holder.mDate.getContext()));
+        holder.mDate.setTextColor(data.get(position).getColorText());
     }
 
     @Override

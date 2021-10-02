@@ -71,6 +71,8 @@ public class sNotzFragment extends Fragment {
 
         mAddNoteCard.setOnClickListener(v -> {
             Common.setNote(null);
+            Common.setBackgroundColor(-1);
+            Common.setTextColor(-1);
             Intent createNote = new Intent(requireActivity(), CreateNoteActivity.class);
             startActivity(createNote);
         });
