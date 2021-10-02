@@ -21,7 +21,6 @@
     <string name="clear_notes">Hapus Catatan</string>
     <string name="clear_notes_message">Tolong dicatat. Semua catatan akan dihapus!</string>
     <string name="clear_notes_summary">Hapus semua catatan dari sNotz</string>
-    <string name="click_again_message">Klik teks dua kali untuk meningkatkan visibilitas halaman ini…</string>
     <string name="choose_color">Pilih Warna</string>
     <string name="color_select_dialog">Pilih %s dari catatan</string>
     <string name="content_hint">Tambahkan konten di sini…</string>
@@ -45,8 +44,6 @@
     <string name="note_color_background">Warna latar belakang</string>
     <string name="note_color_text">Warna teks</string>
     <string name="note_list_empty">Anda belum membuat catatan apa pun!</string>
-    <string name="note_invalid_warning">Mohon hapus karakter yang tidak valid (e.g. double (\") tanda kutip) dari teks!</string>
-    <string name="note_saving_error">Sayangnya, satu atau lebih karakter tidak valid yang ada di teks Anda menghalangi sNotz untuk disimpan! Harap revisi teks untuk menghindari kehilangan tanggal.</string>
     <string name="ok">OK</string>
     <string name="press_back_exit">Tekan tombol \'Kembali\' lagi untuk Keluar!</string>
     <string name="rate_us">Beri Nilai</string>

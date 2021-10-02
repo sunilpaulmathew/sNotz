@@ -21,7 +21,6 @@
     <string name="clear_notes">"Notas claras"</string>
     <string name="clear_notes_message">"Tenga en cuenta. ¡Todas las notas serán eliminadas!"</string>
     <string name="clear_notes_summary">"Eliminar todas las notas de sNotz"</string>
-    <string name="click_again_message">"Haga clic en el texto dos veces para aumentar la visibilidad de esta página …"</string>
     <string name="choose_color">"Elegir color"</string>
     <string name="color_select_dialog">"Elige% s de las notas"</string>
     <string name="content_hint">"Agrega contenido aquí…"</string>
@@ -45,8 +44,6 @@
     <string name="note_color_background">"Color de fondo"</string>
     <string name="note_color_text">"Color de texto"</string>
     <string name="note_list_empty">"¡Aún no has creado ninguna nota!"</string>
-    <string name="note_invalid_warning">"Por favor, elimine los caracteres no válidos (p. Ej., Comillas dobles (\")) del texto."</string>
-    <string name="note_saving_error">"Desafortunadamente, uno o más caracteres no válidos presentes en su texto impiden que sNotz se guarde. Revise el texto para evitar perder la fecha."</string>
     <string name="ok">"OK"</string>
     <string name="press_back_exit">"¡Presione el botón 'Atrás' nuevamente para salir!"</string>
     <string name="rate_us">"Nos califica"</string>

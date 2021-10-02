@@ -33,7 +33,6 @@
     <string name="color_select_dialog">ከማስታወሻዎች ውስጥ%s ን ይምረጡ</string>
     <string name="choose_color">ቀለም ይምረጡ</string>
     <string name="clear_notes">ማስታወሻዎችን አጽዳ</string>
-    <string name="click_again_message">የዚህን ገጽ ታይነት ለማሳደግ ጽሑፉን ሁለት ጊዜ ጠቅ ያድርጉ…</string>
     <string name="deactivated">ቦዝኗል</string>
     <string name="delete">ሰርዝ</string>
     <string name="delete_sure_question">%s ይጋራ?</string>
@@ -47,7 +46,6 @@
     <string name="hidden_note">የተደበቀ ማስታወሻ</string>
     <string name="invite_friends">ጓደኞችን ይጋብዙ</string>
     <string name="invite_friends_Summary">ጓደኞችዎን sNotz ን እንዲሞክሩ ይጋብዙ</string>
-    <string name="note_invalid_warning">ከጽሑፉ ልክ ያልሆኑ ቁምፊዎችን (ለምሳሌ ድርብ (“) የጥቅስ ምልክት)) በደግነት ያስወግዱ!</string>
     <string name="developed_by">በ ♥ በ የተሰራ</string>
     <string name="more_apps">ተጨማሪ መተግበሪያዎች</string>
     <string name="ok">እሺ</string>
@@ -79,7 +77,6 @@
     <string name="donations_summary">ልማቱን በልገሳ ይደግፉ</string>
     <string name="note_color_text">የጽሑፍ ቀለም</string>
     <string name="app_name_summary">ማስታወሻዎችን ለማስተዳደር በጣም ቀላሉ መተግበሪያ!</string>
-    <string name="note_saving_error">እንደ አለመታደል ሆኖ በጽሑፍዎ ውስጥ ያሉት አንድ ወይም ከዚያ በላይ ልክ ያልሆኑ ቁምፊዎች (ቶች) sNotz ን እንዳያስቀምጡ ይከለክላሉ! የቀን መጥፋትን ለማስቀረት እባክዎ ጽሑፉን ይከልሱ።</string>
     <string name="biometric_lock_summary">SNotz ን ደህንነቱ የተጠበቀ ለማድረግ የባዮሜትሪክ ማረጋገጫውን ይጠቀሙ</string>
     <string name="support_summary">የቴሌግራም ድጋፍ ቡድንን ይጎብኙ</string>
     <string name="welcome_note">የእንኳን ደህና መጣችሁ ማስታወሻ</string>

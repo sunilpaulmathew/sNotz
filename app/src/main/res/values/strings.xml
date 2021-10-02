@@ -24,7 +24,6 @@
     <string name="clear_notes">Clear Notes</string>
     <string name="clear_notes_message">Please note. All the notes will be deleted</string>
     <string name="clear_notes_summary">Delete all the notes from sNotz</string>
-    <string name="click_again_message">Click the text twice to increase the visibility of this page…</string>
     <string name="choose_color">Choose Color</string>
     <string name="color_select_dialog">Choose %s of the notes</string>
     <string name="content_hint">Add content here…</string>

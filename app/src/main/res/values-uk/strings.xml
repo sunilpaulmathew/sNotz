@@ -19,7 +19,6 @@
     <string name="clear_notes">Очистити нотатки</string>
     <string name="clear_notes_message">Будь ласка, зверніть увагу. Усі нотатки будуть видалені!</string>
     <string name="clear_notes_summary">Видалити усі нотатки з sNotz</string>
-    <string name="click_again_message">Клацніть текст двічі, щоб збільшити видимість цієї сторінки …</string>
     <string name="choose_color">Виберіть колір</string>
     <string name="color_select_dialog">Виберіть %s з нотаток</string>
     <string name="content_hint">Додайте вміст сюди…</string>
@@ -41,8 +40,6 @@
     <string name="no_internet">Перевірте підключення до Інтернету!</string>
     <string name="note_color_background">Колір фону</string>
     <string name="note_color_text">Колір тексту</string>
-    <string name="note_invalid_warning">Будь ласка, видаліть з тексту неприпустимі символи (наприклад, подвійні (\") лапки)!</string>
-    <string name="note_saving_error">На жаль, один або кілька неприпустимих символів у вашому тексті заважають sNotz зберігати! Будь ласка, перегляньте текст, щоб уникнути втрати даних.</string>
     <string name="ok">OK</string>
     <string name="press_back_exit">Натисніть \'Назад\' ще раз, щоб вийти!</string>
     <string name="rate_us">Оцініть нас</string>

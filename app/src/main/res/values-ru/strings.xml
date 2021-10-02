@@ -19,7 +19,6 @@
     <string name="clear_notes">Очистить заметки</string>
     <string name="clear_notes_message">Пожалуйста, обратите внимание. Все заметки будут удалены!</string>
     <string name="clear_notes_summary">Удалить все заметки из sNotz</string>
-    <string name="click_again_message">Дважды щелкните текст, чтобы увеличить видимость этой страницы…</string>
     <string name="choose_color">Выберите цвет</string>
     <string name="color_select_dialog">Выберите %s заметки</string>
     <string name="content_hint">Добавьте сюда…</string>
@@ -41,8 +40,6 @@
     <string name="no_internet">Пожалуйста, проверьте ваше интернет-соединение!</string>
     <string name="note_color_background">Фоновый цвет</string>
     <string name="note_color_text">Цвет текста</string>
-    <string name="note_invalid_warning">Удалите из текста недопустимые символы (например, двойные (\") кавычки)!</string>
-    <string name="note_saving_error">К сожалению, один или несколько недопустимых символов в вашем тексте не позволяют сохранить sNotz! Измените текст, чтобы избежать потери данных.</string>
     <string name="ok">OK</string>
     <string name="press_back_exit">Нажмите \'Назад\' еще раз, чтобы выйти!</string>
     <string name="rate_us">Оцените нас</string>
