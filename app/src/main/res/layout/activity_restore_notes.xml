@@ -33,7 +33,6 @@
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:hint="@string/add_text_hint"
-                android:textColorHint="@color/color_teal"
                 android:textAlignment="textStart"
                 android:layout_gravity="start"
                 android:textStyle="bold"

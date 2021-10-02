@@ -30,9 +30,6 @@ public class RestoreNotesActivity extends AppCompatActivity {
         MaterialTextView mCancel = findViewById(R.id.cancel_button);
         MaterialTextView mInsert = findViewById(R.id.insert_button);
 
-        mText.setTextColor(Utils.isDarkTheme(this) ? getResources().getColor(R.color.color_white) : getResources()
-                .getColor(R.color.color_black));
-
         mInsert.setOnClickListener(v -> {
             if (mText.getText() == null || mText.getText().toString().isEmpty()) {
                 return;
