@@ -55,11 +55,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return new ViewHolder(rowItem);
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
-        if (Common.getSearchText() != null && Objects.requireNonNull(this.data.get(position).getNote()).toLowerCase().contains(Common.getSearchText())) {
-            holder.mContents.setText(Utils.fromHtml(Objects.requireNonNull(this.data.get(position).getNote()).toLowerCase().replace(Common.getSearchText(),
+        if (Common.getSearchText() != null && Common.isTextMatched(this.data.get(position).getNote())) {
+            holder.mContents.setText(Utils.fromHtml(this.data.get(position).getNote().replace(Common.getSearchText(),
                     "<b><i><font color=\"" + Color.RED + "\">" + Common.getSearchText() + "</font></i></b>")));
         } else {
             holder.mContents.setText(this.data.get(position).getNote());
@@ -99,9 +99,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         break;
                     case 1:
                         if (this.data.get(position).isHidden()) {
-                            sNotzUtils.hideNote(this.data.get(position).getNote(), false, item.getContext());
+                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), false, item.getContext());
                         } else {
-                            sNotzUtils.hideNote(this.data.get(position).getNote(), true, item.getContext());
+                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), true, item.getContext());
                             Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message));
                         }
                         Utils.reloadUI(item.getContext()).execute();
@@ -153,8 +153,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
                                 })
                                 .setPositiveButton(R.string.delete, (dialog, which) -> {
-                                    sNotzUtils.deleteNote(this.data.get(position).getNote(), item.getContext());
-                                    Utils.reloadUI(item.getContext()).execute();
+                                    sNotzUtils.deleteNote(this.data.get(position).getNoteID(), item.getContext());
+                                    data.remove(position);
+                                    notifyItemRemoved(position);
+                                    notifyDataSetChanged();
                                 })
                                 .show();
                         break;

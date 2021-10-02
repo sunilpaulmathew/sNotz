@@ -3,7 +3,6 @@ package com.sunilpaulmathew.snotz.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -15,8 +14,10 @@ import androidx.core.content.ContextCompat;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.util.concurrent.Executor;
 
@@ -36,16 +37,32 @@ public class StartActivity extends AppCompatActivity {
         mAppLogo = findViewById(R.id.app_logo);
         mAuthenticationStatus = findViewById(R.id.authentication_status);
 
-        new Handler().postDelayed(() -> {
-            if (Utils.getBoolean("use_biometric", false, this)) {
-                Common.getBiometricPrompt().authenticate(Utils.showBiometricPrompt(this));
-            } else {
-                // Launch MainActivity
-                Intent mainActivity = new Intent(this, MainActivity.class);
-                startActivity(mainActivity);
-                finish();
+        new AsyncTasks() {
+
+            @Override
+            public void onPreExecute() {
             }
-        }, 250);
+
+            @Override
+            public void doInBackground() {
+                // Migrate notes into new format
+                if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
+                    sNotzUtils.reOrganizeNotes(StartActivity.this);
+                }
+            }
+
+            @Override
+            public void onPostExecute() {
+                if (Utils.getBoolean("use_biometric", false, StartActivity.this)) {
+                    Common.getBiometricPrompt().authenticate(Utils.showBiometricPrompt(StartActivity.this));
+                } else {
+                    // Launch MainActivity
+                    Intent mainActivity = new Intent(StartActivity.this, MainActivity.class);
+                    startActivity(mainActivity);
+                    finish();
+                }
+            }
+        }.execute();
 
         Executor executor = ContextCompat.getMainExecutor(this);
         Common.mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {

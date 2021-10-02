@@ -25,6 +25,15 @@ public class Common {
         return mHiddenNotes;
     }
 
+    public static boolean isTextMatched(String note) {
+        for (int a = 0; a < note.length() - mSearchText.length() + 1; a++) {
+            if (mSearchText.equalsIgnoreCase(note.substring(a, a + mSearchText.length()))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static int getBackgroundColor() {
         return mColorBackground;
     }

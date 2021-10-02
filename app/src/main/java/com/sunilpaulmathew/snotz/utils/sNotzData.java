@@ -26,18 +26,18 @@ public class sNotzData {
                     if (Common.getSearchText() == null) {
                         if (Utils.getBoolean("hidden_note", false, context)) {
                             mData.add(new sNotzItems(getNote(command.toString()), getDate(command.toString()), isHidden(command.toString()),
-                                    getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context)));
+                                    getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context), i));
                         } else if (!isHidden(command.toString())) {
                             mData.add(new sNotzItems(getNote(command.toString()), getDate(command.toString()), isHidden(command.toString()),
-                                    getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context)));
+                                    getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context), i));
                         }
                     } else if (Objects.requireNonNull(getNote(command.toString())).toLowerCase().contains(Common.getSearchText().toLowerCase())) {
                         if (Utils.getBoolean("hidden_note", false, context)) {
                             mData.add(new sNotzItems(getNote(command.toString()), getDate(command.toString()), isHidden(command.toString()),
-                                    getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context)));
+                                    getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context), i));
                         } else if (!isHidden(command.toString())) {
                             mData.add(new sNotzItems(getNote(command.toString()), getDate(command.toString()), isHidden(command.toString()),
-                                    getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context)));
+                                    getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context), i));
                         }
                     }
                 } catch (JSONException ignored) {
@@ -62,7 +62,7 @@ public class sNotzData {
             try {
                 JSONObject command = Objects.requireNonNull(getsNotzItems(Utils.read(json))).getJSONObject(i);
                 mData.add(new sNotzItems(getNote(command.toString()), getDate(command.toString()), isHidden(command.toString()),
-                        getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context)));
+                        getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context), getNoteD(command.toString())));
             } catch (JSONException ignored) {
             }
         }
@@ -123,6 +123,15 @@ public class sNotzData {
         } catch (JSONException ignored) {
         }
         return sNotzColor.getTextColor(context);
+    }
+
+    public static int getNoteD(String string) {
+        try {
+            JSONObject obj = new JSONObject(string);
+            return obj.getInt("noteID");
+        } catch (JSONException ignored) {
+        }
+        return -1;
     }
 
 }
