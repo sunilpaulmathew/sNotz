@@ -50,7 +50,8 @@ public class sNotzUtils {
         return sNotzData.getsNotzItems(backupData) != null;
     }
 
-    public static void addNote(Editable newNote, int colorBg, int colorTxt, Context context) {
+    public static void addNote(Editable newNote, int colorBg, int colorTxt, boolean hidden,
+                               Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
         try {
@@ -67,7 +68,7 @@ public class sNotzUtils {
             JSONObject note = new JSONObject();
             note.put("note", newNote);
             note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
-            note.put("hidden", false);
+            note.put("hidden", hidden);
             note.put("colorBackground", colorBg);
             note.put("colorText", colorTxt);
             note.put("noteID", sNotzData.getData(context).size());
@@ -102,7 +103,7 @@ public class sNotzUtils {
         }
     }
 
-    public static void hideNote(int noteID, boolean hide, Context context) {
+    public static void hideNote(int noteID, boolean hidden, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
         try {
@@ -120,7 +121,7 @@ public class sNotzUtils {
                     JSONObject note = new JSONObject();
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
-                    note.put("hidden", hide);
+                    note.put("hidden", hidden);
                     note.put("colorBackground", items.getColorBackground());
                     note.put("colorText", items.getColorText());
                     note.put("noteID", items.getNoteID());
@@ -133,14 +134,15 @@ public class sNotzUtils {
         }
     }
 
-    public static void initializeNotes(Editable newNote, int colorBg, int colorTxt, Context context) {
+    public static void initializeNotes(Editable newNote, int colorBg, int colorTxt, boolean hidden,
+                                       Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
         try {
             JSONObject note = new JSONObject();
             note.put("note", newNote);
             note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
-            note.put("hidden", false);
+            note.put("hidden", hidden);
             note.put("colorBackground", colorBg);
             note.put("colorText", colorTxt);
             note.put("noteID", 0);
@@ -188,7 +190,8 @@ public class sNotzUtils {
         }
     }
 
-    public static void updateNote(Editable newNote, String oldNote, int colorBg, int colorTxt, Context context) {
+    public static void updateNote(Editable newNote, String oldNote, int colorBg, int colorTxt,
+                                  boolean hidden, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
         i = 0;
@@ -198,6 +201,7 @@ public class sNotzUtils {
                 if (items.getNote().equals(oldNote)) {
                     note.put("note", newNote);
                     note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.put("hidden", hidden);
                     note.put("colorBackground", colorBg);
                     note.put("colorText", colorTxt);
                     note.put("noteID", i);
@@ -205,11 +209,11 @@ public class sNotzUtils {
                 } else {
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
+                    note.put("hidden", items.isHidden());
                     note.put("colorBackground", items.getColorBackground());
                     note.put("colorText", items.getColorText());
                     note.put("noteID", i);
                 }
-                note.put("hidden", items.isHidden());
                 mJSONArray.put(note);
             }
             mJSONObject.put("sNotz", mJSONArray);

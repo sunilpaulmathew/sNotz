@@ -27,10 +27,8 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.AboutActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
-import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 /*
@@ -70,6 +68,7 @@ public class sNotzFragment extends Fragment {
 
         mAddNoteCard.setOnClickListener(v -> {
             Common.setNote(null);
+            Common.isHiddenNote(false);
             Common.setBackgroundColor(-1);
             Common.setTextColor(-1);
             Intent createNote = new Intent(requireActivity(), CreateNoteActivity.class);

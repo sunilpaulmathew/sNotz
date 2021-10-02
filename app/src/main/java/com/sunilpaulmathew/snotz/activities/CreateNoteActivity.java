@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.widget.NestedScrollView;
 
@@ -54,6 +55,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         MaterialCardView mColorBackground = findViewById(R.id.color_background);
         MaterialCardView mColorText = findViewById(R.id.color_text);
         mScrollView = findViewById(R.id.scroll_view);
+        SwitchCompat mHidden = findViewById(R.id.hidden);
 
         if (Common.getBackgroundColor() != -1) {
             mColorBackground.setCardBackgroundColor(Common.getBackgroundColor());
@@ -129,6 +131,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.cancel, (dialogInterface, i) -> finish()).show();
             }
         } else if (Common.getNote() != null) {
+            mHidden.setChecked(Common.isHiddenNote());
             mContents.setText(Common.getNote());
             mNote = Common.getNote();
         }
@@ -174,11 +177,11 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
             if (Common.getNote() != null) {
                 sNotzUtils.updateNote(mContents.getText(), Common.getNote(), mSelectedColorBg,
-                        mSelectedColorTxt,  this);
+                        mSelectedColorTxt, mHidden.isChecked(),  this);
             } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                sNotzUtils.addNote(mContents.getText(), mSelectedColorBg, mSelectedColorTxt, this);
+                sNotzUtils.addNote(mContents.getText(), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), this);
             } else {
-                sNotzUtils.initializeNotes(mContents.getText(), mSelectedColorBg, mSelectedColorTxt, this);
+                sNotzUtils.initializeNotes(mContents.getText(), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), this);
             }
             if (mExternalNote != null) {
                 Utils.restartApp(this);
@@ -211,6 +214,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             return;
         }
         if (Common.getNote() != null) Common.setNote(null);
+        if (Common.isHiddenNote()) Common.isHiddenNote(false);
         if (Common.getBackgroundColor() != -1) Common.setBackgroundColor(-1);
         if (Common.getTextColor() != -1) Common.setTextColor(-1);
         super.onBackPressed();

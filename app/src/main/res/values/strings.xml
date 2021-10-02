@@ -42,6 +42,7 @@
     <string name="faq_summary">Read frequently asked questions</string>
     <string name="file_path_error">Failed to get file path from external File Manager</string>
     <string name="grant">Grant</string>
+    <string name="hide">Hide</string>
     <string name="hidden_note">Hidden Note</string>
     <string name="hidden_note_message">Visit \'Settings\' page to change the visibility of hidden notes</string>
     <string name="invite_friends">Invite Friends</string>

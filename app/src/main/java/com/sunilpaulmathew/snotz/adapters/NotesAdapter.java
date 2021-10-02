@@ -171,6 +171,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             Common.setNote(this.data.get(position).getNote());
             Common.setBackgroundColor(this.data.get(position).getColorBackground());
             Common.setTextColor(this.data.get(position).getColorText());
+            Common.isHiddenNote(this.data.get(position).isHidden());
             Intent editNote = new Intent(holder.mRVCard.getContext(), CreateNoteActivity.class);
             holder.mRVCard.getContext().startActivity(editNote);
         });

@@ -28,15 +28,31 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:gravity="center_vertical"
-                android:layout_gravity="start"
+                android:layout_marginStart="50dp"
+                android:textColor="@color/color_teal"
                 android:text="@string/app_name"
+                android:layout_gravity="start"
                 android:textStyle="bold"
                 android:textSize="25sp"
-                android:padding="10dp"
-                android:textColor="@color/color_teal" />
+                android:padding="10dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_white"
+                android:layout_gravity="end|center"
+                android:layout_marginEnd="100dp"
+                android:textStyle="bold|italic"
+                android:text="@string/hide" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/hidden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_gravity="end|center" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/save_button"
@@ -44,9 +60,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:layout_gravity="end|center"
+                android:tint="@color/color_teal"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_save"
-                android:background="@null"
-                android:tint="@color/color_teal"/>
+                android:background="@null" />
         </FrameLayout>
 
         <androidx.core.widget.NestedScrollView
