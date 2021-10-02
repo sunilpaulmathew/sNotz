@@ -64,7 +64,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         } else {
             holder.mContents.setText(this.data.get(position).getNote());
         }
-        holder.mContents.setTextColor(sNotzColor.setAccentColor("text_color", holder.mContents.getContext()));
+        holder.mContents.setTextColor(sNotzColor.getTextColor(holder.mContents.getContext()));
         holder.mExpand.setOnClickListener(v -> {
             if (Utils.getBoolean(position + "_expanded", false, holder.mExpand.getContext())) {
                 Utils.saveBoolean(position + "_expanded", false, holder.mExpand.getContext());
@@ -76,7 +76,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 holder.mExpand.setImageDrawable(holder.mExpand.getContext().getResources().getDrawable(R.drawable.ic_collapse));
             }
         });
-        holder.mExpand.setColorFilter(sNotzColor.setAccentColor("text_color", holder.mExpand.getContext()));
+        holder.mExpand.setColorFilter(sNotzColor.getTextColor(holder.mExpand.getContext()));
         holder.mRVCard.setOnLongClickListener(item -> {
             PopupMenu popupMenu = new PopupMenu(holder.mRVCard.getContext(), holder.mExpand);
             Menu menu = popupMenu.getMenu();
@@ -164,14 +164,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             popupMenu.show();
             return true;
         });
-        holder.mRVCard.setCardBackgroundColor(sNotzColor.setAccentColor("note_background", holder.mRVCard.getContext()));
+        holder.mRVCard.setCardBackgroundColor(sNotzColor.getAccentColor(holder.mRVCard.getContext()));
         holder.mRVCard.setOnClickListener(v -> {
             Common.setNote(this.data.get(position).getNote());
             Intent editNote = new Intent(holder.mRVCard.getContext(), CreateNoteActivity.class);
             holder.mRVCard.getContext().startActivity(editNote);
         });
         holder.mDate.setText(this.data.get(position).getTimeStamp());
-        holder.mDate.setTextColor(sNotzColor.setAccentColor("text_color", holder.mDate.getContext()));
+        holder.mDate.setTextColor(sNotzColor.getTextColor(holder.mDate.getContext()));
     }
 
     @Override

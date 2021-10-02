@@ -220,6 +220,14 @@ public class Utils {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(name, value).apply();
     }
 
+    public static int getInt(String name, int defaults, Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(name, defaults);
+    }
+
+    public static void saveInt(String name, int value, Context context) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(name, value).apply();
+    }
+
     public static String getString(String name, String defaults, Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(name, defaults);
     }

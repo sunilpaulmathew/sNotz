@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="@string/restore_message"
             android:background="@color/color_black"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/color_teal"
             android:textStyle="bold"
             android:textSize="17sp"
             android:gravity="center"
@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:hint="@string/add_text_hint"
-                android:textColorHint="?attr/colorAccent"
+                android:textColorHint="@color/color_teal"
                 android:textAlignment="textStart"
                 android:layout_gravity="start"
                 android:textStyle="bold"
@@ -58,7 +58,7 @@
             android:layout_marginEnd="25dp"
             android:text="@string/cancel"
             android:textStyle="bold"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/color_teal"
             android:textSize="18sp"
             android:padding="10dp" />
 
@@ -70,7 +70,7 @@
             android:layout_marginStart="25dp"
             android:text="@string/restore"
             android:textStyle="bold"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/color_teal"
             android:textSize="18sp"
             android:padding="10dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>

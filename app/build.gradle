@@ -45,5 +45,6 @@ android {
 dependencies {
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'com.android.billingclient:billing:4.0.0'
+    implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     implementation "com.google.android.material:material:1.4.0"
 }

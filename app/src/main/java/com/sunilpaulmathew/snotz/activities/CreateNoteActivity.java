@@ -49,8 +49,8 @@ public class CreateNoteActivity extends AppCompatActivity {
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         mContents = findViewById(R.id.contents);
         mScrollView = findViewById(R.id.scroll_view);
-        mScrollView.setBackgroundColor(sNotzColor.setAccentColor("note_background", this));
-        mContents.setTextColor(sNotzColor.setAccentColor("text_color", this));
+        mScrollView.setBackgroundColor(sNotzColor.getAccentColor(this));
+        mContents.setTextColor(sNotzColor.getTextColor(this));
         mContents.setHintTextColor(Utils.isDarkTheme(this) ? Color.WHITE : Color.BLACK);
 
         // Handle notes picked from File Manager

@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.AboutActivity;
@@ -31,6 +31,7 @@ import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -52,9 +53,10 @@ public class sNotzFragment extends Fragment {
         mSearchButton = mRootView.findViewById(R.id.search_button);
         mSortButton = mRootView.findViewById(R.id.sort_button);
         mMenu = mRootView.findViewById(R.id.settings_button);
+        AppCompatImageButton mAddIcon = mRootView.findViewById(R.id.add_note_icon);
+        MaterialCardView mAddNoteCard = mRootView.findViewById(R.id.add_note_card);
         mSearchWord = mRootView.findViewById(R.id.search_word);
         mSearchWord.setTextColor(Color.RED);
-        FloatingActionButton mFAB = mRootView.findViewById(R.id.fab);
 
         Common.initializeRecyclerView(R.id.recycler_view, mRootView);
 
@@ -64,7 +66,10 @@ public class sNotzFragment extends Fragment {
             Common.getRecyclerView().setAdapter(new NotesAdapter(sNotzData.getData(requireActivity())));
         } catch (NullPointerException ignored) {}
 
-        mFAB.setOnClickListener(v -> {
+        mAddIcon.setColorFilter(sNotzColor.getAccentColor(requireActivity()));
+        mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
+
+        mAddNoteCard.setOnClickListener(v -> {
             Common.setNote(null);
             Intent createNote = new Intent(requireActivity(), CreateNoteActivity.class);
             startActivity(createNote);

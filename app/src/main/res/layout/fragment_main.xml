@@ -1,8 +1,9 @@
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,8 +21,8 @@
                 android:id="@+id/search_word"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="?attr/colorAccent"
-                android:textColor="?attr/colorAccent"
+                android:textColorHint="@color/color_teal"
+                android:textColor="@color/color_teal"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="100dp"
@@ -39,14 +40,14 @@
                 android:padding="15dp"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:textColor="?attr/colorAccent" />
+                android:textColor="@color/color_teal" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_search"
-                android:tint="?attr/colorAccent"
+                android:tint="@color/color_teal"
                 android:layout_marginEnd="90dp"
                 android:padding="5dp"
                 android:background="@null"
@@ -57,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_sort"
-                android:tint="?attr/colorAccent"
+                android:tint="@color/color_teal"
                 android:layout_marginEnd="45dp"
                 android:padding="5dp"
                 android:background="@null"
@@ -68,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_dots"
-                android:tint="?attr/colorAccent"
+                android:tint="@color/color_teal"
                 android:padding="5dp"
                 android:background="@null"
                 android:layout_gravity="end" />
@@ -80,13 +81,22 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/add_note_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_add" />
+        android:layout_margin="50dp"
+        app:cardCornerRadius="15dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/add_note_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:clickable="false" />
+    </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

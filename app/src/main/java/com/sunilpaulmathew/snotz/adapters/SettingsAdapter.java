@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -15,7 +15,6 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.ArrayList;
 
@@ -44,7 +43,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         holder.mTitle.setText(this.data.get(position).getTitle());
         holder.mDescription.setText(this.data.get(position).getDescription());
         holder.mIcon.setImageDrawable(this.data.get(position).getIcon());
-        holder.mIcon.setColorFilter(sNotzColor.getAccentColor(holder.mIcon.getContext()));
         if (!Utils.isFingerprintAvailable(holder.mTitle.getContext()) && position == 1) {
             holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -89,7 +87,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final AppCompatImageView mIcon;
+        private final AppCompatImageButton mIcon;
         private final MaterialCheckBox mCheckBox;
         private final MaterialTextView mTitle, mDescription;
 

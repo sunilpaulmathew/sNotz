@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
@@ -33,7 +35,6 @@ import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.io.File;
@@ -109,10 +110,36 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 3) {
-                sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("note_background", this)), "note_background", this);
+                ColorPickerDialogBuilder
+                        .with(this)
+                        .setTitle(R.string.choose_color)
+                        .initialColor(Utils.getInt("accent_color", getResources().getColor(R.color.color_teal), this))
+                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                        .density(12)
+                        .setOnColorSelectedListener(selectedColor -> {
+                        })
+                        .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
+                            Utils.saveInt("accent_color", selectedColor, this);
+                            Utils.reloadUI(this);
+                            recreate();
+                        })
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                        }).build().show();
             } else if (position == 4) {
-                Common.isTextColor(true);
-                sNotzColor.colorDialog(sNotzColor.getColors(this).indexOf(sNotzColor.setAccentColor("text_color", this)), "text_color", this);
+                ColorPickerDialogBuilder
+                        .with(this)
+                        .setTitle(R.string.choose_color)
+                        .initialColor(Utils.getInt("text_color", getResources().getColor(R.color.color_white), this))
+                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                        .density(12)
+                        .setOnColorSelectedListener(selectedColor -> {
+                        })
+                        .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
+                            Utils.saveInt("text_color", selectedColor, this);
+                            Utils.reloadUI(this);
+                        })
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                        }).build().show();
             } else if (position == 5) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(

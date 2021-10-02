@@ -12,7 +12,7 @@
             android:id="@+id/permission_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/color_teal"
             android:text="@string/permission_denied_message"
             android:layout_marginStart="10dp"
             android:gravity="center_vertical"

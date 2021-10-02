@@ -3,13 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/drawable/ic_done.xml" value="0.19537037037037036" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/drawable/ic_faq.xml" value="0.20615384615384616" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/drawable/ic_github.xml" value="0.1953125" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/drawable/ic_info.xml" value="0.20102564102564102" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/drawable/ic_playstore.xml" value="0.20102564102564102" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/activity_about.xml" value="0.1" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/activity_billing.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/activity_createnote.xml" value="0.1" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/activity_restore_notes.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/activity_settings.xml" value="0.1" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/activity_start.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/activity_welcome.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/fragment_main.xml" value="0.12760416666666666" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/permission_layout.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/recycle_view_donate.xml" value="0.18795289855072464" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/recycle_view_main.xml" value="0.18795289855072464" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/recycle_view_settings.xml" value="0.21311475409836064" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/app/sNotz/app/src/main/res/layout/rv_recycle_view_settings.xml" value="0.1" />
       </map>
     </option>
