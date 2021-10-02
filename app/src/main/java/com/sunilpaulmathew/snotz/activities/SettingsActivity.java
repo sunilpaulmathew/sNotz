@@ -121,7 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             Utils.saveInt("accent_color", selectedColor, this);
                             Utils.reloadUI(this).execute();
-                            recreate();
+                            Common.isReloading(true);
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
@@ -137,6 +137,7 @@ public class SettingsActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             Utils.saveInt("text_color", selectedColor, this);
                             Utils.reloadUI(this).execute();
+                            Common.isReloading(true);
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();

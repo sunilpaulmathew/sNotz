@@ -13,7 +13,7 @@ public class Common {
     public static BiometricPrompt mBiometricPrompt = null;
     public static RecyclerView mRecyclerView;
 
-    private static boolean mHiddenNotes = false;
+    private static boolean mHiddenNotes = false, mReload = false;
     private static int mColorBackground = -1, mColorText = -1;
     private static String mNote = null, mSearchText = null;
 
@@ -32,6 +32,10 @@ public class Common {
             }
         }
         return false;
+    }
+
+    public static boolean isReloading() {
+        return mReload;
     }
 
     public static int getBackgroundColor() {
@@ -68,6 +72,10 @@ public class Common {
 
     public static void setNote(String note) {
         mNote = note;
+    }
+
+    public static void isReloading(boolean b) {
+        mReload = b;
     }
 
     public static void setSearchText(String searchText) {

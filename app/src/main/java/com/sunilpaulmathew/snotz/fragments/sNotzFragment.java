@@ -36,7 +36,8 @@ import com.sunilpaulmathew.snotz.utils.sNotzColor;
  */
 public class sNotzFragment extends Fragment {
 
-    private AppCompatImageButton mMenu, mSearchButton, mSortButton;
+    private AppCompatImageButton mAddIcon, mMenu, mSearchButton, mSortButton;
+    private MaterialCardView mAddNoteCard;
     private MaterialTextView mAppTitle;
     private AppCompatEditText mSearchWord;
     private boolean mExit;
@@ -51,8 +52,8 @@ public class sNotzFragment extends Fragment {
         mSearchButton = mRootView.findViewById(R.id.search_button);
         mSortButton = mRootView.findViewById(R.id.sort_button);
         mMenu = mRootView.findViewById(R.id.settings_button);
-        AppCompatImageButton mAddIcon = mRootView.findViewById(R.id.add_note_icon);
-        MaterialCardView mAddNoteCard = mRootView.findViewById(R.id.add_note_card);
+        mAddIcon = mRootView.findViewById(R.id.add_note_icon);
+        mAddNoteCard = mRootView.findViewById(R.id.add_note_card);
         mSearchWord = mRootView.findViewById(R.id.search_word);
         mSearchWord.setTextColor(Color.RED);
 
@@ -175,6 +176,16 @@ public class sNotzFragment extends Fragment {
         });
 
         return mRootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Common.isReloading()) {
+            Common.isReloading(false);
+            mAddIcon.setColorFilter(sNotzColor.getAccentColor(requireActivity()));
+            mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
+        }
     }
 
 }
