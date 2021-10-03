@@ -1,6 +1,7 @@
 package com.sunilpaulmathew.snotz.utils;
 
 import android.content.Context;
+import android.os.Build;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,6 +9,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,12 +45,12 @@ public class sNotzData {
                 } catch (JSONException ignored) {
                 }
             }
-            if (Utils.getBoolean("date_created", true, context)) {
+            if (Utils.getInt("sort_notes", 0, context) == 2) {
                 Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(lhs.getTimeStamp(), rhs.getTimeStamp()));
-            } else {
-                Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(lhs.getNote(), rhs.getNote()));
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Utils.getInt("sort_notes", 0, context) == 1) {
+                Collections.sort(mData, Comparator.comparingLong(sNotzItems::getColorBackground));
             }
-            if (Utils.getBoolean("reverse_order", false, context)) {
+            if (Utils.getBoolean("reverse_order", true, context)) {
                 Collections.reverse(mData);
             }
         }

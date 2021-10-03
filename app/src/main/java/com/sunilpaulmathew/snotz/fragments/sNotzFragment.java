@@ -2,6 +2,7 @@ package com.sunilpaulmathew.snotz.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -103,24 +104,41 @@ public class sNotzFragment extends Fragment {
                 Menu menu = popupMenu.getMenu();
                 SubMenu sort = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.sort_by));
                 sort.add(0, 1, Menu.NONE, getString(R.string.created_order)).setCheckable(true)
-                        .setChecked(Utils.getBoolean("date_created", true, requireActivity()));
-                sort.add(0, 2, Menu.NONE, getString(R.string.az_order)).setCheckable(true)
-                        .setChecked(!Utils.getBoolean("date_created", true, requireActivity()));
+                        .setChecked(Utils.getInt("sort_notes", 0, requireActivity()) == 2);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    sort.add(0, 2, Menu.NONE, getString(R.string.note_color_background)).setCheckable(true)
+                            .setChecked(Utils.getInt("sort_notes", 0, requireActivity()) == 1);
+                }
+                sort.add(0, 3, Menu.NONE, getString(R.string.az_order)).setCheckable(true)
+                        .setChecked(Utils.getInt("sort_notes", 0, requireActivity()) == 0);
                 sort.setGroupCheckable(0, true, true);
-                menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
-                        .setChecked(Utils.getBoolean("reverse_order", false, requireActivity()));
+                menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
+                        .setChecked(Utils.getBoolean("reverse_order", true, requireActivity()));
             }
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
                         break;
                     case 1:
+                        if (Utils.getInt("sort_notes", 0, requireActivity()) != 2) {
+                            Utils.saveInt("sort_notes", 2, requireActivity());
+                            Utils.reloadUI(requireActivity()).execute();
+                        }
+                        break;
                     case 2:
-                        Utils.saveBoolean("date_created", !Utils.getBoolean("date_created", true, requireActivity()), requireActivity());
-                        Utils.reloadUI(requireActivity()).execute();
+                        if (Utils.getInt("sort_notes", 0, requireActivity()) != 1) {
+                            Utils.saveInt("sort_notes", 1, requireActivity());
+                            Utils.reloadUI(requireActivity()).execute();
+                        }
                         break;
                     case 3:
-                        Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
+                        if (Utils.getInt("sort_notes", 0, requireActivity()) != 0) {
+                            Utils.saveInt("sort_notes", 0, requireActivity());
+                            Utils.reloadUI(requireActivity()).execute();
+                        }
+                        break;
+                    case 4:
+                        Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", true, requireActivity()), requireActivity());
                         Utils.reloadUI(requireActivity()).execute();
                         break;
                 }
