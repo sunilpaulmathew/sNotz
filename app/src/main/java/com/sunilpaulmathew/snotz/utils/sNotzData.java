@@ -50,7 +50,7 @@ public class sNotzData {
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Utils.getInt("sort_notes", 0, context) == 1) {
                 Collections.sort(mData, Comparator.comparingLong(sNotzItems::getColorBackground));
             }
-            if (Utils.getBoolean("reverse_order", true, context)) {
+            if (!Utils.getBoolean("reverse_order", false, context)) {
                 Collections.reverse(mData);
             }
         }

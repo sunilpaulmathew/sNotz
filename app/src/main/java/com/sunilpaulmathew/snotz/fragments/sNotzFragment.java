@@ -113,7 +113,7 @@ public class sNotzFragment extends Fragment {
                         .setChecked(Utils.getInt("sort_notes", 0, requireActivity()) == 0);
                 sort.setGroupCheckable(0, true, true);
                 menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
-                        .setChecked(Utils.getBoolean("reverse_order", true, requireActivity()));
+                        .setChecked(Utils.getBoolean("reverse_order", false, requireActivity()));
             }
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
@@ -138,7 +138,7 @@ public class sNotzFragment extends Fragment {
                         }
                         break;
                     case 4:
-                        Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", true, requireActivity()), requireActivity());
+                        Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
                         Utils.reloadUI(requireActivity()).execute();
                         break;
                 }
