@@ -37,11 +37,13 @@ import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.Executor;
 
 /*
@@ -51,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private AppCompatImageButton mBack;
     private final ArrayList <SettingsItems> mData = new ArrayList<>();
-    private String mPath;
+    private String mJSONString = null;
 
     @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @Override
@@ -159,19 +161,14 @@ public class SettingsActivity extends AppCompatActivity {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
             } else if (position == 6) {
-                if (Build.VERSION.SDK_INT >= 30) {
-                    Intent restore = new Intent(this, RestoreNotesActivity.class);
-                    startActivity(restore);
-                    finish();
+                if (Utils.isPermissionDenied(this)) {
+                    ActivityCompat.requestPermissions(this, new String[]{
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 } else {
-                    if (Utils.isPermissionDenied(this)) {
-                        ActivityCompat.requestPermissions(this, new String[]{
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                    } else {
-                        Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
-                        restore.setType("*/*");
-                        startActivityForResult(restore, 0);
-                    }
+                    Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
+                    restore.setType("*/*");
+                    restore.addCategory(Intent.CATEGORY_OPENABLE);
+                    startActivityForResult(restore, 0);
                 }
             } else if (position == 7) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
@@ -288,6 +285,7 @@ public class SettingsActivity extends AppCompatActivity {
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
             restore.setType("*/*");
+            restore.addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(restore, 0);
         }
 
@@ -300,30 +298,41 @@ public class SettingsActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK && data != null) {
             Uri uri = data.getData();
             assert uri != null;
-            File file = new File(Objects.requireNonNull(uri.getPath()));
+            File mSelectedFile = null;
             if (Utils.isDocumentsUI(uri)) {
-                @SuppressLint("Recycle") Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+                @SuppressLint("Recycle")
+                Cursor cursor = getContentResolver().query(uri, null, null, null, null);
                 if (cursor != null && cursor.moveToFirst()) {
-                    mPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" +
-                            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    mSelectedFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)));
                 }
             } else {
-                mPath = Utils.getPath(file);
+                mSelectedFile = new File(uri.getPath());
             }
-            if (!sNotzUtils.validBackup(Utils.read(mPath))) {
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                BufferedInputStream bis = new BufferedInputStream(inputStream);
+                ByteArrayOutputStream buf = new ByteArrayOutputStream();
+                for (int result = bis.read(); result != -1; result = bis.read()) {
+                    buf.write((byte) result);
+                }
+                mJSONString = buf.toString("UTF-8");
+            } catch (IOException ignored) {}
+
+            if (mJSONString == null || !sNotzUtils.validBackup(mJSONString)) {
                 Utils.showSnackbar(mBack, getString(R.string.restore_error));
                 return;
             }
             new MaterialAlertDialogBuilder(this)
-                    .setMessage(getString(R.string.restore_notes_question, new File(mPath).getName()))
+                    .setMessage(getString(R.string.restore_notes_question, mSelectedFile != null ?
+                            mSelectedFile.getName() : "backup"))
                     .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                     })
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                        sNotzUtils.restoreNotes(Utils.read(mPath), this);
+                        sNotzUtils.restoreNotes(mJSONString, this);
                         Utils.reloadUI(this).execute();
                         finish();
-                    })
-                    .show();
+                    }).show();
         }
     }
 
