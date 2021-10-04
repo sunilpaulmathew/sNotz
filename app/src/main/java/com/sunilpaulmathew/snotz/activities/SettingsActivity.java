@@ -86,7 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
             if (mData.get(position).getUrl() != null) {
-                Utils.launchURL(mBack, mData.get(position).getUrl(), this);
+                Utils.launchURL(mData.get(position).getUrl(), this);
             } else if (position == 0) {
                 Intent settings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 settings.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -37,10 +37,10 @@ public class AboutActivity extends AppCompatActivity {
         LinearLayout mMoreApps = findViewById(R.id.play_store);
         LinearLayout mReportIssue = findViewById(R.id.report_issue);
 
-        mSourceCode.setOnClickListener(v -> Utils.launchURL(mSourceCode, "https://github.com/sunilpaulmathew/sNotz/", this));
-        mMoreApps.setOnClickListener(v -> Utils.launchURL(mMoreApps, "https://play.google.com/store/apps/dev?id=5836199813143882901", this));
-        mReportIssue.setOnClickListener(v -> Utils.launchURL(mReportIssue, "https://github.com/sunilpaulmathew/sNotz/issues/new", this));
-        mSunil.setOnClickListener(v -> Utils.launchURL(mSunil, "https://github.com/sunilpaulmathew", this));
+        mSourceCode.setOnClickListener(v -> Utils.launchURL("https://github.com/sunilpaulmathew/sNotz/", this));
+        mMoreApps.setOnClickListener(v -> Utils.launchURL("https://play.google.com/store/apps/dev?id=5836199813143882901", this));
+        mReportIssue.setOnClickListener(v -> Utils.launchURL("https://github.com/sunilpaulmathew/sNotz/issues/new", this));
+        mSunil.setOnClickListener(v -> Utils.launchURL("https://github.com/sunilpaulmathew", this));
         mCancel.setOnClickListener(v -> onBackPressed());
 
         mAppName.setText(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);

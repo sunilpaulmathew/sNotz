@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -204,18 +203,7 @@ public class Utils {
         snackBar.show();
     }
 
-    public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        assert cm != null;
-        return (cm.getActiveNetworkInfo() != null) && cm.getActiveNetworkInfo().isConnectedOrConnecting();
-    }
-
-
-    public static void launchURL(View view, String url, Activity activity) {
-        if (!isNetworkAvailable(activity)) {
-            showSnackbar(view, activity.getString(R.string.no_internet));
-            return;
-        }
+    public static void launchURL(String url, Activity activity) {
         try {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
@@ -239,14 +227,6 @@ public class Utils {
 
     public static void saveInt(String name, int value, Context context) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(name, value).apply();
-    }
-
-    public static String getString(String name, String defaults, Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(name, defaults);
-    }
-
-    public static void saveString(String name, String value, Context context) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(name, value).apply();
     }
 
     public static boolean exist(String file) {
