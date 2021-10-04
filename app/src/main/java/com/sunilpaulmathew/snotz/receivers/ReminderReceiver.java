@@ -56,6 +56,7 @@ public class ReminderReceiver extends BroadcastReceiver {
                     .setContentIntent(mPendingIntent)
                     .setChannelId("channel")
                     .build();
+            sNotzReminders.delete(sNotzReminders.getReminderMessage(context), context);
         }
         
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

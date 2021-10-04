@@ -42,6 +42,28 @@ public class sNotzReminders {
         }
     }
 
+    public static void delete(String noteToDelete, Context context) {
+        mJSONObject = new JSONObject();
+        mJSONArray = new JSONArray();
+        Date mDate = Calendar.getInstance().getTime();
+        int hour = mDate.getHours();
+        int min = mDate.getMinutes();
+        try {
+            for (ReminderItems items : getRawData(context)) {
+                if (!items.getNote().equals(noteToDelete) && items.getMin() != min && items.getHour() != hour) {
+                    JSONObject reminder = new JSONObject();
+                    reminder.put("note", items.getNote());
+                    reminder.put("hour", items.getHour());
+                    reminder.put("min", items.getMin());
+                    mJSONArray.put(reminder);
+                }
+            }
+            mJSONObject.put("reminders", mJSONArray);
+            Utils.create(mJSONObject.toString(), context.getCacheDir().getPath() + "/reminders");
+        } catch (JSONException ignored) {
+        }
+    }
+
     public static void initialize(String note, int hour, int min, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
