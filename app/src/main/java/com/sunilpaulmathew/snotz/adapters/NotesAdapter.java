@@ -109,6 +109,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         Utils.reloadUI(item.getContext()).execute();
                         break;
                     case 2:
+                        Common.setID(-1);
                         Common.setNote(this.data.get(position).getNote());
                         Intent setAlarm = new Intent(holder.mRVCard.getContext(), ReminderActivity.class);
                         holder.mRVCard.getContext().startActivity(setAlarm);

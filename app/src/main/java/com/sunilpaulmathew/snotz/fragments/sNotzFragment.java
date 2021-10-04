@@ -27,6 +27,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.AboutActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
+import com.sunilpaulmathew.snotz.activities.RemindersActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -151,7 +152,10 @@ public class sNotzFragment extends Fragment {
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mMenu);
             Menu menu = popupMenu.getMenu();
             menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.settings));
-            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.about));
+            if (Utils.exist(requireActivity().getCacheDir().getPath() + "/reminders")) {
+                menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.reminders));
+            }
+            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
@@ -159,6 +163,10 @@ public class sNotzFragment extends Fragment {
                         startActivity(settings);
                         break;
                     case 1:
+                        Intent reminders = new Intent(requireActivity(), RemindersActivity.class);
+                        startActivity(reminders);
+                        break;
+                    case 2:
                         Intent aboutsNotz = new Intent(requireActivity(), AboutActivity.class);
                         startActivity(aboutsNotz);
                         break;

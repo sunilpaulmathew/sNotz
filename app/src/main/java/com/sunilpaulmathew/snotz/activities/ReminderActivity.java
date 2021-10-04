@@ -52,10 +52,12 @@ public class ReminderActivity extends AppCompatActivity {
             mIntent.putExtra("id", mNotificationID);
             mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
 
-            if (Utils.exist(getCacheDir().getPath() + "/reminders")) {
-                sNotzReminders.add(Common.getNote(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(), this);
+            if (Common.getID() != -1) {
+                sNotzReminders.edit(Common.getNote(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(),Common.getID(), this);
+            } else if (Utils.exist(getCacheDir().getPath() + "/reminders")) {
+                sNotzReminders.add(Common.getNote(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(), mNotificationID,this);
             } else {
-                sNotzReminders.initialize(Common.getNote(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(), this);
+                sNotzReminders.initialize(Common.getNote(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(), mNotificationID, this);
             }
             Utils.saveInt("notificationID", mNotificationID + 1, this);
             finish();

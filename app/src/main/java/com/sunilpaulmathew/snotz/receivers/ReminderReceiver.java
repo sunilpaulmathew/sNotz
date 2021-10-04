@@ -29,7 +29,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         Uri mAlarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
         int mNotificationID = sNotzReminders.getNotificationID(context);
-        
+
         Intent mIntent = new Intent(context, MainActivity.class);
         mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -56,7 +56,6 @@ public class ReminderReceiver extends BroadcastReceiver {
                     .setContentIntent(mPendingIntent)
                     .setChannelId("channel")
                     .build();
-            sNotzReminders.delete(sNotzReminders.getReminderMessage(context), context);
         }
         
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

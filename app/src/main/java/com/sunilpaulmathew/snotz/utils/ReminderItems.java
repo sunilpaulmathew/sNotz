@@ -8,17 +8,22 @@ import java.io.Serializable;
 public class ReminderItems implements Serializable {
 
 
-    private final int mHour, mMin;
+    private final int mHour, mID, mMin;
     private final String mNote;
 
-    public ReminderItems(String note, int hour, int min) {
+    public ReminderItems(String note, int hour, int min, int id) {
         this.mNote = note;
         this.mHour = hour;
         this.mMin = min;
+        this.mID = id;
     }
 
     public int getHour() {
         return mHour;
+    }
+
+    public int getNotificationID() {
+        return mID;
     }
 
     public int getMin() {

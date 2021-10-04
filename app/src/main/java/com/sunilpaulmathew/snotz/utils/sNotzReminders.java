@@ -17,10 +17,12 @@ import java.util.Objects;
  */
 public class sNotzReminders {
 
+    private static int mPosition = -1;
     private static JSONObject mJSONObject;
     private static JSONArray mJSONArray;
+    private static String mNote = null;
 
-    public static void add(String noteToAdd, int hour, int min, Context context) {
+    public static void add(String noteToAdd, int hour, int min, int id, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
         try {
@@ -29,12 +31,14 @@ public class sNotzReminders {
                 reminder.put("note", items.getNote());
                 reminder.put("hour", items.getHour());
                 reminder.put("min", items.getMin());
+                reminder.put("id", items.getNotificationID());
                 mJSONArray.put(reminder);
             }
             JSONObject reminder = new JSONObject();
             reminder.put("note", noteToAdd);
             reminder.put("hour", hour);
             reminder.put("min", min);
+            reminder.put("id", id);
             mJSONArray.put(reminder);
             mJSONObject.put("reminders", mJSONArray);
             Utils.create(mJSONObject.toString(), context.getCacheDir().getPath() + "/reminders");
@@ -42,19 +46,43 @@ public class sNotzReminders {
         }
     }
 
-    public static void delete(String noteToDelete, Context context) {
+    public static void edit(String noteToEdit, int hour, int min, int id, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
-        Date mDate = Calendar.getInstance().getTime();
-        int hour = mDate.getHours();
-        int min = mDate.getMinutes();
         try {
             for (ReminderItems items : getRawData(context)) {
-                if (!items.getNote().equals(noteToDelete) && items.getMin() != min && items.getHour() != hour) {
+                if (items.getNotificationID() != id) {
                     JSONObject reminder = new JSONObject();
                     reminder.put("note", items.getNote());
                     reminder.put("hour", items.getHour());
                     reminder.put("min", items.getMin());
+                    reminder.put("id", items.getNotificationID());
+                    mJSONArray.put(reminder);
+                }
+            }
+            JSONObject reminder = new JSONObject();
+            reminder.put("note", noteToEdit);
+            reminder.put("hour", hour);
+            reminder.put("min", min);
+            reminder.put("id", id);
+            mJSONArray.put(reminder);
+            mJSONObject.put("reminders", mJSONArray);
+            Utils.create(mJSONObject.toString(), context.getCacheDir().getPath() + "/reminders");
+        } catch (JSONException ignored) {
+        }
+    }
+
+    public static void delete(int id, Context context) {
+        mJSONObject = new JSONObject();
+        mJSONArray = new JSONArray();
+        try {
+            for (ReminderItems items : getRawData(context)) {
+                if (items.getNotificationID() != id) {
+                    JSONObject reminder = new JSONObject();
+                    reminder.put("note", items.getNote());
+                    reminder.put("hour", items.getHour());
+                    reminder.put("min", items.getMin());
+                    reminder.put("id", items.getNotificationID());
                     mJSONArray.put(reminder);
                 }
             }
@@ -64,7 +92,7 @@ public class sNotzReminders {
         }
     }
 
-    public static void initialize(String note, int hour, int min, Context context) {
+    public static void initialize(String note, int hour, int min, int id, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
         try {
@@ -72,6 +100,7 @@ public class sNotzReminders {
             reminder.put("note", note);
             reminder.put("hour", hour);
             reminder.put("min", min);
+            reminder.put("id", id);
             mJSONArray.put(reminder);
             mJSONObject.put("reminders", mJSONArray);
             Utils.create(mJSONObject.toString(), context.getCacheDir().getPath() + "/reminders");
@@ -84,7 +113,7 @@ public class sNotzReminders {
         for (int i = 0; i < Objects.requireNonNull(getReminders(context)).length(); i++) {
             try {
                 JSONObject command = Objects.requireNonNull(getReminders(context)).getJSONObject(i);
-                mData.add(new ReminderItems(getNote(command.toString()), getHour(command.toString()), getMin(command.toString())));
+                mData.add(new ReminderItems(getNote(command.toString()), getHour(command.toString()), getMin(command.toString()), getID(command.toString())));
             } catch (JSONException ignored) {
             }
         }
@@ -106,10 +135,12 @@ public class sNotzReminders {
         int mMin = mDate.getMinutes();
         for (ReminderItems items : sNotzReminders.getRawData(context)) {
             if (mHour == items.getHour() && mMin == items.getMin()) {
-                return items.getNote();
+                mNote = items.getNote();
+                mPosition = items.getNotificationID();
             }
         }
-        return null;
+        delete(mPosition, context);
+        return mNote;
     }
 
     private static String getNote(String string) {
@@ -134,6 +165,15 @@ public class sNotzReminders {
         try {
             JSONObject obj = new JSONObject(string);
             return obj.getInt("min");
+        } catch (JSONException ignored) {
+        }
+        return 0;
+    }
+
+    private static int getID(String string) {
+        try {
+            JSONObject obj = new JSONObject(string);
+            return obj.getInt("id");
         } catch (JSONException ignored) {
         }
         return 0;

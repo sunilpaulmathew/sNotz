@@ -14,7 +14,7 @@ public class Common {
     public static RecyclerView mRecyclerView;
 
     private static boolean mHiddenNotes = false, mReload = false;
-    private static int mColorBackground = -1, mColorText = -1;
+    private static int mColorBackground = -1, mColorText = -1, mId = -1;
     private static String mNote = null, mSearchText = null;
 
     public static BiometricPrompt getBiometricPrompt() {
@@ -40,6 +40,10 @@ public class Common {
 
     public static int getBackgroundColor() {
         return mColorBackground;
+    }
+
+    public static int getID() {
+        return mId;
     }
 
     public static int getTextColor() {
@@ -68,6 +72,10 @@ public class Common {
 
     public static void setBackgroundColor(int color) {
         mColorBackground = color;
+    }
+
+    public static void setID(int id) {
+        mId = id;
     }
 
     public static void setNote(String note) {
