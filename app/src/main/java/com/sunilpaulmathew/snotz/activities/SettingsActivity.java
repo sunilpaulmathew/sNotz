@@ -122,6 +122,7 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             Utils.saveInt("accent_color", selectedColor, this);
+                            Utils.showSnackbar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_background)));
                             Utils.reloadUI(this).execute();
                             Common.isReloading(true);
                         })
@@ -138,6 +139,7 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             Utils.saveInt("text_color", selectedColor, this);
+                            Utils.showSnackbar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_text)));
                             Utils.reloadUI(this).execute();
                             Common.isReloading(true);
                         })

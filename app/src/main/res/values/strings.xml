@@ -25,6 +25,7 @@
     <string name="clear_notes_message">Please note. All the notes will be deleted</string>
     <string name="clear_notes_summary">Delete all the notes from sNotz</string>
     <string name="choose_color">Choose Color</string>
+    <string name="choose_color_message">Please Note: The new \'%s\' will be only applied to new notes.</string>
     <string name="color_select_dialog">Choose %s of the notes</string>
     <string name="content_hint">Add content here…</string>
     <string name="created_order">Date Created</string>
