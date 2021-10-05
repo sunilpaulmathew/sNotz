@@ -1,0 +1,20 @@
+<b>sNotz</b> is an open-source, privacy-friendly, secure, and completely offline application, which will let you create, customize, and manage simple notes on your android device.
+
+<b>Features</b>
+- Easily create & manage simple notes.
+- Support biometric authentication to secure notes.
+- Supports using custom colors (background and text) for individual notes.
+- Sort notes alphabetically, or by date or background color.
+- Supports creating secret notes that are hidden from thr main UI by default.
+- Create reminders (for individual notes: experimental).
+- Export and easily share notes via third-party apps.
+- No cloud storage or login requirements. sNotz works completely offline.
+- Offers a simple backup/restore functionality for those who want to get old notes on a new device.
+
+<b>Privacy Policy</b>
+
+The developer of <b>sNotz</b> doesn't collect any kind of user data from the app. Other than the official Auto Backup by google, <b>sNotz</b> doesn't use any third-party data backup systems. All the notes are stored locally in "json" format within the files directory (/data/data/com.sunilpaulmathew.snotz/files/) of <b>sNotz</b>. For more information, please read the privacy policy at <a href="https://smartpack.github.io/privacy-policy/">https://smartpack.github.io/privacy-policy/</a>. Also, a very detailed FAQ can be found at <a href="https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8">https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8</a>.
+
+<b>Translations</b>
+
+Please help me to translate this application via <a href='https://poeditor.com/join/project?hash=LOg2GmFfbV'>POEditor</a>. You may also translate after downloading the original language string available <a href='https://github.com/sunilpaulmathew/sNotz/blob/master/app/src/main/res/values/strings.xml'>here</a>.
