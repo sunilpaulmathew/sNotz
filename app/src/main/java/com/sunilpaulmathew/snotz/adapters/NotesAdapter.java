@@ -56,7 +56,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return new ViewHolder(rowItem);
     }
 
-    @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
         if (Common.getSearchText() != null && Common.isTextMatched(this.data.get(position).getNote())) {
@@ -164,7 +164,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     sNotzUtils.deleteNote(this.data.get(position).getNoteID(), item.getContext());
                                     data.remove(position);
                                     notifyItemRemoved(position);
-                                    notifyDataSetChanged();
+                                    Utils.reloadUI(item.getContext());
                                 })
                                 .show();
                         break;
