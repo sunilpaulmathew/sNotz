@@ -32,6 +32,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
+import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -188,9 +189,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
             } else if (position == 8) {
-                Intent donations = new Intent(this, BillingActivity.class);
-                startActivity(donations);
-                finish();
+                Billing.showDonationMenu(this);
             } else if (position == 9) {
                 Intent share_app = new Intent();
                 share_app.setAction(Intent.ACTION_SEND);
