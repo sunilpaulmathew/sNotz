@@ -62,7 +62,9 @@ public class ReminderReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(mNotificationChannel);
         }
-        notificationManager.notify(mNotificationID, mNotification);
+        try {
+            notificationManager.notify(mNotificationID, mNotification);
+        } catch (NullPointerException ignored) {}
     }
     
 }

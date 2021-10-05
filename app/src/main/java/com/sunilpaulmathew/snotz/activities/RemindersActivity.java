@@ -1,6 +1,7 @@
 package com.sunilpaulmathew.snotz.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -17,7 +18,12 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.RemindersAdapter;
 import com.sunilpaulmathew.snotz.receivers.ReminderReceiver;
 import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.ReminderItems;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 04, 2021
@@ -33,7 +39,7 @@ public class RemindersActivity extends AppCompatActivity {
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        RemindersAdapter mRecycleViewAdapter = new RemindersAdapter(sNotzReminders.getRawData(this));
+        RemindersAdapter mRecycleViewAdapter = new RemindersAdapter(getData(this));
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
@@ -41,15 +47,15 @@ public class RemindersActivity extends AppCompatActivity {
                     R.array.reminder_options), (dialogInterface, i) -> {
                 switch (i) {
                     case 0:
-                        Common.setNote(sNotzReminders.getRawData(this).get(position).getNote());
-                        Common.setID(sNotzReminders.getRawData(this).get(position).getNotificationID());
+                        Common.setNote(getData(this).get(position).getNote());
+                        Common.setID(getData(this).get(position).getNotificationID());
                         Intent editReminder = new Intent(this, ReminderActivity.class);
                         startActivity(editReminder);
                         finish();
                         break;
                     case 1:
-                        deleteReminder(sNotzReminders.getRawData(this).get(position).getNotificationID());
-                        mRecyclerView.setAdapter(new RemindersAdapter(sNotzReminders.getRawData(this)));
+                        deleteReminder(getData(this).get(position).getNotificationID(), this);
+                        mRecyclerView.setAdapter(new RemindersAdapter(getData(this)));
                         break;
                 }
             }).setOnDismissListener(dialogInterface -> {
@@ -59,14 +65,20 @@ public class RemindersActivity extends AppCompatActivity {
         mBack.setOnClickListener(v -> finish());
     }
 
-    private void deleteReminder(int id) {
-        AlarmManager mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent mIntent = new Intent(this, ReminderReceiver.class);
+    private static void deleteReminder(int id, Activity activity) {
+        AlarmManager mAlarmManager = (AlarmManager) activity.getSystemService(ALARM_SERVICE);
+        Intent mIntent = new Intent(activity, ReminderReceiver.class);
         @SuppressLint("UnspecifiedImmutableFlag")
-        PendingIntent mPendingIntent = PendingIntent.getBroadcast(this, id, mIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent mPendingIntent = PendingIntent.getBroadcast(activity, id, mIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         mAlarmManager.cancel(mPendingIntent);
-        sNotzReminders.delete(id, this);
+        sNotzReminders.delete(id, activity);
         Common.setID(-1);
+    }
+
+    private static List<ReminderItems> getData(Activity activity) {
+        List<ReminderItems> mData = new ArrayList<>(sNotzReminders.getRawData(activity));
+        Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(String.valueOf((lhs.getHour() * 60) + lhs.getMin()), String.valueOf((rhs.getHour() * 60) + rhs.getMin())));
+        return mData;
     }
 
 }

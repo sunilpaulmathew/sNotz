@@ -153,7 +153,8 @@ public class sNotzFragment extends Fragment {
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mMenu);
             Menu menu = popupMenu.getMenu();
             menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.settings));
-            if (sNotzReminders.getRawData(requireActivity()).size() > 0) {
+            if (Utils.exist(requireActivity().getCacheDir().getPath() + "/reminders") && sNotzReminders
+                    .getRawData(requireActivity()).size() > 0) {
                 menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.reminders));
             }
             menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
