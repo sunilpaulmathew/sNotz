@@ -6,7 +6,8 @@
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
 ![](https://img.shields.io/github/contributors/sunilpaulmathew/sNotz)
 
-### sNotz is the simplest application to manage notes.
+### sNotz is an open-source, privacy-friendly, secure, and completely offline application, which will let you create, customize, and manage simple notes on your android device.
+
 
 ## Download
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
