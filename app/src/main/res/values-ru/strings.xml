@@ -2,7 +2,6 @@
 
     <string name="about">О программе</string>
     <string name="add_text_hint">Добавьте сюда текст…</string>
-    <string name="app_name_summary">Самое простое приложение для управления заметками!</string>
     <string name="activated">активировано</string>
     <string name="authenticate">Аутентифицировать</string>
     <string name="authentication_error">Ошибка аутентификации: %s</string>

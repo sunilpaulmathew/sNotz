@@ -3,7 +3,7 @@
 
     <string name="about">About</string>
     <string name="add_text_hint">Add text here…</string>
-    <string name="app_name_summary">The simplest application to manage notes</string>
+    <string name="app_name_summary" translatable="false">An open-source, privacy-friendly, and completely offline application to manage notes</string>
     <string name="activated">activated</string>
     <string name="authenticate">Authenticate</string>
     <string name="authentication_error">Authentication Error: %s</string>

@@ -2,7 +2,6 @@
 
     <string name="about">Про додаток</string>
     <string name="add_text_hint">Додайте текст сюди…</string>
-    <string name="app_name_summary">Найпростіший додаток для керування нотатками!</string>
     <string name="activated">активовано</string>
     <string name="authenticate">Аутентифікація</string>
     <string name="authentication_error">Помилка аутентифікації: %s</string>

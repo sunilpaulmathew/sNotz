@@ -2,7 +2,6 @@
 
     <string name="about">Tentang</string>
     <string name="add_text_hint">Tambahkan teks di sini…</string>
-    <string name="app_name_summary">Aplikasi paling sederhana untuk mengelola catatan!</string>
     <string name="activated">Diaktifkan</string>
     <string name="authenticate">Otentikasi</string>
     <string name="authentication_error">Kesalahan otentikasi: %s</string>

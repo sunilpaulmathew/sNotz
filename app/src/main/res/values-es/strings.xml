@@ -2,7 +2,6 @@
 
     <string name="about">"Acerca de"</string>
     <string name="add_text_hint">"Agrega texto aquí…"</string>
-    <string name="app_name_summary">"¡La aplicación más sencilla para gestionar notas!"</string>
     <string name="activated">"activado"</string>
     <string name="authenticate">"Autenticar"</string>
     <string name="authentication_error">"Error de autenticación:% s"</string>
