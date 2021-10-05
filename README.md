@@ -2,7 +2,7 @@
 
 ![sNotz](app/src/main/res/mipmap-xxxhdpi/ic_launcher.png?raw=true)
 
-[![](https://img.shields.io/badge/sNotz-v0.12-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
+[![](https://img.shields.io/badge/sNotz-v0.13-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
 ![](https://img.shields.io/github/contributors/sunilpaulmathew/sNotz)
 
@@ -10,11 +10,11 @@
 
 ## Download
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-     alt=""
-     height="80">](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
+alt=""
+height="80">](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 [<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
-     alt=""
-     height="80">](https://github.com/sunilpaulmathew/sNotz/blob/master/release/com.sunilpaulmathew.snotz.apk?raw=true)
+alt=""
+height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.13/app-release.apk)
 
 ## Features
 * Easily create simple notes.
@@ -39,6 +39,7 @@ If you like to appreciate my work, please consider donating to me (either via [P
 
 ## Credits
 * [Grarak](https://github.com/Grarak/), Code contributions (I took some code from [Kernel Adiutor](https://github.com/Grarak/KernelAdiutor/))
+* [QuadFlask](https://github.com/QuadFlask/colorpicker/), Color Picker
 * [MONSTER_PC](https://t.me/MONSTER_PC), Russian & Ukrainian Translations
 * [Hafitz Setya](https://github.com/breakdowns), Indonesian Translations
 * [Mikesew1320](https://github.com/Mikesew1320), Amharic Translations
