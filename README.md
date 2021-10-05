@@ -1,6 +1,6 @@
 # sNotz
 
-![sNotz](app/src/main/res/mipmap-xxxhdpi/ic_launcher.png?raw=true)
+<p style="text-align: center"><img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/002.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/001.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/003.jpg" alt="" width="250" height="450" /></p>
 
 [![](https://img.shields.io/badge/sNotz-v0.13-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
@@ -14,7 +14,7 @@ alt=""
 height="80">](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 [<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
 alt=""
-height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.13/app-release.apk)
+height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.13/app-fdroid-release.apk)
 
 ## Features
 * Easily create simple notes.
@@ -47,7 +47,7 @@ If you like to appreciate my work, please consider donating to me (either via [P
 
 ## License
 
-    Copyright (C) 2020-2021 sunilpaulmathew <sunil.kde@gmail.com>
+    Copyright (C) 2021-2022 sunilpaulmathew <sunil.kde@gmail.com>
 
     sNotz is a free softwares: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
