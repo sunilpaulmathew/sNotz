@@ -1,6 +1,7 @@
 <b>sNotz</b> is an open-source, privacy-friendly, secure, and completely offline application, which will let you create, customize, and manage simple notes on your android device.
 
 <b>Features</b>
+
 - Easily create & manage simple notes.
 - Support biometric authentication to secure notes.
 - Supports using custom colors (background and text) for individual notes.
