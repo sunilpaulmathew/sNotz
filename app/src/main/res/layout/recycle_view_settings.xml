@@ -1,9 +1,10 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:gravity="center"
-    android:padding="10dp"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:padding="10dp" >
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/icon"
@@ -41,5 +42,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="end|center"
+            android:visibility="gone" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/circle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end|center"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="15dp"
             android:visibility="gone" />
 </FrameLayout>

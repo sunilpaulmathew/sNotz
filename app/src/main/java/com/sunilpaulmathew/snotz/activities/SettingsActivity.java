@@ -124,6 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
                             Utils.saveInt("accent_color", selectedColor, this);
                             Utils.showSnackbar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_background)));
                             Utils.reloadUI(this).execute();
+                            mRecycleViewAdapter.notifyItemChanged(position);
                             Common.isReloading(true);
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
@@ -141,6 +142,7 @@ public class SettingsActivity extends AppCompatActivity {
                             Utils.saveInt("text_color", selectedColor, this);
                             Utils.showSnackbar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_text)));
                             Utils.reloadUI(this).execute();
+                            mRecycleViewAdapter.notifyItemChanged(position);
                             Common.isReloading(true);
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {

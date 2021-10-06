@@ -9,12 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.ArrayList;
 
@@ -78,6 +80,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 }
                 notifyItemChanged(position);
             });
+        } else if (position == 3) {
+            holder.mCircle.setVisibility(View.VISIBLE);
+            holder.mCircle.setCardBackgroundColor(sNotzColor.getAccentColor(holder.mCircle.getContext()));
+        } else if (position == 4) {
+            holder.mCircle.setVisibility(View.VISIBLE);
+            holder.mCircle.setCardBackgroundColor(sNotzColor.getTextColor(holder.mCircle.getContext()));
         }
     }
 
@@ -88,6 +96,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final AppCompatImageButton mIcon;
+        private final MaterialCardView mCircle;
         private final MaterialCheckBox mCheckBox;
         private final MaterialTextView mTitle, mDescription;
 
@@ -98,6 +107,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             this.mTitle = view.findViewById(R.id.title);
             this.mDescription = view.findViewById(R.id.description);
             this.mCheckBox = view.findViewById(R.id.checkbox);
+            this.mCircle = view.findViewById(R.id.circle);
         }
 
         @Override
