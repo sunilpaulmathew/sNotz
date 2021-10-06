@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -164,15 +163,10 @@ public class SettingsActivity extends AppCompatActivity {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
             } else if (position == 6) {
-                if (Utils.isPermissionDenied(this)) {
-                    ActivityCompat.requestPermissions(this, new String[]{
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                } else {
-                    Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
-                    restore.setType("*/*");
-                    restore.addCategory(Intent.CATEGORY_OPENABLE);
-                    startActivityForResult(restore, 0);
-                }
+                Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
+                restore.setType("*/*");
+                restore.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(restore, 0);
             } else if (position == 7) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this)
@@ -277,19 +271,6 @@ public class SettingsActivity extends AppCompatActivity {
                     Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
                 }, this).setOnDismissListener(dialogInterface -> {
         }).show();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == 1 && grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
-            restore.setType("*/*");
-            restore.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(restore, 0);
-        }
-
     }
 
     @Override
