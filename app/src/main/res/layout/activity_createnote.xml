@@ -72,18 +72,36 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical" >
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/contents"
+            <LinearLayout
+                android:id="@+id/linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:cursorVisible="true"
-                android:gravity="top|start"
-                android:hint="@string/add_text_hint"
-                android:textStyle="bold|italic"
-                android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
-                android:padding="10dp"
-                android:textSize="18sp" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@null" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add"
+                    android:layout_margin="10dp"
+                    android:background="@null"
+                    android:visibility="gone" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/contents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:cursorVisible="true"
+                    android:gravity="top|start"
+                    android:hint="@string/add_text_hint"
+                    android:textStyle="bold|italic"
+                    android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
+                    android:padding="10dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
@@ -97,7 +115,7 @@
         android:padding="5dp" >
 
         <LinearLayout
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:layout_height="wrap_content"
             android:background="@color/color_white"
             android:orientation="vertical"
@@ -124,8 +142,18 @@
                 app:cardCornerRadius="5dp" />
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:tint="@color/color_teal"
+            android:src="@drawable/ic_add"
+            android:layout_weight="0.2"
+            android:background="@null" />
+
         <LinearLayout
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:layout_height="wrap_content"
             android:background="@color/color_white"
             android:orientation="vertical"

@@ -31,6 +31,7 @@ import com.sunilpaulmathew.snotz.activities.ReminderActivity;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
+import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
@@ -56,7 +57,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return new ViewHolder(rowItem);
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
         if (Common.getSearchText() != null && Common.isTextMatched(this.data.get(position).getNote())) {
@@ -161,9 +162,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
                                 })
                                 .setPositiveButton(R.string.delete, (dialog, which) -> {
-                                    sNotzUtils.deleteNote(this.data.get(position).getNoteID(), item.getContext());
+                                    if (data.size() == 1) {
+                                        Utils.delete(item.getContext().getFilesDir().getPath() + "/snotz");
+                                    } else {
+                                        sNotzUtils.deleteNote(this.data.get(position).getNoteID(), item.getContext());
+                                    }
+                                    data.remove(position);
                                     notifyItemRemoved(position);
-                                    Utils.reloadUI(item.getContext());
+                                    notifyDataSetChanged();
                                 })
                                 .show();
                         break;
@@ -178,6 +184,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             Common.setNote(this.data.get(position).getNote());
             Common.setBackgroundColor(this.data.get(position).getColorBackground());
             Common.setTextColor(this.data.get(position).getColorText());
+            if (this.data.get(position).getImageString() != null) {
+                Common.setImageString(this.data.get(position).getImageString());
+            }
             Common.isHiddenNote(this.data.get(position).isHidden());
             Intent editNote = new Intent(holder.mRVCard.getContext(), CreateNoteActivity.class);
             holder.mRVCard.getContext().startActivity(editNote);

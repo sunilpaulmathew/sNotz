@@ -47,6 +47,9 @@
     <string name="hide">Hide</string>
     <string name="hidden_note">Hidden Note</string>
     <string name="hidden_note_message">Visit \'Settings\' page to change the visibility of hidden notes</string>
+    <string name="image_add">Add Image</string>
+    <string name="image_remove">Remove Image</string>
+    <string name="image_replace">Replace Image</string>
     <string name="invite_friends">Invite Friends</string>
     <string name="invite_friends_Summary">Invite your friends to try sNotz</string>
     <string name="long_click_note_message">Long click a note for advanced options, such as \'share\', \'hide\' &amp; \'delete\'</string>

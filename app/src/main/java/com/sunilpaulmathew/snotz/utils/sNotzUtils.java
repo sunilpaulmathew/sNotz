@@ -1,12 +1,16 @@
 package com.sunilpaulmathew.snotz.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Editable;
+import android.util.Base64;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +30,7 @@ public class sNotzUtils {
         for (int i = 0; i < sNotzData.getsNotzItems(backupData).length(); i++) {
             try {
                 JSONObject command = Objects.requireNonNull(sNotzData.getsNotzItems(backupData)).getJSONObject(i);
-                mRestoreData.add(new sNotzItems(sNotzData.getNote(command.toString()), sNotzData.getDate(command.toString()), sNotzData.isHidden(command.toString()),
+                mRestoreData.add(new sNotzItems(sNotzData.getNote(command.toString()), sNotzData.getDate(command.toString()), sNotzData.getImage(command.toString()), sNotzData.isHidden(command.toString()),
                         sNotzData.getBackgroundColor(command.toString(), context), sNotzData.getTextColor(command.toString(), context), i));
             } catch (JSONException ignored) {
             }
@@ -50,7 +54,25 @@ public class sNotzUtils {
         return sNotzData.getsNotzItems(backupData) != null;
     }
 
-    public static void addNote(Editable newNote, int colorBg, int colorTxt, boolean hidden,
+    public static String bitmapToBase64(Bitmap bitmap) {
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (Exception ignored) {}
+        return null;
+    }
+
+    public static Bitmap stringToBitmap(String string) {
+        try {
+            byte[] imageAsBytes = Base64.decode(string.getBytes(), Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+        } catch (Exception ignored) {}
+        return null;
+    }
+
+    public static void addNote(Editable newNote, String image, int colorBg, int colorTxt, boolean hidden,
                                Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
@@ -59,6 +81,7 @@ public class sNotzUtils {
                 JSONObject note = new JSONObject();
                 note.put("note", items.getNote());
                 note.put("date", items.getTimeStamp());
+                note.put("image", items.getImageString());
                 note.put("hidden", items.isHidden());
                 note.put("colorBackground", items.getColorBackground());
                 note.put("colorText", items.getColorText());
@@ -68,6 +91,7 @@ public class sNotzUtils {
             JSONObject note = new JSONObject();
             note.put("note", newNote);
             note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+            note.put("image", image);
             note.put("hidden", hidden);
             note.put("colorBackground", colorBg);
             note.put("colorText", colorTxt);
@@ -89,6 +113,7 @@ public class sNotzUtils {
                     JSONObject note = new JSONObject();
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
+                    note.put("image", items.getImageString());
                     note.put("hidden", items.isHidden());
                     note.put("colorBackground", items.getColorBackground());
                     note.put("colorText", items.getColorText());
@@ -112,6 +137,7 @@ public class sNotzUtils {
                     JSONObject note = new JSONObject();
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
+                    note.put("image", items.getImageString());
                     note.put("hidden", items.isHidden());
                     note.put("colorBackground", items.getColorBackground());
                     note.put("colorText", items.getColorText());
@@ -121,6 +147,7 @@ public class sNotzUtils {
                     JSONObject note = new JSONObject();
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
+                    note.put("image", items.getImageString());
                     note.put("hidden", hidden);
                     note.put("colorBackground", items.getColorBackground());
                     note.put("colorText", items.getColorText());
@@ -134,7 +161,7 @@ public class sNotzUtils {
         }
     }
 
-    public static void initializeNotes(Editable newNote, int colorBg, int colorTxt, boolean hidden,
+    public static void initializeNotes(Editable newNote, String image, int colorBg, int colorTxt, boolean hidden,
                                        Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
@@ -142,6 +169,7 @@ public class sNotzUtils {
             JSONObject note = new JSONObject();
             note.put("note", newNote);
             note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+            note.put("image", image);
             note.put("hidden", hidden);
             note.put("colorBackground", colorBg);
             note.put("colorText", colorTxt);
@@ -163,6 +191,7 @@ public class sNotzUtils {
                     JSONObject note = new JSONObject();
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
+                    note.put("image", items.getImageString());
                     note.put("hidden", items.isHidden());
                     note.put("colorBackground", items.getColorBackground());
                     note.put("colorText", items.getColorText());
@@ -176,6 +205,7 @@ public class sNotzUtils {
                     JSONObject note = new JSONObject();
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
+                    note.put("image", items.getImageString());
                     note.put("hidden", items.isHidden());
                     note.put("colorBackground", items.getColorBackground());
                     note.put("colorText", items.getColorText());
@@ -190,7 +220,7 @@ public class sNotzUtils {
         }
     }
 
-    public static void updateNote(Editable newNote, String oldNote, int colorBg, int colorTxt,
+    public static void updateNote(Editable newNote, String oldNote, String image, int colorBg, int colorTxt,
                                   boolean hidden, Context context) {
         mJSONObject = new JSONObject();
         mJSONArray = new JSONArray();
@@ -201,6 +231,7 @@ public class sNotzUtils {
                 if (items.getNote().equals(oldNote)) {
                     note.put("note", newNote);
                     note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.put("image", image);
                     note.put("hidden", hidden);
                     note.put("colorBackground", colorBg);
                     note.put("colorText", colorTxt);
@@ -209,6 +240,7 @@ public class sNotzUtils {
                 } else {
                     note.put("note", items.getNote());
                     note.put("date", items.getTimeStamp());
+                    note.put("image", items.getImageString());
                     note.put("hidden", items.isHidden());
                     note.put("colorBackground", items.getColorBackground());
                     note.put("colorText", items.getColorText());
@@ -231,6 +263,7 @@ public class sNotzUtils {
                 JSONObject note = new JSONObject();
                 note.put("note", items.getNote());
                 note.put("date", items.getTimeStamp());
+                note.put("image", items.getImageString());
                 note.put("hidden", items.isHidden());
                 note.put("colorBackground", items.getColorBackground());
                 note.put("colorText", items.getColorText());

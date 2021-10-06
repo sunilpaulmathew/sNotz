@@ -15,7 +15,7 @@ public class Common {
 
     private static boolean mHiddenNotes = false, mReload = false;
     private static int mColorBackground = -1, mColorText = -1, mId = -1;
-    private static String mNote = null, mSearchText = null;
+    private static String mImageString = null, mNote = null, mSearchText = null;
 
     public static BiometricPrompt getBiometricPrompt() {
         return mBiometricPrompt;
@@ -58,6 +58,10 @@ public class Common {
         return mRecyclerView = view.findViewById(id);
     }
 
+    public static String getImageString() {
+        return mImageString;
+    }
+
     public static String getNote() {
         return mNote;
     }
@@ -76,6 +80,10 @@ public class Common {
 
     public static void setID(int id) {
         mId = id;
+    }
+
+    public static void setImageString(String imageString) {
+        mImageString = imageString;
     }
 
     public static void setNote(String note) {
