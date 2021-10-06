@@ -162,7 +162,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 })
                                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                                     sNotzUtils.deleteNote(this.data.get(position).getNoteID(), item.getContext());
-                                    data.remove(position);
                                     notifyItemRemoved(position);
                                     Utils.reloadUI(item.getContext());
                                 })
