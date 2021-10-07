@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -206,10 +208,15 @@ public class CreateNoteActivity extends AppCompatActivity {
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
-                        Intent addImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        try {
-                            startActivityForResult(addImage, 0);
-                        } catch (ActivityNotFoundException ignored) {}
+                        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(this)) {
+                            ActivityCompat.requestPermissions(this, new String[] {
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                        } else {
+                            Intent addImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            try {
+                                startActivityForResult(addImage, 0);
+                            } catch (ActivityNotFoundException ignored) {}
+                        }
                         break;
                     case 1:
                         mImage.setImageBitmap(null);
@@ -284,6 +291,18 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == 0 && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Intent addImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            try {
+                startActivityForResult(addImage, 0);
+            } catch (ActivityNotFoundException ignored) {}
+        }
+
+    }
 
     @Override
     public void onStart() {
