@@ -2,6 +2,7 @@ package com.sunilpaulmathew.snotz.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -92,6 +94,10 @@ public class CreateNoteActivity extends AppCompatActivity {
             mImage.setImageBitmap(sNotzUtils.stringToBitmap(Common.getImageString()));
             if (sNotzUtils.stringToBitmap(Common.getImageString()) != null) {
                 mImage.setVisibility(View.VISIBLE);
+                mImage.setOnClickListener(v -> {
+                    Intent imageView = new Intent(this, ImageViewActivity.class);
+                    startActivity(imageView);
+                });
                 mBitmap = sNotzUtils.stringToBitmap(Common.getImageString());
             }
         }
@@ -188,7 +194,6 @@ public class CreateNoteActivity extends AppCompatActivity {
                 }).build().show());
 
         mBack.setOnClickListener(v -> onBackPressed());
-        mBack.setOnClickListener(v -> onBackPressed());
 
         mAdd.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(this, mAdd);
@@ -221,20 +226,29 @@ public class CreateNoteActivity extends AppCompatActivity {
                 return;
             }
             if (Common.getNote() != null) {
-                sNotzUtils.updateNote(mContents.getText(), Common.getNote(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap) : null), mSelectedColorBg,
+                sNotzUtils.updateNote(mContents.getText(), Common.getNote(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg,
                         mSelectedColorTxt, mHidden.isChecked(),  this);
             } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), this);
+                sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), this);
             } else {
-                sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), this);
+                sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), this);
             }
             if (mExternalNote != null) {
                 Utils.restartApp(this);
             } else {
                 Utils.reloadUI(this).execute();
             }
-            onBackPressed();
+            exit(this);
         });
+    }
+
+    private static void exit(Activity activity) {
+        if (Common.getNote() != null) Common.setNote(null);
+        if (Common.getImageString() != null) Common.setImageString(null);
+        if (Common.isHiddenNote()) Common.isHiddenNote(false);
+        if (Common.getBackgroundColor() != 123456789) Common.setBackgroundColor(123456789);
+        if (Common.getTextColor() != 123456789) Common.setTextColor(123456789);
+        activity.finish();
     }
 
     @Override
@@ -243,8 +257,26 @@ public class CreateNoteActivity extends AppCompatActivity {
         if (requestCode == 0 && data != null && resultCode == RESULT_OK){
             if (data.getData() != null) {
                 try {
+                    float mRatio;
                     mImage.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData()));
                     mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                    int mSize = sNotzUtils.getMaxSize(this);
+                    int mHeight, mWidth;
+                    if (mBitmap.getHeight() > mBitmap.getWidth()) {
+                        mRatio = (float) (mBitmap.getHeight() / mBitmap.getWidth());
+                        mHeight = mSize;
+                        mWidth = (int) (mSize / mRatio);
+                    } else if (mBitmap.getHeight() == mBitmap.getWidth()) {
+                        mHeight = mSize;
+                        mWidth = mSize;
+                    } else {
+                        mRatio = (float) (mBitmap.getWidth() / mBitmap.getHeight());
+                        mHeight = (int) (mSize / mRatio);
+                        mWidth = mSize;
+                    }
+                    LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(mWidth, mHeight);
+                    mLayoutParams.gravity = Gravity.CENTER;
+                    mImage.setLayoutParams(mLayoutParams);
                     mImage.setVisibility(View.VISIBLE);
                 } catch (IOException ignored) {}
             }
@@ -273,12 +305,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.discard, (dialogInterface, i) -> finish()).show();
             return;
         }
-        if (Common.getNote() != null) Common.setNote(null);
-        if (Common.getImageString() != null) Common.setImageString(null);
-        if (Common.isHiddenNote()) Common.isHiddenNote(false);
-        if (Common.getBackgroundColor() != 123456789) Common.setBackgroundColor(123456789);
-        if (Common.getTextColor() != 123456789) Common.setTextColor(123456789);
-        super.onBackPressed();
+        exit(this);
     }
 
 }

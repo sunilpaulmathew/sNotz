@@ -41,6 +41,7 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.ImageViewActivity" />
         <activity android:name=".activities.ReminderActivity" />
         <activity android:name=".activities.RemindersActivity" />
         <activity android:name=".activities.SettingsActivity" />

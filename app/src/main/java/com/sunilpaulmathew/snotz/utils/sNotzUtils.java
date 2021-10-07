@@ -1,10 +1,13 @@
 package com.sunilpaulmathew.snotz.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.Editable;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,11 +56,26 @@ public class sNotzUtils {
     public static boolean validBackup(String backupData) {
         return sNotzData.getsNotzItems(backupData) != null;
     }
+    
+    public static int getMaxSize(Activity activity) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        if (Utils.getOrientation(activity) == Configuration.ORIENTATION_PORTRAIT) {
+            return displayMetrics.widthPixels / 3;
+        } else {
+            return displayMetrics.heightPixels / 3;
+        }
+    }
 
-    public static String bitmapToBase64(Bitmap bitmap) {
+    public static String bitmapToBase64(Bitmap bitmap, Activity activity) {
         try {
+            int size = getMaxSize(activity);
+            float ratio = Math.min((float) size / bitmap.getWidth(), (float) size / bitmap.getHeight());
+            int width = Math.round(ratio * bitmap.getWidth());
+            int height = Math.round(ratio * bitmap.getHeight());
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            Bitmap.createScaledBitmap(bitmap, width, height, true).compress(Bitmap
+                    .CompressFormat.PNG,100, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             return Base64.encodeToString(byteArray, Base64.DEFAULT);
         } catch (Exception ignored) {}
