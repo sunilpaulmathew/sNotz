@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,6 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private AppCompatImageButton mBack;
     private final ArrayList <SettingsItems> mData = new ArrayList<>();
+    private LinearLayout mProgressLayout;
     private String mJSONString = null;
 
     @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
@@ -62,6 +64,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         mBack = findViewById(R.id.back_button);
+        mProgressLayout = findViewById(R.id.progress_layout);
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -108,7 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, this), this);
                     Common.isHiddenNote(false);
-                    Utils.reloadUI(this).execute();
+                    Utils.reloadUI(mProgressLayout,this).execute();
                 }
                 mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 3) {
@@ -123,7 +126,7 @@ public class SettingsActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             Utils.saveInt("accent_color", selectedColor, this);
                             Utils.showSnackbar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_background)));
-                            Utils.reloadUI(this).execute();
+                            Utils.reloadUI(mProgressLayout,this).execute();
                             mRecycleViewAdapter.notifyItemChanged(position);
                             Common.isReloading(true);
                         })
@@ -141,7 +144,7 @@ public class SettingsActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             Utils.saveInt("text_color", selectedColor, this);
                             Utils.showSnackbar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_text)));
-                            Utils.reloadUI(this).execute();
+                            Utils.reloadUI(mProgressLayout,this).execute();
                             mRecycleViewAdapter.notifyItemChanged(position);
                             Common.isReloading(true);
                         })
@@ -177,7 +180,7 @@ public class SettingsActivity extends AppCompatActivity {
                             })
                             .setPositiveButton(R.string.delete, (dialog, which) -> {
                                 Utils.delete(getFilesDir().getPath() + "/snotz");
-                                Utils.reloadUI(this).execute();
+                                Utils.reloadUI(mProgressLayout,this).execute();
                                 onBackPressed();
                             })
                             .show();
@@ -218,7 +221,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if (Common.isHiddenNote()) {
                     Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, SettingsActivity.this), SettingsActivity.this);
                     Common.isHiddenNote(false);
-                    Utils.reloadUI(SettingsActivity.this).execute();
+                    Utils.reloadUI(mProgressLayout,SettingsActivity.this).execute();
                 } else {
                     Utils.useBiometric(mBack, SettingsActivity.this);
                 }
@@ -314,7 +317,7 @@ public class SettingsActivity extends AppCompatActivity {
                     })
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
                         sNotzUtils.restoreNotes(mJSONString, this);
-                        Utils.reloadUI(this).execute();
+                        Utils.reloadUI(mProgressLayout,this).execute();
                         finish();
                     }).show();
         }

@@ -160,12 +160,15 @@ public class Utils {
                 getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
     }
 
-    public static AsyncTasks reloadUI(Context context) {
+    public static AsyncTasks reloadUI(LinearLayout linearLayout, Context context) {
         return new AsyncTasks() {
             private NotesAdapter mNotesAdapter;
 
             @Override
             public void onPreExecute() {
+                if (linearLayout != null) {
+                    linearLayout.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -178,6 +181,9 @@ public class Utils {
                 try {
                     Common.getRecyclerView().setAdapter(mNotesAdapter);
                 } catch (NullPointerException ignored) {}
+                if (linearLayout != null) {
+                    linearLayout.setVisibility(View.GONE);
+                }
             }
         };
     }

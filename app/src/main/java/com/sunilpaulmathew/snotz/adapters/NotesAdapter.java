@@ -31,7 +31,6 @@ import com.sunilpaulmathew.snotz.activities.ReminderActivity;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
-import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
@@ -107,7 +106,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             sNotzUtils.hideNote(this.data.get(position).getNoteID(), true, item.getContext());
                             Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message));
                         }
-                        Utils.reloadUI(item.getContext()).execute();
+                        Utils.reloadUI(null, item.getContext()).execute();
                         break;
                     case 2:
                         Common.setID(-1);

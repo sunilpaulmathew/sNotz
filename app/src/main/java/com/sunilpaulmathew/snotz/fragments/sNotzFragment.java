@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
@@ -58,6 +59,8 @@ public class sNotzFragment extends Fragment {
         mAddIcon = mRootView.findViewById(R.id.add_note_icon);
         mAddNoteCard = mRootView.findViewById(R.id.add_note_card);
         mSearchWord = mRootView.findViewById(R.id.search_word);
+        LinearLayout mProgressLayout = mRootView.findViewById(R.id.progress_layout);
+
         mSearchWord.setTextColor(Color.RED);
 
         Common.initializeRecyclerView(R.id.recycler_view, mRootView);
@@ -65,7 +68,7 @@ public class sNotzFragment extends Fragment {
         Common.getRecyclerView().setLayoutManager(new GridLayoutManager(requireActivity(), Utils.getSpanCount(requireActivity())));
         Common.getRecyclerView().addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
 
-        Utils.reloadUI(requireActivity()).execute();
+        Utils.reloadUI(mProgressLayout, requireActivity()).execute();
 
         mAddIcon.setColorFilter(sNotzColor.getAccentColor(requireActivity()));
         mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
@@ -97,7 +100,7 @@ public class sNotzFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 Common.setSearchText(s.toString().toLowerCase());
-                Utils.reloadUI(requireActivity()).execute();
+                Utils.reloadUI(mProgressLayout, requireActivity()).execute();
             }
         });
 
@@ -125,24 +128,24 @@ public class sNotzFragment extends Fragment {
                     case 1:
                         if (Utils.getInt("sort_notes", 0, requireActivity()) != 2) {
                             Utils.saveInt("sort_notes", 2, requireActivity());
-                            Utils.reloadUI(requireActivity()).execute();
+                            Utils.reloadUI(mProgressLayout, requireActivity()).execute();
                         }
                         break;
                     case 2:
                         if (Utils.getInt("sort_notes", 0, requireActivity()) != 1) {
                             Utils.saveInt("sort_notes", 1, requireActivity());
-                            Utils.reloadUI(requireActivity()).execute();
+                            Utils.reloadUI(mProgressLayout, requireActivity()).execute();
                         }
                         break;
                     case 3:
                         if (Utils.getInt("sort_notes", 0, requireActivity()) != 0) {
                             Utils.saveInt("sort_notes", 0, requireActivity());
-                            Utils.reloadUI(requireActivity()).execute();
+                            Utils.reloadUI(mProgressLayout, requireActivity()).execute();
                         }
                         break;
                     case 4:
                         Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
-                        Utils.reloadUI(requireActivity()).execute();
+                        Utils.reloadUI(mProgressLayout, requireActivity()).execute();
                         break;
                 }
                 return false;

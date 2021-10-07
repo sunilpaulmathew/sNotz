@@ -64,6 +64,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         mImage = findViewById(R.id.image);
         mContents = findViewById(R.id.contents);
+        LinearLayout mProgressLayout = findViewById(R.id.progress_layout);
         MaterialCardView mColorBackground = findViewById(R.id.color_background);
         MaterialCardView mColorText = findViewById(R.id.color_text);
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
@@ -236,7 +237,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             if (mExternalNote != null) {
                 Utils.restartApp(this);
             } else {
-                Utils.reloadUI(this).execute();
+                Utils.reloadUI(mProgressLayout, this).execute();
             }
             exit(this);
         });

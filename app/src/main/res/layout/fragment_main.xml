@@ -75,6 +75,8 @@
                 android:layout_gravity="end" />
         </FrameLayout>
 
+        <include layout="@layout/progress_layout" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"

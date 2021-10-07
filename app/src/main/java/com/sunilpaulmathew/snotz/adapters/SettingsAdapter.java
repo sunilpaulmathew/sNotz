@@ -55,8 +55,17 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             }
         }
-        if (position == 1) {
+        if (position == 1 || position == 2) {
             holder.mCheckBox.setVisibility(View.VISIBLE);
+        } else {
+            holder.mCheckBox.setVisibility(View.GONE);
+        }
+        if (position == 3 || position == 4) {
+            holder.mCircle.setVisibility(View.VISIBLE);
+        } else {
+            holder.mCircle.setVisibility(View.GONE);
+        }
+        if (position == 1) {
             holder.mCheckBox.setChecked(Utils.getBoolean("use_biometric", false, holder.mCheckBox.getContext()));
             holder.mCheckBox.setOnClickListener(v -> {
                 if (Utils.isFingerprintAvailable(holder.mCheckBox.getContext())) {
@@ -67,7 +76,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 notifyItemChanged(position);
             });
         } else if (position == 2) {
-            holder.mCheckBox.setVisibility(View.VISIBLE);
             holder.mCheckBox.setChecked(Utils.getBoolean("hidden_note", false, holder.mCheckBox.getContext()));
             holder.mCheckBox.setOnClickListener(v -> {
                 if (Utils.getBoolean("use_biometric", false, holder.mCheckBox.getContext()) && Utils.isFingerprintAvailable(holder.mCheckBox.getContext())) {
@@ -76,15 +84,13 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 } else {
                     Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, v.getContext()), v.getContext());
                     Common.isHiddenNote(false);
-                    Utils.reloadUI(v.getContext()).execute();
+                    Utils.reloadUI(null, v.getContext()).execute();
                 }
                 notifyItemChanged(position);
             });
         } else if (position == 3) {
-            holder.mCircle.setVisibility(View.VISIBLE);
             holder.mCircle.setCardBackgroundColor(sNotzColor.getAccentColor(holder.mCircle.getContext()));
         } else if (position == 4) {
-            holder.mCircle.setVisibility(View.VISIBLE);
             holder.mCircle.setCardBackgroundColor(sNotzColor.getTextColor(holder.mCircle.getContext()));
         }
     }

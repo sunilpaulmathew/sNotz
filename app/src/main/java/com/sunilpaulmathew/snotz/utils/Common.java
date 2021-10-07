@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class Common {
 
     public static BiometricPrompt mBiometricPrompt = null;
-    public static RecyclerView mRecyclerView;
 
     private static boolean mHiddenNotes = false, mReload = false;
     private static int mColorBackground = -1, mColorText = -1, mId = -1;
+    private static RecyclerView mRecyclerView;
     private static String mImageString = null, mNote = null, mSearchText = null;
 
     public static BiometricPrompt getBiometricPrompt() {
