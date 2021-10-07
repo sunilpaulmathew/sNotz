@@ -11,10 +11,16 @@
 
 ## Download
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-alt=""
+alt="Get it on Google Play"
 height="80">](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+alt="Get it on F-Droid"
+height="80">](https://f-droid.org/packages/com.sunilpaulmathew.snotz)
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
+alt="Get it on IzzyOnDroid"
+height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.sunilpaulmathew.snotz)
 [<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
-alt=""
+alt="Get it on GitHub"
 height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.13/app-fdroid-release.apk)
 
 ## Features
@@ -29,13 +35,13 @@ height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.13/a
 If you like to appreciate my work, please consider donating to me (either via [PayPal](https://www.paypal.me/menacherry/), or [Ko-fi](https://ko-fi.com/sunilpaulmathew/), or by purchasing the [SmartPack Donation Package](https://play.google.com/store/apps/details?id=com.smartpack.donate) from playstore) as it is helpful to continue my projects more active, although it is not at all necessary.
 
 [<img src="https://raw.githubusercontent.com/SmartPack/SmartPack.github.io/master/asset/pic005.png"
-     alt=""
+     alt="PayPal"
      height="80">](https://www.paypal.me/menacherry/)
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-     alt=""
+     alt="Get it on Google Play"
      height="80">](https://play.google.com/store/apps/details?id=com.smartpack.donate)
 [<img src="https://raw.githubusercontent.com/SmartPack/SmartPack.github.io/master/asset/pic010.png"
-     alt=""
+     alt="Ko-fi"
      height="80">](https://ko-fi.com/sunilpaulmathew/)
 
 ## Credits
@@ -62,3 +68,5 @@ If you like to appreciate my work, please consider donating to me (either via [P
 
     You should have received a copy of the GNU General Public License along
     with sNotz. If not, see <http://www.gnu.org/licenses/>.
+    
+[![GNU GPLv3](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)
