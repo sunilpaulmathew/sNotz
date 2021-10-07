@@ -67,12 +67,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         }
         holder.mContents.setTextColor(data.get(position).getColorText());
         holder.mExpand.setOnClickListener(v -> {
-            if (Utils.getBoolean(position + "_expanded", false, holder.mExpand.getContext())) {
-                Utils.saveBoolean(position + "_expanded", false, holder.mExpand.getContext());
+            if (holder.mExpand.getDrawable() == sNotzUtils.getDrawable(R.drawable.ic_collapse, holder.mExpand.getContext())) {
                 holder.mContents.setSingleLine(true);
                 holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_expand, holder.mExpand.getContext()));
             } else {
-                Utils.saveBoolean(position + "_expanded", true, holder.mExpand.getContext());
                 holder.mContents.setSingleLine(false);
                 holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_collapse, holder.mExpand.getContext()));
             }

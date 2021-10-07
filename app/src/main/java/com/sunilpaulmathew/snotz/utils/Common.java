@@ -74,6 +74,10 @@ public class Common {
         mHiddenNotes = b;
     }
 
+    public static void isReloading(boolean b) {
+        mReload = b;
+    }
+
     public static void setBackgroundColor(int color) {
         mColorBackground = color;
     }
@@ -88,10 +92,6 @@ public class Common {
 
     public static void setNote(String note) {
         mNote = note;
-    }
-
-    public static void isReloading(boolean b) {
-        mReload = b;
     }
 
     public static void setSearchText(String searchText) {
