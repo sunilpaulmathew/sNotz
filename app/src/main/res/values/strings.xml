@@ -43,11 +43,13 @@
     <string name="faq">FAQ</string>
     <string name="faq_summary">Read frequently asked questions</string>
     <string name="file_path_error">Failed to get file path from external File Manager</string>
+    <string name="go_ahead">Go Ahead</string>
     <string name="grant">Grant</string>
     <string name="hide">Hide</string>
     <string name="hidden_note">Hidden Note</string>
     <string name="hidden_note_message">Visit \'Settings\' page to change the visibility of hidden notes</string>
     <string name="image_add">Add Image</string>
+    <string name="image_add_warning">Please Note: Adding notes containing images might affects the performance of sNotz.</string>
     <string name="image_remove">Remove Image</string>
     <string name="image_replace">Replace Image</string>
     <string name="invite_friends">Invite Friends</string>
@@ -102,6 +104,7 @@
     <string name="text_empty">Text shouldn\'t be empty. Aborting</string>
     <string name="translations">Translations</string>
     <string name="translations_summary">Help me to translate this app. Click here to visit POEditor localization project.</string>
+    <string name="warning">Warning</string>
     <string name="welcome_note">Welcome Note</string>
     <string name="welcome_note_summary">Show welcome note again</string>
     <string name="yes">Yes</string>
