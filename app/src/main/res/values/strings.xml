@@ -64,6 +64,7 @@
     <string name="press_back_exit">Press the \'Back\' button again to Exit</string>
     <string name="rate_us">Rate Us</string>
     <string name="rate_us_Summary">Rate or/and Review sNotz in PlayStore</string>
+    <string name="reminder_message">sNotz will remind you about this note at %s</string>
     <string name="reminders">Reminders</string>
     <string name="report_issue">Report an Issue</string>
     <string name="restore_error">You\'re selected an invalid backup file. Aborting</string>

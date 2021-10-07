@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /*
@@ -76,7 +78,11 @@ public class RemindersActivity extends AppCompatActivity {
 
     private static List<ReminderItems> getData(Activity activity) {
         List<ReminderItems> mData = new ArrayList<>(sNotzReminders.getRawData(activity));
-        Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(String.valueOf((lhs.getHour() * 60) + lhs.getMin()), String.valueOf((rhs.getHour() * 60) + rhs.getMin())));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Collections.sort(mData, Comparator.comparingInt(lhs -> (lhs.getHour() * 60) + lhs.getMin()));
+        } else {
+            Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(String.valueOf((lhs.getHour() * 60) + lhs.getMin()), String.valueOf((rhs.getHour() * 60) + rhs.getMin())));
+        }
         return mData;
     }
 

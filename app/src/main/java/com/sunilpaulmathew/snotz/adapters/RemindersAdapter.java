@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.ReminderItems;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class RemindersAdapter extends RecyclerView.Adapter<RemindersAdapter.View
     @Override
     public void onBindViewHolder(@NonNull RemindersAdapter.ViewHolder holder, int position) {
         holder.mTitle.setText(this.data.get(position).getNote());
-        holder.mDescription.setText(this.data.get(position).getHour() + ":" + this.data.get(position).getMin());
+        holder.mDescription.setText(Common.getAdjustedTime(this.data.get(position).getHour(), this.data.get(position).getMin()));
         holder.mIcon.setImageDrawable(holder.mIcon.getContext().getDrawable(R.drawable.ic_notifications));
         holder.mTitle.setMaxLines(1);
     }

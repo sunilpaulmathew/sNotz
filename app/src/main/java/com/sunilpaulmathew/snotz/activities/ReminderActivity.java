@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.receivers.ReminderReceiver;
 import com.sunilpaulmathew.snotz.utils.Common;
@@ -24,7 +25,7 @@ import java.util.Calendar;
  */
 public class ReminderActivity extends AppCompatActivity {
 
-    private int mNotificationID;
+    private int mNotificationID, mHour, mMin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +46,31 @@ public class ReminderActivity extends AppCompatActivity {
         PendingIntent mPendingIntent = PendingIntent.getBroadcast(this, mNotificationID, mIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         mSet.setOnClickListener(v -> {
+            mHour = mTimePicker.getHour();
+            mMin = mTimePicker.getMinute();
             Calendar mCalendar = Calendar.getInstance();
-            mCalendar.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
-            mCalendar.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
+            mCalendar.set(Calendar.HOUR_OF_DAY, mHour);
+            mCalendar.set(Calendar.MINUTE, mMin);
             mCalendar.set(Calendar.SECOND, 0);
             mIntent.putExtra("id", mNotificationID);
             mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
 
             if (Common.getID() != -1) {
-                sNotzReminders.edit(Common.getNote(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(),Common.getID(), this);
+                sNotzReminders.edit(Common.getNote(), mHour, mMin,Common.getID(), this);
             } else if (Utils.exist(getCacheDir().getPath() + "/reminders")) {
-                sNotzReminders.add(Common.getNote(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(), mNotificationID,this);
+                sNotzReminders.add(Common.getNote(), mHour, mMin, mNotificationID,this);
             } else {
-                sNotzReminders.initialize(Common.getNote(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(), mNotificationID, this);
+                sNotzReminders.initialize(Common.getNote(), mHour, mMin, mNotificationID, this);
             }
             Utils.saveInt("notificationID", mNotificationID + 1, this);
-            finish();
+            new MaterialAlertDialogBuilder(this)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle(R.string.app_name)
+                    .setMessage(getString(R.string.reminder_message, Common.getAdjustedTime(mHour, mMin)))
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.cancel, (dialogInterface, i) -> {
+                        finish();
+                    }).show();
         });
 
         mBack.setOnClickListener(v -> finish());

@@ -58,6 +58,14 @@ public class Common {
         return mRecyclerView = view.findViewById(id);
     }
 
+    public static String getAdjustedTime(int hour, int min) {
+        if (hour > 12) {
+            return  (hour - 12) + ":" + (min < 10 ? "0" + min : min) + " PM";
+        } else {
+            return hour + ":" + (min < 10 ? "0" + min : min) + " AM";
+        }
+    }
+
     public static String getImageString() {
         return mImageString;
     }
