@@ -10,11 +10,11 @@ import com.sunilpaulmathew.snotz.R;
 public class sNotzColor {
 
     public static int getAccentColor(Context context) {
-        return Utils.getInt("accent_color", context.getResources().getColor(R.color.color_teal), context);
+        return Utils.getInt("accent_color", sNotzUtils.getColor(R.color.color_teal, context), context);
     }
 
     public static int getTextColor(Context context) {
-        return Utils.getInt("text_color", context.getResources().getColor(R.color.color_white), context);
+        return Utils.getInt("text_color", sNotzUtils.getColor(R.color.color_white, context), context);
     }
 
 }

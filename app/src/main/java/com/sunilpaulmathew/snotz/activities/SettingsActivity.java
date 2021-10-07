@@ -57,7 +57,6 @@ public class SettingsActivity extends AppCompatActivity {
     private LinearLayout mProgressLayout;
     private String mJSONString = null;
 
-    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,21 +70,21 @@ public class SettingsActivity extends AppCompatActivity {
         SettingsAdapter mRecycleViewAdapter = new SettingsAdapter(mData);
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
-        mData.add(new SettingsItems(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", "Copyright: © 2021-2022, sunilpaulmathew", getResources().getDrawable(R.drawable.ic_info), null));
-        mData.add(new SettingsItems(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), getResources().getDrawable(R.drawable.ic_fingerprint), null));
-        mData.add(new SettingsItems(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), getResources().getDrawable(R.drawable.ic_eye), null));
-        mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), getResources().getDrawable(R.drawable.ic_color), null));
-        mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), getResources().getDrawable(R.drawable.ic_text), null));
-        mData.add(new SettingsItems(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), getResources().getDrawable(R.drawable.ic_backup), null));
-        mData.add(new SettingsItems(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), getResources().getDrawable(R.drawable.ic_restore), null));
-        mData.add(new SettingsItems(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), getResources().getDrawable(R.drawable.ic_clear), null));
-        mData.add(new SettingsItems(getString(R.string.donations), getString(R.string.donations_summary), getResources().getDrawable(R.drawable.ic_donate), null));
-        mData.add(new SettingsItems(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), getResources().getDrawable(R.drawable.ic_share), null));
-        mData.add(new SettingsItems(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), getResources().getDrawable(R.drawable.ic_home), null));
-        mData.add(new SettingsItems(getString(R.string.translations), getString(R.string.translations_summary), getResources().getDrawable(R.drawable.ic_translate), "https://poeditor.com/join/project?hash=LOg2GmFfbV"));
-        mData.add(new SettingsItems(getString(R.string.rate_us), getString(R.string.rate_us_Summary), getResources().getDrawable(R.drawable.ic_rate), "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"));
-        mData.add(new SettingsItems(getString(R.string.support), getString(R.string.support_summary), getResources().getDrawable(R.drawable.ic_support), "https://t.me/smartpack_kmanager"));
-        mData.add(new SettingsItems(getString(R.string.faq), getString(R.string.faq_summary), getResources().getDrawable(R.drawable.ic_faq), "https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8"));
+        mData.add(new SettingsItems(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", "Copyright: © 2021-2022, sunilpaulmathew", sNotzUtils.getDrawable(R.drawable.ic_info, this), null));
+        mData.add(new SettingsItems(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), sNotzUtils.getDrawable(R.drawable.ic_fingerprint, this), null));
+        mData.add(new SettingsItems(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_eye, this), null));
+        mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), sNotzUtils.getDrawable(R.drawable.ic_color, this), null));
+        mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sNotzUtils.getDrawable(R.drawable.ic_text, this), null));
+        mData.add(new SettingsItems(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_backup, this), null));
+        mData.add(new SettingsItems(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_restore, this), null));
+        mData.add(new SettingsItems(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_clear, this), null));
+        mData.add(new SettingsItems(getString(R.string.donations), getString(R.string.donations_summary), sNotzUtils.getDrawable(R.drawable.ic_donate, this), null));
+        mData.add(new SettingsItems(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), sNotzUtils.getDrawable(R.drawable.ic_share, this), null));
+        mData.add(new SettingsItems(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), sNotzUtils.getDrawable(R.drawable.ic_home, this), null));
+        mData.add(new SettingsItems(getString(R.string.translations), getString(R.string.translations_summary), sNotzUtils.getDrawable(R.drawable.ic_translate, this), "https://poeditor.com/join/project?hash=LOg2GmFfbV"));
+        mData.add(new SettingsItems(getString(R.string.rate_us), getString(R.string.rate_us_Summary), sNotzUtils.getDrawable(R.drawable.ic_rate, this), "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"));
+        mData.add(new SettingsItems(getString(R.string.support), getString(R.string.support_summary), sNotzUtils.getDrawable(R.drawable.ic_support, this), "https://t.me/smartpack_kmanager"));
+        mData.add(new SettingsItems(getString(R.string.faq), getString(R.string.faq_summary), sNotzUtils.getDrawable(R.drawable.ic_faq, this), "https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8"));
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
             if (mData.get(position).getUrl() != null) {
@@ -118,7 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
-                        .initialColor(Utils.getInt("accent_color", getResources().getColor(R.color.color_teal), this))
+                        .initialColor(Utils.getInt("accent_color", sNotzUtils.getColor(R.color.color_teal, this), this))
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
@@ -136,7 +135,7 @@ public class SettingsActivity extends AppCompatActivity {
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
-                        .initialColor(Utils.getInt("text_color", getResources().getColor(R.color.color_white), this))
+                        .initialColor(Utils.getInt("text_color", sNotzUtils.getColor(R.color.color_white, this), this))
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {

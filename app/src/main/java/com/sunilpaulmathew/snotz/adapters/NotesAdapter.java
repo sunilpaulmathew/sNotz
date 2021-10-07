@@ -56,7 +56,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return new ViewHolder(rowItem);
     }
 
-    @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
         if (Common.getSearchText() != null && Common.isTextMatched(this.data.get(position).getNote())) {
@@ -70,11 +70,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             if (Utils.getBoolean(position + "_expanded", false, holder.mExpand.getContext())) {
                 Utils.saveBoolean(position + "_expanded", false, holder.mExpand.getContext());
                 holder.mContents.setSingleLine(true);
-                holder.mExpand.setImageDrawable(holder.mExpand.getContext().getResources().getDrawable(R.drawable.ic_expand));
+                holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_expand, holder.mExpand.getContext()));
             } else {
                 Utils.saveBoolean(position + "_expanded", true, holder.mExpand.getContext());
                 holder.mContents.setSingleLine(false);
-                holder.mExpand.setImageDrawable(holder.mExpand.getContext().getResources().getDrawable(R.drawable.ic_collapse));
+                holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_collapse, holder.mExpand.getContext()));
             }
         });
         holder.mExpand.setColorFilter(sNotzColor.getTextColor(holder.mExpand.getContext()));

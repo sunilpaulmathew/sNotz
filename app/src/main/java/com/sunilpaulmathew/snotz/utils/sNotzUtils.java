@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+
+import androidx.core.content.ContextCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +59,7 @@ public class sNotzUtils {
     public static boolean validBackup(String backupData) {
         return sNotzData.getsNotzItems(backupData) != null;
     }
-    
+        
     public static int getMaxSize(Activity activity) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -65,6 +68,14 @@ public class sNotzUtils {
         } else {
             return displayMetrics.heightPixels / 3;
         }
+    }
+
+    public static int getColor(int color, Context context) {
+        return ContextCompat.getColor(context, color);
+    }
+
+    public static Drawable getDrawable(int drawable, Context context) {
+        return ContextCompat.getDrawable(context, drawable);
     }
 
     public static String bitmapToBase64(Bitmap bitmap, Activity activity) {

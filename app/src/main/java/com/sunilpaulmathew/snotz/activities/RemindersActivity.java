@@ -42,25 +42,24 @@ public class RemindersActivity extends AppCompatActivity {
         RemindersAdapter mRecycleViewAdapter = new RemindersAdapter(getData(this));
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
-        mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
-            new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(
-                    R.array.reminder_options), (dialogInterface, i) -> {
-                switch (i) {
-                    case 0:
-                        Common.setNote(getData(this).get(position).getNote());
-                        Common.setID(getData(this).get(position).getNotificationID());
-                        Intent editReminder = new Intent(this, ReminderActivity.class);
-                        startActivity(editReminder);
-                        finish();
-                        break;
-                    case 1:
-                        deleteReminder(getData(this).get(position).getNotificationID(), this);
-                        mRecyclerView.setAdapter(new RemindersAdapter(getData(this)));
-                        break;
-                }
-            }).setOnDismissListener(dialogInterface -> {
-            }).show();
-        });
+        mRecycleViewAdapter.setOnItemClickListener((position, v) ->
+                new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(
+                R.array.reminder_options), (dialogInterface, i) -> {
+            switch (i) {
+                case 0:
+                    Common.setNote(getData(this).get(position).getNote());
+                    Common.setID(getData(this).get(position).getNotificationID());
+                    Intent editReminder = new Intent(this, ReminderActivity.class);
+                    startActivity(editReminder);
+                    finish();
+                    break;
+                case 1:
+                    deleteReminder(getData(this).get(position).getNotificationID(), this);
+                    mRecyclerView.setAdapter(new RemindersAdapter(getData(this)));
+                    break;
+            }
+        }).setOnDismissListener(dialogInterface -> {
+        }).show());
 
         mBack.setOnClickListener(v -> finish());
     }
