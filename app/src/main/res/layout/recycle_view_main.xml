@@ -41,6 +41,8 @@
                             android:layout_gravity="end|top" />
                 </FrameLayout>
 
+                <include layout="@layout/progress_layout" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/date"
                     android:layout_width="match_parent"

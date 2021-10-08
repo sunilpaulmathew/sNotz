@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         style="?android:attr/progressBarStyleHorizontal"
-        android:progressBackgroundTint="?attr/colorAccent"
+        android:progressBackgroundTint="@color/color_teal"
         android:background="@color/color_black"
         android:layout_gravity="center"
         android:indeterminate="true"

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -96,7 +97,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             sNotzUtils.hideNote(this.data.get(position).getNoteID(), true, item.getContext());
                             Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message));
                         }
-                        Utils.reloadUI(null, item.getContext()).execute();
+                        Utils.reloadUI(holder.mProgress, item.getContext()).execute();
                         break;
                     case 2:
                         Common.setID(-1);
@@ -194,12 +195,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final AppCompatImageButton mExpand;
+        private final LinearLayout mProgress;
         private final MaterialTextView mContents, mDate;
         private final MaterialCardView mRVCard;
 
         public ViewHolder(View view) {
             super(view);
             this.mExpand = view.findViewById(R.id.expand);
+            this.mProgress = view.findViewById(R.id.progress_layout);
             this.mContents = view.findViewById(R.id.contents);
             this.mDate = view.findViewById(R.id.date);
             this.mRVCard = view.findViewById(R.id.rv_card);
