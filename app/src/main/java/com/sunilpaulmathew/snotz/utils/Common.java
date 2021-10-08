@@ -2,7 +2,6 @@ package com.sunilpaulmathew.snotz.utils;
 
 import android.view.View;
 
-import androidx.biometric.BiometricPrompt;
 import androidx.recyclerview.widget.RecyclerView;
 
 /*
@@ -10,16 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class Common {
 
-    public static BiometricPrompt mBiometricPrompt = null;
-
     private static boolean mHiddenNotes = false, mReload = false;
     private static int mColorBackground = -1, mColorText = -1, mId = -1;
     private static RecyclerView mRecyclerView;
     private static String mImageString = null, mNote = null, mSearchText = null;
-
-    public static BiometricPrompt getBiometricPrompt() {
-        return mBiometricPrompt;
-    }
 
     public static boolean isHiddenNote() {
         return mHiddenNotes;

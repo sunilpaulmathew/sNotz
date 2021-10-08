@@ -63,6 +63,13 @@
     <string name="note_list_empty">You haven\'t create any notes yet</string>
     <string name="ok">OK</string>
     <string name="permission_denied_message">Permission denied for accessing device storage</string>
+    <string name="pin_enter">Enter PIN</string>
+    <string name="pin_reenter">Renter PIN</string>
+    <string name="pin_mismatch_message">PIN doesn\'t match. Please try again</string>
+    <string name="pin_protection">PIN Protection</string>
+    <string name="pin_protection_status">PIN Protection is %s</string>
+    <string name="pin_length_warning">PIN should be a 4 digit number</string>
+    <string name="pin_protection_message">Use a 4 digit PIN to secure sNotz</string>
     <string name="press_back_exit">Press the \'Back\' button again to Exit</string>
     <string name="rate_us">Rate Us</string>
     <string name="rate_us_Summary">Rate or/and Review sNotz in PlayStore</string>
@@ -104,6 +111,7 @@
     <string name="text_empty">Text shouldn\'t be empty. Aborting</string>
     <string name="translations">Translations</string>
     <string name="translations_summary">Help me to translate this app. Click here to visit POEditor localization project.</string>
+    <string name="try_again">Try Again</string>
     <string name="warning">Warning</string>
     <string name="welcome_note">Welcome Note</string>
     <string name="welcome_note_summary">Show welcome note again</string>

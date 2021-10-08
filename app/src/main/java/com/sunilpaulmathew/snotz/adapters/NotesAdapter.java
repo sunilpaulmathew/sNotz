@@ -117,7 +117,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             ActivityCompat.requestPermissions((Activity) holder.mRVCard.getContext(), new String[] {
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                         } else {
-                            Utils.dialogEditText(null,
+                            Utils.dialogEditText(null, null,
                                     (dialogInterface, i) -> {
                                     }, text -> {
                                         if (text.isEmpty()) {
@@ -147,7 +147,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         }
                                         Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
                                                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
-                                    }, holder.mRVCard.getContext()).setOnDismissListener(dialogInterface -> {
+                                    }, -1, (Activity) holder.mRVCard.getContext()).setOnDismissListener(dialogInterface -> {
                             }).show();
                         }
                         break;

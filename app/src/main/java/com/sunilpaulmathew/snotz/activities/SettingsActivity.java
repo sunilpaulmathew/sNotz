@@ -34,6 +34,7 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
@@ -53,6 +54,7 @@ import java.util.concurrent.Executor;
 public class SettingsActivity extends AppCompatActivity {
 
     private AppCompatImageButton mBack;
+    private BiometricPrompt mBiometricPrompt;
     private final ArrayList <SettingsItems> mData = new ArrayList<>();
     private LinearLayout mProgressLayout;
     private String mJSONString = null;
@@ -71,7 +73,11 @@ public class SettingsActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
         mData.add(new SettingsItems(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", "Copyright: © 2021-2022, sunilpaulmathew", sNotzUtils.getDrawable(R.drawable.ic_info, this), null));
-        mData.add(new SettingsItems(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), sNotzUtils.getDrawable(R.drawable.ic_fingerprint, this), null));
+        if (Utils.isFingerprintAvailable(this)) {
+            mData.add(new SettingsItems(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), sNotzUtils.getDrawable(R.drawable.ic_fingerprint, this), null));
+        } else {
+            mData.add(new SettingsItems(getString(R.string.pin_protection), getString(R.string.pin_protection_message), sNotzUtils.getDrawable(R.drawable.ic_lock, this), null));
+        }
         mData.add(new SettingsItems(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_eye, this), null));
         mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), sNotzUtils.getDrawable(R.drawable.ic_color, this), null));
         mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sNotzUtils.getDrawable(R.drawable.ic_text, this), null));
@@ -98,21 +104,29 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
             } else if (position == 1) {
                 if (Utils.isFingerprintAvailable(this)) {
-                    Common.getBiometricPrompt().authenticate(Utils.showBiometricPrompt(this));
+                    mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else {
-                    Utils.showSnackbar(mRecyclerView, getString(R.string.biometric_lock_unavailable));
+                    if (Security.isPINEnabled(this)) {
+                        Security.removePIN(this);
+                        mRecycleViewAdapter.notifyItemChanged(position);
+                        Utils.showSnackbar(mRecyclerView, getString(R.string.pin_protection_status, getString(R.string.deactivated)));
+                    } else {
+                        Security.setPIN(false, getString(R.string.pin_enter), mRecycleViewAdapter, this);
+                    }
                 }
-                mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 2) {
                 if (Utils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
                     Common.isHiddenNote(true);
-                    Common.getBiometricPrompt().authenticate(Utils.showBiometricPrompt(this));
+                    mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else {
-                    Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, this), this);
-                    Common.isHiddenNote(false);
-                    Utils.reloadUI(mProgressLayout,this).execute();
+                    if (Security.isPINEnabled(this)) {
+                        Security.manageHiddenNotes(mRecycleViewAdapter, this);
+                    } else {
+                        Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, this), this);
+                        Common.isHiddenNote(false);
+                        Utils.reloadUI(mProgressLayout, this).execute();
+                    }
                 }
-                mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 3) {
                 ColorPickerDialogBuilder
                         .with(this)
@@ -206,7 +220,7 @@ public class SettingsActivity extends AppCompatActivity {
         mBack.setOnClickListener(v -> onBackPressed());
 
         Executor executor = ContextCompat.getMainExecutor(this);
-        Common.mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+        mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
@@ -244,7 +258,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             return;
         }
-        Utils.dialogEditText(null,
+        Utils.dialogEditText(null, null,
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
@@ -273,7 +287,7 @@ public class SettingsActivity extends AppCompatActivity {
                         Utils.create(sNotz, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text);
                     }
                     Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
-                }, this).setOnDismissListener(dialogInterface -> {
+                }, -1, this).setOnDismissListener(dialogInterface -> {
         }).show();
     }
 

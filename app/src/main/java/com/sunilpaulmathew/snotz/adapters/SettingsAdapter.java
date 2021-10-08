@@ -10,13 +10,13 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
+import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.util.ArrayList;
 
@@ -45,10 +45,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         holder.mTitle.setText(this.data.get(position).getTitle());
         holder.mDescription.setText(this.data.get(position).getDescription());
         holder.mIcon.setImageDrawable(this.data.get(position).getIcon());
-        if (!Utils.isFingerprintAvailable(holder.mTitle.getContext()) && position == 1) {
-            holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        }
         if (!Utils.exist(holder.mTitle.getContext().getFilesDir().getPath() + "/snotz")) {
             if (position == 5 || position == 7) {
                 holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -56,9 +52,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             }
         }
         if (position == 1 || position == 2) {
-            holder.mCheckBox.setVisibility(View.VISIBLE);
+            holder.mChecked.setVisibility(View.VISIBLE);
         } else {
-            holder.mCheckBox.setVisibility(View.GONE);
+            holder.mChecked.setVisibility(View.GONE);
         }
         if (position == 3 || position == 4) {
             holder.mCircle.setVisibility(View.VISIBLE);
@@ -66,28 +62,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.mCircle.setVisibility(View.GONE);
         }
         if (position == 1) {
-            holder.mCheckBox.setChecked(Utils.getBoolean("use_biometric", false, holder.mCheckBox.getContext()));
-            holder.mCheckBox.setOnClickListener(v -> {
-                if (Utils.isFingerprintAvailable(holder.mCheckBox.getContext())) {
-                    Common.getBiometricPrompt().authenticate(Utils.showBiometricPrompt(v.getContext()));
-                } else {
-                    Utils.showSnackbar(holder.mCheckBox, holder.mCheckBox.getContext().getString(R.string.biometric_lock_unavailable));
-                }
-                notifyItemChanged(position);
-            });
+            holder.mChecked.setImageDrawable(sNotzUtils.getDrawable(Security.isScreenLocked(holder.mChecked.getContext()) ?
+                    R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked, holder.mChecked.getContext()));
         } else if (position == 2) {
-            holder.mCheckBox.setChecked(Utils.getBoolean("hidden_note", false, holder.mCheckBox.getContext()));
-            holder.mCheckBox.setOnClickListener(v -> {
-                if (Utils.getBoolean("use_biometric", false, holder.mCheckBox.getContext()) && Utils.isFingerprintAvailable(holder.mCheckBox.getContext())) {
-                    Common.isHiddenNote(true);
-                    Common.getBiometricPrompt().authenticate(Utils.showBiometricPrompt(v.getContext()));
-                } else {
-                    Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, v.getContext()), v.getContext());
-                    Common.isHiddenNote(false);
-                    Utils.reloadUI(null, v.getContext()).execute();
-                }
-                notifyItemChanged(position);
-            });
+            holder.mChecked.setImageDrawable(sNotzUtils.getDrawable(Security.isHiddenNotesUnlocked(holder.mChecked.getContext()) ?
+                    R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked, holder.mChecked.getContext()));
         } else if (position == 3) {
             holder.mCircle.setCardBackgroundColor(sNotzColor.getAccentColor(holder.mCircle.getContext()));
         } else if (position == 4) {
@@ -101,9 +80,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final AppCompatImageButton mIcon;
+        private final AppCompatImageButton mChecked, mIcon;
         private final MaterialCardView mCircle;
-        private final MaterialCheckBox mCheckBox;
         private final MaterialTextView mTitle, mDescription;
 
         public ViewHolder(View view) {
@@ -112,7 +90,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             this.mIcon = view.findViewById(R.id.icon);
             this.mTitle = view.findViewById(R.id.title);
             this.mDescription = view.findViewById(R.id.description);
-            this.mCheckBox = view.findViewById(R.id.checkbox);
+            this.mChecked = view.findViewById(R.id.checked);
             this.mCircle = view.findViewById(R.id.circle);
         }
 

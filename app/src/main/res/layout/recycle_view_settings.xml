@@ -37,11 +37,15 @@
                     android:textStyle="italic" />
         </LinearLayout>
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/checkbox"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/checked"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="end|center"
+            android:tint="@color/color_teal"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:clickable="false"
             android:visibility="gone" />
 
         <com.google.android.material.card.MaterialCardView

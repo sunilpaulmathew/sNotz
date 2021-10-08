@@ -15,7 +15,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
-import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
@@ -27,6 +27,7 @@ import java.util.concurrent.Executor;
 public class StartActivity extends AppCompatActivity {
 
     private AppCompatImageView mAppLogo;
+    private BiometricPrompt mBiometricPrompt;
     private MaterialTextView mAuthenticationStatus;
 
     @Override
@@ -56,7 +57,9 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onPostExecute() {
                 if (Utils.getBoolean("use_biometric", false, StartActivity.this)) {
-                    Common.getBiometricPrompt().authenticate(Utils.showBiometricPrompt(StartActivity.this));
+                    mBiometricPrompt.authenticate(Utils.showBiometricPrompt(StartActivity.this));
+                } else if (Security.isPINEnabled(StartActivity.this)) {
+                    Security.authenticate(StartActivity.this);
                 } else {
                     // Launch MainActivity
                     Intent mainActivity = new Intent(StartActivity.this, MainActivity.class);
@@ -67,7 +70,7 @@ public class StartActivity extends AppCompatActivity {
         }.execute();
 
         Executor executor = ContextCompat.getMainExecutor(this);
-        Common.mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+        mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
