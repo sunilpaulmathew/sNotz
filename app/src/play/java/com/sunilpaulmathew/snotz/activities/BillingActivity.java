@@ -26,6 +26,7 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.BillingAdapter;
 import com.sunilpaulmathew.snotz.utils.BillingItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +50,10 @@ public class BillingActivity extends AppCompatActivity {
         AppCompatImageButton mBack = findViewById(R.id.back_button);
         MaterialTextView mCancel = findViewById(R.id.cancel_button);
 
-        mData.add(new BillingItems(getString(R.string.donation_app), getResources().getDrawable(R.drawable.ic_donation_app)));
-        mData.add(new BillingItems(getString(R.string.support_coffee), getResources().getDrawable(R.drawable.ic_coffee)));
-        mData.add(new BillingItems(getString(R.string.support_meal), getResources().getDrawable(R.drawable.ic_meal)));
-        mData.add(new BillingItems(getString(R.string.support_dinner), getResources().getDrawable(R.drawable.ic_dinner)));
+        mData.add(new BillingItems(getString(R.string.donation_app), sNotzUtils.getDrawable(R.drawable.ic_donation_app, this)));
+        mData.add(new BillingItems(getString(R.string.support_coffee), sNotzUtils.getDrawable(R.drawable.ic_coffee, this)));
+        mData.add(new BillingItems(getString(R.string.support_meal), sNotzUtils.getDrawable(R.drawable.ic_meal, this)));
+        mData.add(new BillingItems(getString(R.string.support_dinner), sNotzUtils.getDrawable(R.drawable.ic_dinner, this)));
 
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
