@@ -2,21 +2,31 @@ package com.sunilpaulmathew.snotz.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.Editable;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
+import com.sunilpaulmathew.snotz.BuildConfig;
+import com.sunilpaulmathew.snotz.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +109,55 @@ public class sNotzUtils {
             return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
         } catch (Exception ignored) {}
         return null;
+    }
+
+    private static void bitmapToPNG(Bitmap bitmap, File file) {
+        try {
+            OutputStream outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (IOException ignored) {}
+    }
+
+    public static void shareNote(String note, String imageString, Context context) {
+        Intent share_note = new Intent();
+        share_note.setAction(Intent.ACTION_SEND);
+        share_note.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.shared_by, BuildConfig.VERSION_NAME));
+        share_note.putExtra(Intent.EXTRA_TEXT, "\"" + note + "\"\n\n" +
+                context.getString(R.string.shared_by_message, BuildConfig.VERSION_NAME));
+        if (imageString != null) {
+            new AsyncTasks() {
+                private final File mImageFile = new File(context.getExternalCacheDir(), "photo.png");
+
+                @Override
+                public void onPreExecute() {
+                    if (Utils.exist(mImageFile.toString())) {
+                        Utils.delete(mImageFile.toString());
+                    }
+                }
+
+                @Override
+                public void doInBackground() {
+                    sNotzUtils.bitmapToPNG(Objects.requireNonNull(sNotzUtils.stringToBitmap(imageString)), mImageFile);
+                    Uri uri = FileProvider.getUriForFile(context,BuildConfig.APPLICATION_ID + ".provider", mImageFile);
+                    share_note.putExtra(Intent.EXTRA_STREAM, uri);
+                    share_note.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+
+                @Override
+                public void onPostExecute() {
+                    share_note.setType("image/png");
+                    Intent shareIntent = Intent.createChooser(share_note, context.getString(R.string.share_with));
+                    context.startActivity(shareIntent);
+
+                }
+            }.execute();
+        } else {
+            share_note.setType("text/plain");
+            Intent shareIntent = Intent.createChooser(share_note, context.getString(R.string.share_with));
+            context.startActivity(shareIntent);
+        }
     }
 
     public static void addNote(Editable newNote, String image, int colorBg, int colorTxt, boolean hidden,

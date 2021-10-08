@@ -50,6 +50,7 @@
     <string name="hidden_note_message">Visit \'Settings\' page to change the visibility of hidden notes</string>
     <string name="image_add">Add Image</string>
     <string name="image_add_warning">Please Note: Adding notes containing images might affects the performance of sNotz.</string>
+    <string name="image_excluded_warning">Please Note: Images will be excluded.</string>
     <string name="image_remove">Remove Image</string>
     <string name="image_replace">Replace Image</string>
     <string name="invite_friends">Invite Friends</string>

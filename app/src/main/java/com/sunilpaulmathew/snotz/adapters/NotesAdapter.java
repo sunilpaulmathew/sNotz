@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
-import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.activities.ReminderActivity;
@@ -88,14 +87,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             popupMenu.setOnMenuItemClickListener(popupMenuItem -> {
                 switch (popupMenuItem.getItemId()) {
                     case 0:
-                        Intent share_note = new Intent();
-                        share_note.setAction(Intent.ACTION_SEND);
-                        share_note.putExtra(Intent.EXTRA_SUBJECT, holder.mRVCard.getContext().getString(R.string.shared_by, BuildConfig.VERSION_NAME));
-                        share_note.putExtra(Intent.EXTRA_TEXT, "\"" + this.data.get(position).getNote() + "\"\n\n" +
-                                holder.mRVCard.getContext().getString(R.string.shared_by_message, BuildConfig.VERSION_NAME));
-                        share_note.setType("text/plain");
-                        Intent shareIntent = Intent.createChooser(share_note, holder.mRVCard.getContext().getString(R.string.share_with));
-                        holder.mRVCard.getContext().startActivity(shareIntent);
+                        sNotzUtils.shareNote(this.data.get(position).getNote(), this.data.get(position).getImageString(), holder.mRVCard.getContext());
                         break;
                     case 1:
                         if (this.data.get(position).isHidden()) {
@@ -117,6 +109,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             ActivityCompat.requestPermissions((Activity) holder.mRVCard.getContext(), new String[] {
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                         } else {
+                            if (this.data.get(position).getImageString() != null) {
+                                Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.image_excluded_warning));
+                            }
                             Utils.dialogEditText(null, null,
                                     (dialogInterface, i) -> {
                                     }, text -> {

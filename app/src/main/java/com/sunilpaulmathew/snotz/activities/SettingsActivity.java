@@ -172,6 +172,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 saveDialog(".backup", Utils.read(getFilesDir().getPath() + "/snotz"));
                                 break;
                             case 1:
+                                Utils.showSnackbar(mRecyclerView, getString(R.string.image_excluded_warning));
                                 saveDialog(".txt", sNotzUtils.sNotzToText(this));
                                 break;
                         }
