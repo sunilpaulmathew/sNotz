@@ -44,17 +44,15 @@ public class ReminderReceiver extends BroadcastReceiver {
             mNotificationChannel = new NotificationChannel("channel",context.getString(R.string.app_name), NotificationManager.IMPORTANCE_HIGH);
         }
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-
         Notification mNotification = null;
         if (sNotzReminders.getReminderMessage(context) != null) {
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "channel");
             mNotification = mBuilder.setContentTitle(context.getString(R.string.app_name))
                     .setContentText(sNotzReminders.getReminderMessage(context))
                     .setAutoCancel(true)
                     .setSound(mAlarmSound)
                     .setSmallIcon(R.drawable.ic_notifications)
                     .setContentIntent(mPendingIntent)
-                    .setChannelId("channel")
                     .build();
         }
         

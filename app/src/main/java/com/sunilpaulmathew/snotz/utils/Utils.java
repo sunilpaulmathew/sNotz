@@ -182,32 +182,10 @@ public class Utils {
                 getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
     }
 
-    public static AsyncTasks reloadUI(LinearLayout linearLayout, Context context) {
-        return new AsyncTasks() {
-            private NotesAdapter mNotesAdapter;
-
-            @Override
-            public void onPreExecute() {
-                if (linearLayout != null) {
-                    linearLayout.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void doInBackground() {
-                mNotesAdapter = new NotesAdapter(sNotzData.getData(context));
-            }
-
-            @Override
-            public void onPostExecute() {
-                try {
-                    Common.getRecyclerView().setAdapter(mNotesAdapter);
-                } catch (NullPointerException ignored) {}
-                if (linearLayout != null) {
-                    linearLayout.setVisibility(View.GONE);
-                }
-            }
-        };
+    public static void reloadUI(Context context) {
+        try {
+            Common.getRecyclerView().setAdapter(new NotesAdapter(sNotzData.getData(context)));
+        } catch (NullPointerException ignored) {}
     }
 
     public static void restartApp(Activity activity) {
@@ -257,12 +235,12 @@ public class Utils {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(name, value).apply();
     }
 
-    public static boolean exist(String file) {
-        return new File(file).exists();
+    public static boolean delete(String file) {
+        return new File(file).delete();
     }
 
-    public static void delete(String file) {
-        new File(file).delete();
+    public static boolean exist(String file) {
+        return new File(file).exists();
     }
 
     public static String read(String file) {

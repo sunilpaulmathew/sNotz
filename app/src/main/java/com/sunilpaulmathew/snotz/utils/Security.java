@@ -85,12 +85,10 @@ public class Security {
                                 .setMessage(activity.getString(R.string.pin_mismatch_message))
                                 .setCancelable(false)
                                 .setNegativeButton(R.string.cancel, (dialog, which) -> activity.finish())
-                                .setPositiveButton(R.string.try_again, (dialog, which) -> {
-                                    manageHiddenNotes(adapter, activity);
-                                }).show();
+                                .setPositiveButton(R.string.try_again, (dialog, which) -> manageHiddenNotes(adapter, activity)).show();
                     } else {
                         Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, activity), activity);
-                        Utils.reloadUI(null, activity).execute();
+                        Utils.reloadUI(activity);
                         if (adapter != null) {
                             adapter.notifyItemChanged(2);
                         }

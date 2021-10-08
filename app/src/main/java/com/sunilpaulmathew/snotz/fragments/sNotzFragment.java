@@ -1,5 +1,6 @@
 package com.sunilpaulmathew.snotz.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -30,9 +31,12 @@ import com.sunilpaulmathew.snotz.activities.AboutActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.activities.RemindersActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
+import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
+import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
+import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 
 /*
@@ -68,7 +72,7 @@ public class sNotzFragment extends Fragment {
         Common.getRecyclerView().setLayoutManager(new GridLayoutManager(requireActivity(), Utils.getSpanCount(requireActivity())));
         Common.getRecyclerView().addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
 
-        Utils.reloadUI(mProgressLayout, requireActivity()).execute();
+        loadUI(mProgressLayout, requireActivity()).execute();
 
         mAddIcon.setColorFilter(sNotzColor.getAccentColor(requireActivity()));
         mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
@@ -100,7 +104,7 @@ public class sNotzFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 Common.setSearchText(s.toString().toLowerCase());
-                Utils.reloadUI(mProgressLayout, requireActivity()).execute();
+                loadUI(mProgressLayout, requireActivity()).execute();
             }
         });
 
@@ -128,24 +132,24 @@ public class sNotzFragment extends Fragment {
                     case 1:
                         if (Utils.getInt("sort_notes", 0, requireActivity()) != 2) {
                             Utils.saveInt("sort_notes", 2, requireActivity());
-                            Utils.reloadUI(mProgressLayout, requireActivity()).execute();
+                            loadUI(mProgressLayout, requireActivity()).execute();
                         }
                         break;
                     case 2:
                         if (Utils.getInt("sort_notes", 0, requireActivity()) != 1) {
                             Utils.saveInt("sort_notes", 1, requireActivity());
-                            Utils.reloadUI(mProgressLayout, requireActivity()).execute();
+                            loadUI(mProgressLayout, requireActivity()).execute();
                         }
                         break;
                     case 3:
                         if (Utils.getInt("sort_notes", 0, requireActivity()) != 0) {
                             Utils.saveInt("sort_notes", 0, requireActivity());
-                            Utils.reloadUI(mProgressLayout, requireActivity()).execute();
+                            loadUI(mProgressLayout, requireActivity()).execute();
                         }
                         break;
                     case 4:
                         Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
-                        Utils.reloadUI(mProgressLayout, requireActivity()).execute();
+                        loadUI(mProgressLayout, requireActivity()).execute();
                         break;
                 }
                 return false;
@@ -208,6 +212,29 @@ public class sNotzFragment extends Fragment {
         });
 
         return mRootView;
+    }
+
+    private static AsyncTasks loadUI(LinearLayout linearLayout, Activity activity) {
+        return new AsyncTasks() {
+            private NotesAdapter mNotesAdapter;
+            @Override
+            public void onPreExecute() {
+                linearLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void doInBackground() {
+                mNotesAdapter = new NotesAdapter(sNotzData.getData(activity));
+            }
+
+            @Override
+            public void onPostExecute() {
+                try {
+                    Common.getRecyclerView().setAdapter(mNotesAdapter);
+                } catch (NullPointerException ignored) {}
+                linearLayout.setVisibility(View.GONE);
+            }
+        };
     }
 
     @Override

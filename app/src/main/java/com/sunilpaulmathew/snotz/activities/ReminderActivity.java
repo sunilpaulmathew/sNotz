@@ -68,9 +68,7 @@ public class ReminderActivity extends AppCompatActivity {
                     .setTitle(R.string.app_name)
                     .setMessage(getString(R.string.reminder_message, Common.getAdjustedTime(mHour, mMin)))
                     .setCancelable(false)
-                    .setPositiveButton(R.string.cancel, (dialogInterface, i) -> {
-                        finish();
-                    }).show();
+                    .setPositiveButton(R.string.cancel, (dialogInterface, i) -> finish()).show();
         });
 
         mBack.setOnClickListener(v -> finish());

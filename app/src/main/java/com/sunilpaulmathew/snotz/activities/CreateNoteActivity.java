@@ -140,10 +140,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                             .setMessage(getString(R.string.restore_notes_question, new File(mExternalNote).getName()))
                             .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                             })
-                            .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                                sNotzUtils.restoreNotes(Utils.read(mExternalNote), this);
-                                Utils.restartApp(this);
-                            })
+                            .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> sNotzUtils.restoreNotes(Utils.read(mExternalNote), mProgressLayout,this).execute())
                             .show();
                 } else {
                     mContents.setText(Utils.read(mExternalNote));
@@ -250,16 +247,14 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
             if (Common.getNote() != null) {
                 sNotzUtils.updateNote(mContents.getText(), Common.getNote(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg,
-                        mSelectedColorTxt, mHidden.isChecked(),  this);
+                        mSelectedColorTxt, mHidden.isChecked(),  mProgressLayout,this).execute();
             } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), this);
+                sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgressLayout, this).execute();
             } else {
-                sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), this);
+                sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgressLayout, this).execute();
             }
             if (mExternalNote != null) {
                 Utils.restartApp(this);
-            } else {
-                Utils.reloadUI(mProgressLayout, this).execute();
             }
             exit(this);
         });

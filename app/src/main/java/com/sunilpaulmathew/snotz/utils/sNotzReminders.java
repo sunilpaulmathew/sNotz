@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -130,9 +129,9 @@ public class sNotzReminders {
     }
 
     public static String getReminderMessage(Context context) {
-        Date mDate = Calendar.getInstance().getTime();
-        int mHour = mDate.getHours();
-        int mMin = mDate.getMinutes();
+        Calendar mCalendar = Calendar.getInstance();
+        int mHour = mCalendar.get(Calendar.HOUR_OF_DAY);
+        int mMin = mCalendar.get(Calendar.MINUTE);
         for (ReminderItems items : sNotzReminders.getRawData(context)) {
             if (mHour == items.getHour() && mMin == items.getMin()) {
                 mNote = items.getNote();

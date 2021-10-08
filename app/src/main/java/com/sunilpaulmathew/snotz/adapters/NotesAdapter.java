@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -28,6 +29,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.activities.ReminderActivity;
+import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
@@ -56,7 +58,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return new ViewHolder(rowItem);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
         if (Common.getSearchText() != null && Common.isTextMatched(this.data.get(position).getNote())) {
@@ -92,12 +93,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         break;
                     case 1:
                         if (this.data.get(position).isHidden()) {
-                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), false, item.getContext());
+                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), false, holder.mProgress, item.getContext()).execute();
                         } else {
-                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), true, item.getContext());
+                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), true, holder.mProgress, item.getContext()).execute();
                             Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message));
                         }
-                        Utils.reloadUI(holder.mProgress, item.getContext()).execute();
                         break;
                     case 2:
                         Common.setID(-1);
@@ -154,17 +154,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         this.data.get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
                                 })
-                                .setPositiveButton(R.string.delete, (dialog, which) -> {
-                                    if (data.size() == 1) {
-                                        Utils.delete(item.getContext().getFilesDir().getPath() + "/snotz");
-                                    } else {
-                                        sNotzUtils.deleteNote(this.data.get(position).getNoteID(), item.getContext());
-                                    }
-                                    data.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyDataSetChanged();
-                                })
-                                .show();
+                                .setPositiveButton(R.string.delete, (dialog, which) -> removeNote(position, holder.mProgress, holder.mRVCard.getContext()).execute()).show();
                         break;
                 }
                 return false;
@@ -186,6 +176,34 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
         holder.mDate.setText(this.data.get(position).getTimeStamp());
         holder.mDate.setTextColor(data.get(position).getColorText());
+    }
+
+    private AsyncTasks removeNote(int position, LinearLayout linearLayout, Context context) {
+        return new AsyncTasks() {
+
+            @Override
+            public void onPreExecute() {
+                linearLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void doInBackground() {
+                if (data.size() == 1) {
+                    Utils.delete(context.getFilesDir().getPath() + "/snotz");
+                } else {
+                    sNotzUtils.deleteNote(data.get(position).getNoteID(), context);
+                }
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onPostExecute() {
+                linearLayout.setVisibility(View.GONE);
+                data.remove(position);
+                notifyItemRemoved(position);
+                notifyDataSetChanged();
+            }
+        };
     }
 
     @Override
