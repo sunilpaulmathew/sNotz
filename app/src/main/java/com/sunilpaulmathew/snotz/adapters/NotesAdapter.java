@@ -66,6 +66,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         }
         holder.mContents.setTextColor(data.get(position).getColorText());
         holder.mExpand.setOnClickListener(v -> {
+            if (Common.isWorking()) {
+                return;
+            }
             if (holder.mContents.getLineCount() > 1) {
                 holder.mContents.setSingleLine(true);
                 holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_expand, v.getContext()));
@@ -79,6 +82,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 R.drawable.ic_expand, holder.mExpand.getContext()));
         holder.mExpand.setColorFilter(data.get(position).getColorText());
         holder.mRVCard.setOnLongClickListener(item -> {
+            if (Common.isWorking()) {
+                return true;
+            }
             PopupMenu popupMenu = new PopupMenu(holder.mRVCard.getContext(), holder.mExpand);
             Menu menu = popupMenu.getMenu();
             menu.add(Menu.NONE, 0, Menu.NONE, holder.mRVCard.getContext().getString(R.string.share));
@@ -165,6 +171,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
         holder.mRVCard.setCardBackgroundColor(data.get(position).getColorBackground());
         holder.mRVCard.setOnClickListener(v -> {
+            if (Common.isWorking()) {
+                return;
+            }
             Common.setNote(this.data.get(position).getNote());
             Common.setID(this.data.get(position).getNoteID());
             Common.setBackgroundColor(this.data.get(position).getColorBackground());

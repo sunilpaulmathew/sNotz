@@ -78,6 +78,9 @@ public class sNotzFragment extends Fragment {
         mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
 
         mAddNoteCard.setOnClickListener(v -> {
+            if (Common.isWorking()) {
+                return;
+            }
             Common.setNote(null);
             Common.setImageString(null);
             Common.isHiddenNote(false);
@@ -88,6 +91,9 @@ public class sNotzFragment extends Fragment {
             startActivity(createNote);
         });
         mSearchButton.setOnClickListener(v -> {
+            if (Common.isWorking()) {
+                return;
+            }
             mSearchButton.setVisibility(View.GONE);
             mSortButton.setVisibility(View.GONE);
             mMenu.setVisibility(View.GONE);
@@ -110,6 +116,9 @@ public class sNotzFragment extends Fragment {
         });
 
         mSortButton.setOnClickListener(v -> {
+            if (Common.isWorking()) {
+                return;
+            }
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mSortButton);
             if (Utils.exist(requireActivity().getFilesDir().getPath() + "/snotz")) {
                 Menu menu = popupMenu.getMenu();
@@ -159,6 +168,9 @@ public class sNotzFragment extends Fragment {
         });
 
         mMenu.setOnClickListener(v -> {
+            if (Common.isWorking()) {
+                return;
+            }
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mMenu);
             Menu menu = popupMenu.getMenu();
             menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.settings));

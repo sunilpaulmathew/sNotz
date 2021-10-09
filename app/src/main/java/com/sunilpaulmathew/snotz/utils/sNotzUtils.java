@@ -136,6 +136,7 @@ public class sNotzUtils {
 
                 @Override
                 public void onPreExecute() {
+                    Common.isWorking(true);
                     if (Utils.exist(mImageFile.toString())) {
                         Utils.delete(mImageFile.toString());
                     }
@@ -154,6 +155,7 @@ public class sNotzUtils {
                     share_note.setType("image/png");
                     Intent shareIntent = Intent.createChooser(share_note, context.getString(R.string.share_with));
                     context.startActivity(shareIntent);
+                    Common.isWorking(false);
 
                 }
             }.execute();
@@ -170,6 +172,7 @@ public class sNotzUtils {
             @Override
             public void onPreExecute() {
                 linearLayout.setVisibility(View.VISIBLE);
+                Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
             }
@@ -206,6 +209,7 @@ public class sNotzUtils {
             @Override
             public void onPostExecute() {
                 Utils.reloadUI(context);
+                Common.isWorking(false);
                 linearLayout.setVisibility(View.GONE);
             }
         };
@@ -216,6 +220,7 @@ public class sNotzUtils {
             @Override
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
+                Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
                 i = 0;
@@ -248,6 +253,7 @@ public class sNotzUtils {
             @Override
             public void onPostExecute() {
                 Utils.reloadUI(context);
+                Common.isWorking(false);
                 progressBar.setVisibility(View.GONE);
             }
         };
@@ -258,6 +264,7 @@ public class sNotzUtils {
             @Override
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
+                Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
             }
@@ -297,6 +304,7 @@ public class sNotzUtils {
             @Override
             public void onPostExecute() {
                 Utils.reloadUI(context);
+                Common.isWorking(false);
                 progressBar.setVisibility(View.GONE);
             }
         };
@@ -308,6 +316,7 @@ public class sNotzUtils {
             @Override
             public void onPreExecute() {
                 linearLayout.setVisibility(View.VISIBLE);
+                Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
             }
@@ -333,6 +342,7 @@ public class sNotzUtils {
             @Override
             public void onPostExecute() {
                 Utils.reloadUI(context);
+                Common.isWorking(false);
                 linearLayout.setVisibility(View.GONE);
             }
         };
@@ -343,6 +353,7 @@ public class sNotzUtils {
             @Override
             public void onPreExecute() {
                 linearLayout.setVisibility(View.VISIBLE);
+                Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
                 i = 0;
@@ -388,6 +399,7 @@ public class sNotzUtils {
             @Override
             public void onPostExecute() {
                 Utils.reloadUI(context);
+                Common.isWorking(false);
                 linearLayout.setVisibility(View.GONE);
             }
         };
@@ -399,6 +411,7 @@ public class sNotzUtils {
             @Override
             public void onPreExecute() {
                 linearLayout.setVisibility(View.VISIBLE);
+                Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
             }
@@ -436,6 +449,7 @@ public class sNotzUtils {
             @Override
             public void onPostExecute() {
                 Utils.reloadUI(context);
+                Common.isWorking(false);
                 linearLayout.setVisibility(View.GONE);
             }
         };

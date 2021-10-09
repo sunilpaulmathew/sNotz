@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class Common {
 
-    private static boolean mHiddenNotes = false, mReload = false;
-    private static int mColorBackground = 123456789, mColorText = 123456789, mId = -1;
+    private static boolean mHiddenNotes = false, mReload = false, mWorking = false;
+    private static int mColorBackground = -1, mColorText = -1, mId = -1;
     private static RecyclerView mRecyclerView;
     private static String mImageString = null, mNote = null, mSearchText = null;
 
@@ -29,6 +29,10 @@ public class Common {
 
     public static boolean isReloading() {
         return mReload;
+    }
+
+    public static boolean isWorking() {
+        return mWorking;
     }
 
     public static int getBackgroundColor() {
@@ -77,6 +81,10 @@ public class Common {
 
     public static void isReloading(boolean b) {
         mReload = b;
+    }
+
+    public static void isWorking(boolean b) {
+        mWorking = b;
     }
 
     public static void setBackgroundColor(int color) {
