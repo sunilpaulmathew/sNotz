@@ -41,7 +41,7 @@ public class StartActivity extends AppCompatActivity {
         mAppLogo = findViewById(R.id.app_logo);
         mAuthenticationStatus = findViewById(R.id.authentication_status);
 
-        load(mBiometricPrompt, this).execute();
+        load(this).execute();
 
         Executor executor = ContextCompat.getMainExecutor(this);
         mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
@@ -75,7 +75,7 @@ public class StartActivity extends AppCompatActivity {
         Utils.showBiometricPrompt(this);
     }
 
-    private static AsyncTasks load(BiometricPrompt biometricPrompt, Activity activity) {
+    private AsyncTasks load(Activity activity) {
         return new AsyncTasks() {
 
             @Override
@@ -93,9 +93,9 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onPostExecute() {
                 if (Utils.getBoolean("use_biometric", false, activity)) {
-                    biometricPrompt.authenticate(Utils.showBiometricPrompt(activity));
+                    mBiometricPrompt.authenticate(Utils.showBiometricPrompt(activity));
                 } else if (Security.isPINEnabled(activity)) {
-                    Security.authenticate(activity);
+                    Security.authenticate(false, null, activity);
                 } else {
                     // Launch MainActivity
                     Intent mainActivity = new Intent(activity, MainActivity.class);

@@ -38,13 +38,13 @@ public class Security {
         return Utils.read(new File(context.getCacheDir(),"pin").getAbsolutePath());
     }
 
-    public static void setPIN(String pin, Context context) {
-        Utils.create(pin, new File(context.getCacheDir(),"pin").getAbsolutePath());
-    }
-
     public static void removePIN(Context context) {
         Utils.delete(new File(context.getCacheDir(),"pin").getAbsolutePath());
         Utils.saveBoolean("use_pin", false, context);
+    }
+
+    public static void setPIN(String pin, Context context) {
+        Utils.create(pin, new File(context.getCacheDir(),"pin").getAbsolutePath());
     }
 
     public static void setPIN(boolean verify, String title, SettingsAdapter adapter, Activity activity) {
@@ -97,7 +97,7 @@ public class Security {
         }).show();
     }
 
-    public static void authenticate(Activity activity) {
+    public static void authenticate(boolean remove, SettingsAdapter adapter, Activity activity) {
         Utils.dialogEditText(null, activity.getString(R.string.authenticate),
                 (dialogInterface, i) -> {
                 }, text -> {
@@ -105,15 +105,26 @@ public class Security {
                         new MaterialAlertDialogBuilder(activity)
                                 .setMessage(activity.getString(R.string.pin_mismatch_message))
                                 .setCancelable(false)
-                                .setNegativeButton(R.string.cancel, (dialog, which) -> activity.finish())
-                                .setPositiveButton(R.string.try_again, (dialog, which) -> authenticate(activity)).show();
+                                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                                })
+                                .setPositiveButton(R.string.try_again, (dialog, which) -> authenticate(remove, adapter, activity)).show();
                     } else {
-                        // Launch MainActivity
-                        Intent mainActivity = new Intent(activity, MainActivity.class);
-                        activity.startActivity(mainActivity);
-                        activity.finish();
+                        if (remove) {
+                            removePIN(activity);
+                            adapter.notifyItemChanged(1);
+                            Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
+                                    activity.getString(R.string.deactivated)));
+                        } else {
+                            // Launch MainActivity
+                            Intent mainActivity = new Intent(activity, MainActivity.class);
+                            activity.startActivity(mainActivity);
+                            activity.finish();
+                        }
                     }
                 }, InputType.TYPE_CLASS_NUMBER,activity).setOnDismissListener(dialogInterface -> {
+                    if (!remove) {
+                        activity.finish();
+                    }
         }).show();
     }
 

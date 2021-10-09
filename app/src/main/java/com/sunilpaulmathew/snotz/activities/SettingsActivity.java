@@ -103,9 +103,7 @@ public class SettingsActivity extends AppCompatActivity {
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else {
                     if (Security.isPINEnabled(this)) {
-                        Security.removePIN(this);
-                        mRecycleViewAdapter.notifyItemChanged(position);
-                        Utils.showSnackbar(mRecyclerView, getString(R.string.pin_protection_status, getString(R.string.deactivated)));
+                        Security.authenticate(true, mRecycleViewAdapter,this);
                     } else {
                         Security.setPIN(false, getString(R.string.pin_enter), mRecycleViewAdapter, this);
                     }
