@@ -1,11 +1,10 @@
 package com.sunilpaulmathew.snotz.adapters;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -15,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -29,7 +28,6 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.activities.ReminderActivity;
-import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
@@ -68,15 +66,18 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         }
         holder.mContents.setTextColor(data.get(position).getColorText());
         holder.mExpand.setOnClickListener(v -> {
-            if (holder.mExpand.getDrawable() == sNotzUtils.getDrawable(R.drawable.ic_collapse, holder.mExpand.getContext())) {
+            if (holder.mContents.getLineCount() > 1) {
                 holder.mContents.setSingleLine(true);
-                holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_expand, holder.mExpand.getContext()));
+                holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_expand, v.getContext()));
             } else {
                 holder.mContents.setSingleLine(false);
-                holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_collapse, holder.mExpand.getContext()));
+                holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_collapse, v.getContext()));
             }
         });
         holder.mExpand.setColorFilter(sNotzColor.getTextColor(holder.mExpand.getContext()));
+        holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(holder.mContents.getLineCount() > 1 ? R.drawable.ic_collapse :
+                R.drawable.ic_expand, holder.mExpand.getContext()));
+        holder.mExpand.setColorFilter(data.get(position).getColorText());
         holder.mRVCard.setOnLongClickListener(item -> {
             PopupMenu popupMenu = new PopupMenu(holder.mRVCard.getContext(), holder.mExpand);
             Menu menu = popupMenu.getMenu();
@@ -93,9 +94,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         break;
                     case 1:
                         if (this.data.get(position).isHidden()) {
-                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), false, holder.mProgress, item.getContext()).execute();
+                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), false, holder.mProgress, holder.mRVCard.getContext()).execute();
                         } else {
-                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), true, holder.mProgress, item.getContext()).execute();
+                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), true, holder.mProgress, holder.mRVCard.getContext()).execute();
                             Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message));
                         }
                         break;
@@ -154,7 +155,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         this.data.get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
                                 })
-                                .setPositiveButton(R.string.delete, (dialog, which) -> removeNote(position, holder.mProgress, holder.mRVCard.getContext()).execute()).show();
+                                .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(data.get(position).getNoteID(), holder.mProgress, holder.mRVCard.getContext()).execute()).show();
                         break;
                 }
                 return false;
@@ -165,6 +166,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mRVCard.setCardBackgroundColor(data.get(position).getColorBackground());
         holder.mRVCard.setOnClickListener(v -> {
             Common.setNote(this.data.get(position).getNote());
+            Common.setID(this.data.get(position).getNoteID());
             Common.setBackgroundColor(this.data.get(position).getColorBackground());
             Common.setTextColor(this.data.get(position).getColorText());
             if (this.data.get(position).getImageString() != null) {
@@ -176,34 +178,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
         holder.mDate.setText(this.data.get(position).getTimeStamp());
         holder.mDate.setTextColor(data.get(position).getColorText());
-    }
-
-    private AsyncTasks removeNote(int position, LinearLayout linearLayout, Context context) {
-        return new AsyncTasks() {
-
-            @Override
-            public void onPreExecute() {
-                linearLayout.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void doInBackground() {
-                if (data.size() == 1) {
-                    Utils.delete(context.getFilesDir().getPath() + "/snotz");
-                } else {
-                    sNotzUtils.deleteNote(data.get(position).getNoteID(), context);
-                }
-            }
-
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onPostExecute() {
-                linearLayout.setVisibility(View.GONE);
-                data.remove(position);
-                notifyItemRemoved(position);
-                notifyDataSetChanged();
-            }
-        };
+        holder.mProgress.setIndeterminateTintList(ColorStateList.valueOf(data.get(position).getColorText()));
     }
 
     @Override
@@ -213,14 +188,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final AppCompatImageButton mExpand;
-        private final LinearLayout mProgress;
         private final MaterialTextView mContents, mDate;
         private final MaterialCardView mRVCard;
+        private final ProgressBar mProgress;
 
         public ViewHolder(View view) {
             super(view);
             this.mExpand = view.findViewById(R.id.expand);
-            this.mProgress = view.findViewById(R.id.progress_layout);
+            this.mProgress = view.findViewById(R.id.progress);
             this.mContents = view.findViewById(R.id.contents);
             this.mDate = view.findViewById(R.id.date);
             this.mRVCard = view.findViewById(R.id.rv_card);

@@ -1,19 +1,14 @@
 package com.sunilpaulmathew.snotz.activities;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -34,16 +29,13 @@ import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -54,7 +46,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     private AppCompatImageView mImage;
     private Bitmap mBitmap = null;
     private int mSelectedColorBg, mSelectedColorTxt;
-    private String mExternalNote = null, mNote = null;
+    private String mNote = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,56 +97,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         }
 
-        // Handle notes picked from File Manager
-        if (getIntent().getData() != null) {
-            Uri uri = getIntent().getData();
-            assert uri != null;
-            File file = new File(Objects.requireNonNull(uri.getPath()));
-            if (Utils.isDocumentsUI(uri)) {
-                @SuppressLint("Recycle") Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-                if (cursor != null && cursor.moveToFirst()) {
-                    mExternalNote = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" +
-                            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                }
-            } else {
-                mExternalNote = Utils.getPath(file);
-            }
-            if (mExternalNote != null && Utils.exist(mExternalNote)) {
-                if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(this)) {
-                    LinearLayout mPermissionLayout = findViewById(R.id.permission_layout);
-                    MaterialCardView mPermissionGrant = findViewById(R.id.grant_card);
-                    MaterialTextView mPermissionText = findViewById(R.id.permission_text);
-                    mPermissionText.setText(getString(R.string.permission_denied_message));
-                    mPermissionLayout.setVisibility(View.VISIBLE);
-                    mScrollView.setVisibility(View.GONE);
-                    mSave.setVisibility(View.GONE);
-                    mPermissionGrant.setOnClickListener(v -> {
-                        ActivityCompat.requestPermissions(this, new String[] {
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                        finish();
-                    });
-                    return;
-                }
-                if (sNotzUtils.validBackup(Utils.read(mExternalNote))) {
-                    new MaterialAlertDialogBuilder(this)
-                            .setMessage(getString(R.string.restore_notes_question, new File(mExternalNote).getName()))
-                            .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
-                            })
-                            .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> sNotzUtils.restoreNotes(Utils.read(mExternalNote), mProgressLayout,this).execute())
-                            .show();
-                } else {
-                    mContents.setText(Utils.read(mExternalNote));
-                    mNote = Utils.read(mExternalNote);
-                }
-            } else {
-                new MaterialAlertDialogBuilder(this)
-                        .setIcon(R.mipmap.ic_launcher)
-                        .setTitle(R.string.note_editor)
-                        .setMessage(getString(R.string.file_path_error))
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.cancel, (dialogInterface, i) -> finish()).show();
-            }
-        } else if (Common.getNote() != null) {
+        if (Common.getNote() != null) {
             mHidden.setChecked(Common.isHiddenNote());
             mContents.setText(Common.getNote());
             mNote = Common.getNote();
@@ -246,15 +189,12 @@ public class CreateNoteActivity extends AppCompatActivity {
                 return;
             }
             if (Common.getNote() != null) {
-                sNotzUtils.updateNote(mContents.getText(), Common.getNote(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg,
+                sNotzUtils.updateNote(mContents.getText(), Common.getNote(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
                         mSelectedColorTxt, mHidden.isChecked(),  mProgressLayout,this).execute();
             } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                 sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgressLayout, this).execute();
             } else {
                 sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgressLayout, this).execute();
-            }
-            if (mExternalNote != null) {
-                Utils.restartApp(this);
             }
             exit(this);
         });
@@ -265,6 +205,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         if (Common.getImageString() != null) Common.setImageString(null);
         if (Common.isHiddenNote()) Common.isHiddenNote(false);
         if (Common.getBackgroundColor() != 123456789) Common.setBackgroundColor(123456789);
+        if (Common.getID() != -1) Common.setID(-1);
         if (Common.getTextColor() != 123456789) Common.setTextColor(123456789);
         activity.finish();
     }

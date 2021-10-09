@@ -51,7 +51,6 @@
     <string name="restore_error">"Ha seleccionado un archivo de copia de seguridad no válido. ¡Abortando!"</string>
     <string name="restore_notes">"Restaurar notas"</string>
     <string name="restore_notes_summary">"Restaurar notas desde un archivo de respaldo"</string>
-    <string name="restore_notes_question">"¿Restaurar notas de% s?"</string>
     <string name="reverse_order">"Orden inverso"</string>
     <string name="search_hint">"Buscar…"</string>
     <string name="settings">"Ajustes"</string>

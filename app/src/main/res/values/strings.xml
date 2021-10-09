@@ -80,7 +80,7 @@
     <string name="restore_error">You\'re selected an invalid backup file. Aborting</string>
     <string name="restore_notes">Restore Notes</string>
     <string name="restore_notes_summary">Restore notes from a backup file</string>
-    <string name="restore_notes_question">Restore notes from %s?</string>
+    <string name="restore_notes_question">Restore notes from selected file?</string>
     <string name="reverse_order">Reverse Order</string>
     <string name="save_text">Save as Text</string>
     <string name="save_text_message">The selected note is exported as %s</string>

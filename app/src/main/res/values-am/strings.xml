@@ -57,7 +57,6 @@
     <string name="faq_summary">በተደጋጋሚ የሚጠየቁ ጥያቄዎችን ያንብቡ</string>
     <string name="report_issue">አንድ ችግር ሪፖርት ያድርጉ</string>
     <string name="restore_notes">ማስታወሻዎችን ወደነበረበት መልስ</string>
-    <string name="restore_notes_question">ማስታወሻዎችን ከ%s ይመልሱ?</string>
     <string name="restore_notes_summary">ከመጠባበቂያ ፋይል ማስታወሻዎችን ወደነበሩበት ይመልሱ</string>
     <string name="reverse_order">ተገላቢጦሽ ትዕዛዝ</string>
     <string name="search_hint">ይፈልጉ…</string>

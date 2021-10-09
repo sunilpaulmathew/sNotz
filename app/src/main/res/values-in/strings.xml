@@ -51,7 +51,6 @@
     <string name="restore_error">Anda memilih file cadangan yang tidak valid. Membatalkan!</string>
     <string name="restore_notes">Pulihkan Catatan</string>
     <string name="restore_notes_summary">Pulihkan catatan dari file cadangan</string>
-    <string name="restore_notes_question">Pulihkan catatan dari %s?</string>
     <string name="reverse_order">Urutan terbalik</string>
     <string name="search_hint">Cari…</string>
     <string name="settings">Pengaturan</string>

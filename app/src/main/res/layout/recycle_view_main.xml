@@ -17,31 +17,38 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:layout_height="wrap_content" >
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/contents"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="@string/content_hint"
+                            android:layout_marginEnd="50dp"
                             android:singleLine="true"
                             android:focusable="false"
                             android:textStyle="bold"
                             android:textSize="18sp"
-                            android:padding="10dp"
-                            android:layout_marginEnd="50dp"
-                            android:hint="@string/content_hint" />
+                            android:padding="10dp" />
 
                         <androidx.appcompat.widget.AppCompatImageButton
                             android:id="@+id/expand"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/ic_expand"
-                            android:background="@null"
-                            android:layout_gravity="end|top" />
+                            android:layout_gravity="end|top"
+                            android:background="@null" />
                 </FrameLayout>
 
-                <include layout="@layout/progress_layout" />
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:visibility="gone" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/date"

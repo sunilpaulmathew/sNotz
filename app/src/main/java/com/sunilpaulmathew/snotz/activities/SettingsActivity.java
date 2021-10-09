@@ -1,17 +1,14 @@
 package com.sunilpaulmathew.snotz.activities;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.widget.LinearLayout;
 
@@ -41,7 +38,6 @@ import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -118,14 +114,12 @@ public class SettingsActivity extends AppCompatActivity {
                 if (Utils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
                     Common.isHiddenNote(true);
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
+                } else if (Security.isPINEnabled(this)) {
+                    Security.manageHiddenNotes(mRecycleViewAdapter, this);
                 } else {
-                    if (Security.isPINEnabled(this)) {
-                        Security.manageHiddenNotes(mRecycleViewAdapter, this);
-                    } else {
-                        Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, this), this);
-                        Common.isHiddenNote(false);
-                        Utils.reloadUI( this);
-                    }
+                    Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, this), this);
+                    mRecycleViewAdapter.notifyItemChanged(position);
+                    Utils.reloadUI( this);
                 }
             } else if (position == 3) {
                 ColorPickerDialogBuilder
@@ -298,18 +292,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (resultCode == Activity.RESULT_OK && data != null) {
             Uri uri = data.getData();
-            assert uri != null;
-            File mSelectedFile = null;
-            if (Utils.isDocumentsUI(uri)) {
-                @SuppressLint("Recycle")
-                Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-                if (cursor != null && cursor.moveToFirst()) {
-                    mSelectedFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)));
-                }
-            } else {
-                mSelectedFile = new File(uri.getPath());
-            }
             try {
                 InputStream inputStream = getContentResolver().openInputStream(uri);
                 BufferedInputStream bis = new BufferedInputStream(inputStream);
@@ -325,8 +307,7 @@ public class SettingsActivity extends AppCompatActivity {
                 return;
             }
             new MaterialAlertDialogBuilder(this)
-                    .setMessage(getString(R.string.restore_notes_question, mSelectedFile != null ?
-                            mSelectedFile.getName() : "backup"))
+                    .setMessage(getString(R.string.restore_notes_question))
                     .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                     })
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {

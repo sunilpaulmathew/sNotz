@@ -47,7 +47,6 @@
     <string name="restore_error">Вы выбрали недопустимый файл резервной копии. Неудача!</string>
     <string name="restore_notes">Восстановить заметки</string>
     <string name="restore_notes_summary">Восстановить заметки из бэкапа</string>
-    <string name="restore_notes_question">Восстановить заметки из %s?</string>
     <string name="reverse_order">Обратный порядок</string>
     <string name="search_hint">Поиск…</string>
     <string name="settings">Настройки</string>

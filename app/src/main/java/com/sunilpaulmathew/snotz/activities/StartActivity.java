@@ -1,5 +1,6 @@
 package com.sunilpaulmathew.snotz.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -40,34 +41,7 @@ public class StartActivity extends AppCompatActivity {
         mAppLogo = findViewById(R.id.app_logo);
         mAuthenticationStatus = findViewById(R.id.authentication_status);
 
-        new AsyncTasks() {
-
-            @Override
-            public void onPreExecute() {
-            }
-
-            @Override
-            public void doInBackground() {
-                // Migrate notes into new format
-                if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                    sNotzUtils.reOrganizeNotes(StartActivity.this);
-                }
-            }
-
-            @Override
-            public void onPostExecute() {
-                if (Utils.getBoolean("use_biometric", false, StartActivity.this)) {
-                    mBiometricPrompt.authenticate(Utils.showBiometricPrompt(StartActivity.this));
-                } else if (Security.isPINEnabled(StartActivity.this)) {
-                    Security.authenticate(StartActivity.this);
-                } else {
-                    // Launch MainActivity
-                    Intent mainActivity = new Intent(StartActivity.this, MainActivity.class);
-                    startActivity(mainActivity);
-                    finish();
-                }
-            }
-        }.execute();
+        load(mBiometricPrompt, this).execute();
 
         Executor executor = ContextCompat.getMainExecutor(this);
         mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
@@ -99,6 +73,37 @@ public class StartActivity extends AppCompatActivity {
         });
 
         Utils.showBiometricPrompt(this);
+    }
+
+    private static AsyncTasks load(BiometricPrompt biometricPrompt, Activity activity) {
+        return new AsyncTasks() {
+
+            @Override
+            public void onPreExecute() {
+            }
+
+            @Override
+            public void doInBackground() {
+                // Migrate notes into new format
+                if (Utils.exist(activity.getFilesDir().getPath() + "/snotz")) {
+                    sNotzUtils.reOrganizeNotes(activity);
+                }
+            }
+
+            @Override
+            public void onPostExecute() {
+                if (Utils.getBoolean("use_biometric", false, activity)) {
+                    biometricPrompt.authenticate(Utils.showBiometricPrompt(activity));
+                } else if (Security.isPINEnabled(activity)) {
+                    Security.authenticate(activity);
+                } else {
+                    // Launch MainActivity
+                    Intent mainActivity = new Intent(activity, MainActivity.class);
+                    activity.startActivity(mainActivity);
+                    activity.finish();
+                }
+            }
+        };
     }
 
 }
