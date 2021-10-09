@@ -77,6 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_eye, this), null));
         mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), sNotzUtils.getDrawable(R.drawable.ic_color, this), null));
         mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sNotzUtils.getDrawable(R.drawable.ic_text, this), null));
+        mData.add(new SettingsItems(getString(R.string.image_include), getString(R.string.image_include_summary), sNotzUtils.getDrawable(R.drawable.ic_image, this), null));
         mData.add(new SettingsItems(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_backup, this), null));
         mData.add(new SettingsItems(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_restore, this), null));
         mData.add(new SettingsItems(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_clear, this), null));
@@ -156,6 +157,23 @@ public class SettingsActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
             } else if (position == 5) {
+                if (Utils.getBoolean("allow_images", false, this)) {
+                    Utils.saveBoolean("allow_images", false, this);
+                    mRecycleViewAdapter.notifyItemChanged(position);
+                } else {
+                    new MaterialAlertDialogBuilder(this)
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setTitle(R.string.warning)
+                            .setMessage(getString(R.string.image_add_warning))
+                            .setCancelable(false)
+                            .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                            })
+                            .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
+                                Utils.saveBoolean("allow_images", true, this);
+                                mRecycleViewAdapter.notifyItemChanged(position);
+                            }).show();
+                }
+            } else if (position == 6) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(
                             R.array.backup_options), (dialogInterface, i) -> {
@@ -164,7 +182,9 @@ public class SettingsActivity extends AppCompatActivity {
                                 saveDialog(".backup", Utils.read(getFilesDir().getPath() + "/snotz"));
                                 break;
                             case 1:
-                                Utils.showSnackbar(mRecyclerView, getString(R.string.image_excluded_warning));
+                                if (Utils.getBoolean("allow_images", false, this)) {
+                                    Utils.showSnackbar(mRecyclerView, getString(R.string.image_excluded_warning));
+                                }
                                 saveDialog(".txt", sNotzUtils.sNotzToText(this));
                                 break;
                         }
@@ -173,12 +193,12 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
-            } else if (position == 6) {
+            } else if (position == 7) {
                 Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
                 restore.setType("*/*");
                 restore.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(restore, 0);
-            } else if (position == 7) {
+            } else if (position == 8) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this)
                             .setMessage(getString(R.string.clear_notes_message))
@@ -193,9 +213,9 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
-            } else if (position == 8) {
-                Billing.showDonationMenu(this);
             } else if (position == 9) {
+                Billing.showDonationMenu(this);
+            } else if (position == 10) {
                 Intent share_app = new Intent();
                 share_app.setAction(Intent.ACTION_SEND);
                 share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
@@ -203,7 +223,7 @@ public class SettingsActivity extends AppCompatActivity {
                 share_app.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
                 startActivity(shareIntent);
-            } else if (position == 10) {
+            } else if (position == 11) {
                 Intent welcome = new Intent(this, WelcomeActivity.class);
                 startActivity(welcome);
                 finish();

@@ -155,7 +155,8 @@
             android:tint="@color/color_teal"
             android:src="@drawable/ic_add"
             android:layout_weight="0.2"
-            android:background="@null" />
+            android:background="@null"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_weight="0.8"

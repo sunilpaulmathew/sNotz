@@ -46,12 +46,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         holder.mDescription.setText(this.data.get(position).getDescription());
         holder.mIcon.setImageDrawable(this.data.get(position).getIcon());
         if (!Utils.exist(holder.mTitle.getContext().getFilesDir().getPath() + "/snotz")) {
-            if (position == 5 || position == 7) {
+            if (position == 6 || position == 8) {
                 holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             }
         }
-        if (position == 1 || position == 2) {
+        if (position == 1 || position == 2 || position == 5) {
             holder.mChecked.setVisibility(View.VISIBLE);
         } else {
             holder.mChecked.setVisibility(View.GONE);
@@ -71,6 +71,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.mCircle.setCardBackgroundColor(sNotzColor.getAccentColor(holder.mCircle.getContext()));
         } else if (position == 4) {
             holder.mCircle.setCardBackgroundColor(sNotzColor.getTextColor(holder.mCircle.getContext()));
+        } else if (position == 5) {
+            holder.mChecked.setImageDrawable(sNotzUtils.getDrawable(Utils.getBoolean("allow_images", false,
+                    holder.mChecked.getContext()) ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked,
+                    holder.mChecked.getContext()));
         }
     }
 

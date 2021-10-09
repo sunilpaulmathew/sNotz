@@ -101,6 +101,10 @@ public class NotePickerActivity extends AppCompatActivity {
         mSelectedColorBg = sNotzColor.getAccentColor(this);
         mSelectedColorTxt = sNotzColor.getTextColor(this);
 
+        if (Utils.getBoolean("allow_images", false, this)) {
+            mAdd.setVisibility(View.VISIBLE);
+        }
+
         if (getIntent().getData() != null) {
             // Handle notes picked from File Manager
             try {
@@ -182,21 +186,6 @@ public class NotePickerActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(this)) {
                             ActivityCompat.requestPermissions(this, new String[] {
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-                        } else if (Utils.getBoolean("first_image", true, this)) {
-                            new MaterialAlertDialogBuilder(this)
-                                    .setIcon(R.mipmap.ic_launcher)
-                                    .setTitle(R.string.warning)
-                                    .setMessage(getString(R.string.image_add_warning))
-                                    .setCancelable(false)
-                                    .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                                    })
-                                    .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
-                                        Utils.saveBoolean("first_image", false, this);
-                                        Intent addImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                        try {
-                                            startActivityForResult(addImage, 0);
-                                        } catch (ActivityNotFoundException ignored) {}
-                                    }).show();
                         } else {
                             Intent addImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             try {
@@ -284,6 +273,7 @@ public class NotePickerActivity extends AppCompatActivity {
             public void onPostExecute() {
                 mProgressLayout.setVisibility(View.VISIBLE);
                 Utils.restartApp(activity);
+                finish();
             }
         };
     }
@@ -342,6 +332,7 @@ public class NotePickerActivity extends AppCompatActivity {
             public void onPostExecute() {
                 mProgressLayout.setVisibility(View.GONE);
                 Utils.restartApp(activity);
+                finish();
             }
         }.execute();
     }
