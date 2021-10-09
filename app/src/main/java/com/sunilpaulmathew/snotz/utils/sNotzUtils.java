@@ -175,6 +175,7 @@ public class sNotzUtils {
                 Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
+                i = 0;
             }
 
             @Override
@@ -190,6 +191,7 @@ public class sNotzUtils {
                         note.put("colorText", items.getColorText());
                         note.put("noteID", items.getNoteID());
                         mJSONArray.put(note);
+                        i++;
                     }
                     JSONObject note = new JSONObject();
                     note.put("note", newNote);
@@ -198,7 +200,7 @@ public class sNotzUtils {
                     note.put("hidden", hidden);
                     note.put("colorBackground", colorBg);
                     note.put("colorText", colorTxt);
-                    note.put("noteID", sNotzData.getData(context).size());
+                    note.put("noteID", i);
                     mJSONArray.put(note);
                     mJSONObject.put("sNotz", mJSONArray);
                     Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
