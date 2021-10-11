@@ -20,6 +20,5 @@
         android:layout_marginStart="40dp"
         android:textStyle="bold|italic"
         android:background="@null"
-        android:textSize="20sp"
-        android:maxLines="1" />
+        android:textSize="20sp" />
 </FrameLayout>
