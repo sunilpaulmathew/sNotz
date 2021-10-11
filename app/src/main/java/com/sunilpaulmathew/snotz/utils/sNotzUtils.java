@@ -1,6 +1,5 @@
 package com.sunilpaulmathew.snotz.utils;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -172,26 +171,13 @@ public class sNotzUtils {
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
-                mJSONObject = new JSONObject();
-                mJSONArray = new JSONArray();
-                i = 0;
             }
 
             @Override
             public void doInBackground() {
                 try {
-                    for (sNotzItems items : sNotzData.getRawData(context)) {
-                        JSONObject note = new JSONObject();
-                        note.put("note", items.getNote());
-                        note.put("date", items.getTimeStamp());
-                        note.put("image", items.getImageString());
-                        note.put("hidden", items.isHidden());
-                        note.put("colorBackground", items.getColorBackground());
-                        note.put("colorText", items.getColorText());
-                        note.put("noteID", items.getNoteID());
-                        mJSONArray.put(note);
-                        i++;
-                    }
+                    mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(context.getFilesDir().getPath() + "/snotz")));
+                    mJSONArray = mJSONObject.getJSONArray("sNotz");
                     JSONObject note = new JSONObject();
                     note.put("note", newNote);
                     note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
@@ -199,9 +185,8 @@ public class sNotzUtils {
                     note.put("hidden", hidden);
                     note.put("colorBackground", colorBg);
                     note.put("colorText", colorTxt);
-                    note.put("noteID", i);
+                    note.put("noteID", sNotzData.getData(context).size());
                     mJSONArray.put(note);
-                    mJSONObject.put("sNotz", mJSONArray);
                     Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
                 } catch (JSONException ignored) {
                 }
@@ -222,35 +207,19 @@ public class sNotzUtils {
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
-                mJSONObject = new JSONObject();
-                mJSONArray = new JSONArray();
-                i = 0;
             }
 
             @Override
             public void doInBackground() {
                 try {
-                    for (sNotzItems items : sNotzData.getRawData(context)) {
-                        if (items.getNoteID() != noteID) {
-                            JSONObject note = new JSONObject();
-                            note.put("note", items.getNote());
-                            note.put("date", items.getTimeStamp());
-                            note.put("image", items.getImageString());
-                            note.put("hidden", items.isHidden());
-                            note.put("colorBackground", items.getColorBackground());
-                            note.put("colorText", items.getColorText());
-                            note.put("noteID", i);
-                            i++;
-                            mJSONArray.put(note);
-                            mJSONObject.put("sNotz", mJSONArray);
-                            Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
-                        }
-                    }
+                    mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(context.getFilesDir().getPath() + "/snotz")));
+                    mJSONArray = mJSONObject.getJSONArray("sNotz");
+                    mJSONArray.remove(noteID);
+                    Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
                 } catch (JSONException ignored) {
                 }
             }
 
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onPostExecute() {
                 Utils.reloadUI(context);
@@ -266,37 +235,17 @@ public class sNotzUtils {
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
-                mJSONObject = new JSONObject();
-                mJSONArray = new JSONArray();
             }
 
             @Override
             public void doInBackground() {
                 try {
-                    for (sNotzItems items : sNotzData.getRawData(context)) {
-                        if (items.getNoteID() != noteID) {
-                            JSONObject note = new JSONObject();
-                            note.put("note", items.getNote());
-                            note.put("date", items.getTimeStamp());
-                            note.put("image", items.getImageString());
-                            note.put("hidden", items.isHidden());
-                            note.put("colorBackground", items.getColorBackground());
-                            note.put("colorText", items.getColorText());
-                            note.put("noteID", items.getNoteID());
-                            mJSONArray.put(note);
-                        } else {
-                            JSONObject note = new JSONObject();
-                            note.put("note", items.getNote());
-                            note.put("date", items.getTimeStamp());
-                            note.put("image", items.getImageString());
-                            note.put("hidden", hidden);
-                            note.put("colorBackground", items.getColorBackground());
-                            note.put("colorText", items.getColorText());
-                            note.put("noteID", items.getNoteID());
-                            mJSONArray.put(note);
-                        }
-                    }
-                    mJSONObject.put("sNotz", mJSONArray);
+                    mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(context.getFilesDir().getPath() + "/snotz")));
+                    mJSONArray = mJSONObject.getJSONArray("sNotz");
+                    JSONObject note = new JSONObject(mJSONArray.getJSONObject(noteID).toString());
+                    note.put("hidden", hidden);
+                    mJSONArray.remove(noteID);
+                    mJSONArray.put(note);
                     Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
                 } catch (JSONException ignored) {
                 }
@@ -406,42 +355,30 @@ public class sNotzUtils {
         };
     }
 
-    public static AsyncTasks updateNote(Editable newNote, String oldNote, String image, int noteID, int colorBg,
-                                        int colorTxt, boolean hidden, ProgressBar progressBar, Context context) {
+    public static AsyncTasks updateNote(Editable newNote, String image, int noteID, int colorBg, int colorTxt,
+                                        boolean hidden, ProgressBar progressBar, Context context) {
         return new AsyncTasks() {
             @Override
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
-                mJSONObject = new JSONObject();
-                mJSONArray = new JSONArray();
             }
 
             @Override
             public void doInBackground() {
                 try {
-                    for (sNotzItems items : sNotzData.getRawData(context)) {
-                        JSONObject note = new JSONObject();
-                        if (items.getNote().equals(oldNote)) {
-                            note.put("note", newNote);
-                            note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
-                            note.put("image", image);
-                            note.put("hidden", hidden);
-                            note.put("colorBackground", colorBg);
-                            note.put("colorText", colorTxt);
-                            note.put("noteID", noteID);
-                        } else {
-                            note.put("note", items.getNote());
-                            note.put("date", items.getTimeStamp());
-                            note.put("image", items.getImageString());
-                            note.put("hidden", items.isHidden());
-                            note.put("colorBackground", items.getColorBackground());
-                            note.put("colorText", items.getColorText());
-                            note.put("noteID", items.getNoteID());
-                        }
-                        mJSONArray.put(note);
-                    }
-                    mJSONObject.put("sNotz", mJSONArray);
+                    mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(context.getFilesDir().getPath() + "/snotz")));
+                    mJSONArray = mJSONObject.getJSONArray("sNotz");
+                    JSONObject note = new JSONObject(mJSONArray.getJSONObject(noteID).toString());
+                    note.put("note", newNote);
+                    note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.put("image", image);
+                    note.put("hidden", hidden);
+                    note.put("colorBackground", colorBg);
+                    note.put("colorText", colorTxt);
+                    note.put("noteID", noteID);
+                    mJSONArray.remove(noteID);
+                    mJSONArray.put(note);
                     Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
                 } catch (JSONException ignored) {
                 }

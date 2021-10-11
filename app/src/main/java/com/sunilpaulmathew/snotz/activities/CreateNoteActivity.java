@@ -178,7 +178,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                 return;
             }
             if (Common.getNote() != null) {
-                sNotzUtils.updateNote(mContents.getText(), Common.getNote(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
+                sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
                         mSelectedColorTxt, mHidden.isChecked(),  mProgress,this).execute();
             } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                 sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
