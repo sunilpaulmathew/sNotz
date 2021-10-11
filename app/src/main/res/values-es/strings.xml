@@ -10,7 +10,6 @@
     <string name="biometric_lock">"Bloqueo biométrico"</string>
     <string name="biometric_lock_status">"¡La autenticación biométrica es% s!"</string>
     <string name="biometric_lock_summary">"Utilice la autenticación biométrica para proteger sNotz"</string>
-    <string name="biometric_lock_unavailable">"El soporte biométrico no está disponible en su dispositivo"</string>
     <string name="backup_notes">"Notas de respaldo"</string>
     <string name="backup_notes_message">"¡Tus notas están respaldadas como '% s'!"</string>
     <string name="backup_notes_summary">"Copia de seguridad de sus notas en 'sdcard'"</string>
@@ -39,7 +38,6 @@
     <string name="invite_friends_Summary">"Invita a tus amigos a probar sNotz"</string>
     <string name="long_click_note_message">"Haga clic largo en una nota para opciones avanzadas, como 'compartir', 'ocultar' y 'eliminar'."</string>
     <string name="more_apps">"Más aplicaciones"</string>
-    <string name="no_internet">"¡Por favor revise su conexion a internet!"</string>
     <string name="note_color_background">"Color de fondo"</string>
     <string name="note_color_text">"Color de texto"</string>
     <string name="note_list_empty">"¡Aún no has creado ninguna nota!"</string>

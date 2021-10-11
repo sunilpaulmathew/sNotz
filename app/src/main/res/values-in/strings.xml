@@ -10,7 +10,6 @@
     <string name="biometric_lock">Kunci Biometrik</string>
     <string name="biometric_lock_status">Otentikasi biometrik adalah %s!</string>
     <string name="biometric_lock_summary">Gunakan otentikasi biometrik untuk mengamankan sNotz</string>
-    <string name="biometric_lock_unavailable">Dukungan biometrik tidak tersedia di perangkat Anda</string>
     <string name="backup_notes">Catatan Cadangan</string>
     <string name="backup_notes_message">Catatan Anda dicadangkan sebagai \'%s\'!</string>
     <string name="backup_notes_summary">Cadangkan catatan Anda ke \'sdcard\'</string>
@@ -39,7 +38,6 @@
     <string name="invite_friends_Summary">Undang teman Anda untuk mencoba sNotz</string>
     <string name="long_click_note_message">Klik panjang catatan untuk opsi lanjutan, seperti \'bagikan\', \'sembunyikan\' &amp; \'hapus\'!</string>
     <string name="more_apps">Aplikasi tambahan lainnya</string>
-    <string name="no_internet">Silakan periksa koneksi internet Anda!</string>
     <string name="note_color_background">Warna latar belakang</string>
     <string name="note_color_text">Warna teks</string>
     <string name="note_list_empty">Anda belum membuat catatan apa pun!</string>

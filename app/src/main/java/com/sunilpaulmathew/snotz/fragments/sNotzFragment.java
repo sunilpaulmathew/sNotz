@@ -28,6 +28,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.AboutActivity;
+import com.sunilpaulmathew.snotz.activities.CheckListsActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.activities.RemindersActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
@@ -178,7 +179,8 @@ public class sNotzFragment extends Fragment {
                     .getRawData(requireActivity()).size() > 0) {
                 menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.reminders));
             }
-            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
+            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.check_lists));
+            menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.about));
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
@@ -190,6 +192,10 @@ public class sNotzFragment extends Fragment {
                         startActivity(reminders);
                         break;
                     case 2:
+                        Intent checkLists = new Intent(requireActivity(), CheckListsActivity.class);
+                        startActivity(checkLists);
+                        break;
+                    case 3:
                         Intent aboutsNotz = new Intent(requireActivity(), AboutActivity.class);
                         startActivity(aboutsNotz);
                         break;

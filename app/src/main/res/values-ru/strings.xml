@@ -36,7 +36,6 @@
     <string name="invite_friends_Summary">Пригласите друзей попробовать sNotz</string>
     <string name="long_click_note_message">Нажмите и удерживайте заметку для расширенных параметров, таких как \'поделиться\', \'скрыть\' и \'удалить\'!</string>
     <string name="more_apps">Больше от\nразработчика</string>
-    <string name="no_internet">Пожалуйста, проверьте ваше интернет-соединение!</string>
     <string name="note_color_background">Фоновый цвет</string>
     <string name="note_color_text">Цвет текста</string>
     <string name="ok">OK</string>

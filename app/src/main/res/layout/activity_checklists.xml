@@ -1,0 +1,41 @@
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_black"
+        android:layout_gravity="start"
+        android:gravity="start" >
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_teal"
+            android:text="@string/check_list_main_title"
+            android:layout_marginEnd="50dp"
+            android:gravity="start"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:padding="5dp" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:background="@color/color_black"
+            android:tint="@color/color_teal"
+            android:src="@drawable/ic_add"
+            android:layout_marginEnd="15dp" />
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp" />
+</androidx.appcompat.widget.LinearLayoutCompat>

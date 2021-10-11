@@ -23,7 +23,6 @@
     <string name="backup_notes">ምትኬ ማስታወሻዎች</string>
     <string name="biometric_lock_status">የባዮሜትሪክ ማረጋገጫ%s ነው!</string>
     <string name="biometric_lock">ባዮሜትሪክ ቁልፍ</string>
-    <string name="biometric_lock_unavailable">የባዮሜትሪክ ድጋፍ በመሣሪያዎ ላይ አይገኝም</string>
     <string name="donation_app">የልገሳ መተግበሪያን ይግዙ</string>
     <string name="support_coffee">ቡና ግዛኝ</string>
     <string name="support_dinner">እራት ግዛኝ</string>
@@ -49,7 +48,6 @@
     <string name="developed_by">በ ♥ በ የተሰራ</string>
     <string name="more_apps">ተጨማሪ መተግበሪያዎች</string>
     <string name="ok">እሺ</string>
-    <string name="no_internet">እባክዎ የበይነመረብ ግንኙነትዎን ያረጋግጡ!</string>
     <string name="clear_notes_message">ማስታወሻ ያዝ. ሁሉም ማስታወሻዎች ይሰረዛሉ!</string>
     <string name="support_retry_message">እባክዎ እንደገና ለመግዛት ይሞክሩ!</string>
     <string name="rate_us_Summary">በ PlayStore ውስጥ sNotz ን ይገምግሙ ወይም ይገምግሙ</string>
