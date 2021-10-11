@@ -75,7 +75,18 @@
                 android:layout_gravity="end" />
         </FrameLayout>
 
-        <include layout="@layout/progress_layout" />
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressBackgroundTint="@color/color_teal"
+            android:background="@color/color_black"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

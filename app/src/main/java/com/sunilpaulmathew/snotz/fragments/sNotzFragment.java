@@ -13,9 +13,10 @@ import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -23,8 +24,11 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.AboutActivity;
@@ -39,6 +43,7 @@ import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
+import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -64,7 +69,7 @@ public class sNotzFragment extends Fragment {
         mAddIcon = mRootView.findViewById(R.id.add_note_icon);
         mAddNoteCard = mRootView.findViewById(R.id.add_note_card);
         mSearchWord = mRootView.findViewById(R.id.search_word);
-        LinearLayout mProgressLayout = mRootView.findViewById(R.id.progress_layout);
+        ProgressBar mProgressBar = mRootView.findViewById(R.id.progress);
 
         mSearchWord.setTextColor(Color.RED);
 
@@ -73,7 +78,31 @@ public class sNotzFragment extends Fragment {
         Common.getRecyclerView().setLayoutManager(new GridLayoutManager(requireActivity(), Utils.getSpanCount(requireActivity())));
         Common.getRecyclerView().addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
 
-        loadUI(mProgressLayout, requireActivity()).execute();
+        loadUI(mProgressBar, requireActivity()).execute();
+
+        /*
+         * Based on the following Stack Overflow discussion
+         * https://stackoverflow.com/questions/55949538/update-onmove-changes-in-recycler-view-data-to-room-database
+         */
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                String[] sNotzContents = sNotzData.getData(requireActivity()).get(position).getNote().split("\\s+");
+                new MaterialAlertDialogBuilder(requireActivity())
+                        .setMessage(getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
+                                sNotzData.getData(requireActivity()).get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> loadUI(mProgressBar, requireActivity()).execute())
+                        .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(sNotzData.getData(requireActivity()).get(position).getNoteID(), mProgressBar, requireActivity()).execute()).show();
+            }
+        });
+
+        itemTouchHelper.attachToRecyclerView(Common.getRecyclerView());
 
         mAddIcon.setColorFilter(sNotzColor.getAccentColor(requireActivity()));
         mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
@@ -112,7 +141,7 @@ public class sNotzFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 Common.setSearchText(s.toString().toLowerCase());
-                loadUI(mProgressLayout, requireActivity()).execute();
+                loadUI(mProgressBar, requireActivity()).execute();
             }
         });
 
@@ -143,24 +172,24 @@ public class sNotzFragment extends Fragment {
                     case 1:
                         if (Utils.getInt("sort_notes", 0, requireActivity()) != 2) {
                             Utils.saveInt("sort_notes", 2, requireActivity());
-                            loadUI(mProgressLayout, requireActivity()).execute();
+                            loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 2:
                         if (Utils.getInt("sort_notes", 0, requireActivity()) != 1) {
                             Utils.saveInt("sort_notes", 1, requireActivity());
-                            loadUI(mProgressLayout, requireActivity()).execute();
+                            loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 3:
                         if (Utils.getInt("sort_notes", 0, requireActivity()) != 0) {
                             Utils.saveInt("sort_notes", 0, requireActivity());
-                            loadUI(mProgressLayout, requireActivity()).execute();
+                            loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 4:
                         Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
-                        loadUI(mProgressLayout, requireActivity()).execute();
+                        loadUI(mProgressBar, requireActivity()).execute();
                         break;
                 }
                 return false;
@@ -233,12 +262,12 @@ public class sNotzFragment extends Fragment {
         return mRootView;
     }
 
-    private static AsyncTasks loadUI(LinearLayout linearLayout, Activity activity) {
+    private static AsyncTasks loadUI(ProgressBar progressBar, Activity activity) {
         return new AsyncTasks() {
             private NotesAdapter mNotesAdapter;
             @Override
             public void onPreExecute() {
-                linearLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -251,7 +280,7 @@ public class sNotzFragment extends Fragment {
                 try {
                     Common.getRecyclerView().setAdapter(mNotesAdapter);
                 } catch (NullPointerException ignored) {}
-                linearLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
         };
     }
