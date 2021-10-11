@@ -31,6 +31,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
+import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
@@ -43,9 +44,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
+import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -125,6 +128,12 @@ public class NotePickerActivity extends AppCompatActivity {
                             .setMessage(getString(R.string.restore_notes_question))
                             .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> finish())
                             .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> restore(this)).show();
+                } else if (CheckLists.isValidCheckList(mNote)) {
+                    new MaterialAlertDialogBuilder(this)
+                            .setCancelable(false)
+                            .setMessage(getString(R.string.check_list_import_question))
+                            .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> finish())
+                            .setPositiveButton(getString(R.string.import_item), (dialogInterface, i) -> importCheckList()).show();
                 } else {
                     Utils.toggleKeyboard(mContents, this);
                     mContents.setText(mNote);
@@ -215,30 +224,17 @@ public class NotePickerActivity extends AppCompatActivity {
 
     private AsyncTasks save(Activity activity) {
         return new AsyncTasks() {
-            private JSONArray mJSONArray = null;
-            private JSONObject mJSONObject = null;
             @Override
             public void onPreExecute() {
                 mProgress.setVisibility(View.VISIBLE);
-                mJSONObject = new JSONObject();
-                mJSONArray = new JSONArray();
             }
 
             @Override
             public void doInBackground() {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     try {
-                        for (sNotzItems items : sNotzData.getRawData(activity)) {
-                            JSONObject note = new JSONObject();
-                            note.put("note", items.getNote());
-                            note.put("date", items.getTimeStamp());
-                            note.put("image", items.getImageString());
-                            note.put("hidden", items.isHidden());
-                            note.put("colorBackground", items.getColorBackground());
-                            note.put("colorText", items.getColorText());
-                            note.put("noteID", items.getNoteID());
-                            mJSONArray.put(note);
-                        }
+                        JSONObject mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(getFilesDir().getPath() + "/snotz")));
+                        JSONArray mJSONArray = mJSONObject.getJSONArray("sNotz");
                         JSONObject note = new JSONObject();
                         note.put("note", mContents.getText());
                         note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
@@ -246,14 +242,15 @@ public class NotePickerActivity extends AppCompatActivity {
                         note.put("hidden", mHidden.isChecked());
                         note.put("colorBackground", mSelectedColorBg);
                         note.put("colorText", mSelectedColorTxt);
-                        note.put("noteID", 0);
+                        note.put("noteID", sNotzData.getData(NotePickerActivity.this).size());
                         mJSONArray.put(note);
-                        mJSONObject.put("sNotz", mJSONArray);
                         Utils.create(mJSONObject.toString(), getFilesDir().getPath() + "/snotz");
                     } catch (JSONException ignored) {
                     }
                 } else {
                     try {
+                        JSONObject mJSONObject = new JSONObject();
+                        JSONArray mJSONArray = new JSONArray();
                         JSONObject note = new JSONObject();
                         note.put("note", mContents.getText());
                         note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
@@ -336,6 +333,30 @@ public class NotePickerActivity extends AppCompatActivity {
                 finish();
             }
         }.execute();
+    }
+
+    private void importCheckList() {
+        Utils.dialogEditText(null, getString(R.string.check_list_name_hint),
+                (dialogInterface, i) -> {
+                }, text -> {
+                    if (text.isEmpty()) {
+                        Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message));
+                        return;
+                    }
+                    if (Utils.exist(new File(getExternalFilesDir("checklists"), text).getAbsolutePath())) {
+                        new MaterialAlertDialogBuilder(this)
+                                .setMessage(getString(R.string.check_list_exist_warning))
+                                .setNegativeButton(getString(R.string.try_again), (dialogInterface, i) -> importCheckList())
+                                .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> Utils.create(mNote, getExternalFilesDir("checklists") + "/" + text)).show();
+                        return;
+                    }
+                    Utils.create(mNote, getExternalFilesDir("checklists") + "/" + text);
+                    CheckLists.setCheckListName(text);
+                    Intent createCheckList = new Intent(this, CheckListActivity.class);
+                    startActivity(createCheckList);
+                    finish();
+                }, -1,this).setOnDismissListener(dialogInterface -> {
+        }).show();
     }
 
     @Override
