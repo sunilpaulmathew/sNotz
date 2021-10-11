@@ -21,6 +21,7 @@
     <string name="bottom_fab_click_message">Click bottom \'Plus\' icon to create a note</string>
     <string name="cancel">Cancel</string>
     <string name="check_lists">Checklists</string>
+    <string name="check_lists_backup_question">Backup \'%s\' to device storage?</string>
     <string name="check_list_main_title">My Checklists</string>
     <string name="check_list_name_empty_message">Check List name shouldn\'t be empty. Aborting</string>
     <string name="check_list_name_hint">Enter checklist name</string>
