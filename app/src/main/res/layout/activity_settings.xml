@@ -35,7 +35,7 @@
             android:padding="5dp" />
     </FrameLayout>
 
-    <include layout="@layout/progress_layout" />
+    <include layout="@layout/progress_bar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

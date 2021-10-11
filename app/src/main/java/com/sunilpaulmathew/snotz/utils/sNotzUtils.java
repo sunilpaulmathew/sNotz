@@ -13,7 +13,6 @@ import android.text.Editable;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.core.content.ContextCompat;
@@ -167,11 +166,11 @@ public class sNotzUtils {
     }
 
     public static AsyncTasks addNote(Editable newNote, String image, int colorBg, int colorTxt,
-                               boolean hidden, LinearLayout linearLayout, Context context) {
+                               boolean hidden, ProgressBar progressBar, Context context) {
         return new AsyncTasks() {
             @Override
             public void onPreExecute() {
-                linearLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
@@ -212,7 +211,7 @@ public class sNotzUtils {
             public void onPostExecute() {
                 Utils.reloadUI(context);
                 Common.isWorking(false);
-                linearLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
         };
     }
@@ -313,11 +312,11 @@ public class sNotzUtils {
     }
 
     public static AsyncTasks initializeNotes(Editable newNote, String image, int colorBg, int colorTxt,
-                                             boolean hidden, LinearLayout linearLayout, Context context) {
+                                             boolean hidden, ProgressBar progressBar, Context context) {
         return new AsyncTasks() {
             @Override
             public void onPreExecute() {
-                linearLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
@@ -345,16 +344,16 @@ public class sNotzUtils {
             public void onPostExecute() {
                 Utils.reloadUI(context);
                 Common.isWorking(false);
-                linearLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
         };
     }
 
-    public static AsyncTasks restoreNotes(String backupData, LinearLayout linearLayout, Context context) {
+    public static AsyncTasks restoreNotes(String backupData, ProgressBar progressBar, Context context) {
         return new AsyncTasks() {
             @Override
             public void onPreExecute() {
-                linearLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
@@ -402,17 +401,17 @@ public class sNotzUtils {
             public void onPostExecute() {
                 Utils.reloadUI(context);
                 Common.isWorking(false);
-                linearLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
         };
     }
 
     public static AsyncTasks updateNote(Editable newNote, String oldNote, String image, int noteID, int colorBg,
-                                        int colorTxt, boolean hidden, LinearLayout linearLayout, Context context) {
+                                        int colorTxt, boolean hidden, ProgressBar progressBar, Context context) {
         return new AsyncTasks() {
             @Override
             public void onPreExecute() {
-                linearLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
@@ -452,7 +451,7 @@ public class sNotzUtils {
             public void onPostExecute() {
                 Utils.reloadUI(context);
                 Common.isWorking(false);
-                linearLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
         };
     }

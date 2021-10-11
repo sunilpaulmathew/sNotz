@@ -68,7 +68,7 @@
                 android:background="@null" />
         </FrameLayout>
 
-        <include layout="@layout/progress_layout" />
+        <include layout="@layout/progress_bar" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scroll_view"

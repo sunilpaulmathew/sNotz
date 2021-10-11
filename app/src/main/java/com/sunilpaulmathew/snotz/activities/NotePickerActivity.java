@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,7 +56,7 @@ public class NotePickerActivity extends AppCompatActivity {
     private AppCompatImageView mImage;
     private Bitmap mBitmap = null;
     private int mSelectedColorBg, mSelectedColorTxt;
-    private LinearLayout mProgressLayout;
+    private ProgressBar mProgress;
     private String mNote = null;
     private SwitchCompat mHidden;
 
@@ -69,7 +70,7 @@ public class NotePickerActivity extends AppCompatActivity {
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         mImage = findViewById(R.id.image);
         mContents = findViewById(R.id.contents);
-        mProgressLayout = findViewById(R.id.progress_layout);
+        mProgress = findViewById(R.id.progress);
         MaterialCardView mColorBackground = findViewById(R.id.color_background);
         MaterialCardView mColorText = findViewById(R.id.color_text);
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
@@ -218,7 +219,7 @@ public class NotePickerActivity extends AppCompatActivity {
             private JSONObject mJSONObject = null;
             @Override
             public void onPreExecute() {
-                mProgressLayout.setVisibility(View.VISIBLE);
+                mProgress.setVisibility(View.VISIBLE);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
             }
@@ -271,7 +272,7 @@ public class NotePickerActivity extends AppCompatActivity {
 
             @Override
             public void onPostExecute() {
-                mProgressLayout.setVisibility(View.VISIBLE);
+                mProgress.setVisibility(View.VISIBLE);
                 Utils.restartApp(activity);
                 finish();
             }
@@ -285,7 +286,7 @@ public class NotePickerActivity extends AppCompatActivity {
             private int i;
             @Override
             public void onPreExecute() {
-                mProgressLayout.setVisibility(View.VISIBLE);
+                mProgress.setVisibility(View.VISIBLE);
                 mJSONObject = new JSONObject();
                 mJSONArray = new JSONArray();
                 i = 0;
@@ -330,7 +331,7 @@ public class NotePickerActivity extends AppCompatActivity {
 
             @Override
             public void onPostExecute() {
-                mProgressLayout.setVisibility(View.GONE);
+                mProgress.setVisibility(View.GONE);
                 Utils.restartApp(activity);
                 finish();
             }

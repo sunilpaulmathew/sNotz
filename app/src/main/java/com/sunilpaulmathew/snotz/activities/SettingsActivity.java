@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,7 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
     private AppCompatImageButton mBack;
     private BiometricPrompt mBiometricPrompt;
     private final ArrayList <SettingsItems> mData = new ArrayList<>();
-    private LinearLayout mProgressLayout;
+    private ProgressBar mProgress;
     private String mJSONString = null;
 
     @Override
@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         mBack = findViewById(R.id.back_button);
-        mProgressLayout = findViewById(R.id.progress_layout);
+        mProgress = findViewById(R.id.progress);
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -329,7 +329,7 @@ public class SettingsActivity extends AppCompatActivity {
                     .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                     })
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                        sNotzUtils.restoreNotes(mJSONString, mProgressLayout,this).execute();
+                        sNotzUtils.restoreNotes(mJSONString, mProgress,this).execute();
                         finish();
                     }).show();
         }

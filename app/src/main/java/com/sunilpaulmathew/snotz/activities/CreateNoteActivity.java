@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,7 +59,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         mImage = findViewById(R.id.image);
         mContents = findViewById(R.id.contents);
-        LinearLayout mProgressLayout = findViewById(R.id.progress_layout);
+        ProgressBar mProgress = findViewById(R.id.progress);
         MaterialCardView mColorBackground = findViewById(R.id.color_background);
         MaterialCardView mColorText = findViewById(R.id.color_text);
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
@@ -178,11 +179,11 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
             if (Common.getNote() != null) {
                 sNotzUtils.updateNote(mContents.getText(), Common.getNote(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
-                        mSelectedColorTxt, mHidden.isChecked(),  mProgressLayout,this).execute();
+                        mSelectedColorTxt, mHidden.isChecked(),  mProgress,this).execute();
             } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgressLayout, this).execute();
+                sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
             } else {
-                sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgressLayout, this).execute();
+                sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
             }
             exit(this);
         });
