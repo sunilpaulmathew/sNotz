@@ -52,6 +52,7 @@ public class CheckListsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checklists);
 
         AppCompatImageButton mAdd = findViewById(R.id.add_button);
+        AppCompatImageButton mBack = findViewById(R.id.back_button);
         mRecyclerView = findViewById(R.id.recycler_view);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
@@ -123,6 +124,8 @@ public class CheckListsActivity extends AppCompatActivity {
             });
             popupMenu.show();
         });
+
+        mBack.setOnClickListener(v -> finish());
     }
 
     public List<File> getData() {

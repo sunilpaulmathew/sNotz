@@ -40,6 +40,7 @@ public class CheckListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checklist);
 
         AppCompatImageButton mSave = findViewById(R.id.save_button);
+        AppCompatImageButton mBack = findViewById(R.id.back_button);
         MaterialTextView mTitle = findViewById(R.id.title);
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
 
@@ -92,6 +93,8 @@ public class CheckListActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         mSave.setOnClickListener(v -> saveCheckList());
+
+        mBack.setOnClickListener(v -> finish());
     }
 
     private void saveCheckList() {
