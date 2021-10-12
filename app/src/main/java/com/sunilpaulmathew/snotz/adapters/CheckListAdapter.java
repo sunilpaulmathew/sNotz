@@ -59,6 +59,10 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.View
             @Override
             public void afterTextChanged(Editable s) {
                 if (s != null && !s.toString().isEmpty() && !s.toString().equals("")) {
+                    if (s.toString().startsWith("\n")) {
+                        editText.setText(s.toString().replace("\n",""));
+                        return;
+                    }
                     if (s.toString().equals("\n")) {
                         editText.setText(null);
                         return;
