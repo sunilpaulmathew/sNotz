@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -58,7 +59,7 @@ public class sNotzReminders {
             reminder.put("id", id);
             mJSONArray.put(reminder);
             mJSONObject.put("reminders", mJSONArray);
-            Utils.create(mJSONObject.toString(), context.getCacheDir().getPath() + "/reminders");
+            Utils.create(mJSONObject.toString(), new File(context.getExternalFilesDir("reminders"), "reminders").getAbsolutePath());
         } catch (JSONException ignored) {
         }
     }
@@ -91,7 +92,7 @@ public class sNotzReminders {
             reminder.put("id", id);
             mJSONArray.put(reminder);
             mJSONObject.put("reminders", mJSONArray);
-            Utils.create(mJSONObject.toString(), context.getCacheDir().getPath() + "/reminders");
+            Utils.create(mJSONObject.toString(), new File(context.getExternalFilesDir("reminders"), "reminders").getAbsolutePath());
         } catch (JSONException ignored) {
         }
     }
@@ -111,7 +112,7 @@ public class sNotzReminders {
                 }
             }
             mJSONObject.put("reminders", mJSONArray);
-            Utils.create(mJSONObject.toString(), context.getCacheDir().getPath() + "/reminders");
+            Utils.create(mJSONObject.toString(), new File(context.getExternalFilesDir("reminders"), "reminders").getAbsolutePath());
         } catch (JSONException ignored) {
         }
     }
@@ -131,29 +132,33 @@ public class sNotzReminders {
             reminder.put("id", id);
             mJSONArray.put(reminder);
             mJSONObject.put("reminders", mJSONArray);
-            Utils.create(mJSONObject.toString(), context.getCacheDir().getPath() + "/reminders");
+            Utils.create(mJSONObject.toString(), new File(context.getExternalFilesDir("reminders"), "reminders").getAbsolutePath());
         } catch (JSONException ignored) {
         }
     }
 
     public static List<ReminderItems> getRawData(Context context) {
         List<ReminderItems> mData = new ArrayList<>();
-        for (int i = 0; i < Objects.requireNonNull(getReminders(context)).length(); i++) {
-            try {
-                JSONObject command = Objects.requireNonNull(getReminders(context)).getJSONObject(i);
-                mData.add(new ReminderItems(getNote(command.toString()), getYear(command.toString()), getMonth(command.toString()),
-                        getDay(command.toString()), getHour(command.toString()), getMin(command.toString()), getID(command.toString())));
-            } catch (JSONException ignored) {
+        if (Utils.exist(new File(context.getExternalFilesDir("reminders"), "reminders").getAbsolutePath())) {
+            for (int i = 0; i < Objects.requireNonNull(getReminders(context)).length(); i++) {
+                try {
+                    JSONObject command = Objects.requireNonNull(getReminders(context)).getJSONObject(i);
+                    mData.add(new ReminderItems(getNote(command.toString()), getYear(command.toString()), getMonth(command.toString()),
+                            getDay(command.toString()), getHour(command.toString()), getMin(command.toString()), getID(command.toString())));
+                } catch (JSONException ignored) {
+                }
             }
         }
         return mData;
     }
 
     public static JSONArray getReminders(Context context) {
-        try {
-            JSONObject main = new JSONObject(Objects.requireNonNull(Utils.read(context.getCacheDir().getPath() + "/reminders")));
-            return main.getJSONArray("reminders");
-        } catch (JSONException ignored) {
+        if (Utils.exist(new File(context.getExternalFilesDir("reminders"), "reminders").getAbsolutePath())) {
+            try {
+                JSONObject main = new JSONObject(Objects.requireNonNull(Utils.read(new File(context.getExternalFilesDir("reminders"), "reminders").getAbsolutePath())));
+                return main.getJSONArray("reminders");
+            } catch (JSONException ignored) {
+            }
         }
         return null;
     }
@@ -286,7 +291,7 @@ public class sNotzReminders {
 
         if (id != -1) {
             sNotzReminders.edit(note, year, month, day, hour, min, id, context);
-        } else if (Utils.exist(context.getCacheDir().getPath() + "/reminders")) {
+        } else if (Utils.exist(new File(context.getExternalFilesDir("reminders"), "reminders").getAbsolutePath())) {
             sNotzReminders.add(note, year, month, day, hour, min, mNotificationID,context);
         } else {
             sNotzReminders.initialize(note, year, month, day, hour, min, mNotificationID, context);

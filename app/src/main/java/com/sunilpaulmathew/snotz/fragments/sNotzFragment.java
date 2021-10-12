@@ -47,6 +47,8 @@ import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
+import java.io.File;
+
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
  */
@@ -224,8 +226,8 @@ public class sNotzFragment extends Fragment {
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mMenu);
             Menu menu = popupMenu.getMenu();
             menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.settings));
-            if (Utils.exist(requireActivity().getCacheDir().getPath() + "/reminders") && sNotzReminders
-                    .getRawData(requireActivity()).size() > 0) {
+            if (Utils.exist(new File(requireActivity().getExternalFilesDir("reminders"), "reminders").getAbsolutePath())
+                    && sNotzReminders.getRawData(requireActivity()).size() > 0) {
                 menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.reminders));
             }
             menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.check_lists));
