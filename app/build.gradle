@@ -17,8 +17,8 @@ android {
         applicationId "com.sunilpaulmathew.snotz"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 13
-        versionName "v0.13"
+        versionCode 14
+        versionName "v0.14"
         vectorDrawables.useSupportLibrary = true
         signingConfig signingConfigs.release
         testFunctionalTest = false

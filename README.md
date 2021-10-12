@@ -2,7 +2,7 @@
 
 <p style="text-align: center"><img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/002.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/001.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/003.jpg" alt="" width="250" height="450" /></p>
 
-[![](https://img.shields.io/badge/sNotz-v0.13-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
+[![](https://img.shields.io/badge/sNotz-v0.14-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
 ![](https://img.shields.io/github/contributors/sunilpaulmathew/sNotz)
 
@@ -21,15 +21,21 @@ alt="Get it on IzzyOnDroid"
 height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.sunilpaulmathew.snotz)
 [<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
 alt="Get it on GitHub"
-height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.13/app-fdroid-release.apk)
+height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.14/app-fdroid-release.apk)
 
 ## Features
-* Easily create simple notes.
-* Support biometric authentication.
-* Hide notes from main UI.
-* Easily share notes.
-* Change note background and text color.
-* Easily export and restore notes.
+* Easily create & manage simple notes.
+* Support biometric/PIN authentications to secure notes.
+* Supports using custom colors (background and text) for individual notes.
+* Supports including an image (not recommended for the sake of UI response) on individual notes.
+* Sort notes alphabetically, or by date or background color.
+* Supports creating secret notes that are hidden from the main UI by default.
+* Supports creating, importing, and sharing checklists.
+* Swipe (left or right) to delete notes/checklists.
+* Create reminders (for individual notes).
+* Export and easily share notes via third-party apps.
+* No cloud storage or login requirements. sNotz works completely offline.
+* Offers a simple backup/restore functionality for those who want to get old notes on a new device.
 
 ## Donations
 If you like to appreciate my work, please consider donating to me (either via [PayPal](https://www.paypal.me/menacherry/), or [Ko-fi](https://ko-fi.com/sunilpaulmathew/), or by purchasing the [SmartPack Donation Package](https://play.google.com/store/apps/details?id=com.smartpack.donate) from playstore) as it is helpful to continue my projects more active, although it is not at all necessary.
@@ -43,6 +49,9 @@ If you like to appreciate my work, please consider donating to me (either via [P
 [<img src="https://raw.githubusercontent.com/SmartPack/SmartPack.github.io/master/asset/pic010.png"
      alt="Ko-fi"
      height="80">](https://ko-fi.com/sunilpaulmathew/)
+
+## Translations
+Please help me to translate this application via [POEditor](https://poeditor.com/join/project?hash=LOg2GmFfbV). You may also translate after downloading the original language string available [here](app/src/main/res/values/strings.xml).
 
 ## Credits
 * [Grarak](https://github.com/Grarak/), Code contributions (I took some code from [Kernel Adiutor](https://github.com/Grarak/KernelAdiutor/))

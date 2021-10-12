@@ -3,11 +3,14 @@
 <b>Features</b>
 
 - Easily create & manage simple notes.
-- Support biometric authentication to secure notes.
+- Support biometric/PIN authentications to secure notes.
 - Supports using custom colors (background and text) for individual notes.
+- Supports including an image (not recommended for the sake of UI response) on individual notes.
 - Sort notes alphabetically, or by date or background color.
-- Supports creating secret notes that are hidden from thr main UI by default.
-- Create reminders (for individual notes: experimental).
+- Supports creating secret notes that are hidden from the main UI by default.
+- Supports creating, importing, and sharing checklists.
+- Swipe (left or right) to delete notes/checklists.
+- Create reminders (for individual notes).
 - Export and easily share notes via third-party apps.
 - No cloud storage or login requirements. sNotz works completely offline.
 - Offers a simple backup/restore functionality for those who want to get old notes on a new device.
