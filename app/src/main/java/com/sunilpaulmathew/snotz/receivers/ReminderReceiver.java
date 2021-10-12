@@ -16,7 +16,6 @@ import androidx.core.app.NotificationCompat;
 
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.activities.ReminderActivity;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 
 /*
@@ -34,7 +33,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         TaskStackBuilder mTaskStackBuilder = TaskStackBuilder.create(context);
-        mTaskStackBuilder.addParentStack(ReminderActivity.class);
+        mTaskStackBuilder.addParentStack(MainActivity.class);
         mTaskStackBuilder.addNextIntent(mIntent);
         
         PendingIntent mPendingIntent = mTaskStackBuilder.getPendingIntent(mNotificationID, PendingIntent.FLAG_UPDATE_CURRENT);

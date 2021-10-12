@@ -27,11 +27,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
-import com.sunilpaulmathew.snotz.activities.ReminderActivity;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.io.IOException;
@@ -107,10 +107,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         }
                         break;
                     case 2:
-                        Common.setID(-1);
-                        Common.setNote(this.data.get(position).getNote());
-                        Intent setAlarm = new Intent(holder.mRVCard.getContext(), ReminderActivity.class);
-                        holder.mRVCard.getContext().startActivity(setAlarm);
+                        sNotzReminders.setYear(-1);
+                        sNotzReminders.setMonth(-1);
+                        sNotzReminders.setDay(-1);
+                        sNotzReminders.launchDatePicker(data.get(position).getNoteID(), data.get(position).getNote(), item.getContext()).show();
                         break;
                     case 3:
                         if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(holder.mRVCard.getContext())) {

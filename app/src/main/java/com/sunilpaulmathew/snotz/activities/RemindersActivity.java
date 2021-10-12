@@ -49,11 +49,10 @@ public class RemindersActivity extends AppCompatActivity {
                 R.array.reminder_options), (dialogInterface, i) -> {
             switch (i) {
                 case 0:
-                    Common.setNote(getData(this).get(position).getNote());
-                    Common.setID(getData(this).get(position).getNotificationID());
-                    Intent editReminder = new Intent(this, ReminderActivity.class);
-                    startActivity(editReminder);
-                    finish();
+                    sNotzReminders.setYear(-1);
+                    sNotzReminders.setMonth(-1);
+                    sNotzReminders.setDay(-1);
+                    sNotzReminders.launchDatePicker(getData(this).get(position).getNotificationID(), getData(this).get(position).getNote(), this).show();
                     break;
                 case 1:
                     deleteReminder(getData(this).get(position).getNotificationID(), this);

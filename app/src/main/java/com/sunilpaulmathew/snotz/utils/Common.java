@@ -4,6 +4,12 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormatSymbols;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
  */
@@ -55,12 +61,43 @@ public class Common {
         return mRecyclerView = view.findViewById(id);
     }
 
-    public static String getAdjustedTime(int hour, int min) {
-        if (hour > 12) {
-            return  (hour - 12) + ":" + (min < 10 ? "0" + min : min) + " PM";
-        } else {
-            return hour + ":" + (min < 10 ? "0" + min : min) + " AM";
+    public static String getAdjustedTime(double year, double month, double day, int hour, int min) {
+        DateFormatSymbols dfs = new DateFormatSymbols(Locale.getDefault());
+        List<String> months = new ArrayList<>();
+        Collections.addAll(months, dfs.getMonths());
+        String mMonth = null;
+        if (month == 0) {
+            mMonth = months.get(0) + " ";
+        } else if (month == 1) {
+            mMonth = months.get(1) + " ";
+        } else if (month == 2) {
+            mMonth = months.get(2) + " ";
+        } else if (month == 3) {
+            mMonth = months.get(3) + " ";
+        } else if (month == 4) {
+            mMonth = months.get(4) + " ";
+        } else if (month == 5) {
+            mMonth = months.get(5) + " ";
+        } else if (month == 6) {
+            mMonth = months.get(6) + " ";
+        } else if (month == 7) {
+            mMonth = months.get(7) + " ";
+        } else if (month == 8) {
+            mMonth = months.get(8) + " ";
+        } else if (month == 9) {
+            mMonth = months.get(9) + " ";
+        } else if (month == 10) {
+            mMonth = months.get(10) + " ";
+        } else if (month == 11) {
+            mMonth = months.get(11) + " ";
         }
+        String mTime;
+        if (hour > 12) {
+            mTime =  (hour - 12) + ":" + (min < 10 ? "0" + min : min) + " PM";
+        } else {
+            mTime = hour + ":" + (min < 10 ? "0" + min : min) + " AM";
+        }
+        return mMonth + " " + (int)day + ", " + (int)year + " " + mTime;
     }
 
     public static String getImageString() {

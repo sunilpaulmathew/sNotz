@@ -94,11 +94,9 @@
     <string name="restore_notes_summary">Restore notes from a backup file</string>
     <string name="restore_notes_question">Restore notes from selected file?</string>
     <string name="reverse_order">Reverse Order</string>
-    <string name="save">Save</string>
     <string name="save_text">Save as Text</string>
     <string name="save_text_message">The selected note is exported as %s</string>
     <string name="search_hint">Search…</string>
-    <string name="set">Set</string>
     <string name="set_reminder">Set Reminder</string>
     <string name="settings">Settings</string>
     <string name="share">Share</string>

@@ -7,15 +7,30 @@ import java.io.Serializable;
  */
 public class ReminderItems implements Serializable {
 
-
+    private final double mYear, mMonth, mDay;
     private final int mHour, mID, mMin;
     private final String mNote;
 
-    public ReminderItems(String note, int hour, int min, int id) {
+    public ReminderItems(String note, double year, double month, double day, int hour, int min, int id) {
         this.mNote = note;
+        this.mYear = year;
+        this.mMonth = month;
+        this.mDay = day;
         this.mHour = hour;
         this.mMin = min;
         this.mID = id;
+    }
+
+    public double getYear() {
+        return mYear;
+    }
+
+    public double getMonth() {
+        return mMonth;
+    }
+
+    public double getDay() {
+        return mDay;
     }
 
     public int getHour() {
