@@ -118,7 +118,7 @@ public class CheckListsActivity extends AppCompatActivity {
     }
 
     private void createCheckList() {
-        Utils.dialogEditText(null, getString(R.string.check_list_name_hint),
+        Utils.dialogEditText(null, getString(R.string.check_list_create_question),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
@@ -128,7 +128,7 @@ public class CheckListsActivity extends AppCompatActivity {
                     if (Utils.exist(new File(getExternalFilesDir("checklists"), text).getAbsolutePath())) {
                         new MaterialAlertDialogBuilder(this)
                                 .setMessage(getString(R.string.check_list_exist_warning))
-                                .setNegativeButton(getString(R.string.try_again), (dialogInterface, i) -> createCheckList())
+                                .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> createCheckList())
                                 .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> {
                                     CheckLists.setCheckListName(text);
                                     Intent createCheckList = new Intent(this, CheckListActivity.class);
@@ -144,7 +144,7 @@ public class CheckListsActivity extends AppCompatActivity {
     }
 
     private void importCheckList() {
-        Utils.dialogEditText(null, getString(R.string.check_list_name_hint),
+        Utils.dialogEditText(null, getString(R.string.check_list_import_question),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
@@ -154,7 +154,7 @@ public class CheckListsActivity extends AppCompatActivity {
                     if (Utils.exist(new File(getExternalFilesDir("checklists"), text).getAbsolutePath())) {
                         new MaterialAlertDialogBuilder(this)
                                 .setMessage(getString(R.string.check_list_exist_warning))
-                                .setNegativeButton(getString(R.string.try_again), (dialogInterface, i) -> importCheckList())
+                                .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> importCheckList())
                                 .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> Utils.create(mJSONString, getExternalFilesDir("checklists") + "/" + text)).show();
                         return;
                     }
@@ -184,12 +184,7 @@ public class CheckListsActivity extends AppCompatActivity {
                 Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.restore_error));
                 return;
             }
-            new MaterialAlertDialogBuilder(this)
-                    .setMessage(getString(R.string.check_list_import_question))
-                    .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
-                    })
-                    .setPositiveButton(getString(R.string.yes), (dialogInterface, i)
-                            -> importCheckList()).show();
+            importCheckList();
         }
     }
 

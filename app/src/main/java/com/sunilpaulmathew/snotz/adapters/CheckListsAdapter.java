@@ -11,7 +11,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
@@ -56,14 +55,10 @@ public class CheckListsAdapter extends RecyclerView.Adapter<CheckListsAdapter.Vi
             v.getContext().startActivity(shareIntent);
         });
 
-        holder.mDownload.setOnClickListener(v -> new MaterialAlertDialogBuilder(v.getContext())
-                .setMessage(v.getContext().getString(R.string.check_lists_backup_question, data.get(position).getName()))
-                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                })
-                .setPositiveButton(R.string.backup, (dialogInterface, i) -> {
-                    CheckLists.setCheckListName(data.get(position).getName());
-                    CheckLists.backupCheckList((Activity) v.getContext());
-                }).show());
+        holder.mDownload.setOnClickListener(v -> {
+            CheckLists.setCheckListName(data.get(position).getName());
+            CheckLists.backupCheckList((Activity) v.getContext());
+        });
     }
 
     @Override

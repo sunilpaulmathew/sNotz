@@ -129,11 +129,7 @@ public class NotePickerActivity extends AppCompatActivity {
                             .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> finish())
                             .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> restore(this)).show();
                 } else if (CheckLists.isValidCheckList(mNote)) {
-                    new MaterialAlertDialogBuilder(this)
-                            .setCancelable(false)
-                            .setMessage(getString(R.string.check_list_import_question))
-                            .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> finish())
-                            .setPositiveButton(getString(R.string.import_item), (dialogInterface, i) -> importCheckList()).show();
+                    importCheckList();
                 } else {
                     Utils.toggleKeyboard(mContents, this);
                     mContents.setText(mNote);
@@ -336,7 +332,7 @@ public class NotePickerActivity extends AppCompatActivity {
     }
 
     private void importCheckList() {
-        Utils.dialogEditText(null, getString(R.string.check_list_name_hint),
+        Utils.dialogEditText(null, getString(R.string.check_list_import_question),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
@@ -346,7 +342,7 @@ public class NotePickerActivity extends AppCompatActivity {
                     if (Utils.exist(new File(getExternalFilesDir("checklists"), text).getAbsolutePath())) {
                         new MaterialAlertDialogBuilder(this)
                                 .setMessage(getString(R.string.check_list_exist_warning))
-                                .setNegativeButton(getString(R.string.try_again), (dialogInterface, i) -> importCheckList())
+                                .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> importCheckList())
                                 .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> Utils.create(mNote, getExternalFilesDir("checklists") + "/" + text)).show();
                         return;
                     }

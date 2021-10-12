@@ -20,12 +20,13 @@
     <string name="backup_snotz">As sNotz Backup</string>
     <string name="bottom_fab_click_message">Click bottom \'Plus\' icon to create a note</string>
     <string name="cancel">Cancel</string>
+    <string name="change_name">Change Name</string>
     <string name="check_lists">Checklists</string>
-    <string name="check_lists_backup_question">Backup \'%s\' to device storage?</string>
+    <string name="check_list_backup_question">Backup \'%s\' as?</string>
+    <string name="check_list_create_question">Create new checklist as?</string>
     <string name="check_list_main_title">My Checklists</string>
     <string name="check_list_name_empty_message">Check List name shouldn\'t be empty. Aborting</string>
-    <string name="check_list_name_hint">Enter checklist name</string>
-    <string name="check_list_import_question">Import selected checklist?</string>
+    <string name="check_list_import_question">Import selected checklist as?</string>
     <string name="check_list_exist_warning">A checklist with same name already exists. Do you want to replace it?</string>
     <string name="change_logs">Change-logs</string>
     <string name="clear_notes">Clear Notes</string>
