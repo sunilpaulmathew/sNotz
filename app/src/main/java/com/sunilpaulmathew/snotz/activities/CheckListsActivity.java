@@ -2,10 +2,13 @@ package com.sunilpaulmathew.snotz.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +25,7 @@ import com.sunilpaulmathew.snotz.adapters.CheckListsAdapter;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -75,6 +79,24 @@ public class CheckListsActivity extends AppCompatActivity {
                             getData().get(position).delete();
                             mRecyclerView.setAdapter(new CheckListsAdapter(getData()));
                         }).show();
+            }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas canvas, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    View itemView = viewHolder.itemView;
+
+                    Paint mPaint = new Paint();
+                    mPaint.setColor(sNotzUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
+                    if (dX > 0) {
+                        canvas.drawRect((float) itemView.getLeft(), (float) itemView.getTop(), dX,
+                                (float) itemView.getBottom(), mPaint);
+                    } else {
+                        canvas.drawRect((float) itemView.getRight() + dX, (float) itemView.getTop(),
+                                (float) itemView.getRight(), (float) itemView.getBottom(), mPaint);
+                    }
+                    super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                }
             }
         });
 

@@ -2,7 +2,9 @@ package com.sunilpaulmathew.snotz.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -99,6 +101,24 @@ public class sNotzFragment extends Fragment {
                                 sNotzData.getData(requireActivity()).get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                         .setNegativeButton(R.string.cancel, (dialog, which) -> loadUI(mProgressBar, requireActivity()).execute())
                         .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(sNotzData.getData(requireActivity()).get(position).getNoteID(), mProgressBar, requireActivity()).execute()).show();
+            }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas canvas, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    View itemView = viewHolder.itemView;
+
+                    Paint mPaint = new Paint();
+                    mPaint.setColor(sNotzUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
+                    if (dX > 0) {
+                        canvas.drawRect((float) itemView.getLeft(), (float) itemView.getTop(), dX,
+                                (float) itemView.getBottom(), mPaint);
+                    } else {
+                        canvas.drawRect((float) itemView.getRight() + dX, (float) itemView.getTop(),
+                                (float) itemView.getRight(), (float) itemView.getBottom(), mPaint);
+                    }
+                    super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                }
             }
         });
 
