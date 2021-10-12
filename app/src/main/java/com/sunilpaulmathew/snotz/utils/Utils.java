@@ -203,7 +203,7 @@ public class Utils {
     }
 
     public static void showSnackbar(View view, String message) {
-        Snackbar snackBar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
         snackBar.setAction(R.string.dismiss, v -> snackBar.dismiss());
         snackBar.show();
     }
