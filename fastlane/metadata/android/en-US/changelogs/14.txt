@@ -1,8 +1,0 @@
-* Allow PIN protection if Biometric lock is unavailable.
-* Introduce sNotz checklists (create, import, and share checklists).
-* sNotz reminder now supports selecting any year, month and days.
-* Delete notes and checklists by swipe (left or delete).
-* Allow including an image with notes (not recommended).
-* Simplified and largely improved note add, delete, and update tasks.
-* A lot of work for a better UI and fast app response.
-* Miscellaneous changes.
