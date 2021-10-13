@@ -60,6 +60,7 @@ Please help me to translate this application via [POEditor](https://poeditor.com
 * [Hafitz Setya](https://github.com/breakdowns), Indonesian Translations
 * [Mikesew1320](https://github.com/Mikesew1320), Amharic Translations
 * Negroibarra301, Spanish Translations
+* [FTno](https://github.com/FTno), Norwegian Translations
 
 ## License
 
