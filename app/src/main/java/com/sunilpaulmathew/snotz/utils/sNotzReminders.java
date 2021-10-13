@@ -105,6 +105,9 @@ public class sNotzReminders {
                 if (items.getNotificationID() != id) {
                     JSONObject reminder = new JSONObject();
                     reminder.put("note", items.getNote());
+                    reminder.put("year", items.getYear());
+                    reminder.put("month", items.getMonth());
+                    reminder.put("day", items.getDay());
                     reminder.put("hour", items.getHour());
                     reminder.put("min", items.getMin());
                     reminder.put("id", items.getNotificationID());
@@ -170,7 +173,7 @@ public class sNotzReminders {
         int mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
         int mHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         int mMin = mCalendar.get(Calendar.MINUTE);
-        for (ReminderItems items : sNotzReminders.getRawData(context)) {
+        for (ReminderItems items : getRawData(context)) {
             if (mYear == items.getYear() && mMonth == items.getMonth() && mDay == items.getDay()
                     && mHour == items.getHour() && mMin == items.getMin()) {
                 mNote = items.getNote();
@@ -277,7 +280,7 @@ public class sNotzReminders {
         AlarmManager mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent mIntent = new Intent(context, ReminderReceiver.class);
 
-        int mNotificationID = sNotzReminders.getNotificationID(context);
+        int mNotificationID = getNotificationID(context);
 
         @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, mNotificationID, mIntent,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -290,11 +293,11 @@ public class sNotzReminders {
         mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
 
         if (id != -1) {
-            sNotzReminders.edit(note, year, month, day, hour, min, id, context);
+            edit(note, year, month, day, hour, min, id, context);
         } else if (Utils.exist(new File(context.getExternalFilesDir("reminders"), "reminders").getAbsolutePath())) {
-            sNotzReminders.add(note, year, month, day, hour, min, mNotificationID,context);
+            add(note, year, month, day, hour, min, mNotificationID,context);
         } else {
-            sNotzReminders.initialize(note, year, month, day, hour, min, mNotificationID, context);
+            initialize(note, year, month, day, hour, min, mNotificationID, context);
         }
         Utils.saveInt("notificationID", mNotificationID + 1, context);
         new MaterialAlertDialogBuilder(context)
