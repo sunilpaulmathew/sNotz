@@ -9,9 +9,10 @@ public class sNotzItems implements Serializable {
 
     private final boolean mHidden;
     private final int mColorBackground, mColorText, mID;
-    private final String mImageString, mNote, mTimeStamp;
+    private final long mTimeStamp;
+    private final String mImageString, mNote;
 
-    public sNotzItems(String note, String timeStamp, String imageString, boolean hidden, int colorBackground, int colorText, int id) {
+    public sNotzItems(String note, long timeStamp, String imageString, boolean hidden, int colorBackground, int colorText, int id) {
         this.mNote = note;
         this.mTimeStamp = timeStamp;
         this.mImageString = imageString;
@@ -45,7 +46,7 @@ public class sNotzItems implements Serializable {
         return mNote;
     }
 
-    public String getTimeStamp() {
+    public long getTimeStamp() {
         return mTimeStamp;
     }
 

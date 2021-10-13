@@ -29,7 +29,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -180,7 +179,7 @@ public class sNotzUtils {
                     mJSONArray = mJSONObject.getJSONArray("sNotz");
                     JSONObject note = new JSONObject();
                     note.put("note", newNote);
-                    note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.put("date", System.currentTimeMillis());
                     note.put("image", image);
                     note.put("hidden", hidden);
                     note.put("colorBackground", colorBg);
@@ -276,7 +275,7 @@ public class sNotzUtils {
                 try {
                     JSONObject note = new JSONObject();
                     note.put("note", newNote);
-                    note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.put("date", System.currentTimeMillis());
                     note.put("image", image);
                     note.put("hidden", hidden);
                     note.put("colorBackground", colorBg);
@@ -371,7 +370,7 @@ public class sNotzUtils {
                     mJSONArray = mJSONObject.getJSONArray("sNotz");
                     JSONObject note = new JSONObject(mJSONArray.getJSONObject(noteID).toString());
                     note.put("note", newNote);
-                    note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.put("date", System.currentTimeMillis());
                     note.put("image", image);
                     note.put("hidden", hidden);
                     note.put("colorBackground", colorBg);

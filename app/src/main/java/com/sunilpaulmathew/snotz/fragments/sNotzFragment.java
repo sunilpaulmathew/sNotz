@@ -172,39 +172,37 @@ public class sNotzFragment extends Fragment {
                 return;
             }
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mSortButton);
-            if (Utils.exist(requireActivity().getFilesDir().getPath() + "/snotz")) {
-                Menu menu = popupMenu.getMenu();
-                SubMenu sort = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.sort_by));
-                sort.add(0, 1, Menu.NONE, getString(R.string.created_order)).setCheckable(true)
-                        .setChecked(Utils.getInt("sort_notes", 0, requireActivity()) == 2);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    sort.add(0, 2, Menu.NONE, getString(R.string.note_color_background)).setCheckable(true)
-                            .setChecked(Utils.getInt("sort_notes", 0, requireActivity()) == 1);
-                }
-                sort.add(0, 3, Menu.NONE, getString(R.string.az_order)).setCheckable(true)
-                        .setChecked(Utils.getInt("sort_notes", 0, requireActivity()) == 0);
-                sort.setGroupCheckable(0, true, true);
-                menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
-                        .setChecked(Utils.getBoolean("reverse_order", false, requireActivity()));
+            Menu menu = popupMenu.getMenu();
+            SubMenu sort = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.sort_by));
+            sort.add(0, 1, Menu.NONE, getString(R.string.created_order)).setCheckable(true)
+                    .setChecked(Utils.getInt("sort_notes", 2, requireActivity()) == 2);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                sort.add(0, 2, Menu.NONE, getString(R.string.note_color_background)).setCheckable(true)
+                        .setChecked(Utils.getInt("sort_notes", 2, requireActivity()) == 1);
             }
+            sort.add(0, 3, Menu.NONE, getString(R.string.az_order)).setCheckable(true)
+                    .setChecked(Utils.getInt("sort_notes", 2, requireActivity()) == 0);
+            sort.setGroupCheckable(0, true, true);
+            menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
+                    .setChecked(Utils.getBoolean("reverse_order", false, requireActivity()));
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
                         break;
                     case 1:
-                        if (Utils.getInt("sort_notes", 0, requireActivity()) != 2) {
+                        if (Utils.getInt("sort_notes", 2, requireActivity()) != 2) {
                             Utils.saveInt("sort_notes", 2, requireActivity());
                             loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 2:
-                        if (Utils.getInt("sort_notes", 0, requireActivity()) != 1) {
+                        if (Utils.getInt("sort_notes", 2, requireActivity()) != 1) {
                             Utils.saveInt("sort_notes", 1, requireActivity());
                             loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 3:
-                        if (Utils.getInt("sort_notes", 0, requireActivity()) != 0) {
+                        if (Utils.getInt("sort_notes", 2, requireActivity()) != 0) {
                             Utils.saveInt("sort_notes", 0, requireActivity());
                             loadUI(mProgressBar, requireActivity()).execute();
                         }

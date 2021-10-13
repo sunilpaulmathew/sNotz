@@ -45,10 +45,20 @@ public class sNotzData {
                 } catch (JSONException ignored) {
                 }
             }
-            if (Utils.getInt("sort_notes", 0, context) == 2) {
-                Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(lhs.getTimeStamp(), rhs.getTimeStamp()));
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Utils.getInt("sort_notes", 0, context) == 1) {
-                Collections.sort(mData, Comparator.comparingLong(sNotzItems::getColorBackground));
+            if (Utils.getInt("sort_notes", 2, context) == 2) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Collections.sort(mData, Comparator.comparingLong(sNotzItems::getTimeStamp));
+                } else {
+                    Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(String.valueOf(lhs.getTimeStamp()), String.valueOf(rhs.getTimeStamp())));
+                }
+            } else if (Utils.getInt("sort_notes", 2, context) == 1) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Collections.sort(mData, Comparator.comparingLong(sNotzItems::getColorBackground));
+                } else {
+                    Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(String.valueOf(lhs.getColorBackground()), String.valueOf(rhs.getColorBackground())));
+                }
+            } else {
+                Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(rhs.getNote(), lhs.getNote()));
             }
             if (!Utils.getBoolean("reverse_order", false, context)) {
                 Collections.reverse(mData);
@@ -91,13 +101,13 @@ public class sNotzData {
         return null;
     }
 
-    public static String getDate(String string) {
+    public static long getDate(String string) {
         try {
             JSONObject obj = new JSONObject(string);
-            return obj.getString("date");
+            return obj.getLong("date");
         } catch (JSONException ignored) {
         }
-        return null;
+        return System.currentTimeMillis();
     }
 
     public static String getImage(String string) {

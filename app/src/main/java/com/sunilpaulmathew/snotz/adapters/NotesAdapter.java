@@ -36,6 +36,7 @@ import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
 import java.util.List;
 import java.util.Objects;
 
@@ -185,7 +186,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             Intent editNote = new Intent(holder.mRVCard.getContext(), CreateNoteActivity.class);
             holder.mRVCard.getContext().startActivity(editNote);
         });
-        holder.mDate.setText(this.data.get(position).getTimeStamp());
+        holder.mDate.setText(DateFormat.getDateTimeInstance().format(this.data.get(position).getTimeStamp()));
         holder.mDate.setTextColor(data.get(position).getColorText());
         holder.mProgress.setIndeterminateTintList(ColorStateList.valueOf(data.get(position).getColorText()));
     }
