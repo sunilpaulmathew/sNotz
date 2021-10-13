@@ -94,14 +94,15 @@
                     android:id="@+id/contents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
+                    android:hint="@string/add_text_hint"
+                    android:textColorHighlight="@color/color_red"
+                    android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
+                    android:textStyle="bold|italic"
                     android:cursorVisible="true"
                     android:gravity="top|start"
-                    android:hint="@string/add_text_hint"
-                    android:textStyle="bold|italic"
-                    android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
-                    android:padding="10dp"
-                    android:textSize="18sp" />
+                    android:background="@null"
+                    android:textSize="18sp"
+                    android:padding="10dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
