@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -106,6 +107,8 @@ public class NotePickerActivity extends AppCompatActivity {
         mContents.setHintTextColor(sNotzColor.getTextColor(this));
         mSelectedColorBg = sNotzColor.getAccentColor(this);
         mSelectedColorTxt = sNotzColor.getTextColor(this);
+
+        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, this));
 
         if (Utils.getBoolean("allow_images", false, this)) {
             mAdd.setVisibility(View.VISIBLE);

@@ -112,7 +112,6 @@
                     android:cursorVisible="true"
                     android:gravity="top|start"
                     android:background="@null"
-                    android:textSize="18sp"
                     android:padding="10dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

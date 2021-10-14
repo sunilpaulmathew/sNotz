@@ -29,6 +29,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
+import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Security;
@@ -78,6 +79,8 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), sNotzUtils.getDrawable(R.drawable.ic_color, this), null));
         mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sNotzUtils.getDrawable(R.drawable.ic_text, this), null));
         mData.add(new SettingsItems(getString(R.string.image_include), getString(R.string.image_include_summary), sNotzUtils.getDrawable(R.drawable.ic_image, this), null));
+        mData.add(new SettingsItems(getString(R.string.font_size), getString(R.string.font_size_summary, "" + Utils.getInt("font_size", 18, this)),
+                sNotzUtils.getDrawable(R.drawable.ic_format_size, this), null));
         mData.add(new SettingsItems(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_backup, this), null));
         mData.add(new SettingsItems(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_restore, this), null));
         mData.add(new SettingsItems(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_clear, this), null));
@@ -174,6 +177,8 @@ public class SettingsActivity extends AppCompatActivity {
                             }).show();
                 }
             } else if (position == 6) {
+                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+            } else if (position == 7) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(
                             R.array.backup_options), (dialogInterface, i) -> {
@@ -193,12 +198,12 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
-            } else if (position == 7) {
+            } else if (position == 8) {
                 Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
                 restore.setType("*/*");
                 restore.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(restore, 0);
-            } else if (position == 8) {
+            } else if (position == 9) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this)
                             .setMessage(getString(R.string.clear_notes_message))
@@ -220,9 +225,9 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
-            } else if (position == 9) {
-                Billing.showDonationMenu(this);
             } else if (position == 10) {
+                Billing.showDonationMenu(this);
+            } else if (position == 11) {
                 Intent share_app = new Intent();
                 share_app.setAction(Intent.ACTION_SEND);
                 share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
@@ -230,7 +235,7 @@ public class SettingsActivity extends AppCompatActivity {
                 share_app.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
                 startActivity(shareIntent);
-            } else if (position == 11) {
+            } else if (position == 12) {
                 Intent welcome = new Intent(this, WelcomeActivity.class);
                 startActivity(welcome);
                 finish();

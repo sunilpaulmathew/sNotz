@@ -2,6 +2,7 @@ package com.sunilpaulmathew.snotz.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -51,6 +52,8 @@ public class ReadNoteActivity extends AppCompatActivity {
             mContents.setTextColor(sNotzUtils.getColor(R.color.color_black, this));
             mScrollView.setBackgroundColor(sNotzUtils.getColor(R.color.color_white, this));
         }
+
+        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, this));
 
         mBack.setOnClickListener(v -> finish());
     }
