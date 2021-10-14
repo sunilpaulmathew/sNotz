@@ -93,6 +93,7 @@ public class AppSettings {
 
     public static void setFontSize(int position, List<SettingsItems> items, SettingsAdapter adapter, Context context) {
         new MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.font_size)
                 .setSingleChoiceItems(getFontSizes(), getFontSizePosition(context), (dialog, itemPosition) -> {
                     Utils.saveInt("font_size", Integer.parseInt(getFontSizes()[itemPosition].replace("sp","")), context);
                     items.set(position, new SettingsItems(context.getString(R.string.font_size), context.getString(R.string.font_size_summary,
@@ -105,6 +106,7 @@ public class AppSettings {
 
     public static void setFontStyle(int position, List<SettingsItems> items, SettingsAdapter adapter, Context context) {
         new MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.text_style)
                 .setSingleChoiceItems(getFontStyles(context), getFontStylePosition(context), (dialog, itemPosition) -> {
                     Utils.saveString("font_style", getFontStyle(itemPosition), context);
                     items.set(position, new SettingsItems(context.getString(R.string.text_style), getFontStyle(context),

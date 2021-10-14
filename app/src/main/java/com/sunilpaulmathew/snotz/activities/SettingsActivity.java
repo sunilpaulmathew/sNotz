@@ -19,7 +19,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -65,23 +64,25 @@ public class SettingsActivity extends AppCompatActivity {
         mProgress = findViewById(R.id.progress);
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         SettingsAdapter mRecycleViewAdapter = new SettingsAdapter(mData);
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
         mData.add(new SettingsItems(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", "Copyright: © 2021-2022, sunilpaulmathew", sNotzUtils.getDrawable(R.drawable.ic_info, this), null));
+        mData.add(new SettingsItems(getString(R.string.security), null, null, null));
         if (Utils.isFingerprintAvailable(this)) {
             mData.add(new SettingsItems(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), sNotzUtils.getDrawable(R.drawable.ic_fingerprint, this), null));
         } else {
             mData.add(new SettingsItems(getString(R.string.pin_protection), getString(R.string.pin_protection_message), sNotzUtils.getDrawable(R.drawable.ic_lock, this), null));
         }
         mData.add(new SettingsItems(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_eye, this), null));
+        mData.add(new SettingsItems(getString(R.string.customize_note), null, null, null));
         mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), sNotzUtils.getDrawable(R.drawable.ic_color, this), null));
         mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sNotzUtils.getDrawable(R.drawable.ic_text_color, this), null));
         mData.add(new SettingsItems(getString(R.string.image_include), getString(R.string.image_include_summary), sNotzUtils.getDrawable(R.drawable.ic_image, this), null));
         mData.add(new SettingsItems(getString(R.string.font_size), getString(R.string.font_size_summary, "" + Utils.getInt("font_size", 18, this)),
                 sNotzUtils.getDrawable(R.drawable.ic_format_size, this), null));
         mData.add(new SettingsItems(getString(R.string.text_style), AppSettings.getFontStyle(this), sNotzUtils.getDrawable(R.drawable.ic_text_style, this), null));
+        mData.add(new SettingsItems(getString(R.string.misc), null, null, null));
         mData.add(new SettingsItems(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_backup, this), null));
         mData.add(new SettingsItems(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_restore, this), null));
         mData.add(new SettingsItems(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), sNotzUtils.getDrawable(R.drawable.ic_clear, this), null));
@@ -103,7 +104,7 @@ public class SettingsActivity extends AppCompatActivity {
                 settings.setData(uri);
                 startActivity(settings);
                 finish();
-            } else if (position == 1) {
+            } else if (position == 2) {
                 if (Utils.isFingerprintAvailable(this)) {
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else {
@@ -113,7 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
                         Security.setPIN(false, getString(R.string.pin_enter), mRecycleViewAdapter, this);
                     }
                 }
-            } else if (position == 2) {
+            } else if (position == 3) {
                 if (Utils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
                     Common.isHiddenNote(true);
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
@@ -124,7 +125,7 @@ public class SettingsActivity extends AppCompatActivity {
                     mRecycleViewAdapter.notifyItemChanged(position);
                     Utils.reloadUI( this);
                 }
-            } else if (position == 3) {
+            } else if (position == 5) {
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
@@ -142,7 +143,7 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
-            } else if (position == 4) {
+            } else if (position == 6) {
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
@@ -160,7 +161,7 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
-            } else if (position == 5) {
+            } else if (position == 7) {
                 if (Utils.getBoolean("allow_images", false, this)) {
                     Utils.saveBoolean("allow_images", false, this);
                     mRecycleViewAdapter.notifyItemChanged(position);
@@ -177,11 +178,11 @@ public class SettingsActivity extends AppCompatActivity {
                                 mRecycleViewAdapter.notifyItemChanged(position);
                             }).show();
                 }
-            } else if (position == 6) {
-                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
-            } else if (position == 7) {
-                AppSettings.setFontStyle(position, mData, mRecycleViewAdapter, this);
             } else if (position == 8) {
+                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+            } else if (position == 9) {
+                AppSettings.setFontStyle(position, mData, mRecycleViewAdapter, this);
+            } else if (position == 11) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(
                             R.array.backup_options), (dialogInterface, i) -> {
@@ -201,12 +202,12 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
-            } else if (position == 9) {
+            } else if (position == 12) {
                 Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
                 restore.setType("*/*");
                 restore.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(restore, 0);
-            } else if (position == 10) {
+            } else if (position == 13) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this)
                             .setMessage(getString(R.string.clear_notes_message))
@@ -228,9 +229,9 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
-            } else if (position == 11) {
+            } else if (position == 14) {
                 Billing.showDonationMenu(this);
-            } else if (position == 12) {
+            } else if (position == 15) {
                 Intent share_app = new Intent();
                 share_app.setAction(Intent.ACTION_SEND);
                 share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
@@ -238,7 +239,7 @@ public class SettingsActivity extends AppCompatActivity {
                 share_app.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
                 startActivity(shareIntent);
-            } else if (position == 13) {
+            } else if (position == 16) {
                 Intent welcome = new Intent(this, WelcomeActivity.class);
                 startActivity(welcome);
                 finish();
@@ -263,15 +264,15 @@ public class SettingsActivity extends AppCompatActivity {
                     Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, SettingsActivity.this), SettingsActivity.this);
                     Common.isHiddenNote(false);
                     Utils.reloadUI(SettingsActivity.this);
-                    mRecycleViewAdapter.notifyItemChanged(2);
+                    mRecycleViewAdapter.notifyItemChanged(3);
                 } else if (Common.isClearingNotes()) {
                     Common.isClearingNotes(false);
                     Utils.delete(getFilesDir().getPath() + "/snotz");
                     Utils.reloadUI(SettingsActivity.this);
-                    mRecycleViewAdapter.notifyItemChanged(8);
+                    mRecycleViewAdapter.notifyItemChanged(13);
                 } else {
                     Utils.useBiometric(mBack, SettingsActivity.this);
-                    mRecycleViewAdapter.notifyItemChanged(1);
+                    mRecycleViewAdapter.notifyItemChanged(2);
                 }
             }
 

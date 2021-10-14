@@ -1,59 +1,71 @@
-<FrameLayout
+<androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center"
-    android:padding="10dp" >
+    android:orientation="vertical"
+    android:gravity="center" >
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:tint="@color/color_teal"
-            android:background="@null" />
-
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="50dp"
-            android:orientation="vertical" >
+            android:gravity="center"
+            android:padding="10dp" >
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/title"
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:tint="@color/color_teal"
+                    android:background="@null" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_teal"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="50dp"
+                    android:orientation="vertical" >
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textStyle="italic" />
-        </LinearLayout>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_teal"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/checked"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end|center"
-            android:tint="@color/color_teal"
-            android:layout_margin="5dp"
-            android:background="@null"
-            android:clickable="false"
-            android:visibility="gone" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:textStyle="italic" />
+                </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/circle"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end|center"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="15dp"
-            android:visibility="gone" />
-</FrameLayout>
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/checked"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center"
+                    android:tint="@color/color_teal"
+                    android:layout_margin="5dp"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:visibility="gone" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/circle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="15dp"
+                    android:visibility="gone" />
+        </FrameLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:visibility="gone"
+            style="@style/Divider"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
