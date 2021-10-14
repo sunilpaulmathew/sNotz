@@ -32,6 +32,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
+import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
@@ -71,6 +72,7 @@ public class NotePickerActivity extends AppCompatActivity {
         AppCompatImageButton mAdd = findViewById(R.id.add);
         AppCompatImageButton mBack = findViewById(R.id.back_button);
         AppCompatImageButton mSave = findViewById(R.id.save_button);
+        AppCompatImageButton mReadingMode = findViewById(R.id.reading_mode);
         mImage = findViewById(R.id.image);
         mContents = findViewById(R.id.contents);
         mProgress = findViewById(R.id.progress);
@@ -208,6 +210,24 @@ public class NotePickerActivity extends AppCompatActivity {
             });
             popupMenu.show();
         });
+
+        mReadingMode.setOnClickListener(v ->
+                new MaterialAlertDialogBuilder(this)
+                        .setMessage(getString(R.string.reading_mode_message) + (isUnsavedNote() ? "\n\n" + getString(
+                                R.string.reading_mode_warning) : ""))
+                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                        })
+                        .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
+                            Intent readOnlyMode = new Intent(this, ReadNoteActivity.class);
+                            Common.setReadModeText(Objects.requireNonNull(mContents.getText()).toString());
+                            if (mBitmap != null) {
+                                Common.setReadModeImage(mBitmap);
+                            } else {
+                                Common.setReadModeImage(null);
+                            }
+                            startActivity(readOnlyMode);
+                            finish();
+                        }).show());
 
         mSave.setOnClickListener(v -> {
             if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
@@ -355,6 +375,10 @@ public class NotePickerActivity extends AppCompatActivity {
         }).show();
     }
 
+    private boolean isUnsavedNote() {
+        return mContents.getText() != null && !mContents.getText().toString().isEmpty();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -389,7 +413,7 @@ public class NotePickerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mContents.getText() != null && !mContents.getText().toString().isEmpty()) {
+        if (isUnsavedNote()) {
             new MaterialAlertDialogBuilder(this)
                     .setIcon(R.mipmap.ic_launcher)
                     .setTitle(R.string.app_name)
