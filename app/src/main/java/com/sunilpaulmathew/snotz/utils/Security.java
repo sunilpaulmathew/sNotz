@@ -76,7 +76,7 @@ public class Security {
         }).show();
     }
 
-    public static void manageHiddenNotes(SettingsAdapter adapter, Activity activity) {
+    public static void authenticate(SettingsAdapter adapter, int position, Activity activity) {
         Utils.dialogEditText(null, activity.getString(R.string.authenticate),
                 (dialogInterface, i) -> {
                 }, text -> {
@@ -85,12 +85,16 @@ public class Security {
                                 .setMessage(activity.getString(R.string.pin_mismatch_message))
                                 .setCancelable(false)
                                 .setNegativeButton(R.string.cancel, (dialog, which) -> activity.finish())
-                                .setPositiveButton(R.string.try_again, (dialog, which) -> manageHiddenNotes(adapter, activity)).show();
+                                .setPositiveButton(R.string.try_again, (dialog, which) -> authenticate(adapter, position, activity)).show();
                     } else {
-                        Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, activity), activity);
+                        if (position == 2) {
+                            Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, activity), activity);
+                        } else {
+                            Utils.delete(activity.getFilesDir().getPath() + "/snotz");
+                        }
                         Utils.reloadUI(activity);
                         if (adapter != null) {
-                            adapter.notifyItemChanged(2);
+                            adapter.notifyItemChanged(position);
                         }
                     }
                 }, InputType.TYPE_CLASS_NUMBER,activity).setOnDismissListener(dialogInterface -> {

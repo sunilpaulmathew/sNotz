@@ -114,7 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Common.isHiddenNote(true);
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else if (Security.isPINEnabled(this)) {
-                    Security.manageHiddenNotes(mRecycleViewAdapter, this);
+                    Security.authenticate(mRecycleViewAdapter, position,this);
                 } else {
                     Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, this), this);
                     mRecycleViewAdapter.notifyItemChanged(position);
@@ -205,11 +205,18 @@ public class SettingsActivity extends AppCompatActivity {
                             .setNegativeButton(R.string.cancel, (dialog, which) -> {
                             })
                             .setPositiveButton(R.string.delete, (dialog, which) -> {
-                                Utils.delete(getFilesDir().getPath() + "/snotz");
-                                Utils.reloadUI(this);
-                                onBackPressed();
-                            })
-                            .show();
+                                if (Utils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
+                                    Common.isClearingNotes(true);
+                                    mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
+                                } else if (Security.isPINEnabled(this)) {
+                                    Security.authenticate(mRecycleViewAdapter, position,this);
+                                } else {
+                                    Utils.delete(getFilesDir().getPath() + "/snotz");
+                                    mRecycleViewAdapter.notifyItemChanged(position);
+                                    Utils.reloadUI(this);
+                                    finish();
+                                }
+                            }).show();
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
@@ -248,10 +255,16 @@ public class SettingsActivity extends AppCompatActivity {
                     Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, SettingsActivity.this), SettingsActivity.this);
                     Common.isHiddenNote(false);
                     Utils.reloadUI(SettingsActivity.this);
+                    mRecycleViewAdapter.notifyItemChanged(2);
+                } else if (Common.isClearingNotes()) {
+                    Common.isClearingNotes(false);
+                    Utils.delete(getFilesDir().getPath() + "/snotz");
+                    Utils.reloadUI(SettingsActivity.this);
+                    mRecycleViewAdapter.notifyItemChanged(8);
                 } else {
                     Utils.useBiometric(mBack, SettingsActivity.this);
+                    mRecycleViewAdapter.notifyItemChanged(1);
                 }
-                mRecycleViewAdapter.notifyItemRangeChanged(1,2);
             }
 
             @Override
