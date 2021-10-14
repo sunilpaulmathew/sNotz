@@ -32,6 +32,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
@@ -89,6 +90,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
 
         mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, this));
+        mContents.setTypeface(null, AppSettings.getStyle(this));
 
         if (Utils.getBoolean("allow_images", false, this)) {
             mAdd.setVisibility(View.VISIBLE);

@@ -234,6 +234,14 @@ public class Utils {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(name, value).apply();
     }
 
+    public static String getString(String name, String defaults, Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(name, defaults);
+    }
+
+    public static void saveString(String name, String value, Context context) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(name, value).apply();
+    }
+
     public static boolean delete(String file) {
         return new File(file).delete();
     }

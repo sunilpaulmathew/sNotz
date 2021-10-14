@@ -13,6 +13,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
@@ -54,6 +55,7 @@ public class ReadNoteActivity extends AppCompatActivity {
         }
 
         mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, this));
+        mContents.setTypeface(null, AppSettings.getStyle(this));
 
         mBack.setOnClickListener(v -> finish());
     }

@@ -108,7 +108,6 @@
                     android:hint="@string/add_text_hint"
                     android:textColorHighlight="@color/color_red"
                     android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
-                    android:textStyle="bold|italic"
                     android:cursorVisible="true"
                     android:gravity="top|start"
                     android:background="@null"

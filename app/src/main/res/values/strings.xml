@@ -125,6 +125,11 @@
     <string name="support_retry_message">Please try purchasing again</string>
     <string name="support_summary">Visit Telegram support group</string>
     <string name="text_empty">Text shouldn\'t be empty. Aborting</string>
+    <string name="text_style">Text Style (Notes)</string>
+    <string name="text_style_bold">Bold</string>
+    <string name="text_style_bold_italics">Bold &amp; Italics</string>
+    <string name="text_style_italics">Italics</string>
+    <string name="text_style_regular">Regular</string>
     <string name="translations">Translations</string>
     <string name="translations_summary">Help me to translate this app. Click here to visit POEditor localization project.</string>
     <string name="try_again">Try Again</string>
