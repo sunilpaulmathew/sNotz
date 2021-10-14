@@ -1,5 +1,6 @@
 package com.sunilpaulmathew.snotz.utils;
 
+import android.graphics.Bitmap;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,10 +16,15 @@ import java.util.Locale;
  */
 public class Common {
 
+    private static Bitmap mReadModeImage = null;
     private static boolean mHiddenNotes = false, mReload = false, mWorking = false;
     private static int mColorBackground = -1, mColorText = -1, mId = -1;
     private static RecyclerView mRecyclerView;
-    private static String mImageString = null, mNote = null, mSearchText = null;
+    private static String mImageString = null, mNote = null, mReadModeText = null, mSearchText = null;
+
+    public static Bitmap getReadModeImage() {
+        return mReadModeImage;
+    }
 
     public static boolean isHiddenNote() {
         return mHiddenNotes;
@@ -65,32 +71,7 @@ public class Common {
         DateFormatSymbols dfs = new DateFormatSymbols(Locale.getDefault());
         List<String> months = new ArrayList<>();
         Collections.addAll(months, dfs.getMonths());
-        String mMonth = null;
-        if (month == 0) {
-            mMonth = months.get(0) + " ";
-        } else if (month == 1) {
-            mMonth = months.get(1) + " ";
-        } else if (month == 2) {
-            mMonth = months.get(2) + " ";
-        } else if (month == 3) {
-            mMonth = months.get(3) + " ";
-        } else if (month == 4) {
-            mMonth = months.get(4) + " ";
-        } else if (month == 5) {
-            mMonth = months.get(5) + " ";
-        } else if (month == 6) {
-            mMonth = months.get(6) + " ";
-        } else if (month == 7) {
-            mMonth = months.get(7) + " ";
-        } else if (month == 8) {
-            mMonth = months.get(8) + " ";
-        } else if (month == 9) {
-            mMonth = months.get(9) + " ";
-        } else if (month == 10) {
-            mMonth = months.get(10) + " ";
-        } else if (month == 11) {
-            mMonth = months.get(11) + " ";
-        }
+        String mMonth = months.get((int) month) + " ";
         String mTime;
         if (hour > 12) {
             mTime =  (hour - 12) + ":" + (min < 10 ? "0" + min : min) + " PM";
@@ -106,6 +87,10 @@ public class Common {
 
     public static String getNote() {
         return mNote;
+    }
+
+    public static String getReadModeText() {
+        return mReadModeText;
     }
 
     public static String getSearchText() {
@@ -138,6 +123,14 @@ public class Common {
 
     public static void setNote(String note) {
         mNote = note;
+    }
+
+    public static void setReadModeImage(Bitmap bitmap) {
+        mReadModeImage = bitmap;
+    }
+
+    public static void setReadModeText(String readModeText) {
+        mReadModeText = readModeText;
     }
 
     public static void setSearchText(String searchText) {

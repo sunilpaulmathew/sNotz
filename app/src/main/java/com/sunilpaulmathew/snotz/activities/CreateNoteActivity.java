@@ -57,6 +57,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         AppCompatImageButton mAdd = findViewById(R.id.add);
         AppCompatImageButton mBack = findViewById(R.id.back_button);
         AppCompatImageButton mSave = findViewById(R.id.save_button);
+        AppCompatImageButton mReadingMode = findViewById(R.id.reading_mode);
         mImage = findViewById(R.id.image);
         mContents = findViewById(R.id.contents);
         ProgressBar mProgress = findViewById(R.id.progress);
@@ -105,6 +106,8 @@ public class CreateNoteActivity extends AppCompatActivity {
             mHidden.setChecked(Common.isHiddenNote());
             mContents.setText(Common.getNote());
             mNote = Common.getNote();
+        } else {
+            mReadingMode.setVisibility(View.GONE);
         }
 
         mColorBackground.setOnClickListener(v -> ColorPickerDialogBuilder
@@ -172,6 +175,24 @@ public class CreateNoteActivity extends AppCompatActivity {
             popupMenu.show();
         });
 
+        mReadingMode.setOnClickListener(v ->
+                new MaterialAlertDialogBuilder(this)
+                        .setMessage(getString(R.string.reading_mode_message) + (isUnsavedNote() ? "\n\n" + getString(
+                                R.string.reading_mode_warning) : ""))
+                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                        })
+                        .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
+                            Intent readOnlyMode = new Intent(this, ReadNoteActivity.class);
+                            Common.setReadModeText(Common.getNote());
+                            if (mBitmap != null) {
+                                Common.setReadModeImage(mBitmap);
+                            } else {
+                                Common.setReadModeImage(null);
+                            }
+                            startActivity(readOnlyMode);
+                            finish();
+                        }).show());
+
         mSave.setOnClickListener(v -> {
             if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
                 Utils.showSnackbar(findViewById(R.id.contents), getString(R.string.text_empty));
@@ -187,6 +208,11 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
             exit(this);
         });
+    }
+
+    private boolean isUnsavedNote() {
+        return mNote != null && mContents.getText() != null && !mNote.equals(mContents.getText().toString()) || mNote == null
+                && mContents.getText() != null && !mContents.getText().toString().isEmpty();
     }
 
     private static void exit(Activity activity) {
@@ -253,8 +279,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mNote != null && mContents.getText() != null && !mNote.equals(mContents.getText().toString()) || mNote == null
-                && mContents.getText() != null && !mContents.getText().toString().isEmpty()) {
+        if (isUnsavedNote()) {
             new MaterialAlertDialogBuilder(this)
                     .setIcon(R.mipmap.ic_launcher)
                     .setTitle(R.string.app_name)

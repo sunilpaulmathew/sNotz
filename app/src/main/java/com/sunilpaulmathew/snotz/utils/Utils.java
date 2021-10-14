@@ -60,7 +60,7 @@ public class Utils {
         return !isPackageInstalled("com.smartpack.donate", context);
     }
 
-    private static boolean isDarkTheme(Context context) {
+    public static boolean isDarkTheme(Context context) {
         int currentNightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
     }

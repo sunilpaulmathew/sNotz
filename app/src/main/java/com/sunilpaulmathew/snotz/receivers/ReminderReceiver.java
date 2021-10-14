@@ -14,8 +14,9 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
-import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.activities.ReadNoteActivity;
+import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 
 /*
@@ -29,11 +30,11 @@ public class ReminderReceiver extends BroadcastReceiver {
 
         int mNotificationID = sNotzReminders.getNotificationID(context);
 
-        Intent mIntent = new Intent(context, MainActivity.class);
+        Intent mIntent = new Intent(context, ReadNoteActivity.class);
         mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         TaskStackBuilder mTaskStackBuilder = TaskStackBuilder.create(context);
-        mTaskStackBuilder.addParentStack(MainActivity.class);
+        mTaskStackBuilder.addParentStack(ReadNoteActivity.class);
         mTaskStackBuilder.addNextIntent(mIntent);
         
         PendingIntent mPendingIntent = mTaskStackBuilder.getPendingIntent(mNotificationID, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -45,6 +46,8 @@ public class ReminderReceiver extends BroadcastReceiver {
 
         Notification mNotification = null;
         if (sNotzReminders.getReminderMessage(context) != null) {
+            Common.setReadModeText(sNotzReminders.getReminderMessage(context));
+            Common.setReadModeImage(null);
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "channel");
             mNotification = mBuilder.setContentTitle(context.getString(R.string.app_name))
                     .setContentText(sNotzReminders.getReminderMessage(context))
