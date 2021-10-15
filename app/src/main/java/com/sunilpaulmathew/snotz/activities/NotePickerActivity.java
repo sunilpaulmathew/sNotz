@@ -12,7 +12,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
@@ -20,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
@@ -84,9 +84,9 @@ public class NotePickerActivity extends AppCompatActivity {
         mHidden = findViewById(R.id.hidden);
 
         if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(this)) {
-            LinearLayout mMainLayout = findViewById(R.id.main_layout);
-            LinearLayout mColorLayout = findViewById(R.id.color_layout);
-            LinearLayout mPermissionLayout = findViewById(R.id.permission_layout);
+            LinearLayoutCompat mMainLayout = findViewById(R.id.main_layout);
+            LinearLayoutCompat mColorLayout = findViewById(R.id.color_layout);
+            LinearLayoutCompat mPermissionLayout = findViewById(R.id.permission_layout);
             MaterialCardView mPermissionGrant = findViewById(R.id.grant_card);
             MaterialTextView mPermissionText = findViewById(R.id.permission_text);
             mPermissionText.setText(getString(R.string.permission_denied_message));
@@ -410,7 +410,7 @@ public class NotePickerActivity extends AppCompatActivity {
                         mHeight = (int) (mSize / mRatio);
                         mWidth = mSize;
                     }
-                    LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(mWidth, mHeight);
+                    LinearLayoutCompat.LayoutParams mLayoutParams = new LinearLayoutCompat.LayoutParams(mWidth, mHeight);
                     mLayoutParams.gravity = Gravity.CENTER;
                     mImage.setLayoutParams(mLayoutParams);
                     mImage.setVisibility(View.VISIBLE);

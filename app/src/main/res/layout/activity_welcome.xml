@@ -63,7 +63,7 @@
         app:cardCornerRadius="5dp"
         android:padding="10dp" >
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_teal"
@@ -105,7 +105,7 @@
                 android:textSize="12sp"
                 android:padding="5dp"
                 android:gravity="end" />
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -158,7 +158,7 @@
         android:textStyle="bold|italic"
         android:textColor="@color/color_red" />
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -199,9 +199,9 @@
             android:layout_marginStart="25dp"
             android:padding="5dp"
             android:background="@null" />
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="80dp"
@@ -246,7 +246,7 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="?android:attr/colorAccent" />
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"

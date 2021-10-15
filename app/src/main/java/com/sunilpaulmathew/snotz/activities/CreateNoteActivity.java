@@ -13,7 +13,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -22,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
@@ -257,7 +257,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                         mHeight = (int) (mSize / mRatio);
                         mWidth = mSize;
                     }
-                    LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(mWidth, mHeight);
+                    LinearLayoutCompat.LayoutParams mLayoutParams = new LinearLayoutCompat.LayoutParams(mWidth, mHeight);
                     mLayoutParams.gravity = Gravity.CENTER;
                     mImage.setLayoutParams(mLayoutParams);
                     mImage.setVisibility(View.VISIBLE);

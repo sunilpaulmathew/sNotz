@@ -1,5 +1,4 @@
-<LinearLayout
-    android:id="@+id/main_layout"
+<androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -39,7 +38,7 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical" >
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -64,6 +63,6 @@
                 android:gravity="top|start"
                 android:background="@null"
                 android:padding="10dp" />
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

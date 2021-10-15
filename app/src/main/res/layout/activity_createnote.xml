@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -86,7 +86,7 @@
             android:layout_marginBottom="80dp"
             android:scrollbars="vertical" >
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -113,11 +113,11 @@
                     android:gravity="top|start"
                     android:background="@null"
                     android:padding="10dp" />
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/color_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
         android:baselineAligned="false"
         android:padding="5dp" >
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_weight="0.8"
             android:layout_height="wrap_content"
             android:background="@color/color_white"
@@ -153,7 +153,7 @@
                 android:layout_gravity="end|center"
                 android:layout_margin="1dp"
                 app:cardCornerRadius="5dp" />
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/add"
@@ -166,7 +166,7 @@
             android:background="@null"
             android:visibility="gone" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_weight="0.8"
             android:layout_height="wrap_content"
             android:background="@color/color_white"
@@ -192,8 +192,8 @@
                 android:layout_gravity="end|center"
                 android:layout_margin="1dp"
                 app:cardCornerRadius="5dp" />
-        </LinearLayout>
-    </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <include layout="@layout/permission_layout" />
 </RelativeLayout>
