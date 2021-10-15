@@ -1,0 +1,7 @@
+* Cleaning all notes will now request authentication (if Biometric/PIN enabled).
+* Added option to configure (globally) font size/style of notes.
+* Settings page is now more organized (categorized into sections).
+* Added Read-Only mode for existing notes.
+* Fixed cursor not visible on default color scheme
+* Updated gradle plugin to latest.
+* Miscellaneous changes.

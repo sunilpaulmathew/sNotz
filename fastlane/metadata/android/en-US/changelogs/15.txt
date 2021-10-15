@@ -1,5 +1,0 @@
-* Fixed remaining reminders getting corrupted after an event is notified.
-* Allow swipe removing reminders.
-* Completely changed note's time stamp storing logic for good reasons (Sorry for the inconvenience).
-* Added Norwegian translations (credits to @FTno).
-* Miscellaneous changes.
