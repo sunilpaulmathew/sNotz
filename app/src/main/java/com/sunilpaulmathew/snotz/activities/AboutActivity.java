@@ -2,11 +2,11 @@ package com.sunilpaulmathew.snotz.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
@@ -33,9 +33,9 @@ public class AboutActivity extends AppCompatActivity {
         AppCompatImageView mSunil = findViewById(R.id.sunil);
         MaterialTextView mChange_logs = findViewById(R.id.change_logs);
         MaterialTextView mCancel = findViewById(R.id.cancel_button);
-        LinearLayout mSourceCode = findViewById(R.id.source_code);
-        LinearLayout mMoreApps = findViewById(R.id.play_store);
-        LinearLayout mReportIssue = findViewById(R.id.report_issue);
+        LinearLayoutCompat mSourceCode = findViewById(R.id.source_code);
+        LinearLayoutCompat mMoreApps = findViewById(R.id.play_store);
+        LinearLayoutCompat mReportIssue = findViewById(R.id.report_issue);
 
         mSourceCode.setOnClickListener(v -> Utils.launchURL("https://github.com/sunilpaulmathew/sNotz/", this));
         mMoreApps.setOnClickListener(v -> Utils.launchURL("https://play.google.com/store/apps/dev?id=5836199813143882901", this));
