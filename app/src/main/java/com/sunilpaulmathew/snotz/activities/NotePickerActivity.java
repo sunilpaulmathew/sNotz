@@ -111,6 +111,9 @@ public class NotePickerActivity extends AppCompatActivity {
 
         mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, this));
         mContents.setTypeface(null, AppSettings.getStyle(this));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            mContents.setTextCursorDrawable(sNotzUtils.getColoredDrawable(mContents.getCurrentTextColor(), R.drawable.ic_cursor, this));
+        }
 
         if (Utils.getBoolean("allow_images", false, this)) {
             mAdd.setVisibility(View.VISIBLE);

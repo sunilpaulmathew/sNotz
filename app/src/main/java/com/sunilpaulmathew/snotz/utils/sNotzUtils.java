@@ -89,6 +89,14 @@ public class sNotzUtils {
         return ContextCompat.getDrawable(context, drawable);
     }
 
+    public static Drawable getColoredDrawable(int color, int drawable, Context context) {
+        Drawable d = ContextCompat.getDrawable(context, drawable);
+        if (d != null) {
+            d.setTint(color);
+        }
+        return d;
+    }
+
     public static String bitmapToBase64(Bitmap bitmap, Activity activity) {
         try {
             int size = getMaxSize(activity);

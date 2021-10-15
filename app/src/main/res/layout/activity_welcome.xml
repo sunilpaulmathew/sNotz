@@ -57,7 +57,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         app:cardUseCompatPadding="true"
         android:layout_marginTop="65dp"
         android:longClickable="true"

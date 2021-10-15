@@ -108,6 +108,7 @@
                     android:hint="@string/add_text_hint"
                     android:textColorHighlight="@color/color_red"
                     android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
+                    android:textCursorDrawable="@drawable/ic_cursor"
                     android:cursorVisible="true"
                     android:gravity="top|start"
                     android:background="@null"
