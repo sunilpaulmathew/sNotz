@@ -1,6 +1,6 @@
 # sNotz
 
-<p style="text-align: center"><img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/002.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/001.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/003.jpg" alt="" width="250" height="450" /></p>
+<p style="text-align: center"><img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/002.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/001.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/005.jpg" alt="" width="250" height="450" /></p>
 
 [![](https://img.shields.io/badge/sNotz-v0.15-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
