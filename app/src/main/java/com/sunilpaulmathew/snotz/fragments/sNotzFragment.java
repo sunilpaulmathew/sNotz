@@ -101,6 +101,7 @@ public class sNotzFragment extends Fragment {
                 new MaterialAlertDialogBuilder(requireActivity())
                         .setMessage(getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
                                 sNotzData.getData(requireActivity()).get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
+                        .setCancelable(false)
                         .setNegativeButton(R.string.cancel, (dialog, which) -> loadUI(mProgressBar, requireActivity()).execute())
                         .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(sNotzData.getData(requireActivity()).get(position).getNoteID(), mProgressBar, requireActivity()).execute()).show();
             }

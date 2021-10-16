@@ -76,6 +76,7 @@ public class CheckListsActivity extends AppCompatActivity {
                 new MaterialAlertDialogBuilder(viewHolder.itemView.getContext())
                         .setMessage(viewHolder.itemView.getContext().getString(R.string.delete_sure_question, getData().get(position).getName()))
                         .setNegativeButton(R.string.cancel, (dialogInterface, i) -> mRecyclerView.setAdapter(new CheckListsAdapter(getData())))
+                        .setCancelable(false)
                         .setPositiveButton(R.string.delete, (dialogInterface, i) -> {
                             getData().get(position).delete();
                             mRecyclerView.setAdapter(new CheckListsAdapter(getData()));

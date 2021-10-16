@@ -68,6 +68,7 @@ public class RemindersActivity extends AppCompatActivity {
                         .setMessage(viewHolder.itemView.getContext().getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
                                 getData(RemindersActivity.this).get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                         .setNegativeButton(R.string.cancel, (dialogInterface, i) -> mRecyclerView.setAdapter(new RemindersAdapter(getData(RemindersActivity.this))))
+                        .setCancelable(false)
                         .setPositiveButton(R.string.delete, (dialogInterface, i) -> {
                             deleteReminder(getData(RemindersActivity.this).get(position).getNotificationID(), RemindersActivity.this);
                             mRecyclerView.setAdapter(new RemindersAdapter(getData(RemindersActivity.this)));
