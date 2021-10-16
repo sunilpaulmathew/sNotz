@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -60,12 +59,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
-        if (Common.getSearchText() != null && Common.isTextMatched(this.data.get(position).getNote())) {
-            holder.mContents.setText(Utils.fromHtml(this.data.get(position).getNote().replace(Common.getSearchText(),
-                    "<b><i><font color=\"" + Color.RED + "\">" + Common.getSearchText() + "</font></i></b>")));
-        } else {
-            holder.mContents.setText(this.data.get(position).getNote());
-        }
+        holder.mContents.setText(this.data.get(position).getNote());
         holder.mContents.setTextColor(data.get(position).getColorText());
         holder.mExpand.setVisibility(Common.getSpanCount() > 1 ? View.GONE : View.VISIBLE);
         holder.mExpand.setOnClickListener(v -> {

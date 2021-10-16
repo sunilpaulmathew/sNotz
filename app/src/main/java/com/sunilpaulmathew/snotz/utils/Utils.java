@@ -9,7 +9,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.text.Html;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -123,14 +122,6 @@ public class Utils {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
         activity.finish();
-    }
-
-    public static CharSequence fromHtml(String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            return Html.fromHtml(text);
-        }
     }
 
     public static void showSnackbar(View view, String message) {
