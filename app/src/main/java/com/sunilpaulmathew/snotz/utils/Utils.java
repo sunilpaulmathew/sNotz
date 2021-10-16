@@ -3,28 +3,21 @@ package com.sunilpaulmathew.snotz.utils;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.text.Html;
-import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.MainActivity;
@@ -39,7 +32,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -67,67 +59,6 @@ public class Utils {
 
     public static void initializeAppTheme() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-    }
-
-    public interface OnDialogEditTextListener {
-        void onClick(String text);
-    }
-
-    public static MaterialAlertDialogBuilder dialogEditText(String text, String title, final DialogInterface.OnClickListener negativeListener,
-                                                            final OnDialogEditTextListener onDialogEditTextListener, int inputType,
-                                                            Activity activity) {
-        LinearLayout layout = new LinearLayout(activity);
-        layout.setPadding(75, 75, 75, 75);
-
-        final AppCompatEditText editText = new AppCompatEditText(activity);
-        editText.setGravity(Gravity.CENTER);
-        editText.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        if (text != null) {
-            editText.append(text);
-        }
-        editText.setSingleLine(true);
-        editText.requestFocus();
-        if (inputType >= 0) {
-            editText.setInputType(inputType);
-            editText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                }
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (s.toString().length() > 4) {
-                        showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_length_warning));
-                        editText.setTextColor(sNotzUtils.getColor(R.color.color_red, activity));
-                    } else {
-                        editText.setTextColor(sNotzUtils.getColor(isDarkTheme(activity) ? R.color.color_white : R.color.color_black, activity));
-                    }
-                }
-            });
-        }
-
-        layout.addView(editText);
-
-        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(activity).setView(layout);
-        if (title != null) {
-            dialog.setTitle(title);
-        }
-        if (negativeListener != null) {
-            dialog.setNegativeButton(activity.getString(R.string.cancel), negativeListener);
-        }
-        if (onDialogEditTextListener != null) {
-            dialog.setPositiveButton(activity.getString(R.string.ok), (dialog1, which)
-                    -> onDialogEditTextListener.onClick(Objects.requireNonNull(editText.getText()).toString()))
-                    .setOnDismissListener(dialog1 -> {
-                        if (negativeListener != null) {
-                            negativeListener.onClick(dialog1, 0);
-                        }
-                    });
-        }
-        return dialog;
     }
 
     public static void toggleKeyboard(AppCompatEditText textView, Context context) {

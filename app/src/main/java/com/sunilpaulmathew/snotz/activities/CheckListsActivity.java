@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListsAdapter;
+import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -144,7 +145,7 @@ public class CheckListsActivity extends AppCompatActivity {
     }
 
     private void createCheckList() {
-        Utils.dialogEditText(null, getString(R.string.check_list_create_question),
+        DialogEditTextListener.dialogEditText(null, getString(R.string.check_list_create_question),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
@@ -170,7 +171,7 @@ public class CheckListsActivity extends AppCompatActivity {
     }
 
     private void importCheckList() {
-        Utils.dialogEditText(null, getString(R.string.check_list_import_question),
+        DialogEditTextListener.dialogEditText(null, getString(R.string.check_list_import_question),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {

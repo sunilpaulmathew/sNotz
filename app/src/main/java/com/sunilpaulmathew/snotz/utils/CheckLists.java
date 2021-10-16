@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import androidx.core.app.ActivityCompat;
 
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,7 +85,7 @@ public class CheckLists implements Serializable {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             return;
         }
-        Utils.dialogEditText(null, activity.getString(R.string.check_list_backup_question, CheckLists.getCheckListName()),
+        DialogEditTextListener.dialogEditText(null, activity.getString(R.string.check_list_backup_question, CheckLists.getCheckListName()),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {

@@ -9,6 +9,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
+import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 
 import java.io.File;
 
@@ -48,7 +49,7 @@ public class Security {
     }
 
     public static void setPIN(boolean verify, String title, SettingsAdapter adapter, Activity activity) {
-        Utils.dialogEditText(null, title,
+        DialogEditTextListener.dialogEditText(null, title,
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.length() != 4) {
@@ -77,7 +78,7 @@ public class Security {
     }
 
     public static void authenticate(SettingsAdapter adapter, int position, Activity activity) {
-        Utils.dialogEditText(null, activity.getString(R.string.authenticate),
+        DialogEditTextListener.dialogEditText(null, activity.getString(R.string.authenticate),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (!text.equals(getPIN(activity))) {
@@ -102,7 +103,7 @@ public class Security {
     }
 
     public static void authenticate(boolean remove, SettingsAdapter adapter, Activity activity) {
-        Utils.dialogEditText(null, activity.getString(R.string.authenticate),
+        DialogEditTextListener.dialogEditText(null, activity.getString(R.string.authenticate),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (!text.equals(getPIN(activity))) {

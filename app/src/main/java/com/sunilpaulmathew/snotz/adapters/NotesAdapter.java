@@ -27,6 +27,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
+import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
@@ -121,7 +122,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             if (this.data.get(position).getImageString() != null) {
                                 Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.image_excluded_warning));
                             }
-                            Utils.dialogEditText(null, null,
+                            DialogEditTextListener.dialogEditText(null, null,
                                     (dialogInterface, i) -> {
                                     }, text -> {
                                         if (text.isEmpty()) {

@@ -31,6 +31,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
@@ -360,7 +361,7 @@ public class NotePickerActivity extends AppCompatActivity {
     }
 
     private void importCheckList() {
-        Utils.dialogEditText(null, getString(R.string.check_list_import_question),
+        DialogEditTextListener.dialogEditText(null, getString(R.string.check_list_import_question),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {

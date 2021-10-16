@@ -28,6 +28,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
+import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.Common;
@@ -293,7 +294,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             return;
         }
-        Utils.dialogEditText(null, null,
+        DialogEditTextListener.dialogEditText(null, null,
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
