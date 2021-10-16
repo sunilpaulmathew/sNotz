@@ -18,7 +18,7 @@ public class Common {
 
     private static Bitmap mReadModeImage = null;
     private static boolean mClearNote = false, mHiddenNotes = false, mReload = false, mWorking = false;
-    private static int mColorBackground = -1, mColorText = -1, mId = -1;
+    private static int mColorBackground = -1, mColorText = -1, mId = -1, mSpan = 1;
     private static RecyclerView mRecyclerView;
     private static String mImageString = null, mNote = null, mReadModeText = null, mSearchText = null;
 
@@ -57,6 +57,10 @@ public class Common {
 
     public static int getID() {
         return mId;
+    }
+
+    public static int getSpanCount() {
+        return mSpan;
     }
 
     public static int getTextColor() {
@@ -143,6 +147,10 @@ public class Common {
 
     public static void setSearchText(String searchText) {
         mSearchText = searchText;
+    }
+
+    public static void setSpanCount(int span) {
+        mSpan = span;
     }
 
     public static void setTextColor(int color) {

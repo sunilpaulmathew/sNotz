@@ -67,8 +67,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             holder.mContents.setText(this.data.get(position).getNote());
         }
         holder.mContents.setTextColor(data.get(position).getColorText());
+        holder.mExpand.setVisibility(Common.getSpanCount() > 1 ? View.GONE : View.VISIBLE);
         holder.mExpand.setOnClickListener(v -> {
-            if (Common.isWorking()) {
+            if (Common.isWorking() || Common.getSpanCount() > 1) {
                 return;
             }
             if (holder.mContents.getLineCount() > 1) {

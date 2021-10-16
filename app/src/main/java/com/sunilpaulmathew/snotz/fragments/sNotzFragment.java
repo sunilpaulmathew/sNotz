@@ -79,8 +79,12 @@ public class sNotzFragment extends Fragment {
 
         Common.initializeRecyclerView(R.id.recycler_view, mRootView);
 
-        Common.getRecyclerView().setLayoutManager(new GridLayoutManager(requireActivity(), Utils.getSpanCount(requireActivity())));
+        GridLayoutManager mLayoutManager = new GridLayoutManager(requireActivity(), Utils.getSpanCount(requireActivity()));
+
+        Common.getRecyclerView().setLayoutManager(mLayoutManager);
         Common.getRecyclerView().addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
+
+        Common.setSpanCount(mLayoutManager.getSpanCount());
 
         loadUI(mProgressBar, requireActivity()).execute();
 
