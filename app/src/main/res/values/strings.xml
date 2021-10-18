@@ -92,7 +92,6 @@
     <string name="reading_mode_message">Restart this note in read-only mode?</string>
     <string name="reading_mode_warning">Warning: Please save this note before continuing. Recent changes will be otherwise ignored.</string>
     <string name="reminder_message">sNotz will remind you about this note at %s</string>
-    <string name="reminders">Reminders</string>
     <string name="replace">Replace</string>
     <string name="report_issue">Report an Issue</string>
     <string name="restore_error">You\'re selected an invalid backup file. Aborting</string>

@@ -107,7 +107,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         sNotzReminders.setYear(-1);
                         sNotzReminders.setMonth(-1);
                         sNotzReminders.setDay(-1);
-                        sNotzReminders.launchDatePicker(data.get(position).getNoteID(), data.get(position).getNote(), item.getContext()).show();
+                        sNotzReminders.launchDatePicker(data.get(position).getNote(), item.getContext()).show();
                         break;
                     case 3:
                         if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(holder.mRVCard.getContext())) {

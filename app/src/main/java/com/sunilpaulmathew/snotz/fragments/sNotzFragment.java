@@ -35,7 +35,6 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.AboutActivity;
 import com.sunilpaulmathew.snotz.activities.CheckListsActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
-import com.sunilpaulmathew.snotz.activities.RemindersActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
 import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
@@ -43,10 +42,7 @@ import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
-import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
-
-import java.io.File;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -227,12 +223,8 @@ public class sNotzFragment extends Fragment {
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mMenu);
             Menu menu = popupMenu.getMenu();
             menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.settings));
-            if (Utils.exist(new File(requireActivity().getExternalFilesDir("reminders"), "reminders").getAbsolutePath())
-                    && sNotzReminders.getRawData(requireActivity()).size() > 0) {
-                menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.reminders));
-            }
-            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.check_lists));
-            menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.about));
+            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.check_lists));
+            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
@@ -240,14 +232,10 @@ public class sNotzFragment extends Fragment {
                         startActivity(settings);
                         break;
                     case 1:
-                        Intent reminders = new Intent(requireActivity(), RemindersActivity.class);
-                        startActivity(reminders);
-                        break;
-                    case 2:
                         Intent checkLists = new Intent(requireActivity(), CheckListsActivity.class);
                         startActivity(checkLists);
                         break;
-                    case 3:
+                    case 2:
                         Intent aboutsNotz = new Intent(requireActivity(), AboutActivity.class);
                         startActivity(aboutsNotz);
                         break;

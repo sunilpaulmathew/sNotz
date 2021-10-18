@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
 
@@ -26,6 +27,10 @@ public class ReminderReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Bundle bundle = intent.getExtras();
+        String mNote = bundle.getString("note");
+
         Uri mAlarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
         int mNotificationID = sNotzReminders.getNotificationID(context);
@@ -41,22 +46,21 @@ public class ReminderReceiver extends BroadcastReceiver {
 
         NotificationChannel mNotificationChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            mNotificationChannel = new NotificationChannel("channel",context.getString(R.string.app_name), NotificationManager.IMPORTANCE_HIGH);
+            mNotificationChannel = new NotificationChannel("channel", context.getString(R.string.app_name), NotificationManager.IMPORTANCE_HIGH);
         }
 
-        Notification mNotification = null;
-        if (sNotzReminders.getReminderMessage(context) != null) {
-            Common.setReadModeText(sNotzReminders.getReminderMessage(context));
-            Common.setReadModeImage(null);
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "channel");
-            mNotification = mBuilder.setContentTitle(context.getString(R.string.app_name))
-                    .setContentText(sNotzReminders.getReminderMessage(context))
-                    .setAutoCancel(true)
-                    .setSound(mAlarmSound)
-                    .setSmallIcon(R.drawable.ic_notifications)
-                    .setContentIntent(mPendingIntent)
-                    .build();
-        }
+        Common.setReadModeText(mNote);
+        Common.setReadModeImage(null);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "channel");
+        Notification mNotification = mBuilder.setContentTitle(context.getString(R.string.app_name))
+                .setContentText(mNote)
+                .setAutoCancel(true)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setOnlyAlertOnce(true)
+                .setSound(mAlarmSound)
+                .setSmallIcon(R.drawable.ic_notifications)
+                .setContentIntent(mPendingIntent)
+                .build();
         
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

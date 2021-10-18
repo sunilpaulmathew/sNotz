@@ -86,7 +86,7 @@ public class Common {
         } else {
             mTime = hour + ":" + (min < 10 ? "0" + min : min) + " AM";
         }
-        return mMonth + " " + (int)day + ", " + (int)year + " " + mTime;
+        return mMonth + " " + (int) day + ", " + (int) year + " " + mTime;
     }
 
     public static String getImageString() {
