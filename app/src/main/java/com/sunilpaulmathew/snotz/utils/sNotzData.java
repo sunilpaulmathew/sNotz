@@ -33,7 +33,7 @@ public class sNotzData {
                             mData.add(new sNotzItems(getNote(command.toString()), getDate(command.toString()), getImage(command.toString()), isHidden(command.toString()),
                                     getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context), i));
                         }
-                    } else if (Objects.requireNonNull(getNote(command.toString())).toLowerCase().contains(Common.getSearchText().toLowerCase())) {
+                    } else if (Common.isTextMatched(Objects.requireNonNull(getNote(command.toString())))) {
                         if (Utils.getBoolean("hidden_note", false, context)) {
                             mData.add(new sNotzItems(getNote(command.toString()), getDate(command.toString()), getImage(command.toString()), isHidden(command.toString()),
                                     getBackgroundColor(command.toString(), context), getTextColor(command.toString(), context), i));
