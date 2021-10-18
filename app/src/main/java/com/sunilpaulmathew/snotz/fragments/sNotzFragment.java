@@ -24,7 +24,6 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -82,7 +81,6 @@ public class sNotzFragment extends Fragment {
         GridLayoutManager mLayoutManager = new GridLayoutManager(requireActivity(), Utils.getSpanCount(requireActivity()));
 
         Common.getRecyclerView().setLayoutManager(mLayoutManager);
-        Common.getRecyclerView().addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
 
         Common.setSpanCount(mLayoutManager.getSpanCount());
 
