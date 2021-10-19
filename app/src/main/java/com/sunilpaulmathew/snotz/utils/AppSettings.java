@@ -1,18 +1,32 @@
 package com.sunilpaulmathew.snotz.utils;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
+import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 14, 2021
  */
 public class AppSettings {
+
+    private static int mSelectedPosition = -1;
 
     private static int getFontSizePosition(Context context) {
         String value = String.valueOf(Utils.getInt("font_size", 18, context));
@@ -91,6 +105,10 @@ public class AppSettings {
                 context.getString(R.string.text_style_bold), context.getString(R.string.text_style_bold_italics)};
     }
 
+    private static String[] getBackupOptions(Context context) {
+        return new String[]{context.getString(R.string.backup_snotz), context.getString(R.string.save_text)};
+    }
+
     public static void setFontSize(int position, List<SettingsItems> items, SettingsAdapter adapter, Context context) {
         new MaterialAlertDialogBuilder(context)
                 .setTitle(R.string.font_size)
@@ -114,6 +132,64 @@ public class AppSettings {
                     adapter.notifyItemChanged(position);
                     dialog.dismiss();
                 }).show();
+    }
+
+    public static void showBackupOptions(Activity activity) {
+        new MaterialAlertDialogBuilder(activity)
+                .setTitle(R.string.backup_notes)
+                .setSingleChoiceItems(getBackupOptions(activity), 0, (dialog, itemPosition) ->
+                        mSelectedPosition = itemPosition)
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                })
+                .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
+                    if (mSelectedPosition == 0) {
+                        saveDialog(".backup", Utils.read(activity.getFilesDir().getPath() + "/snotz"), activity);
+                    } else if (mSelectedPosition == 1) {
+                        if (Utils.getBoolean("allow_images", false, activity)) {
+                            Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.image_excluded_warning));
+                        }
+                        saveDialog(".txt", sNotzUtils.sNotzToText(activity), activity);
+                    }
+                }).show();
+    }
+
+    private static void saveDialog(String type, String sNotz, Activity activity) {
+        if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(activity)) {
+            ActivityCompat.requestPermissions(activity, new String[] {
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            return;
+        }
+        DialogEditTextListener.dialogEditText("sNotz", activity.getString(R.string.backup_notes_hint),
+                (dialogInterface, i) -> {
+                }, text -> {
+                    if (text.isEmpty()) {
+                        Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty));
+                        return;
+                    }
+                    if (!text.endsWith(type)) {
+                        text += type;
+                    }
+                    if (text.contains(" ")) {
+                        text = text.replace(" ", "_");
+                    }
+                    if (Build.VERSION.SDK_INT >= 30) {
+                        try {
+                            ContentValues values = new ContentValues();
+                            values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
+                            values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
+                            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+                            Uri uri = activity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
+                            OutputStream outputStream = activity.getContentResolver().openOutputStream(uri);
+                            outputStream.write(sNotz.getBytes());
+                            outputStream.close();
+                        } catch (IOException ignored) {
+                        }
+                    } else {
+                        Utils.create(sNotz, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text);
+                    }
+                    Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
+                }, -1, activity).setOnDismissListener(dialogInterface -> {
+        }).show();
     }
 
 }

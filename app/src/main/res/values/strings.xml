@@ -15,6 +15,7 @@
     <string name="biometric_lock_summary">Use biometric authentication to secure sNotz</string>
     <string name="backup">Backup</string>
     <string name="backup_notes">Backup Notes</string>
+    <string name="backup_notes_hint">Backup Notes As</string>
     <string name="backup_notes_message">You\'re notes are backed up as \'%s\'</string>
     <string name="backup_notes_summary">Backup your notes into \'sdcard\'</string>
     <string name="backup_snotz">As sNotz Backup</string>

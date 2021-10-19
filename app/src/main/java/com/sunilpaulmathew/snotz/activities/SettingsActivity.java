@@ -1,14 +1,9 @@
 package com.sunilpaulmathew.snotz.activities;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.widget.ProgressBar;
 
@@ -17,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.biometric.BiometricPrompt;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +22,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
-import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.Common;
@@ -41,7 +34,6 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
@@ -185,21 +177,7 @@ public class SettingsActivity extends AppCompatActivity {
                 AppSettings.setFontStyle(position, mData, mRecycleViewAdapter, this);
             } else if (position == 11) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                    new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(
-                            R.array.backup_options), (dialogInterface, i) -> {
-                        switch (i) {
-                            case 0:
-                                saveDialog(".backup", Utils.read(getFilesDir().getPath() + "/snotz"));
-                                break;
-                            case 1:
-                                if (Utils.getBoolean("allow_images", false, this)) {
-                                    Utils.showSnackbar(mRecyclerView, getString(R.string.image_excluded_warning));
-                                }
-                                saveDialog(".txt", sNotzUtils.sNotzToText(this));
-                                break;
-                        }
-                    }).setOnDismissListener(dialogInterface -> {
-                    }).show();
+                    AppSettings.showBackupOptions(this);
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
@@ -286,45 +264,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         Utils.showBiometricPrompt(this);
-    }
-
-    private void saveDialog(String type, String sNotz) {
-        if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(this)) {
-            ActivityCompat.requestPermissions(this, new String[] {
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            return;
-        }
-        DialogEditTextListener.dialogEditText(null, null,
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.isEmpty()) {
-                        Utils.showSnackbar(mBack, getString(R.string.text_empty));
-                        return;
-                    }
-                    if (!text.endsWith(type)) {
-                        text += type;
-                    }
-                    if (text.contains(" ")) {
-                        text = text.replace(" ", "_");
-                    }
-                    if (Build.VERSION.SDK_INT >= 30) {
-                        try {
-                            ContentValues values = new ContentValues();
-                            values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
-                            values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
-                            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-                            Uri uri = getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
-                            OutputStream outputStream = getContentResolver().openOutputStream(uri);
-                            outputStream.write(sNotz.getBytes());
-                            outputStream.close();
-                        } catch (IOException ignored) {
-                        }
-                    } else {
-                        Utils.create(sNotz, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text);
-                    }
-                    Utils.showSnackbar(mBack, getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
-                }, -1, this).setOnDismissListener(dialogInterface -> {
-        }).show();
     }
 
     @Override
