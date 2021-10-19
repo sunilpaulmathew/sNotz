@@ -4,165 +4,154 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:alpha="0.75">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:background="@color/color_black" >
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:text="@string/app_name"
-            android:padding="15dp"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="@color/color_teal" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_search"
-            android:tint="@color/color_teal"
-            android:layout_marginEnd="90dp"
-            android:padding="5dp"
-            android:background="@null"
-            android:layout_gravity="end" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_sort"
-            android:tint="@color/color_teal"
-            android:layout_marginEnd="45dp"
-            android:padding="5dp"
-            android:background="@null"
-            android:layout_gravity="end" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_dots"
-            android:tint="@color/color_teal"
-            android:padding="5dp"
-            android:background="@null"
-            android:layout_gravity="end" />
-    </FrameLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
-        android:layout_marginTop="65dp"
-        android:longClickable="true"
-        app:cardCornerRadius="5dp"
-        android:padding="10dp" >
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_teal"
-            android:orientation="vertical" >
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:focusable="false"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:padding="10dp"
-                    android:text="@string/welcome_note"
-                    android:layout_marginEnd="50dp"
-                    android:hint="@string/content_hint" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_expand"
-                    android:background="@null"
-                    android:layout_gravity="end|top" />
-            </FrameLayout>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-15dp"
-                android:singleLine="true"
-                android:focusable="false"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:padding="5dp"
-                android:gravity="end" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/click_note"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:tint="@color/color_blue"
-        android:layout_marginTop="125dp"
-        android:visibility="gone"
-        android:layout_marginStart="15dp"
-        android:src="@drawable/ic_click" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/click_note_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:layout_marginStart="15dp"
-        android:visibility="gone"
-        android:gravity="start"
-        android:text="@string/single_click_note_message"
-        android:padding="15dp"
-        android:textSize="18sp"
-        android:textStyle="bold|italic"
-        android:textColor="@color/color_blue" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/longclick_note"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:tint="@color/color_red"
-        android:layout_marginTop="125dp"
-        android:rotation="-90"
-        android:visibility="gone"
-        android:layout_marginEnd="15dp"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_click" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/longclick_note_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:layout_marginEnd="15dp"
-        android:visibility="gone"
-        android:gravity="end"
-        android:text="@string/long_click_note_message"
-        android:padding="15dp"
-        android:textSize="18sp"
-        android:textStyle="bold|italic"
-        android:textColor="@color/color_red" />
+    android:orientation="vertical" >
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@color/color_black" >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:text="@string/app_name"
+                android:padding="15dp"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_teal" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_search"
+                android:tint="@color/color_teal"
+                android:layout_marginEnd="90dp"
+                android:padding="5dp"
+                android:background="@null"
+                android:layout_gravity="end" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_sort"
+                android:tint="@color/color_teal"
+                android:layout_marginEnd="45dp"
+                android:padding="5dp"
+                android:background="@null"
+                android:layout_gravity="end" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_dots"
+                android:tint="@color/color_teal"
+                android:padding="5dp"
+                android:background="@null"
+                android:layout_gravity="end" />
+        </FrameLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            android:longClickable="true"
+            app:cardCornerRadius="5dp"
+            android:padding="10dp" >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_teal"
+                android:orientation="vertical" >
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/welcome_note_screen_one"
+                    android:singleLine="false"
+                    android:focusable="false"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:padding="10dp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-15dp"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:padding="5dp"
+                    android:gravity="end" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/click_note"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:tint="@color/color_blue"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/ic_click"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/click_note_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/single_click_note_message"
+            android:textColor="@color/color_blue"
+            android:layout_marginStart="40dp"
+            android:textStyle="bold|italic"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:gravity="start"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/longclick_note"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:tint="@color/color_red"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_click"
+            android:visibility="gone"
+            android:rotation="-90" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/longclick_note_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/long_click_note_message"
+            android:textColor="@color/color_red"
+            android:textStyle="bold|italic"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:visibility="gone"
+            android:textSize="18sp"
+            android:gravity="end" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center" >
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/arrow_back"
@@ -204,9 +193,10 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="80dp"
+        android:layout_centerInParent="true"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:paddingTop="100dp"
+        android:gravity="center" >
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/one"
@@ -215,11 +205,11 @@
             android:layout_gravity="center"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="10dp"
-            android:text="1"
             android:padding="15dp"
+            android:text="1"
+            android:textColor="?android:attr/colorAccent"
             android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="?android:attr/colorAccent" />
+            android:textStyle="bold" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/two"
@@ -228,11 +218,11 @@
             android:layout_gravity="center"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:text="2"
             android:padding="15dp"
+            android:text="2"
+            android:textColor="?android:attr/colorAccent"
             android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="?android:attr/colorAccent" />
+            android:textStyle="bold" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/three"
@@ -241,11 +231,11 @@
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="100dp"
-            android:text="3"
             android:padding="15dp"
+            android:text="3"
+            android:textColor="?android:attr/colorAccent"
             android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="?android:attr/colorAccent" />
+            android:textStyle="bold" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.card.MaterialCardView
@@ -268,27 +258,34 @@
             android:clickable="false" />
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/click_fab"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:tint="@color/color_orange"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginEnd="45dp"
-        android:src="@drawable/ic_click" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/click_fab_message"
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/bottom_fab_click_message"
-        android:padding="15dp"
-        android:textSize="18sp"
-        android:textStyle="bold|italic"
-        android:textColor="@color/color_orange" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="25dp" >
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/click_fab_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/bottom_fab_click_message"
+            android:textColor="@color/color_orange"
+            android:layout_marginEnd="40dp"
+            android:textStyle="bold|italic"
+            android:layout_gravity="end|bottom"
+            android:textSize="18sp"
+            android:padding="15dp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/click_fab"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:tint="@color/color_orange"
+            android:src="@drawable/ic_click"
+            android:layout_gravity="end"
+            android:rotation="-35"/>
+    </FrameLayout>
 </RelativeLayout>

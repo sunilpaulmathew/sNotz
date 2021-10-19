@@ -30,6 +30,7 @@ public class WelcomeActivity extends AppCompatActivity {
         AppCompatImageView mFABClick = findViewById(R.id.click_fab);
         AppCompatImageView mNoteClick = findViewById(R.id.click_note);
         AppCompatImageView mNoteLongClick = findViewById(R.id.longclick_note);
+        MaterialTextView mNote = findViewById(R.id.note);
         MaterialTextView mOne = findViewById(R.id.one);
         MaterialTextView mTwo = findViewById(R.id.two);
         MaterialTextView mThree = findViewById(R.id.three);
@@ -54,6 +55,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 mNoteClickMessage.setVisibility(View.GONE);
                 mNoteLongClick.setVisibility(View.VISIBLE);
                 mNoteLongClickMessage.setVisibility(View.VISIBLE);
+                mNote.setText(getString(R.string.welcome_note_screen_three));
                 mOne.setTextColor(sNotzColor.getAccentColor(this));
                 mTwo.setTextColor(sNotzColor.getAccentColor(this));
                 mThree.setTextColor(ContextCompat.getColor(this, R.color.color_red));
@@ -63,6 +65,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 mFABClickMessage.setVisibility(View.GONE);
                 mNoteClick.setVisibility(View.VISIBLE);
                 mNoteClickMessage.setVisibility(View.VISIBLE);
+                mNote.setText(getString(R.string.welcome_note_screen_two));
                 mOne.setTextColor(sNotzColor.getAccentColor(this));
                 mTwo.setTextColor(ContextCompat.getColor(this, R.color.color_blue));
                 mThree.setTextColor(sNotzColor.getAccentColor(this));
@@ -78,6 +81,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 mNoteClickMessage.setVisibility(View.GONE);
                 mFABClick.setVisibility(View.VISIBLE);
                 mFABClickMessage.setVisibility(View.VISIBLE);
+                mNote.setText(getString(R.string.welcome_note_screen_one));
                 mOne.setTextColor(ContextCompat.getColor(this, R.color.color_orange));
                 mTwo.setTextColor(sNotzColor.getAccentColor(this));
                 mThree.setTextColor(sNotzColor.getAccentColor(this));
@@ -87,6 +91,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 mNoteLongClickMessage.setVisibility(View.GONE);
                 mNoteClick.setVisibility(View.VISIBLE);
                 mNoteClickMessage.setVisibility(View.VISIBLE);
+                mNote.setText(getString(R.string.welcome_note_screen_two));
                 mOne.setTextColor(sNotzColor.getAccentColor(this));
                 mTwo.setTextColor(ContextCompat.getColor(this, R.color.color_blue));
                 mThree.setTextColor(sNotzColor.getAccentColor(this));

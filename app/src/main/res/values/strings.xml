@@ -139,6 +139,9 @@
     <string name="try_again">Try Again</string>
     <string name="warning">Warning</string>
     <string name="welcome_note">Welcome Note</string>
+    <string name="welcome_note_screen_one">Welcome to sNotz, an open-source, privacy- friendly, and completely offline application to manage your notes.</string>
+    <string name="welcome_note_screen_two">sNotz will let you create, customize, and manage simple notes &amp; checklists.</string>
+    <string name="welcome_note_screen_three">sNotz supports creating notes in your favourite color and font size/style. Please be sure to checkout the \"Settings\" page for more info.</string>
     <string name="welcome_note_summary">Show welcome note again</string>
     <string name="yes">Yes</string>
 </resources>
