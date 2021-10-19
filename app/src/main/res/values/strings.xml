@@ -15,7 +15,7 @@
     <string name="biometric_lock_summary">Use biometric authentication to secure sNotz</string>
     <string name="backup">Backup</string>
     <string name="backup_notes">Backup Notes</string>
-    <string name="backup_notes_hint">Backup Notes As</string>
+    <string name="backup_notes_hint">Backup Notes As?</string>
     <string name="backup_notes_message">You\'re notes are backed up as \'%s\'</string>
     <string name="backup_notes_summary">Backup your notes into \'sdcard\'</string>
     <string name="backup_snotz">As sNotz Backup</string>
@@ -93,6 +93,7 @@
     <string name="reading_mode_message">Restart this note in read-only mode?</string>
     <string name="reading_mode_warning">Warning: Please save this note before continuing. Recent changes will be otherwise ignored.</string>
     <string name="reminder_message">sNotz will remind you about this note at %s</string>
+    <string name="reminder_warning">sNotz won\'t monitor reminders. As a result, a reminder once created won\'t be allowed to edit or delete. All the reminders created by sNotz will be notified at time even if the original notes are deleted.</string>
     <string name="replace">Replace</string>
     <string name="report_issue">Report an Issue</string>
     <string name="restore_error">You\'re selected an invalid backup file. Aborting</string>
