@@ -83,6 +83,10 @@ public class NotePickerActivity extends AppCompatActivity {
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
         mHidden = findViewById(R.id.hidden);
 
+        if (Utils.getBoolean("auto_save", false, this)) {
+            mSave.setVisibility(View.GONE);
+        }
+
         if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(this)) {
             LinearLayoutCompat mMainLayout = findViewById(R.id.main_layout);
             LinearLayoutCompat mColorLayout = findViewById(R.id.color_layout);
@@ -378,7 +382,7 @@ public class NotePickerActivity extends AppCompatActivity {
     }
 
     private boolean isUnsavedNote() {
-        return mContents.getText() != null && !mContents.getText().toString().isEmpty();
+        return mContents.getText() != null && !mContents.getText().toString().trim().isEmpty();
     }
 
     @Override
@@ -416,17 +420,21 @@ public class NotePickerActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (isUnsavedNote()) {
-            new MaterialAlertDialogBuilder(this)
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle(R.string.app_name)
-                    .setMessage(getString(R.string.discard_note))
-                    .setCancelable(false)
-                    .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                    })
-                    .setPositiveButton(R.string.discard, (dialogInterface, i) -> finish()).show();
-            return;
+            if (Utils.getBoolean("auto_save", false, this)) {
+                save(this).execute();
+            } else {
+                new MaterialAlertDialogBuilder(this)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setTitle(R.string.app_name)
+                        .setMessage(getString(R.string.discard_note))
+                        .setCancelable(false)
+                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                        })
+                        .setPositiveButton(R.string.discard, (dialogInterface, i) -> finish()).show();
+            }
+        } else {
+            finish();
         }
-        finish();
     }
 
 }

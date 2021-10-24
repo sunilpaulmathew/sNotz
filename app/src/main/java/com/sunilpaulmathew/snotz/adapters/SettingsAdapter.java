@@ -65,7 +65,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         } else {
             holder.mDivider.setVisibility(View.GONE);
         }
-        if (position == 2 || position == 3 || position == 7) {
+        if (position == 2 || position == 3 || position == 7 || position == 8) {
             holder.mChecked.setVisibility(View.VISIBLE);
         } else {
             holder.mChecked.setVisibility(View.GONE);
@@ -87,6 +87,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.mCircle.setCardBackgroundColor(sNotzColor.getTextColor(holder.mCircle.getContext()));
         } else if (position == 7) {
             holder.mChecked.setImageDrawable(sNotzUtils.getDrawable(Utils.getBoolean("allow_images", false,
+                    holder.mChecked.getContext()) ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked,
+                    holder.mChecked.getContext()));
+        } else if (position == 8) {
+            holder.mChecked.setImageDrawable(sNotzUtils.getDrawable(Utils.getBoolean("auto_save", false,
                     holder.mChecked.getContext()) ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked,
                     holder.mChecked.getContext()));
         }

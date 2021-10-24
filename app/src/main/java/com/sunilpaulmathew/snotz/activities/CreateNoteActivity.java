@@ -49,7 +49,9 @@ public class CreateNoteActivity extends AppCompatActivity {
     private AppCompatImageView mImage;
     private Bitmap mBitmap = null;
     private int mSelectedColorBg, mSelectedColorTxt;
+    private ProgressBar mProgress;
     private String mNote = null;
+    private SwitchCompat mHidden;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,11 +64,15 @@ public class CreateNoteActivity extends AppCompatActivity {
         AppCompatImageButton mReadingMode = findViewById(R.id.reading_mode);
         mImage = findViewById(R.id.image);
         mContents = findViewById(R.id.contents);
-        ProgressBar mProgress = findViewById(R.id.progress);
+        mProgress = findViewById(R.id.progress);
         MaterialCardView mColorBackground = findViewById(R.id.color_background);
         MaterialCardView mColorText = findViewById(R.id.color_text);
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
-        SwitchCompat mHidden = findViewById(R.id.hidden);
+        mHidden = findViewById(R.id.hidden);
+
+        if (Utils.getBoolean("auto_save", false, this)) {
+            mSave.setVisibility(View.GONE);
+        }
 
         if (Common.getBackgroundColor() != 123456789) {
             mColorBackground.setCardBackgroundColor(Common.getBackgroundColor());
@@ -202,29 +208,28 @@ public class CreateNoteActivity extends AppCompatActivity {
                             finish();
                         }).show());
 
-        mSave.setOnClickListener(v -> {
-            if (Common.isWorking()) {
-                return;
-            }
-            if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
-                Utils.showSnackbar(findViewById(R.id.contents), getString(R.string.text_empty));
-                return;
-            }
-            if (Common.getNote() != null) {
-                sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
-                        mSelectedColorTxt, mHidden.isChecked(),  mProgress,this).execute();
-            } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
-            } else {
-                sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
-            }
-            exit(this);
-        });
+        mSave.setOnClickListener(v -> saveNote());
+    }
+
+    private void saveNote() {
+        if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
+            Utils.showSnackbar(findViewById(R.id.contents), getString(R.string.text_empty));
+            return;
+        }
+        if (Common.getNote() != null) {
+            sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
+                    mSelectedColorTxt, mHidden.isChecked(),  mProgress,this).execute();
+        } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
+            sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
+        } else {
+            sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
+        }
+        exit(this);
     }
 
     private boolean isUnsavedNote() {
-        return mNote != null && mContents.getText() != null && !mNote.equals(mContents.getText().toString()) || mNote == null
-                && mContents.getText() != null && !mContents.getText().toString().isEmpty();
+        return mNote != null && mContents.getText() != null && !mNote.equals(mContents.getText().toString().trim()) || mNote == null
+                && mContents.getText() != null && !mContents.getText().toString().trim().isEmpty();
     }
 
     private static void exit(Activity activity) {
@@ -292,17 +297,21 @@ public class CreateNoteActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (isUnsavedNote()) {
-            new MaterialAlertDialogBuilder(this)
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle(R.string.app_name)
-                    .setMessage(getString(R.string.discard_note))
-                    .setCancelable(false)
-                    .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                    })
-                    .setPositiveButton(R.string.discard, (dialogInterface, i) -> finish()).show();
-            return;
+            if (Utils.getBoolean("auto_save", false, this)) {
+                saveNote();
+            } else {
+                new MaterialAlertDialogBuilder(this)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setTitle(R.string.app_name)
+                        .setMessage(getString(R.string.discard_note))
+                        .setCancelable(false)
+                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                        })
+                        .setPositiveButton(R.string.discard, (dialogInterface, i) -> exit(this)).show();
+            }
+        } else {
+            exit(this);
         }
-        exit(this);
     }
 
 }
