@@ -47,6 +47,14 @@
         <activity android:name=".activities.ReadNoteActivity" />
         <activity android:name=".activities.SettingsActivity" />
         <activity android:name=".activities.WelcomeActivity" />
+        <activity
+            android:name=".activities.WidgetActivity"
+            tools:ignore="IntentFilterExportedReceiver"
+            android:excludeFromRecents="true" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -59,6 +67,16 @@
         </provider>
 
         <receiver android:name=".receivers.ReminderReceiver" />
-    </application>
 
+        <receiver android:name=".providers.WidgetProvider"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider" />
+        </receiver>
+    </application>
 </manifest>

@@ -13,12 +13,15 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzUtils;
+import com.sunilpaulmathew.snotz.utils.sNotzData;
+import com.sunilpaulmathew.snotz.utils.sNotzItems;
 
 import java.util.concurrent.Executor;
 
@@ -41,8 +44,6 @@ public class StartActivity extends AppCompatActivity {
         mAppLogo = findViewById(R.id.app_logo);
         mAuthenticationStatus = findViewById(R.id.authentication_status);
 
-        load(this).execute();
-
         Executor executor = ContextCompat.getMainExecutor(this);
         mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
@@ -51,6 +52,7 @@ public class StartActivity extends AppCompatActivity {
                 mAppLogo.setVisibility(View.GONE);
                 finish();
             }
+
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
@@ -61,6 +63,7 @@ public class StartActivity extends AppCompatActivity {
                 finish();
 
             }
+
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
@@ -73,25 +76,53 @@ public class StartActivity extends AppCompatActivity {
         });
 
         Utils.showBiometricPrompt(this);
+
+        if (!Utils.getBoolean("reOrganized", false, this)) {
+            reOrganizeNotes(this).execute();
+        } else {
+            if (Utils.getBoolean("use_biometric", false, this)) {
+                mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
+            } else if (Security.isPINEnabled(this)) {
+                Security.authenticate(false, null, this);
+            } else {
+                // Launch MainActivity
+                Intent mainActivity = new Intent(this, MainActivity.class);
+                startActivity(mainActivity);
+                finish();
+            }
+        }
     }
 
-    private AsyncTasks load(Activity activity) {
+    private AsyncTasks reOrganizeNotes(Activity activity) {
         return new AsyncTasks() {
-
             @Override
             public void onPreExecute() {
             }
 
             @Override
             public void doInBackground() {
-                // Migrate notes into new format
-                if (Utils.exist(activity.getFilesDir().getPath() + "/snotz")) {
-                    sNotzUtils.reOrganizeNotes(activity);
+                int i = 0;
+                JsonObject mJSONObject = new JsonObject();
+                JsonArray mJSONArray = new JsonArray();
+                for (sNotzItems items : sNotzData.getRawData(activity)) {
+                    JsonObject note = new JsonObject();
+                    note.addProperty("note", items.getNote());
+                    note.addProperty("date", items.getTimeStamp());
+                    note.addProperty("image", items.getImageString());
+                    note.addProperty("hidden", items.isHidden());
+                    note.addProperty("colorBackground", items.getColorBackground());
+                    note.addProperty("colorText", items.getColorText());
+                    note.addProperty("noteID", i);
+                    i++;
+                    mJSONArray.add(note);
                 }
+                mJSONObject.add("sNotz", mJSONArray);
+                Utils.create(mJSONObject.toString(), activity.getFilesDir().getPath() + "/snotz");
             }
 
             @Override
             public void onPostExecute() {
+                Utils.saveBoolean("reOrganized", true, activity);
                 if (Utils.getBoolean("use_biometric", false, activity)) {
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(activity));
                 } else if (Security.isPINEnabled(activity)) {

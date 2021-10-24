@@ -97,9 +97,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         break;
                     case 1:
                         if (this.data.get(position).isHidden()) {
-                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), false, holder.mProgress, holder.mRVCard.getContext()).execute();
+                            sNotzUtils.hideNote(this.data.get(position).getNoteID(),false, holder.mProgress, holder.mRVCard.getContext()).execute();
                         } else {
-                            sNotzUtils.hideNote(this.data.get(position).getNoteID(), true, holder.mProgress, holder.mRVCard.getContext()).execute();
+                            sNotzUtils.hideNote(this.data.get(position).getNoteID(),true, holder.mProgress, holder.mRVCard.getContext()).execute();
                             Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message));
                         }
                         break;
@@ -158,7 +158,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         this.data.get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
                                 })
-                                .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(data.get(position).getNoteID(), holder.mProgress, holder.mRVCard.getContext()).execute()).show();
+                                .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(this.data.get(position).getNoteID(),
+                                        holder.mProgress, holder.mRVCard.getContext()).execute()).show();
                         break;
                 }
                 return false;
@@ -179,8 +180,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 Common.setImageString(this.data.get(position).getImageString());
             }
             Common.isHiddenNote(this.data.get(position).isHidden());
-            Intent editNote = new Intent(holder.mRVCard.getContext(), CreateNoteActivity.class);
-            holder.mRVCard.getContext().startActivity(editNote);
+            Intent editNote = new Intent(v.getContext(), CreateNoteActivity.class);
+            v.getContext().startActivity(editNote);
         });
         holder.mDate.setText(DateFormat.getDateTimeInstance().format(this.data.get(position).getTimeStamp()));
         holder.mDate.setTextColor(data.get(position).getColorText());

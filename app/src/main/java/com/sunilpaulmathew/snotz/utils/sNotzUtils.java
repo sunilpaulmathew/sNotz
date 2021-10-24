@@ -17,12 +17,11 @@ import android.widget.ProgressBar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,37 +37,56 @@ import java.util.Objects;
  */
 public class sNotzUtils {
 
-    private static JSONObject mJSONObject;
-    private static JSONArray mJSONArray;
-    private static int i;
-
     public static List<sNotzItems> getNotesFromBackup(String backupData, Context context) {
         List<sNotzItems> mRestoreData = new ArrayList<>();
-        for (int i = 0; i < sNotzData.getsNotzItems(backupData).length(); i++) {
-            try {
-                JSONObject command = Objects.requireNonNull(sNotzData.getsNotzItems(backupData)).getJSONObject(i);
-                mRestoreData.add(new sNotzItems(sNotzData.getNote(command.toString()), sNotzData.getDate(command.toString()), sNotzData.getImage(command.toString()), sNotzData.isHidden(command.toString()),
-                        sNotzData.getBackgroundColor(command.toString(), context), sNotzData.getTextColor(command.toString(), context), i));
-            } catch (JSONException ignored) {
-            }
+        JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(backupData)).getAsJsonArray("sNotz");
+        for (int i = 0; i < sNotz.size(); i++) {
+            mRestoreData.add(new sNotzItems(sNotzData.getNote(sNotz.get(i).getAsJsonObject()),
+                    sNotzData.getDate(sNotz.get(i).getAsJsonObject()),
+                    sNotzData.getImage(sNotz.get(i).getAsJsonObject()),
+                    sNotzData.isHidden(sNotz.get(i).getAsJsonObject()),
+                    sNotzData.getBackgroundColor(sNotz.get(i).getAsJsonObject(), context),
+                    sNotzData.getTextColor(sNotz.get(i).getAsJsonObject(), context),
+                    sNotzData.getNoteID(sNotz.get(i).getAsJsonObject()))
+            );
         }
         return mRestoreData;
     }
 
     public static String sNotzToText(Context context) {
         StringBuilder sb = new StringBuilder();
-        for (int note = 0; note < Objects.requireNonNull(sNotzData.getsNotzItems(Utils.read(context.getFilesDir().getPath() + "/snotz"))).length(); note++) {
-            try {
-                JSONObject command = Objects.requireNonNull(sNotzData.getsNotzItems(Utils.read(context.getFilesDir().getPath() + "/snotz"))).getJSONObject(note);
-                sb.append(sNotzData.getNote(command.toString())).append("\n... ... ... ... ...\n\n");
-            } catch (JSONException ignored) {
-            }
+        JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"))).getAsJsonArray("sNotz");
+        for (int i = 0; i < sNotz.size(); i++) {
+            sb.append(sNotzData.getNote(sNotz.get(i).getAsJsonObject())).append("\n... ... ... ... ...\n\n");
         }
         return sb.toString();
     }
 
     public static boolean validBackup(String backupData) {
-        return sNotzData.getsNotzItems(backupData) != null;
+        return sNotzData.getJSONObject(backupData) != null && Objects.requireNonNull(sNotzData
+                .getJSONObject(backupData)).getAsJsonArray("sNotz") != null;
+    }
+
+    public static Drawable getDrawable(int drawable, Context context) {
+        return ContextCompat.getDrawable(context, drawable);
+    }
+
+    public static Drawable getColoredDrawable(int color, int drawable, Context context) {
+        Drawable d = ContextCompat.getDrawable(context, drawable);
+        if (d != null) {
+            d.setTint(color);
+        }
+        return d;
+    }
+
+    public static int generateNoteID(Context context) {
+        int noteID = 0;
+        for (sNotzItems items : sNotzData.getRawData(context)) {
+            if (items.getNoteID() >= noteID) {
+                noteID = items.getNoteID() + 1;
+            }
+        }
+        return noteID;
     }
         
     public static int getMaxSize(Activity activity) {
@@ -83,18 +101,6 @@ public class sNotzUtils {
 
     public static int getColor(int color, Context context) {
         return ContextCompat.getColor(context, color);
-    }
-
-    public static Drawable getDrawable(int drawable, Context context) {
-        return ContextCompat.getDrawable(context, drawable);
-    }
-
-    public static Drawable getColoredDrawable(int color, int drawable, Context context) {
-        Drawable d = ContextCompat.getDrawable(context, drawable);
-        if (d != null) {
-            d.setTint(color);
-        }
-        return d;
     }
 
     public static String bitmapToBase64(Bitmap bitmap, Activity activity) {
@@ -182,21 +188,21 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                try {
-                    mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(context.getFilesDir().getPath() + "/snotz")));
-                    mJSONArray = mJSONObject.getJSONArray("sNotz");
-                    JSONObject note = new JSONObject();
-                    note.put("note", newNote);
-                    note.put("date", System.currentTimeMillis());
-                    note.put("image", image);
-                    note.put("hidden", hidden);
-                    note.put("colorBackground", colorBg);
-                    note.put("colorText", colorTxt);
-                    note.put("noteID", sNotzData.getData(context).size());
-                    mJSONArray.put(note);
-                    Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
-                } catch (JSONException ignored) {
-                }
+                JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"));
+                JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
+                JsonObject note = new JsonObject();
+                note.addProperty("note", newNote.toString());
+                note.addProperty("date", System.currentTimeMillis());
+                note.addProperty("image", image);
+                note.addProperty("hidden", hidden);
+                note.addProperty("colorBackground", colorBg);
+                note.addProperty("colorText", colorTxt);
+                note.addProperty("noteID", generateNoteID(context));
+                mJSONArray.add(note);
+                mJSONObject.add("sNotz", mJSONArray);
+                Gson gson = new Gson();
+                String json = gson.toJson(mJSONObject);
+                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
             }
 
             @Override
@@ -218,13 +224,19 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                try {
-                    mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(context.getFilesDir().getPath() + "/snotz")));
-                    mJSONArray = mJSONObject.getJSONArray("sNotz");
-                    mJSONArray.remove(noteID);
-                    Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
-                } catch (JSONException ignored) {
+                JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"));
+                JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
+
+                for (int i = 0; i < mJSONArray.size(); i++) {
+                    JsonObject note = mJSONArray.get(i).getAsJsonObject();
+                    if (note.get("noteID").getAsInt() == noteID) {
+                        mJSONArray.remove(i);
+                    }
                 }
+                mJSONObject.add("sNotz", mJSONArray);
+                Gson gson = new Gson();
+                String json = gson.toJson(mJSONObject);
+                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
             }
 
             @Override
@@ -246,16 +258,21 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                try {
-                    mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(context.getFilesDir().getPath() + "/snotz")));
-                    mJSONArray = mJSONObject.getJSONArray("sNotz");
-                    JSONObject note = new JSONObject(mJSONArray.getJSONObject(noteID).toString());
-                    note.put("hidden", hidden);
-                    mJSONArray.remove(noteID);
-                    mJSONArray.put(note);
-                    Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
-                } catch (JSONException ignored) {
+                JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"));
+                JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
+
+                for (int i = 0; i < mJSONArray.size(); i++) {
+                    JsonObject note = mJSONArray.get(i).getAsJsonObject();
+                    if (note.get("noteID").getAsInt() == noteID) {
+                        mJSONArray.remove(i);
+                        note.addProperty("hidden", hidden);
+                        mJSONArray.add(note);
+                    }
                 }
+                mJSONObject.add("sNotz", mJSONArray);
+                Gson gson = new Gson();
+                String json = gson.toJson(mJSONObject);
+                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
             }
 
             @Override
@@ -274,26 +291,25 @@ public class sNotzUtils {
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
-                mJSONObject = new JSONObject();
-                mJSONArray = new JSONArray();
             }
 
             @Override
             public void doInBackground() {
-                try {
-                    JSONObject note = new JSONObject();
-                    note.put("note", newNote);
-                    note.put("date", System.currentTimeMillis());
-                    note.put("image", image);
-                    note.put("hidden", hidden);
-                    note.put("colorBackground", colorBg);
-                    note.put("colorText", colorTxt);
-                    note.put("noteID", 0);
-                    mJSONArray.put(note);
-                    mJSONObject.put("sNotz", mJSONArray);
-                    Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
-                } catch (JSONException ignored) {
-                }
+                JsonObject mJSONObject = new JsonObject();
+                JsonArray mJSONArray = new JsonArray();
+                JsonObject note = new JsonObject();
+                note.addProperty("note", newNote.toString());
+                note.addProperty("date", System.currentTimeMillis());
+                note.addProperty("image", image);
+                note.addProperty("hidden", hidden);
+                note.addProperty("colorBackground", colorBg);
+                note.addProperty("colorText", colorTxt);
+                note.addProperty("noteID", 0);
+                mJSONArray.add(note);
+                mJSONObject.add("sNotz", mJSONArray);
+                Gson gson = new Gson();
+                String json = gson.toJson(mJSONObject);
+                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
             }
 
             @Override
@@ -307,50 +323,48 @@ public class sNotzUtils {
 
     public static AsyncTasks restoreNotes(String backupData, ProgressBar progressBar, Context context) {
         return new AsyncTasks() {
+            private int i = 0;
             @Override
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
                 Common.isWorking(true);
-                mJSONObject = new JSONObject();
-                mJSONArray = new JSONArray();
-                i = 0;
             }
 
             @Override
             public void doInBackground() {
-                try {
-                    if (Utils.exist(context.getFilesDir().getPath() + "/snotz")) {
-                        for (sNotzItems items : sNotzData.getRawData(context)) {
-                            JSONObject note = new JSONObject();
-                            note.put("note", items.getNote());
-                            note.put("date", items.getTimeStamp());
-                            note.put("image", items.getImageString());
-                            note.put("hidden", items.isHidden());
-                            note.put("colorBackground", items.getColorBackground());
-                            note.put("colorText", items.getColorText());
-                            note.put("noteID", i);
-                            i++;
-                            mJSONArray.put(note);
-                        }
+                JsonObject mJSONObject = new JsonObject();
+                JsonArray mJSONArray = new JsonArray();
+                if (Utils.exist(context.getFilesDir().getPath() + "/snotz")) {
+                    for (sNotzItems items : sNotzData.getRawData(context)) {
+                        JsonObject note = new JsonObject();
+                        note.addProperty("note", items.getNote());
+                        note.addProperty("date", items.getTimeStamp());
+                        note.addProperty("image", items.getImageString());
+                        note.addProperty("hidden", items.isHidden());
+                        note.addProperty("colorBackground", items.getColorBackground());
+                        note.addProperty("colorText", items.getColorText());
+                        note.addProperty("noteID", items.getNoteID());
+                        mJSONArray.add(note);
                     }
-                    if (validBackup(backupData)) {
-                        for (sNotzItems items : getNotesFromBackup(backupData, context)) {
-                            JSONObject note = new JSONObject();
-                            note.put("note", items.getNote());
-                            note.put("date", items.getTimeStamp());
-                            note.put("image", items.getImageString());
-                            note.put("hidden", items.isHidden());
-                            note.put("colorBackground", items.getColorBackground());
-                            note.put("colorText", items.getColorText());
-                            note.put("noteID", i);
-                            i++;
-                            mJSONArray.put(note);
-                        }
-                    }
-                    mJSONObject.put("sNotz", mJSONArray);
-                    Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
-                } catch (JSONException ignored) {
+                    i = generateNoteID(context);
                 }
+
+                if (validBackup(backupData)) {
+                    for (sNotzItems items : getNotesFromBackup(backupData, context)) {
+                        JsonObject note = new JsonObject();
+                        note.addProperty("note", items.getNote());
+                        note.addProperty("date", items.getTimeStamp());
+                        note.addProperty("image", items.getImageString());
+                        note.addProperty("hidden", items.isHidden());
+                        note.addProperty("colorBackground", items.getColorBackground());
+                        note.addProperty("colorText", items.getColorText());
+                        note.addProperty("noteID", i);
+                        i++;
+                        mJSONArray.add(note);
+                    }
+                }
+                mJSONObject.add("sNotz", mJSONArray);
+                Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
             }
 
             @Override
@@ -373,22 +387,28 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                try {
-                    mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(context.getFilesDir().getPath() + "/snotz")));
-                    mJSONArray = mJSONObject.getJSONArray("sNotz");
-                    JSONObject note = new JSONObject(mJSONArray.getJSONObject(noteID).toString());
-                    note.put("note", newNote);
-                    note.put("date", System.currentTimeMillis());
-                    note.put("image", image);
-                    note.put("hidden", hidden);
-                    note.put("colorBackground", colorBg);
-                    note.put("colorText", colorTxt);
-                    note.put("noteID", noteID);
-                    mJSONArray.remove(noteID);
-                    mJSONArray.put(note);
-                    Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
-                } catch (JSONException ignored) {
+                JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"));
+                JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
+
+                JsonObject mNote = new JsonObject();
+                mNote.addProperty("note", newNote.toString());
+                mNote.addProperty("date", System.currentTimeMillis());
+                mNote.addProperty("image", image);
+                mNote.addProperty("hidden", hidden);
+                mNote.addProperty("colorBackground", colorBg);
+                mNote.addProperty("colorText", colorTxt);
+                mNote.addProperty("noteID", noteID);
+                for (int i = 0; i < mJSONArray.size(); i++) {
+                    JsonObject note = mJSONArray.get(i).getAsJsonObject();
+                    if (note.get("noteID").getAsInt() == noteID) {
+                        mJSONArray.remove(i);
+                        mJSONArray.add(mNote);
+                    }
                 }
+                mJSONObject.add("sNotz", mJSONArray);
+                Gson gson = new Gson();
+                String json = gson.toJson(mJSONObject);
+                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
             }
 
             @Override
@@ -398,29 +418,6 @@ public class sNotzUtils {
                 progressBar.setVisibility(View.GONE);
             }
         };
-    }
-
-    public static void reOrganizeNotes(Context context) {
-        mJSONObject = new JSONObject();
-        mJSONArray = new JSONArray();
-        i = 0;
-        try {
-            for (sNotzItems items : sNotzData.getRawData(context)) {
-                JSONObject note = new JSONObject();
-                note.put("note", items.getNote());
-                note.put("date", items.getTimeStamp());
-                note.put("image", items.getImageString());
-                note.put("hidden", items.isHidden());
-                note.put("colorBackground", items.getColorBackground());
-                note.put("colorText", items.getColorText());
-                note.put("noteID", i);
-                i++;
-                mJSONArray.put(note);
-            }
-            mJSONObject.put("sNotz", mJSONArray);
-            Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
-        } catch (JSONException ignored) {
-        }
     }
 
 }

@@ -30,6 +30,9 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
@@ -41,10 +44,6 @@ import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -257,38 +256,37 @@ public class NotePickerActivity extends AppCompatActivity {
             @Override
             public void doInBackground() {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                    try {
-                        JSONObject mJSONObject = new JSONObject(Objects.requireNonNull(Utils.read(getFilesDir().getPath() + "/snotz")));
-                        JSONArray mJSONArray = mJSONObject.getJSONArray("sNotz");
-                        JSONObject note = new JSONObject();
-                        note.put("note", mContents.getText());
-                        note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
-                        note.put("image", (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, activity) : null));
-                        note.put("hidden", mHidden.isChecked());
-                        note.put("colorBackground", mSelectedColorBg);
-                        note.put("colorText", mSelectedColorTxt);
-                        note.put("noteID", sNotzData.getData(NotePickerActivity.this).size());
-                        mJSONArray.put(note);
-                        Utils.create(mJSONObject.toString(), getFilesDir().getPath() + "/snotz");
-                    } catch (JSONException ignored) {
-                    }
+                    JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(getFilesDir().getPath() + "/snotz"));
+                    JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
+                    JsonObject note = new JsonObject();
+                    note.addProperty("note", Objects.requireNonNull(mContents.getText()).toString());
+                    note.addProperty("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.addProperty("image", (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, activity) : null));
+                    note.addProperty("hidden", mHidden.isChecked());
+                    note.addProperty("colorBackground", mSelectedColorBg);
+                    note.addProperty("colorText", mSelectedColorTxt);
+                    note.addProperty("noteID", sNotzUtils.generateNoteID(activity));
+                    mJSONArray.add(note);
+                    mJSONObject.add("sNotz", mJSONArray);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(mJSONObject);
+                    Utils.create(json, getFilesDir().getPath() + "/snotz");
                 } else {
-                    try {
-                        JSONObject mJSONObject = new JSONObject();
-                        JSONArray mJSONArray = new JSONArray();
-                        JSONObject note = new JSONObject();
-                        note.put("note", mContents.getText());
-                        note.put("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
-                        note.put("image", (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, activity) : null));
-                        note.put("hidden", mHidden.isChecked());
-                        note.put("colorBackground", mSelectedColorBg);
-                        note.put("colorText", mSelectedColorTxt);
-                        note.put("noteID", 0);
-                        mJSONArray.put(note);
-                        mJSONObject.put("sNotz", mJSONArray);
-                        Utils.create(mJSONObject.toString(), getFilesDir().getPath() + "/snotz");
-                    } catch (JSONException ignored) {
-                    }
+                    JsonObject mJSONObject = new JsonObject();
+                    JsonArray mJSONArray = new JsonArray();
+                    JsonObject note = new JsonObject();
+                    note.addProperty("note", Objects.requireNonNull(mContents.getText()).toString());
+                    note.addProperty("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
+                    note.addProperty("image", (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, activity) : null));
+                    note.addProperty("hidden", mHidden.isChecked());
+                    note.addProperty("colorBackground", mSelectedColorBg);
+                    note.addProperty("colorText", mSelectedColorTxt);
+                    note.addProperty("noteID", 0);
+                    mJSONArray.add(note);
+                    mJSONObject.add("sNotz", mJSONArray);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(mJSONObject);
+                    Utils.create(json, getFilesDir().getPath() + "/snotz");
                 }
             }
 
@@ -303,52 +301,47 @@ public class NotePickerActivity extends AppCompatActivity {
 
     public void restore(Activity activity) {
         new AsyncTasks() {
-            private JSONArray mJSONArray;
-            private JSONObject mJSONObject;
-            private int i;
+            private int i = 0;
             @Override
             public void onPreExecute() {
                 mProgress.setVisibility(View.VISIBLE);
-                mJSONObject = new JSONObject();
-                mJSONArray = new JSONArray();
-                i = 0;
             }
 
             @Override
             public void doInBackground() {
-                try {
-                    if (Utils.exist(activity.getFilesDir().getPath() + "/snotz")) {
-                        for (sNotzItems items : sNotzData.getRawData(activity)) {
-                            JSONObject note = new JSONObject();
-                            note.put("note", items.getNote());
-                            note.put("date", items.getTimeStamp());
-                            note.put("image", items.getImageString());
-                            note.put("hidden", items.isHidden());
-                            note.put("colorBackground", items.getColorBackground());
-                            note.put("colorText", items.getColorText());
-                            note.put("noteID", i);
-                            i++;
-                            mJSONArray.put(note);
-                        }
+                JsonObject mJSONObject = new JsonObject();
+                JsonArray mJSONArray = new JsonArray();
+                if (Utils.exist(activity.getFilesDir().getPath() + "/snotz")) {
+                    for (sNotzItems items : sNotzData.getRawData(activity)) {
+                        JsonObject note = new JsonObject();
+                        note.addProperty("note", items.getNote());
+                        note.addProperty("date", items.getTimeStamp());
+                        note.addProperty("image", items.getImageString());
+                        note.addProperty("hidden", items.isHidden());
+                        note.addProperty("colorBackground", items.getColorBackground());
+                        note.addProperty("colorText", items.getColorText());
+                        note.addProperty("noteID", items.getNoteID());
+                        mJSONArray.add(note);
                     }
-                    if (sNotzUtils.validBackup(mNote)) {
-                        for (sNotzItems items : sNotzUtils.getNotesFromBackup(mNote, activity)) {
-                            JSONObject note = new JSONObject();
-                            note.put("note", items.getNote());
-                            note.put("date", items.getTimeStamp());
-                            note.put("image", items.getImageString());
-                            note.put("hidden", items.isHidden());
-                            note.put("colorBackground", items.getColorBackground());
-                            note.put("colorText", items.getColorText());
-                            note.put("noteID", i);
-                            i++;
-                            mJSONArray.put(note);
-                        }
-                    }
-                    mJSONObject.put("sNotz", mJSONArray);
-                    Utils.create(mJSONObject.toString(), activity.getFilesDir().getPath() + "/snotz");
-                } catch (JSONException ignored) {
+                    i = sNotzUtils.generateNoteID(activity);
                 }
+
+                if (sNotzUtils.validBackup(mNote)) {
+                    for (sNotzItems items : sNotzUtils.getNotesFromBackup(mNote, activity)) {
+                        JsonObject note = new JsonObject();
+                        note.addProperty("note", items.getNote());
+                        note.addProperty("date", items.getTimeStamp());
+                        note.addProperty("image", items.getImageString());
+                        note.addProperty("hidden", items.isHidden());
+                        note.addProperty("colorBackground", items.getColorBackground());
+                        note.addProperty("colorText", items.getColorText());
+                        note.addProperty("noteID", i);
+                        i++;
+                        mJSONArray.add(note);
+                    }
+                }
+                mJSONObject.add("sNotz", mJSONArray);
+                Utils.create(mJSONObject.toString(), activity.getFilesDir().getPath() + "/snotz");
             }
 
             @Override

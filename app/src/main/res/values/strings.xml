@@ -105,6 +105,8 @@
     <string name="save_text_message">The selected note is exported as %s</string>
     <string name="search_hint">Search…</string>
     <string name="security">Security</string>
+    <string name="select_checklist">Select Checklist</string>
+    <string name="select_note">Select Note</string>
     <string name="set_reminder">Set Reminder</string>
     <string name="settings">Settings</string>
     <string name="share">Share</string>
@@ -143,5 +145,6 @@
     <string name="welcome_note_screen_two">sNotz will let you create, customize, and manage simple notes &amp; checklists.</string>
     <string name="welcome_note_screen_three">sNotz supports creating notes in your favourite color and font size/style. Please be sure to checkout the \"Settings\" page for more info.</string>
     <string name="welcome_note_summary">Show welcome note again</string>
+    <string name="widget_loading_failed">Widget loading failed</string>
     <string name="yes">Yes</string>
 </resources>

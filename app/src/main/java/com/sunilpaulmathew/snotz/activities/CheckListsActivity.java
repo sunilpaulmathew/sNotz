@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -33,11 +32,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
@@ -59,7 +53,7 @@ public class CheckListsActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        mRecyclerView.setAdapter(new CheckListsAdapter(getData()));
+        mRecyclerView.setAdapter(new CheckListsAdapter(CheckLists.getCheckLists(this)));
 
         /*
          * Based on the following Stack Overflow discussion
@@ -75,12 +69,12 @@ public class CheckListsActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 new MaterialAlertDialogBuilder(viewHolder.itemView.getContext())
-                        .setMessage(viewHolder.itemView.getContext().getString(R.string.delete_sure_question, getData().get(position).getName()))
-                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> mRecyclerView.setAdapter(new CheckListsAdapter(getData())))
+                        .setMessage(viewHolder.itemView.getContext().getString(R.string.delete_sure_question, CheckLists.getCheckLists(CheckListsActivity.this).get(position).getName()))
+                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> mRecyclerView.setAdapter(new CheckListsAdapter(CheckLists.getCheckLists(CheckListsActivity.this))))
                         .setCancelable(false)
                         .setPositiveButton(R.string.delete, (dialogInterface, i) -> {
-                            getData().get(position).delete();
-                            mRecyclerView.setAdapter(new CheckListsAdapter(getData()));
+                            CheckLists.getCheckLists(CheckListsActivity.this).get(position).delete();
+                            mRecyclerView.setAdapter(new CheckListsAdapter(CheckLists.getCheckLists(CheckListsActivity.this)));
                         }).show();
             }
 
@@ -130,20 +124,6 @@ public class CheckListsActivity extends AppCompatActivity {
         mBack.setOnClickListener(v -> finish());
     }
 
-    public List<File> getData() {
-        List<File> mCheckLists = new ArrayList<>();
-        for (File checklists : Objects.requireNonNull(getExternalFilesDir("checklists").listFiles())) {
-            if (CheckLists.isValidCheckList(Utils.read(checklists.getAbsolutePath()))) {
-                mCheckLists.add(checklists);
-            }
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Collections.sort(mCheckLists, Comparator.comparingLong(File::lastModified));
-        }
-        Collections.reverse(mCheckLists);
-        return mCheckLists;
-    }
-
     private void createCheckList() {
         DialogEditTextListener.dialogEditText(null, getString(R.string.check_list_create_question),
                 (dialogInterface, i) -> {
@@ -186,7 +166,7 @@ public class CheckListsActivity extends AppCompatActivity {
                         return;
                     }
                     Utils.create(mJSONString, getExternalFilesDir("checklists") + "/" + text);
-                    mRecyclerView.setAdapter(new CheckListsAdapter(getData()));
+                    mRecyclerView.setAdapter(new CheckListsAdapter(CheckLists.getCheckLists(this)));
                 }, -1,this).setOnDismissListener(dialogInterface -> {
         }).show();
     }
@@ -220,7 +200,7 @@ public class CheckListsActivity extends AppCompatActivity {
         super.onResume();
         if (Common.isReloading()) {
             Common.isReloading(false);
-            mRecyclerView.setAdapter(new CheckListsAdapter(getData()));
+            mRecyclerView.setAdapter(new CheckListsAdapter(CheckLists.getCheckLists(this)));
         }
     }
 

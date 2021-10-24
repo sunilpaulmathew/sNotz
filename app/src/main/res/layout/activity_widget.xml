@@ -1,0 +1,43 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:orientation="vertical">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_black"
+                    app:tabSelectedTextColor="@color/color_teal"
+                    app:tabTextColor="@color/color_white"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    app:tabMode="scrollable"
+                    app:tabGravity="center" />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/view_pager" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:text="@string/cancel"
+            android:background="@color/color_black"
+            android:textColor="@color/color_teal"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="10dp" />
+</RelativeLayout>

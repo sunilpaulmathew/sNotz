@@ -17,7 +17,8 @@ import java.util.Locale;
 public class Common {
 
     private static Bitmap mReadModeImage = null;
-    private static boolean mClearNote = false, mHiddenNotes = false, mReload = false, mWorking = false;
+    private static boolean mClearNote = false, mHiddenNotes = false,
+            mReload = false, mWorking = false;
     private static int mColorBackground = -1, mColorText = -1, mId = -1, mSpan = 1;
     private static RecyclerView mRecyclerView;
     private static String mImageString = null, mNote = null, mReadModeText = null, mSearchText = null;

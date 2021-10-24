@@ -12,9 +12,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.Utils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.sunilpaulmathew.snotz.utils.sNotzData;
 
 import java.util.Objects;
 
@@ -44,13 +42,8 @@ public class AboutActivity extends AppCompatActivity {
         mCancel.setOnClickListener(v -> onBackPressed());
 
         mAppName.setText(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
-        String change_log = null;
-        try {
-            change_log = new JSONObject(Objects.requireNonNull(Utils.readAssetFile(
-                    this, "changelogs.json"))).getString("releaseNotes");
-        } catch (JSONException ignored) {
-        }
-        mChange_logs.setText(change_log);
+        mChange_logs.setText(Objects.requireNonNull(sNotzData.getJSONObject(Utils.readAssetFile(
+                this, "changelogs.json"))).get("releaseNotes").getAsString());
     }
 
 }

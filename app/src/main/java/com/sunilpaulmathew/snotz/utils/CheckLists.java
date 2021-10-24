@@ -11,17 +11,18 @@ import android.provider.MediaStore;
 
 import androidx.core.app.ActivityCompat;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,51 +33,51 @@ public class CheckLists implements Serializable {
 
     private static String mCheckListName;
 
-    private static boolean isDone(String string) {
-        try {
-            JSONObject obj = new JSONObject(string);
-            return obj.getBoolean("done");
-        } catch (JSONException ignored) {
-        }
-        return false;
+    static boolean isDone(JsonObject object) {
+        return object.get("done").getAsBoolean();
     }
 
     public static boolean isValidCheckList(String checkListString) {
         return getChecklists(checkListString) != null;
     }
 
-    public static JSONArray getChecklists(String checkListString) {
+    public static JsonArray getChecklists(String checkListString) {
         try {
-            JSONObject main = new JSONObject(Objects.requireNonNull(checkListString));
-            return main.getJSONArray("checklist");
-        } catch (JSONException ignored) {
-        }
+            return Objects.requireNonNull(sNotzData.getJSONObject(checkListString)).getAsJsonArray("checklist");
+        } catch (Exception ignored) {}
         return null;
     }
 
     public static List<CheckListItems> getData(Context context) {
         List<CheckListItems> mSavedData = new ArrayList<>();
-        for (int i = 0; i < Objects.requireNonNull(getChecklists(Utils.read(context.getExternalFilesDir("checklists") + "/" + getCheckListName()))).length(); i++) {
-            try {
-                JSONObject command = Objects.requireNonNull(getChecklists(Utils.read(context.getExternalFilesDir("checklists") + "/" + getCheckListName()))).getJSONObject(i);
-                mSavedData.add(new CheckListItems(getTitle(command.toString()), isDone(command.toString())));
-            } catch (JSONException ignored) {
-            }
+        String jsonString = Utils.read(context.getExternalFilesDir("checklists") + "/" + getCheckListName());
+        for (int i = 0; i < Objects.requireNonNull(getChecklists(jsonString)).size(); i++) {
+            JsonObject object = Objects.requireNonNull(getChecklists(jsonString)).get(i).getAsJsonObject();
+            mSavedData.add(new CheckListItems(getTitle(object), isDone(object)));
         }
         return mSavedData;
+    }
+
+    public static List<File> getCheckLists(Context context) {
+        List<File> mCheckLists = new ArrayList<>();
+        for (File checklists : Objects.requireNonNull(context.getExternalFilesDir("checklists").listFiles())) {
+            if (CheckLists.isValidCheckList(Utils.read(checklists.getAbsolutePath()))) {
+                mCheckLists.add(checklists);
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Collections.sort(mCheckLists, Comparator.comparingLong(File::lastModified));
+        }
+        Collections.reverse(mCheckLists);
+        return mCheckLists;
     }
 
     public static String getCheckListName() {
         return mCheckListName;
     }
 
-    private static String getTitle(String string) {
-        try {
-            JSONObject obj = new JSONObject(string);
-            return obj.getString("title");
-        } catch (JSONException ignored) {
-        }
-        return null;
+    static String getTitle(JsonObject object) {
+        return object.get("title").getAsString();
     }
 
     public static void backupCheckList(Activity activity) {

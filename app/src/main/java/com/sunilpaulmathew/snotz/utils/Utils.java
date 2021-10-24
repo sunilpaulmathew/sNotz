@@ -25,12 +25,11 @@ import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -222,15 +221,10 @@ public class Utils {
 
     public static void create(String text, String path) {
         try {
-            File file = new File(path);
-            file.createNewFile();
-            FileOutputStream fOut = new FileOutputStream(file);
-            OutputStreamWriter myOutWriter =
-                    new OutputStreamWriter(fOut);
-            myOutWriter.append(text);
-            myOutWriter.close();
-            fOut.close();
-        } catch (Exception ignored) {
+            FileWriter writer = new FileWriter(path);
+            writer.write(text);
+            writer.close();
+        } catch (IOException ignored) {
         }
     }
 

@@ -203,6 +203,9 @@ public class CreateNoteActivity extends AppCompatActivity {
                         }).show());
 
         mSave.setOnClickListener(v -> {
+            if (Common.isWorking()) {
+                return;
+            }
             if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
                 Utils.showSnackbar(findViewById(R.id.contents), getString(R.string.text_empty));
                 return;

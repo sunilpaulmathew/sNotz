@@ -11,16 +11,14 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListAdapter;
 import com.sunilpaulmathew.snotz.utils.CheckListItems;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -103,24 +101,18 @@ public class CheckListActivity extends AppCompatActivity {
             Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message));
             return;
         }
-        JSONArray mJSONArray = new JSONArray();
-        JSONObject mJSONObject = new JSONObject();
-        try {
-            for (CheckListItems items : mData) {
-                if (!items.getTitle().equals("")) {
-                    try {
-                        JSONObject checklist = new JSONObject();
-                        checklist.put("title", items.getTitle());
-                        checklist.put("done", items.isChecked());
+        JsonArray mJSONArray = new JsonArray();
+        JsonObject mJSONObject = new JsonObject();
+        for (CheckListItems items : mData) {
+            if (!items.getTitle().equals("")) {
+                JsonObject checklist = new JsonObject();
+                checklist.addProperty("title", items.getTitle());
+                checklist.addProperty("done", items.isChecked());
 
-                        mJSONArray.put(checklist);
-                    } catch (JSONException ignored) {
-                    }
-                    mJSONObject.put("checklist", mJSONArray);
-                    Utils.create(mJSONObject.toString(), getExternalFilesDir("checklists") + "/" + mCheckListName);
-                }
+                mJSONArray.add(checklist);
+                mJSONObject.add("checklist", mJSONArray);
+                Utils.create(mJSONObject.toString(), getExternalFilesDir("checklists") + "/" + mCheckListName);
             }
-        } catch (JSONException ignored) {
         }
         Common.isReloading(true);
         finish();

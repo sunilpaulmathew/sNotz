@@ -101,7 +101,8 @@ public class sNotzFragment extends Fragment {
                                 sNotzData.getData(requireActivity()).get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                         .setCancelable(false)
                         .setNegativeButton(R.string.cancel, (dialog, which) -> loadUI(mProgressBar, requireActivity()).execute())
-                        .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(sNotzData.getData(requireActivity()).get(position).getNoteID(), mProgressBar, requireActivity()).execute()).show();
+                        .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(sNotzData.getData(requireActivity()).get(position).getNoteID(),
+                                mProgressBar, requireActivity()).execute()).show();
             }
 
             @Override

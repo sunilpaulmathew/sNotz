@@ -1,0 +1,13 @@
+<appwidget-provider
+    android:description="@string/app_name"
+    android:previewImage="@mipmap/ic_launcher_foreground"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.sunilpaulmathew.snotz.activities.WidgetActivity"
+    android:initialKeyguardLayout="@layout/widget_layout"
+    android:initialLayout="@layout/widget_layout"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="1800000"
+    android:widgetCategory="home_screen"
+    android:minHeight="36dp"
+    android:minWidth="72dp" >
+</appwidget-provider>
