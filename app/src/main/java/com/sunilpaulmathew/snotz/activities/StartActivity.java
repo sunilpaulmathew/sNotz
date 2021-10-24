@@ -18,6 +18,7 @@ import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
+import com.sunilpaulmathew.snotz.utils.Consts;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
@@ -57,11 +58,7 @@ public class StartActivity extends AppCompatActivity {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
                 mAppLogo.setVisibility(View.GONE);
-                // Launch MainActivity
-                Intent mainActivity = new Intent(StartActivity.this, MainActivity.class);
-                startActivity(mainActivity);
-                finish();
-
+                startMainActivity();
             }
 
             @Override
@@ -85,10 +82,7 @@ public class StartActivity extends AppCompatActivity {
             } else if (Security.isPINEnabled(this)) {
                 Security.authenticate(false, null, this);
             } else {
-                // Launch MainActivity
-                Intent mainActivity = new Intent(this, MainActivity.class);
-                startActivity(mainActivity);
-                finish();
+                startMainActivity();
             }
         }
     }
@@ -128,13 +122,20 @@ public class StartActivity extends AppCompatActivity {
                 } else if (Security.isPINEnabled(activity)) {
                     Security.authenticate(false, null, activity);
                 } else {
-                    // Launch MainActivity
-                    Intent mainActivity = new Intent(activity, MainActivity.class);
-                    activity.startActivity(mainActivity);
-                    activity.finish();
+                    startMainActivity();
                 }
             }
         };
+    }
+
+    private void startMainActivity() {
+        int extraNoteId = getIntent().getIntExtra(Consts.EXTRAS.NOTE_ID, Consts.INVALID_NOTE_ID);
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        if (extraNoteId != Consts.INVALID_NOTE_ID) {
+            mainActivity.putExtra(Consts.EXTRAS.NOTE_ID, extraNoteId);
+        }
+        startActivity(mainActivity);
+        finish();
     }
 
 }

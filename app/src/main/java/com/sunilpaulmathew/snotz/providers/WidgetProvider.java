@@ -11,6 +11,7 @@ import android.widget.RemoteViews;
 
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.StartActivity;
+import com.sunilpaulmathew.snotz.utils.Consts;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
@@ -48,10 +49,10 @@ public class WidgetProvider extends AppWidgetProvider {
         }
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     public static void update(AppWidgetManager appWidgetManager, int appWidgetId, Context context) {
         RemoteViews mViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
         Intent mIntent = new Intent(context, StartActivity.class);
-        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mIntent, 0);
 
         if (sNotzWidgets.getChecklistPath(appWidgetId, context) != null) {
@@ -62,11 +63,24 @@ public class WidgetProvider extends AppWidgetProvider {
                 appWidgetManager.updateAppWidget(appWidgetId, mViews);
             } else if (sNotzWidgets.getNoteID(appWidgetId, context) != -1) {
                 for (sNotzItems items : sNotzData.getRawData(context)) {
-                    if (items.getNoteID() == sNotzWidgets.getNoteID(appWidgetId, context)) {
+                    int noteId = items.getNoteID();
+                    if (noteId == sNotzWidgets.getNoteID(appWidgetId, context)) {
                         mViews.setTextViewText(R.id.note, items.getNote());
                         mViews.setTextColor(R.id.note, items.getColorText());
                         mViews.setInt(R.id.layout, "setBackgroundColor", items.getColorBackground());
-                        mViews.setOnClickPendingIntent(R.id.layout, pendingIntent);
+
+                        Intent noteIntent = new Intent(context, StartActivity.class);
+
+                        // Only passing the id here, we can pass the whole sNotzItems as Serializable
+                        // but it will fail if the item is too big (>= 1MB in size)
+                        // We can retrieve the item back later by its ID
+                        // TODO: Use a better persistence technique so that the Common class is not necessary (it is memory hungry and unreliable)
+                        noteIntent.putExtra(Consts.EXTRAS.NOTE_ID, noteId);
+                        PendingIntent notePendingIntent = PendingIntent.getActivity(
+                                context, 0, noteIntent, PendingIntent.FLAG_ONE_SHOT
+                        );
+
+                        mViews.setOnClickPendingIntent(R.id.layout, notePendingIntent);
                         appWidgetManager.updateAppWidget(appWidgetId, mViews);
                     }
                 }
