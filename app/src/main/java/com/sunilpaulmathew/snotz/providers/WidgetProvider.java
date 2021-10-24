@@ -77,7 +77,7 @@ public class WidgetProvider extends AppWidgetProvider {
                         // TODO: Use a better persistence technique so that the Common class is not necessary (it is memory hungry and unreliable)
                         noteIntent.putExtra(Consts.EXTRAS.NOTE_ID, noteId);
                         PendingIntent notePendingIntent = PendingIntent.getActivity(
-                                context, 0, noteIntent, PendingIntent.FLAG_ONE_SHOT
+                                context, noteId, noteIntent, PendingIntent.FLAG_CANCEL_CURRENT
                         );
 
                         mViews.setOnClickPendingIntent(R.id.layout, notePendingIntent);
