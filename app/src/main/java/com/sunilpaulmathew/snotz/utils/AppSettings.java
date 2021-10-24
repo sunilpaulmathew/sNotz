@@ -26,8 +26,6 @@ import java.util.List;
  */
 public class AppSettings {
 
-    private static int mSelectedPosition = -1;
-
     private static int getFontSizePosition(Context context) {
         String value = String.valueOf(Utils.getInt("font_size", 18, context));
         for (int i = 0; i < getFontSizes().length; i++) {
@@ -137,23 +135,20 @@ public class AppSettings {
     public static void showBackupOptions(Activity activity) {
         new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.backup_notes)
-                .setSingleChoiceItems(getBackupOptions(activity), 0, (dialog, itemPosition) ->
-                        mSelectedPosition = itemPosition)
-                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                })
-                .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                    if (mSelectedPosition == 0) {
-                        saveDialog(".backup", Utils.read(activity.getFilesDir().getPath() + "/snotz"), activity);
-                    } else if (mSelectedPosition == 1) {
+                .setSingleChoiceItems(getBackupOptions(activity), 0, (dialog, itemPosition) -> {
+                    if (itemPosition == 0) {
+                        saveDialog(Utils.read(activity.getFilesDir().getPath() + "/snotz"), activity);
+                    } else {
                         if (Utils.getBoolean("allow_images", false, activity)) {
                             Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.image_excluded_warning));
                         }
-                        saveDialog(".txt", sNotzUtils.sNotzToText(activity), activity);
+                        saveDialog(sNotzUtils.sNotzToText(activity), activity);
                     }
+                    dialog.dismiss();
                 }).show();
     }
 
-    private static void saveDialog(String type, String sNotz, Activity activity) {
+    private static void saveDialog(String sNotz, Activity activity) {
         if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(activity)) {
             ActivityCompat.requestPermissions(activity, new String[] {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -166,30 +161,42 @@ public class AppSettings {
                         Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty));
                         return;
                     }
-                    if (!text.endsWith(type)) {
-                        text += type;
+                    if (!text.endsWith(".txt")) {
+                        text += ".txt";
                     }
                     if (text.contains(" ")) {
                         text = text.replace(" ", "_");
                     }
-                    if (Build.VERSION.SDK_INT >= 30) {
-                        try {
-                            ContentValues values = new ContentValues();
-                            values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
-                            values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
-                            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-                            Uri uri = activity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
-                            OutputStream outputStream = activity.getContentResolver().openOutputStream(uri);
-                            outputStream.write(sNotz.getBytes());
-                            outputStream.close();
-                        } catch (IOException ignored) {
-                        }
-                    } else {
-                        Utils.create(sNotz, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text);
+                    String fileName = text;
+                    if (Utils.exist(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text)) {
+                        new MaterialAlertDialogBuilder(activity)
+                                .setMessage(activity.getString(R.string.backup_notes_warning))
+                                .setNegativeButton(activity.getString(R.string.change_name), (dialogInterface, i) -> saveDialog(sNotz, activity))
+                                .setPositiveButton(activity.getString(R.string.replace), (dialogInterface, i) -> save(sNotz, fileName, activity)).show();
+                        return;
                     }
-                    Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
+                    save(sNotz, fileName, activity);
                 }, -1, activity).setOnDismissListener(dialogInterface -> {
         }).show();
+    }
+
+    private static void save(String sNotz, String text, Activity activity) {
+        if (Build.VERSION.SDK_INT >= 30) {
+            try {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
+                values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
+                values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+                Uri uri = activity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
+                OutputStream outputStream = activity.getContentResolver().openOutputStream(uri);
+                outputStream.write(sNotz.getBytes());
+                outputStream.close();
+            } catch (IOException ignored) {
+            }
+        } else {
+            Utils.create(sNotz, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text);
+        }
+        Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
     }
 
 }

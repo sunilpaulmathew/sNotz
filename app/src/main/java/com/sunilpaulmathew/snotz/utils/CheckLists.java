@@ -93,8 +93,8 @@ public class CheckLists implements Serializable {
                         Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty));
                         return;
                     }
-                    if (!text.endsWith(".checklist")) {
-                        text += ".checklist";
+                    if (!text.endsWith(".txt")) {
+                        text += ".txt";
                     }
                     if (Build.VERSION.SDK_INT >= 30) {
                         try {
