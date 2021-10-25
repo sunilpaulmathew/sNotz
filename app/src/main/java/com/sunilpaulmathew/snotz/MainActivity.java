@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.sunilpaulmathew.snotz.activities.WelcomeActivity;
 import com.sunilpaulmathew.snotz.fragments.sNotzFragment;
+import com.sunilpaulmathew.snotz.utils.Consts;
 import com.sunilpaulmathew.snotz.utils.Utils;
 
 /*
@@ -26,8 +28,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new sNotzFragment()).commit();
+                getMainFragment()).commit();
 
+    }
+
+    private Fragment getMainFragment() {
+        int extraNoteId = getIntent().getIntExtra(Consts.EXTRAS.NOTE_ID, Consts.INVALID_NOTE_ID);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(Consts.EXTRAS.NOTE_ID, extraNoteId);
+
+        Fragment sNotzFragment = new sNotzFragment();
+        sNotzFragment.setArguments(bundle);
+        return sNotzFragment;
     }
 
 }

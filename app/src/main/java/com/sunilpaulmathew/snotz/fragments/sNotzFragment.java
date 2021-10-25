@@ -39,10 +39,14 @@ import com.sunilpaulmathew.snotz.activities.SettingsActivity;
 import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.Consts;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
+import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
+
+import java.util.List;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -55,6 +59,16 @@ public class sNotzFragment extends Fragment {
     private AppCompatEditText mSearchWord;
     private boolean mExit;
     private final Handler mHandler = new Handler();
+    private static int extraNoteId = Consts.INVALID_NOTE_ID;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        if (arguments == null) return;
+
+        extraNoteId = arguments.getInt(Consts.EXTRAS.NOTE_ID, Consts.INVALID_NOTE_ID);
+    }
 
     @Nullable
     @Override
@@ -284,7 +298,9 @@ public class sNotzFragment extends Fragment {
 
             @Override
             public void doInBackground() {
-                mNotesAdapter = new NotesAdapter(sNotzData.getData(activity));
+                List<sNotzItems> data = sNotzData.getData(activity);
+                setNoteFromIntent(data);
+                mNotesAdapter = new NotesAdapter(data);
             }
 
             @Override
@@ -293,6 +309,29 @@ public class sNotzFragment extends Fragment {
                     Common.getRecyclerView().setAdapter(mNotesAdapter);
                 } catch (NullPointerException ignored) {}
                 progressBar.setVisibility(View.GONE);
+            }
+
+            private void setNoteFromIntent(List<sNotzItems> data) {
+                sNotzItems extraItems = null;
+                for (sNotzItems items : data) {
+                    if (items.getNoteID() == extraNoteId) {
+                        extraItems = items;
+                        break;
+                    }
+                }
+
+                if (Common.isWorking() || extraItems == null) return;
+
+                Common.setNote(extraItems.getNote());
+                Common.setID(extraItems.getNoteID());
+                Common.setBackgroundColor(extraItems.getColorBackground());
+                Common.setTextColor(extraItems.getColorText());
+                if (extraItems.getImageString() != null) {
+                    Common.setImageString(extraItems.getImageString());
+                }
+                Common.isHiddenNote(extraItems.isHidden());
+                Intent editNote = new Intent(activity, CreateNoteActivity.class);
+                activity.startActivity(editNote);
             }
         };
     }
@@ -306,5 +345,7 @@ public class sNotzFragment extends Fragment {
             mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
         }
     }
+
+
 
 }
