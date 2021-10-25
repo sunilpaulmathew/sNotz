@@ -18,11 +18,11 @@ import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
-import com.sunilpaulmathew.snotz.utils.Consts;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import java.util.concurrent.Executor;
 
@@ -129,10 +129,13 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
-        int extraNoteId = getIntent().getIntExtra(Consts.EXTRAS.NOTE_ID, Consts.INVALID_NOTE_ID);
+        int extraNoteId = getIntent().getIntExtra(sNotzWidgets.getNoteID(), sNotzWidgets.getInvalidNoteId());
+        String extraCheckListPath = getIntent().getStringExtra(sNotzWidgets.getChecklistPath());
         Intent mainActivity = new Intent(this, MainActivity.class);
-        if (extraNoteId != Consts.INVALID_NOTE_ID) {
-            mainActivity.putExtra(Consts.EXTRAS.NOTE_ID, extraNoteId);
+        if (extraCheckListPath != null) {
+            mainActivity.putExtra(sNotzWidgets.getChecklistPath(), extraCheckListPath);
+        } else if (extraNoteId != sNotzWidgets.getInvalidNoteId()) {
+            mainActivity.putExtra(sNotzWidgets.getNoteID(), extraNoteId);
         }
         startActivity(mainActivity);
         finish();

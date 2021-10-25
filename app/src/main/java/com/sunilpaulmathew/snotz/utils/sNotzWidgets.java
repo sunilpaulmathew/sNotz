@@ -11,15 +11,29 @@ import java.util.Objects;
  */
 public class sNotzWidgets {
 
+    public static final String mNOTE_ID = "noteId", mCHECKLIST_PATH = "checklistPath";
+
+    public static int getInvalidNoteId() {
+        return Integer.MIN_VALUE;
+    }
+
+    public static String getChecklistPath() {
+        return mCHECKLIST_PATH;
+    }
+
+    public static String getChecklistPath(int appWidgetId, Context context) {
+        return Utils.getString("appwidget" + appWidgetId, null, context);
+    }
+
+    public static String getNoteID() {
+        return mNOTE_ID;
+    }
+
     public static int getNoteID(int appWidgetId, Context context) {
         if (getChecklistPath(appWidgetId, context) == null) {
             return -1;
         }
         return Integer.parseInt(getChecklistPath(appWidgetId, context));
-    }
-
-    public static String getChecklistPath(int appWidgetId, Context context) {
-        return Utils.getString("appwidget" + appWidgetId, null, context);
     }
 
     public static String getWidgetText(String path) {

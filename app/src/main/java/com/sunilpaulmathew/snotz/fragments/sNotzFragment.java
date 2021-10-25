@@ -33,19 +33,22 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.AboutActivity;
+import com.sunilpaulmathew.snotz.activities.CheckListActivity;
 import com.sunilpaulmathew.snotz.activities.CheckListsActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
 import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
+import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
-import com.sunilpaulmathew.snotz.utils.Consts;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
+import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
+import java.io.File;
 import java.util.List;
 
 /*
@@ -59,7 +62,8 @@ public class sNotzFragment extends Fragment {
     private AppCompatEditText mSearchWord;
     private boolean mExit;
     private final Handler mHandler = new Handler();
-    private static int extraNoteId = Consts.INVALID_NOTE_ID;
+    private static int mExtraNoteId = sNotzWidgets.getInvalidNoteId();
+    private static String mExtraCheckListPath = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +71,9 @@ public class sNotzFragment extends Fragment {
         Bundle arguments = getArguments();
         if (arguments == null) return;
 
-        extraNoteId = arguments.getInt(Consts.EXTRAS.NOTE_ID, Consts.INVALID_NOTE_ID);
+        mExtraNoteId = arguments.getInt(sNotzWidgets.getNoteID(), sNotzWidgets.getInvalidNoteId());
+        mExtraCheckListPath = arguments.getString(sNotzWidgets.getChecklistPath());
+
     }
 
     @Nullable
@@ -298,9 +304,7 @@ public class sNotzFragment extends Fragment {
 
             @Override
             public void doInBackground() {
-                List<sNotzItems> data = sNotzData.getData(activity);
-                setNoteFromIntent(data);
-                mNotesAdapter = new NotesAdapter(data);
+                setNoteFromIntent(sNotzData.getData(activity));
             }
 
             @Override
@@ -311,27 +315,38 @@ public class sNotzFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
 
-            private void setNoteFromIntent(List<sNotzItems> data) {
-                sNotzItems extraItems = null;
-                for (sNotzItems items : data) {
-                    if (items.getNoteID() == extraNoteId) {
-                        extraItems = items;
-                        break;
+            private void setNoteFromIntent(List<sNotzItems> mData) {
+                mNotesAdapter = new NotesAdapter(sNotzData.getData(activity));
+                if (mExtraCheckListPath != null) {
+                    CheckLists.setCheckListName(new File(mExtraCheckListPath).getName());
+                    // It should be set null right after the finishing the job as we are calling this method for other tasks as well
+                    mExtraCheckListPath = null;
+                    Intent checkList = new Intent(activity, CheckListActivity.class);
+                    activity.startActivity(checkList);
+                } else if (mExtraNoteId != sNotzWidgets.getInvalidNoteId()) {
+                    sNotzItems extraItems = null;
+                    for (sNotzItems items : mData) {
+                        if (items.getNoteID() == mExtraNoteId) {
+                            extraItems = items;
+                            break;
+                        }
                     }
-                }
 
-                if (Common.isWorking() || extraItems == null) return;
+                    if (Common.isWorking() || extraItems == null) return;
 
-                Common.setNote(extraItems.getNote());
-                Common.setID(extraItems.getNoteID());
-                Common.setBackgroundColor(extraItems.getColorBackground());
-                Common.setTextColor(extraItems.getColorText());
-                if (extraItems.getImageString() != null) {
-                    Common.setImageString(extraItems.getImageString());
+                    Common.setNote(extraItems.getNote());
+                    Common.setID(extraItems.getNoteID());
+                    Common.setBackgroundColor(extraItems.getColorBackground());
+                    Common.setTextColor(extraItems.getColorText());
+                    if (extraItems.getImageString() != null) {
+                        Common.setImageString(extraItems.getImageString());
+                    }
+                    Common.isHiddenNote(extraItems.isHidden());
+                    // This one should also handled right after the finishing the job
+                    mExtraNoteId = sNotzWidgets.getInvalidNoteId();
+                    Intent editNote = new Intent(activity, CreateNoteActivity.class);
+                    activity.startActivity(editNote);
                 }
-                Common.isHiddenNote(extraItems.isHidden());
-                Intent editNote = new Intent(activity, CreateNoteActivity.class);
-                activity.startActivity(editNote);
             }
         };
     }
@@ -345,7 +360,5 @@ public class sNotzFragment extends Fragment {
             mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
         }
     }
-
-
 
 }
