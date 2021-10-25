@@ -1,6 +1,8 @@
 package com.sunilpaulmathew.snotz.activities;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.providers.WidgetProvider;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -44,6 +47,12 @@ public class StartActivity extends AppCompatActivity {
 
         mAppLogo = findViewById(R.id.app_logo);
         mAuthenticationStatus = findViewById(R.id.authentication_status);
+
+        // Update widgets on app launch
+        int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(
+                getApplication(), WidgetProvider.class));
+        WidgetProvider mWidgetProvider = new WidgetProvider();
+        mWidgetProvider.onUpdate(this, AppWidgetManager.getInstance(this), ids);
 
         Executor executor = ContextCompat.getMainExecutor(this);
         mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
