@@ -1,10 +1,10 @@
 package com.sunilpaulmathew.snotz.receivers;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,9 @@ import android.os.Bundle;
 import androidx.core.app.NotificationCompat;
 
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.activities.ReadNoteActivity;
-import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.activities.StartActivity;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
+import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -30,27 +30,24 @@ public class ReminderReceiver extends BroadcastReceiver {
 
         Bundle bundle = intent.getExtras();
         String mNote = bundle.getString("note");
+        int mNoteID = bundle.getInt("id");
 
         Uri mAlarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
         int mNotificationID = sNotzReminders.getNotificationID(context);
 
-        Intent mIntent = new Intent(context, ReadNoteActivity.class);
+        Intent mIntent = new Intent(context, StartActivity.class);
+        mIntent.putExtra(sNotzWidgets.getNoteID(), mNoteID);
         mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        TaskStackBuilder mTaskStackBuilder = TaskStackBuilder.create(context);
-        mTaskStackBuilder.addParentStack(ReadNoteActivity.class);
-        mTaskStackBuilder.addNextIntent(mIntent);
         
-        PendingIntent mPendingIntent = mTaskStackBuilder.getPendingIntent(mNotificationID, PendingIntent.FLAG_UPDATE_CURRENT);
+        @SuppressLint("UnspecifiedImmutableFlag")
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, mNotificationID, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationChannel mNotificationChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationChannel = new NotificationChannel("channel", context.getString(R.string.app_name), NotificationManager.IMPORTANCE_HIGH);
         }
 
-        Common.setReadModeText(mNote);
-        Common.setReadModeImage(null);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "channel");
         Notification mNotification = mBuilder.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(mNote)

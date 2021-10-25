@@ -107,7 +107,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         sNotzReminders.setYear(-1);
                         sNotzReminders.setMonth(-1);
                         sNotzReminders.setDay(-1);
-                        sNotzReminders.launchReminderMenu(data.get(position).getNote(), item.getContext());
+                        sNotzReminders.launchReminderMenu(data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
                         break;
                     case 3:
                         if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(holder.mRVCard.getContext())) {

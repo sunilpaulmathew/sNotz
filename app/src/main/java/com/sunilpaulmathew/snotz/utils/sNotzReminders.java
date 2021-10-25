@@ -50,10 +50,11 @@ public class sNotzReminders {
     }
 
     private static void setReminder(double year, double month, double day, int hour, int min,
-                                   String note, Context context) {
+                                   int noteID, String note, Context context) {
         AlarmManager mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent mIntent = new Intent(context, ReminderReceiver.class);
         mIntent.putExtra("note", note);
+        mIntent.putExtra("id", noteID);
 
         int mNotificationID = getNotificationID(context);
 
@@ -81,7 +82,7 @@ public class sNotzReminders {
                 }).show();
     }
 
-    private static DatePickerDialog launchDatePicker(String note, Context context) {
+    private static DatePickerDialog launchDatePicker(String note, int noteID, Context context) {
         Calendar mCalendar = Calendar.getInstance();
         return new DatePickerDialog(context,
                 (view, year, month, dayOfMonth) -> {
@@ -89,19 +90,19 @@ public class sNotzReminders {
                     setMonth(month);
                     setDay(dayOfMonth);
                     if (getYear() != -1 && getMonth() != -1 && getDay() != -1) {
-                        launchTimePicker(year, month, dayOfMonth, note, context).show();
+                        launchTimePicker(year, month, dayOfMonth, noteID, note, context).show();
                     }
                 }, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
-    private static TimePickerDialog launchTimePicker(double year, double month, double day,
+    private static TimePickerDialog launchTimePicker(double year, double month, double day, int noteID,
                                                     String note, Context context) {
         Calendar mCalendar = Calendar.getInstance();
         return new TimePickerDialog(context,
-                (view, hourOfDay, minute) -> setReminder(year, month,  day, hourOfDay, minute, note, context), mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), false);
+                (view, hourOfDay, minute) -> setReminder(year, month,  day, hourOfDay, minute, noteID, note, context), mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), false);
     }
 
-    public static void launchReminderMenu(String note, Context context) {
+    public static void launchReminderMenu(String note, int noteID, Context context) {
         if (Utils.getBoolean("first_reminder", true, context)) {
             new MaterialAlertDialogBuilder(context)
                     .setIcon(R.mipmap.ic_launcher)
@@ -109,11 +110,11 @@ public class sNotzReminders {
                     .setMessage(context.getString(R.string.reminder_warning))
                     .setCancelable(false)
                     .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
-                        launchDatePicker(note, context).show();
+                        launchDatePicker(note, noteID, context).show();
                         Utils.saveBoolean("first_reminder", false, context);
                     }).show();
         } else {
-            launchDatePicker(note, context).show();
+            launchDatePicker(note, noteID, context).show();
         }
     }
 
