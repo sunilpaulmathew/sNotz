@@ -30,10 +30,10 @@ public class sNotzWidgets {
     }
 
     public static int getNoteID(int appWidgetId, Context context) {
-        if (getChecklistPath(appWidgetId, context) == null) {
-            return -1;
-        }
-        return Integer.parseInt(getChecklistPath(appWidgetId, context));
+        try {
+            return Integer.parseInt(getChecklistPath(appWidgetId, context));
+        } catch (Exception ignored) {}
+        return getInvalidNoteId();
     }
 
     public static String getWidgetText(String path) {

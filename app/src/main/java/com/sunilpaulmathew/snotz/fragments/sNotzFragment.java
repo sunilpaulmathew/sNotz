@@ -316,7 +316,8 @@ public class sNotzFragment extends Fragment {
 
             private void setNoteFromIntent() {
                 mNotesAdapter = new NotesAdapter(sNotzData.getData(activity));
-                if (mExtraCheckListPath != null) {
+                if (Common.isWorking() || mExtraCheckListPath != null && mExtraNoteId != sNotzWidgets.getInvalidNoteId()) return;
+                if (mExtraCheckListPath != null && Utils.exist(mExtraCheckListPath)) {
                     CheckLists.setCheckListName(new File(mExtraCheckListPath).getName());
                     // It should be set null right after finishing the job as we are calling this method for other tasks as well
                     mExtraCheckListPath = null;
@@ -331,7 +332,7 @@ public class sNotzFragment extends Fragment {
                         }
                     }
 
-                    if (Common.isWorking() || extraItems == null) return;
+                    if (extraItems == null) return;
 
                     Common.setNote(extraItems.getNote());
                     Common.setID(extraItems.getNoteID());
