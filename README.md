@@ -8,7 +8,6 @@
 
 ### sNotz is an open-source, privacy-friendly, secure, and completely offline application, which will let you create, customize, and manage simple notes on your android device.
 
-
 ## Download
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
 alt="Get it on Google Play"
@@ -25,13 +24,14 @@ height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.17/a
 
 ## Features
 * Easily create & manage simple notes.
-* Support biometric/PIN authentications to secure notes.
-* Supports using custom colors (background and text) for individual notes.
-* Supports including an image (not recommended for the sake of UI response) on individual notes.
+* Secure notes with biometric/PIN authentications.
+* Use custom colors (background and text) for individual notes.
+* Optionally include an image (not recommended for the sake of UI response) with each note.
 * Sort notes alphabetically, or by date or background color.
-* Supports creating secret notes that are hidden from the main UI by default.
-* Supports creating, importing, and sharing checklists.
+* Creating secret notes that are hidden from the main UI by default.
+* Create, import, and share checklists.
 * Swipe (left or right) to delete notes/checklists.
+* Create beautiful home screen widgets of notes and checklists.
 * Create reminders (for individual notes).
 * Export and easily share notes via third-party apps.
 * No cloud storage or login requirements. sNotz works completely offline.
@@ -45,7 +45,6 @@ If you like to appreciate the efforts of developer to provide this application e
 Some other ways to support the development includes, but not limited to
 <ol>
     <li>Contribute code to this project.</li>
-    <li>Contribute code to this project.</li>
     <li><a href="https://poeditor.com/join/project?hash=LOg2GmFfbV" target="_blank">Translate</a> this application into your local language (or improve existing translations).</li>
     <li>Share good words about this application with others (family, friends, and other enthusiastic android users).</li>
 </ol>
@@ -54,13 +53,7 @@ Some other ways to support the development includes, but not limited to
 Please help me to translate this application via [POEditor](https://poeditor.com/join/project?hash=LOg2GmFfbV). You may also translate after downloading the original language string available [here](app/src/main/res/values/strings.xml).
 
 ## Credits
-* [Grarak](https://github.com/Grarak/), Code contributions (I took some code from [Kernel Adiutor](https://github.com/Grarak/KernelAdiutor/))
-* [QuadFlask](https://github.com/QuadFlask/colorpicker/), Color Picker
-* [MONSTER_PC](https://t.me/MONSTER_PC), Russian & Ukrainian Translations
-* [Hafitz Setya](https://github.com/breakdowns), Indonesian Translations
-* [Mikesew1320](https://github.com/Mikesew1320), Amharic Translations
-* Negroibarra301, Spanish Translations
-* [FTno](https://github.com/FTno), Norwegian Translations
+A list of people who contributed to this project is available [here](Credits.md).
 
 ## License
 
