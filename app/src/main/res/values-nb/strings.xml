@@ -138,4 +138,15 @@
     <string name="text_style_bold_italics">"Fet &amp; Kursiv"</string>
     <string name="text_style_italics">"Kursiv"</string>
     <string name="text_style_regular">"Vanlig"</string>
+    <string name="backup_notes_hint">"Sikkerhetskopiere notater som?"</string>
+    <string name="reminder_warning">"sNotz vil ikke overvåke påminnelser. Som en følge av dette vil en allerede opprettet påminnelse ikke kunne bli redigert eller slettet. Alle påminnelsene opprettet av sNotz vil varsle selv om de opprinnelige notatene er slettet."</string>
+    <string name="welcome_note_screen_one">"Velkommen til sNotz, en åpen-kildekode, personvernvennlig og helt offline app for å håndtere notatene dine."</string>
+    <string name="welcome_note_screen_two">"sNotz lar deg lage, tilpasse og håndtere enkle notater &amp; sjekklister."</string>
+    <string name="welcome_note_screen_three">"sNotz støtter å lage notater i din favorittfarge og skriftstørrelse/stil. Sørg for å sjekke siden \"Innstillinger\" for mer informasjon."</string>
+    <string name="auto_save">"Auto-lagre notater"</string>
+    <string name="auto_save_summary">"Lagre notater automatisk når side forlates"</string>
+    <string name="backup_notes_warning">"En tidligere sikkerhetskopifil med samme navn finnes allerede. Vil du erstatte den?"</string>
+    <string name="select_checklist">"Velg sjekkliste"</string>
+    <string name="select_note">"Velg notat"</string>
+    <string name="widget_loading_failed">"Modul-lasting feilet"</string>
 </resources>
