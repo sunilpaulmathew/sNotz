@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class sNotzWidgets {
 
-    public static final String mNOTE_ID = "noteId", mCHECKLIST_PATH = "checklistPath";
+    private static final String mNOTE_ID = "noteId", mCHECKLIST_PATH = "checklistPath";
 
     public static int getInvalidNoteId() {
         return Integer.MIN_VALUE;

@@ -49,7 +49,6 @@ import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import java.io.File;
-import java.util.List;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -304,7 +303,7 @@ public class sNotzFragment extends Fragment {
 
             @Override
             public void doInBackground() {
-                setNoteFromIntent(sNotzData.getData(activity));
+                setNoteFromIntent();
             }
 
             @Override
@@ -315,17 +314,17 @@ public class sNotzFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
 
-            private void setNoteFromIntent(List<sNotzItems> mData) {
+            private void setNoteFromIntent() {
                 mNotesAdapter = new NotesAdapter(sNotzData.getData(activity));
                 if (mExtraCheckListPath != null) {
                     CheckLists.setCheckListName(new File(mExtraCheckListPath).getName());
-                    // It should be set null right after the finishing the job as we are calling this method for other tasks as well
+                    // It should be set null right after finishing the job as we are calling this method for other tasks as well
                     mExtraCheckListPath = null;
                     Intent checkList = new Intent(activity, CheckListActivity.class);
                     activity.startActivity(checkList);
                 } else if (mExtraNoteId != sNotzWidgets.getInvalidNoteId()) {
                     sNotzItems extraItems = null;
-                    for (sNotzItems items : mData) {
+                    for (sNotzItems items : sNotzData.getRawData(activity)) {
                         if (items.getNoteID() == mExtraNoteId) {
                             extraItems = items;
                             break;
@@ -342,7 +341,7 @@ public class sNotzFragment extends Fragment {
                         Common.setImageString(extraItems.getImageString());
                     }
                     Common.isHiddenNote(extraItems.isHidden());
-                    // This one should also handled right after the finishing the job
+                    // This one should also handled right after finishing the job
                     mExtraNoteId = sNotzWidgets.getInvalidNoteId();
                     Intent editNote = new Intent(activity, CreateNoteActivity.class);
                     activity.startActivity(editNote);
