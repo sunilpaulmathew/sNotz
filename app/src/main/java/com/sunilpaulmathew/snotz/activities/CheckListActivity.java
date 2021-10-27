@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textview.MaterialTextView;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListAdapter;
@@ -96,24 +95,15 @@ public class CheckListActivity extends AppCompatActivity {
     }
 
     private void saveCheckList() {
+        if (CheckLists.getChecklists(mData).size() == 0) return;
         String mCheckListName = CheckLists.getCheckListName();
         if (mCheckListName.isEmpty()) {
             Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message));
             return;
         }
-        JsonArray mJSONArray = new JsonArray();
         JsonObject mJSONObject = new JsonObject();
-        for (CheckListItems items : mData) {
-            if (!items.getTitle().equals("")) {
-                JsonObject checklist = new JsonObject();
-                checklist.addProperty("title", items.getTitle());
-                checklist.addProperty("done", items.isChecked());
-
-                mJSONArray.add(checklist);
-                mJSONObject.add("checklist", mJSONArray);
-                Utils.create(mJSONObject.toString(), getExternalFilesDir("checklists") + "/" + mCheckListName);
-            }
-        }
+        mJSONObject.add("checklist", CheckLists.getChecklists(mData));
+        Utils.create(mJSONObject.toString(), getExternalFilesDir("checklists") + "/" + mCheckListName);
         Common.isReloading(true);
         finish();
     }

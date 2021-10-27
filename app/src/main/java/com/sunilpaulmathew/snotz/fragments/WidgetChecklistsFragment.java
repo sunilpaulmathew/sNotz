@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListAdapter;
@@ -114,6 +113,7 @@ public class WidgetChecklistsFragment extends Fragment {
     }
 
     private void saveCheckList() {
+        if (CheckLists.getChecklists(mData).size() == 0) return;
         new AsyncTasks() {
 
             @Override
@@ -124,24 +124,16 @@ public class WidgetChecklistsFragment extends Fragment {
             @Override
             public void doInBackground() {
                 String mCheckListName = CheckLists.getCheckListName();
-                JsonArray mJSONArray = new JsonArray();
                 JsonObject mJSONObject = new JsonObject();
-                for (CheckListItems items : mData) {
-                    if (!items.getTitle().equals("")) {
-                        JsonObject checklist = new JsonObject();
-                        checklist.addProperty("title", items.getTitle());
-                        checklist.addProperty("done", items.isChecked());
-
-                        mJSONArray.add(checklist);
-                        mJSONObject.add("checklist", mJSONArray);
-                        Utils.create(mJSONObject.toString(), requireActivity().getExternalFilesDir("checklists") + "/" + mCheckListName);
-                    }
-                }
+                mJSONObject.add("checklist", CheckLists.getChecklists(mData));
+                Utils.create(mJSONObject.toString(), requireActivity().getExternalFilesDir("checklists") + "/" + mCheckListName);
             }
 
             @Override
             public void onPostExecute() {
-                create(requireActivity().getExternalFilesDir("checklists") + "/" + CheckLists.getCheckListName());
+                if (Utils.exist(requireActivity().getExternalFilesDir("checklists") + "/" + CheckLists.getCheckListName())) {
+                    create(requireActivity().getExternalFilesDir("checklists") + "/" + CheckLists.getCheckListName());
+                }
             }
         }.execute();
     }

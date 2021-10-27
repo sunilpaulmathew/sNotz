@@ -48,6 +48,19 @@ public class CheckLists implements Serializable {
         return null;
     }
 
+    public static JsonArray getChecklists(List<CheckListItems> items) {
+        JsonArray jsonArray = new JsonArray();
+        for (CheckListItems item : items) {
+            if (!item.getTitle().equals("")) {
+                JsonObject checklist = new JsonObject();
+                checklist.addProperty("title", item.getTitle());
+                checklist.addProperty("done", item.isChecked());
+                jsonArray.add(checklist);
+            }
+        }
+        return jsonArray;
+    }
+
     public static List<CheckListItems> getData(Context context) {
         List<CheckListItems> mSavedData = new ArrayList<>();
         String jsonString = Utils.read(context.getExternalFilesDir("checklists") + "/" + getCheckListName());
