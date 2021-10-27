@@ -14,6 +14,7 @@ sNotz is, and as always, an open-source project which is ready to accept contrib
 * [FTno](https://github.com/FTno), Norwegian Translations
 * Murilogs & [Lennoard Silva](https://github.com/Lennoard), Portuguese (Brazilian) Translations
 * Axel Schaab, German Translations
+* [AbsurdUsername](https://github.com/AbsurdUsername), Italian Translations
 * Many other people contributed via [POEditor](https://poeditor.com/join/project?hash=LOg2GmFfbV)
 
 _If you think I missed your name, please let me know._

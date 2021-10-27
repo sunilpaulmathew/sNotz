@@ -1,7 +1,0 @@
-* Simplified & fixed issues related with reminders (sNotz won't save database of notes anymore).
-* Welcome page is now more informative.
-* Improved note backup dialog.
-* Removed vertical dividers from main UI.
-* Improved app UI and searching.
-* Updated Norwegian translation.
-* Miscellaneous changes.

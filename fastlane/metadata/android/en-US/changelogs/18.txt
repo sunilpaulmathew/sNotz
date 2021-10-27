@@ -1,0 +1,8 @@
+* Introduced sNotz widgets for notes/checklists.
+* Largely improved UI loading.
+* Implemented auto-save mode for notes.
+* Improved opening notes from reminder notification.
+* Improved creating checklists.
+* Added Portuguese (Brazilian), German, and Italian translations.
+* Updated Norwegian translations.
+* Miscellaneous changes.
