@@ -116,6 +116,7 @@ public class AppSettings {
                             "" + Integer.parseInt(getFontSizes()[itemPosition].replace("sp",""))),
                             sNotzUtils.getDrawable(R.drawable.ic_format_size, context), null));
                     adapter.notifyItemChanged(position);
+                    Utils.reloadUI(context);
                     dialog.dismiss();
                 }).show();
     }
@@ -128,6 +129,7 @@ public class AppSettings {
                     items.set(position, new SettingsItems(context.getString(R.string.text_style), getFontStyle(context),
                             sNotzUtils.getDrawable(R.drawable.ic_text_style, context), null));
                     adapter.notifyItemChanged(position);
+                    Utils.reloadUI(context);
                     dialog.dismiss();
                 }).show();
     }
