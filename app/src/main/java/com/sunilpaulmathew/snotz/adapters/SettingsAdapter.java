@@ -55,7 +55,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.mIcon.setImageDrawable(null);
         }
         if (!Utils.exist(holder.mTitle.getContext().getFilesDir().getPath() + "/snotz")) {
-            if (position == 11 || position == 13) {
+            if (position == 12 || position == 14) {
                 holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             }
