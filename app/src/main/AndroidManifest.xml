@@ -34,18 +34,30 @@
         <activity android:name=".activities.ImageViewActivity" />
         <activity
             android:name=".activities.NotePickerActivity"
+            android:theme="@style/AppTheme.Transparent"
             android:label="@string/note_editor"
-            tools:ignore="IntentFilterExportedReceiver">
-            <intent-filter tools:ignore="AppLinkUrlError">
+            tools:ignore="IntentFilterExportedReceiver" >
+
+            <intent-filter tools:ignore="AppLinkUrlError" >
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
         <activity android:name=".activities.ReadNoteActivity" />
         <activity android:name=".activities.SettingsActivity" />
+        <activity
+            android:name=".activities.SharedNotePickerActivity"
+            android:theme="@style/AppTheme.Transparent"
+            android:label="@string/note_editor"
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.WelcomeActivity" />
         <activity
             android:name=".activities.WidgetActivity"
