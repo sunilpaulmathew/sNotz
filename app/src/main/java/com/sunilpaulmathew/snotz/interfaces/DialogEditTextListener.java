@@ -62,6 +62,7 @@ public interface DialogEditTextListener {
 
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(activity).setView(layout);
         if (title != null) {
+            dialog.setIcon(R.mipmap.ic_launcher);
             dialog.setTitle(title);
         }
         if (negativeListener != null) {

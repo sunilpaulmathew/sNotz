@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -130,7 +129,6 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/color_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_black"
@@ -206,6 +204,4 @@
                 app:cardCornerRadius="5dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <include layout="@layout/permission_layout" />
 </RelativeLayout>

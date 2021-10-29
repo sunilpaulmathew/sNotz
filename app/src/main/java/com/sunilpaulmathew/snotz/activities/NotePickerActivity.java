@@ -1,127 +1,48 @@
 package com.sunilpaulmathew.snotz.activities;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.ActivityCompat;
-import androidx.core.widget.NestedScrollView;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textview.MaterialTextView;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
-import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
-import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
+import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DateFormat;
-import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
  */
 public class NotePickerActivity extends AppCompatActivity {
 
-    private AppCompatEditText mContents;
-    private AppCompatImageView mImage;
-    private Bitmap mBitmap = null;
-    private int mSelectedColorBg, mSelectedColorTxt;
-    private ProgressBar mProgress;
     private String mNote = null;
-    private SwitchCompat mHidden;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_createnote);
+        setContentView(R.layout.progress_bar);
 
-        AppCompatImageButton mAdd = findViewById(R.id.add);
-        AppCompatImageButton mBack = findViewById(R.id.back_button);
-        AppCompatImageButton mSave = findViewById(R.id.save_button);
-        AppCompatImageButton mReadingMode = findViewById(R.id.reading_mode);
-        mImage = findViewById(R.id.image);
-        mContents = findViewById(R.id.contents);
-        mProgress = findViewById(R.id.progress);
-        MaterialCardView mColorBackground = findViewById(R.id.color_background);
-        MaterialCardView mColorText = findViewById(R.id.color_text);
-        NestedScrollView mScrollView = findViewById(R.id.scroll_view);
-        mHidden = findViewById(R.id.hidden);
-
-        if (Utils.getBoolean("auto_save", false, this)) {
-            mSave.setVisibility(View.GONE);
-        }
-
-        if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(this)) {
-            LinearLayoutCompat mMainLayout = findViewById(R.id.main_layout);
-            LinearLayoutCompat mColorLayout = findViewById(R.id.color_layout);
-            LinearLayoutCompat mPermissionLayout = findViewById(R.id.permission_layout);
-            MaterialCardView mPermissionGrant = findViewById(R.id.grant_card);
-            MaterialTextView mPermissionText = findViewById(R.id.permission_text);
-            mPermissionText.setText(getString(R.string.permission_denied_message));
-            mMainLayout.setVisibility(View.GONE);
-            mColorLayout.setVisibility(View.GONE);
-            mPermissionLayout.setVisibility(View.VISIBLE);
-            mPermissionGrant.setOnClickListener(v -> {
-                ActivityCompat.requestPermissions(this, new String[] {
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-                finish();
-            });
-            return;
-        }
-
-        mColorBackground.setCardBackgroundColor(sNotzColor.getAccentColor(this));
-        mColorText.setCardBackgroundColor(sNotzColor.getTextColor(this));
-        mScrollView.setBackgroundColor(sNotzColor.getAccentColor(this));
-        mContents.setTextColor(sNotzColor.getTextColor(this));
-        mContents.setHintTextColor(sNotzColor.getTextColor(this));
-        mSelectedColorBg = sNotzColor.getAccentColor(this);
-        mSelectedColorTxt = sNotzColor.getTextColor(this);
-
-        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, this));
-        mContents.setTypeface(null, AppSettings.getStyle(this));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            mContents.setTextCursorDrawable(sNotzUtils.getColoredDrawable(mContents.getCurrentTextColor(), R.drawable.ic_cursor, this));
-        }
-
-        if (Utils.getBoolean("allow_images", false, this)) {
-            mAdd.setVisibility(View.VISIBLE);
-        }
+        ProgressBar mProgressBar = findViewById(R.id.progress);
 
         if (getIntent().getData() != null) {
             // Handle notes picked from File Manager
@@ -139,14 +60,77 @@ public class NotePickerActivity extends AppCompatActivity {
                 if (sNotzUtils.validBackup(mNote)) {
                     new MaterialAlertDialogBuilder(this)
                             .setCancelable(false)
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setTitle(R.string.app_name)
                             .setMessage(getString(R.string.restore_notes_question))
                             .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> finish())
-                            .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> restore(this)).show();
+                            .setPositiveButton(getString(R.string.yes), (dialogInterface, i) ->
+                                    new AsyncTasks() {
+                                        private Activity mActivity = null;
+                                        private int i = 0;
+
+                                        @Override
+                                        public void onPreExecute() {
+                                            mActivity = NotePickerActivity.this;
+                                            mProgressBar.setVisibility(View.VISIBLE);
+                                        }
+
+                                        @Override
+                                        public void doInBackground() {
+                                            try {
+                                                TimeUnit.SECONDS.sleep(5);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                            JsonObject mJSONObject = new JsonObject();
+                                            JsonArray mJSONArray = new JsonArray();
+                                            if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
+                                                for (sNotzItems items : sNotzData.getRawData(mActivity)) {
+                                                    JsonObject note = new JsonObject();
+                                                    note.addProperty("note", items.getNote());
+                                                    note.addProperty("date", items.getTimeStamp());
+                                                    note.addProperty("image", items.getImageString());
+                                                    note.addProperty("hidden", items.isHidden());
+                                                    note.addProperty("colorBackground", items.getColorBackground());
+                                                    note.addProperty("colorText", items.getColorText());
+                                                    note.addProperty("noteID", items.getNoteID());
+                                                    mJSONArray.add(note);
+                                                }
+                                                i = sNotzUtils.generateNoteID(mActivity);
+                                            }
+
+                                            if (sNotzUtils.validBackup(mNote)) {
+                                                for (sNotzItems items : sNotzUtils.getNotesFromBackup(mNote, mActivity)) {
+                                                    JsonObject note = new JsonObject();
+                                                    note.addProperty("note", items.getNote());
+                                                    note.addProperty("date", items.getTimeStamp());
+                                                    note.addProperty("image", items.getImageString());
+                                                    note.addProperty("hidden", items.isHidden());
+                                                    note.addProperty("colorBackground", items.getColorBackground());
+                                                    note.addProperty("colorText", items.getColorText());
+                                                    note.addProperty("noteID", i);
+                                                    i++;
+                                                    mJSONArray.add(note);
+                                                }
+                                            }
+                                            mJSONObject.add("sNotz", mJSONArray);
+                                            Utils.create(mJSONObject.toString(), getFilesDir().getPath() + "/snotz");
+                                        }
+
+                                        @Override
+                                        public void onPostExecute() {
+                                            mProgressBar.setVisibility(View.GONE);
+                                            Utils.restartApp(mActivity);
+                                        }
+                                    }.execute())
+                            .show();
                 } else if (CheckLists.isValidCheckList(mNote)) {
                     importCheckList();
                 } else {
-                    Utils.toggleKeyboard(mContents, this);
-                    mContents.setText(mNote);
+                    Intent mIntent = new Intent(this, StartActivity.class);
+                    mIntent.putExtra(sNotzUtils.getExternalNote(), mNote);
+                    startActivity(mIntent);
+                    finish();
                 }
             } else {
                 new MaterialAlertDialogBuilder(this)
@@ -157,284 +141,39 @@ public class NotePickerActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.cancel, (dialogInterface, i) -> finish()).show();
             }
         }
-
-        mColorBackground.setOnClickListener(v -> ColorPickerDialogBuilder
-                .with(this)
-                .setTitle(R.string.choose_color)
-                .initialColor(sNotzColor.getAccentColor(this))
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                .density(12)
-                .setOnColorSelectedListener(selectedColor -> {
-                })
-                .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
-                    mScrollView.setBackgroundColor(selectedColor);
-                    mColorBackground.setCardBackgroundColor(selectedColor);
-                    mSelectedColorBg = selectedColor;
-                })
-                .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                }).build().show());
-
-        mColorText.setOnClickListener(v -> ColorPickerDialogBuilder
-                .with(this)
-                .setTitle(R.string.choose_color)
-                .initialColor(sNotzColor.getAccentColor(this))
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                .density(12)
-                .setOnColorSelectedListener(selectedColor -> {
-                })
-                .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
-                    mContents.setTextColor(selectedColor);
-                    mContents.setHintTextColor(selectedColor);
-                    mColorText.setCardBackgroundColor(selectedColor);
-                    mSelectedColorTxt = selectedColor;
-                })
-                .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                }).build().show());
-
-        mBack.setOnClickListener(v -> onBackPressed());
-
-        mAdd.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(this, mAdd);
-            Menu menu = popupMenu.getMenu();
-            menu.add(Menu.NONE, 0, Menu.NONE, getString(mBitmap == null ? R.string.image_add : R.string.image_replace));
-            if (mBitmap != null) {
-                menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.image_remove));
-            }
-            popupMenu.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()) {
-                    case 0:
-                        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(this)) {
-                            ActivityCompat.requestPermissions(this, new String[] {
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-                        } else {
-                            Intent addImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            try {
-                                startActivityForResult(addImage, 0);
-                            } catch (ActivityNotFoundException ignored) {}
-                        }
-                        break;
-                    case 1:
-                        mImage.setImageBitmap(null);
-                        mImage.setVisibility(View.GONE);
-                        mBitmap = null;
-                }
-                return false;
-            });
-            popupMenu.show();
-        });
-
-        mReadingMode.setOnClickListener(v ->
-                new MaterialAlertDialogBuilder(this)
-                        .setMessage(getString(R.string.reading_mode_message) + (isUnsavedNote() ? "\n\n" + getString(
-                                R.string.reading_mode_warning) : ""))
-                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                        })
-                        .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
-                            Intent readOnlyMode = new Intent(this, ReadNoteActivity.class);
-                            Common.setReadModeText(Objects.requireNonNull(mContents.getText()).toString());
-                            if (mBitmap != null) {
-                                Common.setReadModeImage(mBitmap);
-                            } else {
-                                Common.setReadModeImage(null);
-                            }
-                            startActivity(readOnlyMode);
-                            finish();
-                        }).show());
-
-        mSave.setOnClickListener(v -> {
-            if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
-                Utils.showSnackbar(findViewById(R.id.contents), getString(R.string.text_empty));
-                return;
-            }
-            save(this).execute();
-        });
     }
-
-    private AsyncTasks save(Activity activity) {
-        return new AsyncTasks() {
-            @Override
-            public void onPreExecute() {
-                mProgress.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void doInBackground() {
-                if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                    JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(getFilesDir().getPath() + "/snotz"));
-                    JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
-                    JsonObject note = new JsonObject();
-                    note.addProperty("note", Objects.requireNonNull(mContents.getText()).toString());
-                    note.addProperty("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
-                    note.addProperty("image", (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, activity) : null));
-                    note.addProperty("hidden", mHidden.isChecked());
-                    note.addProperty("colorBackground", mSelectedColorBg);
-                    note.addProperty("colorText", mSelectedColorTxt);
-                    note.addProperty("noteID", sNotzUtils.generateNoteID(activity));
-                    mJSONArray.add(note);
-                    mJSONObject.add("sNotz", mJSONArray);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(mJSONObject);
-                    Utils.create(json, getFilesDir().getPath() + "/snotz");
-                } else {
-                    JsonObject mJSONObject = new JsonObject();
-                    JsonArray mJSONArray = new JsonArray();
-                    JsonObject note = new JsonObject();
-                    note.addProperty("note", Objects.requireNonNull(mContents.getText()).toString());
-                    note.addProperty("date", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
-                    note.addProperty("image", (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, activity) : null));
-                    note.addProperty("hidden", mHidden.isChecked());
-                    note.addProperty("colorBackground", mSelectedColorBg);
-                    note.addProperty("colorText", mSelectedColorTxt);
-                    note.addProperty("noteID", 0);
-                    mJSONArray.add(note);
-                    mJSONObject.add("sNotz", mJSONArray);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(mJSONObject);
-                    Utils.create(json, getFilesDir().getPath() + "/snotz");
-                }
-            }
-
-            @Override
-            public void onPostExecute() {
-                mProgress.setVisibility(View.VISIBLE);
-                Utils.restartApp(activity);
-                finish();
-            }
-        };
-    }
-
-    public void restore(Activity activity) {
-        new AsyncTasks() {
-            private int i = 0;
-            @Override
-            public void onPreExecute() {
-                mProgress.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void doInBackground() {
-                JsonObject mJSONObject = new JsonObject();
-                JsonArray mJSONArray = new JsonArray();
-                if (Utils.exist(activity.getFilesDir().getPath() + "/snotz")) {
-                    for (sNotzItems items : sNotzData.getRawData(activity)) {
-                        JsonObject note = new JsonObject();
-                        note.addProperty("note", items.getNote());
-                        note.addProperty("date", items.getTimeStamp());
-                        note.addProperty("image", items.getImageString());
-                        note.addProperty("hidden", items.isHidden());
-                        note.addProperty("colorBackground", items.getColorBackground());
-                        note.addProperty("colorText", items.getColorText());
-                        note.addProperty("noteID", items.getNoteID());
-                        mJSONArray.add(note);
-                    }
-                    i = sNotzUtils.generateNoteID(activity);
-                }
-
-                if (sNotzUtils.validBackup(mNote)) {
-                    for (sNotzItems items : sNotzUtils.getNotesFromBackup(mNote, activity)) {
-                        JsonObject note = new JsonObject();
-                        note.addProperty("note", items.getNote());
-                        note.addProperty("date", items.getTimeStamp());
-                        note.addProperty("image", items.getImageString());
-                        note.addProperty("hidden", items.isHidden());
-                        note.addProperty("colorBackground", items.getColorBackground());
-                        note.addProperty("colorText", items.getColorText());
-                        note.addProperty("noteID", i);
-                        i++;
-                        mJSONArray.add(note);
-                    }
-                }
-                mJSONObject.add("sNotz", mJSONArray);
-                Utils.create(mJSONObject.toString(), activity.getFilesDir().getPath() + "/snotz");
-            }
-
-            @Override
-            public void onPostExecute() {
-                mProgress.setVisibility(View.GONE);
-                Utils.restartApp(activity);
-                finish();
-            }
-        }.execute();
-    }
-
     private void importCheckList() {
         DialogEditTextListener.dialogEditText(null, getString(R.string.check_list_import_question),
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
-                        Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message));
+                        makeToast(R.string.check_list_name_empty_message).show();
                         return;
                     }
                     if (Utils.exist(new File(getExternalFilesDir("checklists"), text).getAbsolutePath())) {
                         new MaterialAlertDialogBuilder(this)
                                 .setMessage(getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> importCheckList())
-                                .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> Utils.create(mNote, getExternalFilesDir("checklists") + "/" + text)).show();
+                                .setPositiveButton(getString(R.string.replace), (dialogInterface, i) ->
+                                        launchCheckList(getExternalFilesDir("checklists") + "/" + text))
+                                .show();
                         return;
                     }
-                    Utils.create(mNote, getExternalFilesDir("checklists") + "/" + text);
-                    CheckLists.setCheckListName(text);
-                    Intent createCheckList = new Intent(this, CheckListActivity.class);
-                    startActivity(createCheckList);
+                    launchCheckList(getExternalFilesDir("checklists") + "/" + text);
                     finish();
-                }, -1,this).setOnDismissListener(dialogInterface -> {
-        }).show();
+                }, -1,this).setOnDismissListener(dialogInterface -> finish()).show();
     }
 
-    private boolean isUnsavedNote() {
-        return mContents.getText() != null && !mContents.getText().toString().trim().isEmpty();
+    private void launchCheckList(String path) {
+        Utils.create(mNote, path);
+        Intent mIntent = new Intent(this, StartActivity.class);
+        mIntent.putExtra(sNotzWidgets.getChecklistPath(), path);
+        startActivity(mIntent);
+        finish();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && data != null && resultCode == RESULT_OK){
-            if (data.getData() != null) {
-                try {
-                    float mRatio;
-                    mImage.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData()));
-                    mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    int mSize = sNotzUtils.getMaxSize(this);
-                    int mHeight, mWidth;
-                    if (mBitmap.getHeight() > mBitmap.getWidth()) {
-                        mRatio = (float) (mBitmap.getHeight() / mBitmap.getWidth());
-                        mHeight = mSize;
-                        mWidth = (int) (mSize / mRatio);
-                    } else if (mBitmap.getHeight() == mBitmap.getWidth()) {
-                        mHeight = mSize;
-                        mWidth = mSize;
-                    } else {
-                        mRatio = (float) (mBitmap.getWidth() / mBitmap.getHeight());
-                        mHeight = (int) (mSize / mRatio);
-                        mWidth = mSize;
-                    }
-                    LinearLayoutCompat.LayoutParams mLayoutParams = new LinearLayoutCompat.LayoutParams(mWidth, mHeight);
-                    mLayoutParams.gravity = Gravity.CENTER;
-                    mImage.setLayoutParams(mLayoutParams);
-                    mImage.setVisibility(View.VISIBLE);
-                } catch (IOException ignored) {}
-            }
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (isUnsavedNote()) {
-            if (Utils.getBoolean("auto_save", false, this)) {
-                save(this).execute();
-            } else {
-                new MaterialAlertDialogBuilder(this)
-                        .setIcon(R.mipmap.ic_launcher)
-                        .setTitle(R.string.app_name)
-                        .setMessage(getString(R.string.discard_note))
-                        .setCancelable(false)
-                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                        })
-                        .setPositiveButton(R.string.discard, (dialogInterface, i) -> finish()).show();
-            }
-        } else {
-            finish();
-        }
+    private Toast makeToast(int message) {
+        return Toast.makeText(this, message, Toast.LENGTH_LONG);
     }
 
 }

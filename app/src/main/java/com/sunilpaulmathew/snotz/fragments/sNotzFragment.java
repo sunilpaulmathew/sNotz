@@ -62,7 +62,7 @@ public class sNotzFragment extends Fragment {
     private boolean mExit;
     private final Handler mHandler = new Handler();
     private static int mExtraNoteId = sNotzWidgets.getInvalidNoteId();
-    private static String mExtraCheckListPath = null;
+    private static String mExternalNote = null, mExtraCheckListPath = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class sNotzFragment extends Fragment {
 
         mExtraNoteId = arguments.getInt(sNotzWidgets.getNoteID(), sNotzWidgets.getInvalidNoteId());
         mExtraCheckListPath = arguments.getString(sNotzWidgets.getChecklistPath());
-
+        mExternalNote = arguments.getString(sNotzUtils.getExternalNote());
     }
 
     @Nullable
@@ -316,8 +316,13 @@ public class sNotzFragment extends Fragment {
 
             private void setNoteFromIntent() {
                 mNotesAdapter = new NotesAdapter(sNotzData.getData(activity));
-                if (Common.isWorking() || mExtraCheckListPath != null && mExtraNoteId != sNotzWidgets.getInvalidNoteId()) return;
-                if (mExtraCheckListPath != null && Utils.exist(mExtraCheckListPath)) {
+                if (Common.isWorking() || mExternalNote == null && mExtraCheckListPath == null && mExtraNoteId == sNotzWidgets.getInvalidNoteId()) return;
+                if (mExternalNote != null) {
+                    Common.setExternalNote(mExternalNote);
+                    mExternalNote = null;
+                    Intent createNote = new Intent(activity, CreateNoteActivity.class);
+                    activity.startActivity(createNote);
+                } else if (mExtraCheckListPath != null && Utils.exist(mExtraCheckListPath)) {
                     CheckLists.setCheckListName(new File(mExtraCheckListPath).getName());
                     // It should be set null right after finishing the job as we are calling this method for other tasks as well
                     mExtraCheckListPath = null;

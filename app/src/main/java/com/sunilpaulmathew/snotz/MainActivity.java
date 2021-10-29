@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.sunilpaulmathew.snotz.activities.WelcomeActivity;
 import com.sunilpaulmathew.snotz.fragments.sNotzFragment;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 /*
@@ -35,12 +36,15 @@ public class MainActivity extends AppCompatActivity {
     private Fragment getMainFragment() {
         int extraNoteId = getIntent().getIntExtra(sNotzWidgets.getNoteID(), sNotzWidgets.getInvalidNoteId());
         String extraCheckListPath = getIntent().getStringExtra(sNotzWidgets.getChecklistPath());
+        String externalNote = getIntent().getStringExtra(sNotzUtils.getExternalNote());
 
         Bundle bundle = new Bundle();
         if (extraCheckListPath != null) {
             bundle.putString(sNotzWidgets.getChecklistPath(), extraCheckListPath);
-        } else {
+        } else if (extraNoteId != sNotzWidgets.getInvalidNoteId()) {
             bundle.putInt(sNotzWidgets.getNoteID(), extraNoteId);
+        } else if (externalNote != null) {
+            bundle.putString(sNotzUtils.getExternalNote(), externalNote);
         }
 
         Fragment sNotzFragment = new sNotzFragment();

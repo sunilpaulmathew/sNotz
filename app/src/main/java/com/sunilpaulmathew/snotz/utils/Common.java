@@ -21,7 +21,7 @@ public class Common {
             mReload = false, mWorking = false;
     private static int mColorBackground = -1, mColorText = -1, mId = -1, mSpan = 1;
     private static RecyclerView mRecyclerView;
-    private static String mImageString = null, mNote = null, mReadModeText = null, mSearchText = null;
+    private static String mExternalNote = null, mImageString = null, mNote = null, mReadModeText = null, mSearchText = null;
 
     public static Bitmap getReadModeImage() {
         return mReadModeImage;
@@ -76,6 +76,10 @@ public class Common {
         return mRecyclerView = view.findViewById(id);
     }
 
+    public static String getExternalNote() {
+        return mExternalNote;
+    }
+
     public static String getAdjustedTime(double year, double month, double day, int hour, int min) {
         DateFormatSymbols dfs = new DateFormatSymbols(Locale.getDefault());
         List<String> months = new ArrayList<>();
@@ -124,6 +128,10 @@ public class Common {
 
     public static void setBackgroundColor(int color) {
         mColorBackground = color;
+    }
+
+    public static void setExternalNote(String note) {
+        mExternalNote = note;
     }
 
     public static void setID(int id) {

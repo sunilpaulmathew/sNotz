@@ -25,6 +25,7 @@ import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import java.util.concurrent.Executor;
@@ -140,12 +141,18 @@ public class StartActivity extends AppCompatActivity {
     private void startMainActivity() {
         int extraNoteId = getIntent().getIntExtra(sNotzWidgets.getNoteID(), sNotzWidgets.getInvalidNoteId());
         String extraCheckListPath = getIntent().getStringExtra(sNotzWidgets.getChecklistPath());
+        String externalNote = getIntent().getStringExtra(sNotzUtils.getExternalNote());
+
         Intent mainActivity = new Intent(this, MainActivity.class);
         if (extraCheckListPath != null) {
             mainActivity.putExtra(sNotzWidgets.getChecklistPath(), extraCheckListPath);
         } else if (extraNoteId != sNotzWidgets.getInvalidNoteId()) {
             mainActivity.putExtra(sNotzWidgets.getNoteID(), extraNoteId);
+        } else if (externalNote != null) {
+            mainActivity.putExtra(sNotzUtils.getExternalNote(), externalNote);
         }
+        startActivity(mainActivity);
+        finish();
         startActivity(mainActivity);
         finish();
     }

@@ -117,7 +117,18 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         }
 
-        if (Common.getNote() != null) {
+        if (Common.getExternalNote() != null) {
+            mNote = Common.getExternalNote();
+            mContents.setText(Common.getExternalNote());
+            mSelectedColorBg = sNotzColor.getAccentColor(this);
+            mContents.setHintTextColor(sNotzColor.getTextColor(this));
+            mColorBackground.setCardBackgroundColor(sNotzColor.getAccentColor(this));
+            mScrollView.setBackgroundColor(sNotzColor.getAccentColor(this));
+            mColorText.setCardBackgroundColor(sNotzColor.getTextColor(this));
+            mContents.setTextColor(sNotzColor.getTextColor(this));
+            mSelectedColorTxt = sNotzColor.getTextColor(this);
+            mHidden.setChecked(false);
+        } else if (Common.getNote() != null) {
             mHidden.setChecked(Common.isHiddenNote());
             mContents.setText(Common.getNote());
             mNote = Common.getNote();

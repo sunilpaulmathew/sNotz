@@ -37,6 +37,8 @@ import java.util.Objects;
  */
 public class sNotzUtils {
 
+    private static final String mExternalNote = "externalNote";
+
     public static List<sNotzItems> getNotesFromBackup(String backupData, Context context) {
         List<sNotzItems> mRestoreData = new ArrayList<>();
         JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(backupData)).getAsJsonArray("sNotz");
@@ -51,6 +53,10 @@ public class sNotzUtils {
             );
         }
         return mRestoreData;
+    }
+
+    public static String getExternalNote() {
+        return mExternalNote;
     }
 
     public static String sNotzToText(Context context) {
@@ -326,7 +332,9 @@ public class sNotzUtils {
             private int i = 0;
             @Override
             public void onPreExecute() {
-                progressBar.setVisibility(View.VISIBLE);
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
                 Common.isWorking(true);
             }
 
@@ -371,7 +379,9 @@ public class sNotzUtils {
             public void onPostExecute() {
                 Utils.reloadUI(context);
                 Common.isWorking(false);
-                progressBar.setVisibility(View.GONE);
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         };
     }
