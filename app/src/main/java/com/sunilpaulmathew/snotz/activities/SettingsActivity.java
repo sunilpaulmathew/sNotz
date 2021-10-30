@@ -25,6 +25,7 @@ import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.Encryption;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -186,6 +187,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
             } else if (position == 13) {
+                if (mJSONString != null) mJSONString = null;
                 Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
                 restore.setType("*/*");
                 restore.addCategory(Intent.CATEGORY_OPENABLE);
@@ -283,10 +285,14 @@ public class SettingsActivity extends AppCompatActivity {
                 for (int result = bis.read(); result != -1; result = bis.read()) {
                     buf.write((byte) result);
                 }
-                mJSONString = buf.toString("UTF-8");
+                if (sNotzUtils.validBackup(Encryption.decrypt(buf.toString("UTF-8")))) {
+                    mJSONString = Encryption.decrypt(buf.toString("UTF-8"));
+                } else if (sNotzUtils.validBackup(buf.toString("UTF-8"))) {
+                    mJSONString = buf.toString("UTF-8");
+                }
             } catch (IOException ignored) {}
 
-            if (mJSONString == null || !sNotzUtils.validBackup(mJSONString)) {
+            if (mJSONString == null) {
                 Utils.showSnackbar(mBack, getString(R.string.restore_error));
                 return;
             }

@@ -23,6 +23,7 @@ public class NotePicker {
     private final Activity mActivity;
     private final ProgressBar mProgressBar;
     private final String mNote;
+    private String mNewNote = null;
 
     public NotePicker(String note, ProgressBar progressBar, Activity activity) {
         this.mNote = note;
@@ -32,7 +33,12 @@ public class NotePicker {
 
     public void handleNotes() {
         if (mNote != null) {
-            if (sNotzUtils.validBackup(mNote)) {
+            if (sNotzUtils.validBackup(Encryption.decrypt(mNote))) {
+                mNewNote = Encryption.decrypt(mNote);
+            } else if (sNotzUtils.validBackup(mNote)) {
+                mNewNote = mNote;
+            }
+            if (mNewNote != null) {
                 new MaterialAlertDialogBuilder(mActivity)
                         .setCancelable(false)
                         .setIcon(R.mipmap.ic_launcher)
@@ -88,19 +94,17 @@ public class NotePicker {
                     i = sNotzUtils.generateNoteID(mActivity);
                 }
 
-                if (sNotzUtils.validBackup(mNote)) {
-                    for (sNotzItems items : sNotzUtils.getNotesFromBackup(mNote, mActivity)) {
-                        JsonObject note = new JsonObject();
-                        note.addProperty("note", items.getNote());
-                        note.addProperty("date", items.getTimeStamp());
-                        note.addProperty("image", items.getImageString());
-                        note.addProperty("hidden", items.isHidden());
-                        note.addProperty("colorBackground", items.getColorBackground());
-                        note.addProperty("colorText", items.getColorText());
-                        note.addProperty("noteID", i);
-                        i++;
-                        mJSONArray.add(note);
-                    }
+                for (sNotzItems items : sNotzUtils.getNotesFromBackup(mNewNote, mActivity)) {
+                    JsonObject note = new JsonObject();
+                    note.addProperty("note", items.getNote());
+                    note.addProperty("date", items.getTimeStamp());
+                    note.addProperty("image", items.getImageString());
+                    note.addProperty("hidden", items.isHidden());
+                    note.addProperty("colorBackground", items.getColorBackground());
+                    note.addProperty("colorText", items.getColorText());
+                    note.addProperty("noteID", i);
+                    i++;
+                    mJSONArray.add(note);
                 }
                 mJSONObject.add("sNotz", mJSONArray);
                 Utils.create(mJSONObject.toString(), mActivity.getFilesDir().getPath() + "/snotz");

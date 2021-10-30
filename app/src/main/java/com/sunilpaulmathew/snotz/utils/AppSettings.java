@@ -20,6 +20,7 @@ import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 14, 2021
@@ -139,7 +140,7 @@ public class AppSettings {
                 .setTitle(R.string.backup_notes)
                 .setSingleChoiceItems(getBackupOptions(activity), 0, (dialog, itemPosition) -> {
                     if (itemPosition == 0) {
-                        saveDialog(Utils.read(activity.getFilesDir().getPath() + "/snotz"), activity);
+                        saveDialog(Encryption.encrypt(Objects.requireNonNull(Utils.read(activity.getFilesDir().getPath() + "/snotz"))), activity);
                     } else {
                         if (Utils.getBoolean("allow_images", false, activity)) {
                             Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.image_excluded_warning));
