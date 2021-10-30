@@ -60,7 +60,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mContents.setText(this.data.get(position).getNote());
         holder.mContents.setTextColor(data.get(position).getColorText());
         holder.mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, holder.mContents.getContext()));
@@ -189,7 +189,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
         holder.mDate.setText(DateFormat.getDateTimeInstance().format(this.data.get(position).getTimeStamp()));
         holder.mDate.setTextColor(data.get(position).getColorText());
-        holder.mProgress.setIndeterminateTintList(ColorStateList.valueOf(data.get(position).getColorText()));
+        // TODO: This should replaced.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.mProgress.setIndeterminateTintList(ColorStateList.valueOf(data.get(position).getColorBackground()));
+        }
     }
 
     @Override
