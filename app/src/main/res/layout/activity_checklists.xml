@@ -1,4 +1,4 @@
-<androidx.appcompat.widget.LinearLayoutCompat
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +15,7 @@
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back"
+            app:srcCompat="@drawable/ic_back"
             android:tint="@color/color_teal"
             android:background="@color/color_black"
             android:layout_gravity="start|center" />
@@ -41,7 +41,7 @@
             android:layout_gravity="end|center"
             android:background="@color/color_black"
             android:tint="@color/color_teal"
-            android:src="@drawable/ic_add"
+            app:srcCompat="@drawable/ic_add"
             android:layout_marginEnd="15dp" />
     </FrameLayout>
 
