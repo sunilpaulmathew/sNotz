@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.text.Editable;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -74,7 +75,10 @@ public class sNotzUtils {
     public static Drawable getColoredDrawable(int color, int drawable, Context context) {
         Drawable d = ContextCompat.getDrawable(context, drawable);
         if (d != null) {
-            d.setTint(color);
+            // TODO: Change this.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                d.setTint(color);
+            }
         }
         return d;
     }
