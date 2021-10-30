@@ -78,7 +78,7 @@
                                 android:layout_height="35dp"
                                 android:background="@null"
                                 android:clickable="false"
-                                android:src="@drawable/ic_code" />
+                                app:srcCompat="@drawable/ic_code" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
                                 android:layout_height="35dp"
                                 android:background="@null"
                                 android:clickable="false"
-                                android:src="@drawable/ic_playstore" />
+                                app:srcCompat="@drawable/ic_playstore" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
                                 android:layout_height="35dp"
                                 android:background="@null"
                                 android:clickable="false"
-                                android:src="@drawable/ic_bug" />
+                                app:srcCompat="@drawable/ic_bug" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"

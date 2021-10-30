@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" >
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -31,7 +32,7 @@
             <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_search"
+                app:srcCompat="@drawable/ic_search"
                 android:tint="@color/color_teal"
                 android:layout_marginEnd="90dp"
                 android:padding="5dp"
@@ -41,7 +42,7 @@
             <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_sort"
+                app:srcCompat="@drawable/ic_sort"
                 android:tint="@color/color_teal"
                 android:layout_marginEnd="45dp"
                 android:padding="5dp"
@@ -51,7 +52,7 @@
             <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_dots"
+                app:srcCompat="@drawable/ic_dots"
                 android:tint="@color/color_teal"
                 android:padding="5dp"
                 android:background="@null"
@@ -103,7 +104,7 @@
             android:layout_height="50dp"
             android:tint="@color/color_blue"
             android:layout_marginStart="15dp"
-            android:src="@drawable/ic_click"
+            app:srcCompat="@drawable/ic_click"
             android:layout_marginTop="10dp"
             android:visibility="gone" />
 
@@ -128,7 +129,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginTop="10dp"
             android:layout_gravity="end"
-            android:src="@drawable/ic_click"
+            app:srcCompat="@drawable/ic_click"
             android:visibility="gone"
             android:rotation="-90" />
 
@@ -158,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_arrow"
+            app:srcCompat="@drawable/ic_arrow"
             android:rotation="180"
             android:tint="@color/color_teal"
             android:layout_marginEnd="25dp"
@@ -183,7 +184,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_arrow"
+            app:srcCompat="@drawable/ic_arrow"
             android:tint="@color/color_teal"
             android:layout_marginStart="25dp"
             android:padding="5dp"
@@ -209,7 +210,8 @@
             android:text="1"
             android:textColor="?android:attr/colorAccent"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:targetApi="lollipop" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/two"
@@ -222,7 +224,8 @@
             android:text="2"
             android:textColor="?android:attr/colorAccent"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:targetApi="lollipop" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/three"
@@ -235,7 +238,8 @@
             android:text="3"
             android:textColor="?android:attr/colorAccent"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="NewApi" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.card.MaterialCardView
@@ -252,7 +256,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:tint="@color/color_teal"
-            android:src="@drawable/ic_add"
+            app:srcCompat="@drawable/ic_add"
             android:layout_margin="10dp"
             android:background="@null"
             android:clickable="false" />
@@ -284,7 +288,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:tint="@color/color_orange"
-            android:src="@drawable/ic_click"
+            app:srcCompat="@drawable/ic_click"
             android:layout_gravity="end"
             android:rotation="-35"/>
     </FrameLayout>
