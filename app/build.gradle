@@ -10,13 +10,13 @@ android {
         }
     }
 
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.sunilpaulmathew.snotz"
-        minSdkVersion 23
-        targetSdkVersion 30
+        minSdkVersion 17
+        targetSdkVersion 31
         versionCode 18
         versionName "v0.18"
         vectorDrawables.useSupportLibrary = true
