@@ -114,7 +114,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         sNotzReminders.launchReminderMenu(data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
                         break;
                     case 3:
-                        if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(holder.mRVCard.getContext())) {
+                        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(holder.mRVCard.getContext())) {
                             ActivityCompat.requestPermissions((Activity) holder.mRVCard.getContext(), new String[] {
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                         } else {
@@ -134,7 +134,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         if (text.contains(" ")) {
                                             text = text.replace(" ", "_");
                                         }
-                                        if (Build.VERSION.SDK_INT >= 30) {
+                                        if (Build.VERSION.SDK_INT >= 29) {
                                             try {
                                                 ContentValues values = new ContentValues();
                                                 values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);

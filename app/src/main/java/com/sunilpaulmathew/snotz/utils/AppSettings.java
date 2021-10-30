@@ -151,7 +151,7 @@ public class AppSettings {
     }
 
     private static void saveDialog(String sNotz, Activity activity) {
-        if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(activity)) {
+        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(activity)) {
             ActivityCompat.requestPermissions(activity, new String[] {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             return;
@@ -183,7 +183,7 @@ public class AppSettings {
     }
 
     private static void save(String sNotz, String text, Activity activity) {
-        if (Build.VERSION.SDK_INT >= 30) {
+        if (Build.VERSION.SDK_INT >= 29) {
             try {
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
