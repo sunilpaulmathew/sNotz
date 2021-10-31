@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
@@ -70,7 +71,11 @@ public class sNotzReminders {
         mCalendar.set(Calendar.SECOND, 0);
 
         mIntent.putExtra("id", mNotificationID);
-        mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
+        } else {
+            mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
+        }
 
         Utils.saveInt("notificationID", mNotificationID + 1, context);
         new MaterialAlertDialogBuilder(context)

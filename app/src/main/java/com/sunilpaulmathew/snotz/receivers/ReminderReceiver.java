@@ -55,7 +55,7 @@ public class ReminderReceiver extends BroadcastReceiver {
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setOnlyAlertOnce(true)
                 .setSound(mAlarmSound)
-                .setSmallIcon(R.drawable.ic_notifications)
+                .setSmallIcon(android.R.drawable.sym_action_chat)
                 .setContentIntent(mPendingIntent)
                 .build();
         
