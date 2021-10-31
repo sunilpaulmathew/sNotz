@@ -161,7 +161,7 @@
                 android:id="@+id/click_fab_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
+                android:layout_gravity="start|bottom"
                 android:layout_marginBottom="-10dp"
                 android:text="@string/bottom_fab_click_message"
                 android:textColor="@color/color_orange"
