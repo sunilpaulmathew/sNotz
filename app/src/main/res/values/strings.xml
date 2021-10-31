@@ -82,6 +82,9 @@
     <string name="note_color_text">Text Color</string>
     <string name="note_editor">Note Editor</string>
     <string name="note_list_empty">You haven\'t create any notes yet</string>
+    <string name="notes_in_row">Notes in a Row</string>
+    <string name="notes_in_row_default">Default</string>
+    <string name="notes_in_row_summary">%s note</string>
     <string name="ok">OK</string>
     <string name="permission_denied_message">Permission denied for accessing device storage</string>
     <string name="pin_enter">Enter PIN</string>

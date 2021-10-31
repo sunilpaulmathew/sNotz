@@ -74,6 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sNotzUtils.getDrawable(R.drawable.ic_text_color, this), null));
         mData.add(new SettingsItems(getString(R.string.image_include), getString(R.string.image_include_summary), sNotzUtils.getDrawable(R.drawable.ic_image, this), null));
         mData.add(new SettingsItems(getString(R.string.auto_save), getString(R.string.auto_save_summary), sNotzUtils.getDrawable(R.drawable.ic_save, this), null));
+        mData.add(new SettingsItems(getString(R.string.notes_in_row), AppSettings.getRows(this), sNotzUtils.getDrawable(R.drawable.ic_row, this), null));
         mData.add(new SettingsItems(getString(R.string.font_size), getString(R.string.font_size_summary, "" + Utils.getInt("font_size", 18, this)),
                 sNotzUtils.getDrawable(R.drawable.ic_format_size, this), null));
         mData.add(new SettingsItems(getString(R.string.text_style), AppSettings.getFontStyle(this), sNotzUtils.getDrawable(R.drawable.ic_text_style, this), null));
@@ -177,22 +178,24 @@ public class SettingsActivity extends AppCompatActivity {
                 Utils.saveBoolean("auto_save", !Utils.getBoolean("auto_save", false, this), this);
                 mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 9) {
-                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+                AppSettings.setRows(this);
             } else if (position == 10) {
+                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+            } else if (position == 11) {
                 AppSettings.setFontStyle(position, mData, mRecycleViewAdapter, this);
-            } else if (position == 12) {
+            } else if (position == 13) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     AppSettings.showBackupOptions(this);
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
-            } else if (position == 13) {
+            } else if (position == 14) {
                 if (mJSONString != null) mJSONString = null;
                 Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
                 restore.setType("*/*");
                 restore.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(restore, 0);
-            } else if (position == 14) {
+            } else if (position == 15) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this)
                             .setMessage(getString(R.string.clear_notes_message))
@@ -214,9 +217,9 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
-            } else if (position == 15) {
-                Billing.showDonationMenu(this);
             } else if (position == 16) {
+                Billing.showDonationMenu(this);
+            } else if (position == 17) {
                 Intent share_app = new Intent();
                 share_app.setAction(Intent.ACTION_SEND);
                 share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
@@ -224,7 +227,7 @@ public class SettingsActivity extends AppCompatActivity {
                 share_app.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
                 startActivity(shareIntent);
-            } else if (position == 17) {
+            } else if (position == 18) {
                 Intent welcome = new Intent(this, WelcomeActivity.class);
                 startActivity(welcome);
                 finish();

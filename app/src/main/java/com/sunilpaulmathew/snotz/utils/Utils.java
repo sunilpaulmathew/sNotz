@@ -106,8 +106,13 @@ public class Utils {
     }
 
     public static int getSpanCount(Activity activity) {
-        return isTablet(activity) ? getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2 :
-                getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
+        int rows = Utils.getInt("span_count", 0, activity);
+        if (rows == 0) {
+            return isTablet(activity) ? getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2 :
+                    getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
+        } else {
+            return rows;
+        }
     }
 
     public static void reloadUI(Context context) {

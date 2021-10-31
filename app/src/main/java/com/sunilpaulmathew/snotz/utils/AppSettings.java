@@ -27,6 +27,10 @@ import java.util.Objects;
  */
 public class AppSettings {
 
+    private static int getRowPosition(Context context) {
+        return Utils.getInt("span_count", 0, context);
+    }
+
     private static int getFontSizePosition(Context context) {
         String value = String.valueOf(Utils.getInt("font_size", 18, context));
         for (int i = 0; i < getFontSizes().length; i++) {
@@ -79,8 +83,6 @@ public class AppSettings {
         }
     }
 
-
-
     private static String getFontStyle(int position) {
         switch (position) {
             case 0:
@@ -92,6 +94,30 @@ public class AppSettings {
             default:
                 return "bold|italic";
         }
+    }
+
+    public static String getRows(Context context) {
+        int rows = Utils.getInt("span_count", 0, context);
+        switch (rows) {
+            case 1:
+                return context.getString(R.string.notes_in_row_summary, "1");
+            case 2:
+                return context.getString(R.string.notes_in_row_summary, "2");
+            case 3:
+                return context.getString(R.string.notes_in_row_summary, "3");
+            case 4:
+                return context.getString(R.string.notes_in_row_summary, "4");
+            case 5:
+                return context.getString(R.string.notes_in_row_summary, "5");
+            default:
+                return context.getString(R.string.notes_in_row_default);
+        }
+    }
+
+    private static String[] getRowOptions(Context context) {
+        return new String[]{context.getString(R.string.notes_in_row_default), context.getString(R.string.notes_in_row_summary, "1"),
+                context.getString(R.string.notes_in_row_summary, "2"), context.getString(R.string.notes_in_row_summary, "3"),
+                context.getString(R.string.notes_in_row_summary, "4"), context.getString(R.string.notes_in_row_summary, "5")};
     }
 
     private static String[] getFontSizes() {
@@ -106,6 +132,16 @@ public class AppSettings {
 
     private static String[] getBackupOptions(Context context) {
         return new String[]{context.getString(R.string.backup_snotz), context.getString(R.string.save_text)};
+    }
+
+    public static void setRows(Activity activity) {
+        new MaterialAlertDialogBuilder(activity)
+                .setTitle(R.string.notes_in_row)
+                .setSingleChoiceItems(getRowOptions(activity), getRowPosition(activity), (dialog, itemPosition) -> {
+                    Utils.saveInt("span_count", itemPosition, activity);
+                    dialog.dismiss();
+                    Utils.restartApp(activity);
+                }).show();
     }
 
     public static void setFontSize(int position, List<SettingsItems> items, SettingsAdapter adapter, Context context) {

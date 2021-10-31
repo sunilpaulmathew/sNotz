@@ -55,12 +55,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.mIcon.setImageDrawable(null);
         }
         if (!Utils.exist(holder.mTitle.getContext().getFilesDir().getPath() + "/snotz")) {
-            if (position == 12 || position == 14) {
+            if (position == 13 || position == 15) {
                 holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             }
         }
-        if (position == 1 || position == 4 || position == 10) {
+        if (position == 1 || position == 4 || position == 12) {
             holder.mDivider.setVisibility(View.VISIBLE);
         } else {
             holder.mDivider.setVisibility(View.GONE);
