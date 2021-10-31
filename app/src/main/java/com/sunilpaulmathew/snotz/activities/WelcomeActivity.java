@@ -7,11 +7,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
+import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.text.DateFormat;
 
@@ -40,7 +40,7 @@ public class WelcomeActivity extends AppCompatActivity {
         MaterialTextView mNoteLongClickMessage = findViewById(R.id.longclick_note_message);
         MaterialTextView mDate = findViewById(R.id.date);
 
-        mOne.setTextColor(ContextCompat.getColor(this, R.color.color_orange));
+        mOne.setTextColor(sNotzUtils.getColor(R.color.color_orange, this));
         mTwo.setTextColor(sNotzColor.getAccentColor(this));
         mThree.setTextColor(sNotzColor.getAccentColor(this));
 
@@ -58,7 +58,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 mNote.setText(getString(R.string.welcome_note_screen_three));
                 mOne.setTextColor(sNotzColor.getAccentColor(this));
                 mTwo.setTextColor(sNotzColor.getAccentColor(this));
-                mThree.setTextColor(ContextCompat.getColor(this, R.color.color_red));
+                mThree.setTextColor(sNotzUtils.getColor(R.color.color_red, this));
             } else if (mFABClick.getVisibility() == View.VISIBLE &&
                     mFABClickMessage.getVisibility() == View.VISIBLE) {
                 mFABClick.setVisibility(View.GONE);
@@ -67,7 +67,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 mNoteClickMessage.setVisibility(View.VISIBLE);
                 mNote.setText(getString(R.string.welcome_note_screen_two));
                 mOne.setTextColor(sNotzColor.getAccentColor(this));
-                mTwo.setTextColor(ContextCompat.getColor(this, R.color.color_blue));
+                mTwo.setTextColor(sNotzUtils.getColor(R.color.color_blue, this));
                 mThree.setTextColor(sNotzColor.getAccentColor(this));
             }
         });
@@ -82,7 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 mFABClick.setVisibility(View.VISIBLE);
                 mFABClickMessage.setVisibility(View.VISIBLE);
                 mNote.setText(getString(R.string.welcome_note_screen_one));
-                mOne.setTextColor(ContextCompat.getColor(this, R.color.color_orange));
+                mOne.setTextColor(sNotzUtils.getColor(R.color.color_orange, this));
                 mTwo.setTextColor(sNotzColor.getAccentColor(this));
                 mThree.setTextColor(sNotzColor.getAccentColor(this));
             } else if (mNoteLongClick.getVisibility() == View.VISIBLE &&
@@ -93,7 +93,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 mNoteClickMessage.setVisibility(View.VISIBLE);
                 mNote.setText(getString(R.string.welcome_note_screen_two));
                 mOne.setTextColor(sNotzColor.getAccentColor(this));
-                mTwo.setTextColor(ContextCompat.getColor(this, R.color.color_blue));
+                mTwo.setTextColor(sNotzUtils.getColor(R.color.color_blue, this));
                 mThree.setTextColor(sNotzColor.getAccentColor(this));
             }
         });
