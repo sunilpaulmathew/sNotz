@@ -3,7 +3,6 @@ package com.sunilpaulmathew.snotz.activities;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +16,6 @@ import androidx.core.content.ContextCompat;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.providers.WidgetProvider;
 import com.sunilpaulmathew.snotz.utils.AsyncTasks;
@@ -25,8 +23,6 @@ import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
-import com.sunilpaulmathew.snotz.utils.sNotzUtils;
-import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import java.util.concurrent.Executor;
 
@@ -68,7 +64,7 @@ public class StartActivity extends AppCompatActivity {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
                 mAppLogo.setVisibility(View.GONE);
-                startMainActivity();
+                Security.launchMainActivity(StartActivity.this);
             }
 
             @Override
@@ -92,7 +88,7 @@ public class StartActivity extends AppCompatActivity {
             } else if (Security.isPINEnabled(this)) {
                 Security.authenticate(false, null, this);
             } else {
-                startMainActivity();
+                Security.launchMainActivity(this);
             }
         }
     }
@@ -132,29 +128,10 @@ public class StartActivity extends AppCompatActivity {
                 } else if (Security.isPINEnabled(activity)) {
                     Security.authenticate(false, null, activity);
                 } else {
-                    startMainActivity();
+                    Security.launchMainActivity(activity);
                 }
             }
         };
-    }
-
-    private void startMainActivity() {
-        int extraNoteId = getIntent().getIntExtra(sNotzWidgets.getNoteID(), sNotzWidgets.getInvalidNoteId());
-        String extraCheckListPath = getIntent().getStringExtra(sNotzWidgets.getChecklistPath());
-        String externalNote = getIntent().getStringExtra(sNotzUtils.getExternalNote());
-
-        Intent mainActivity = new Intent(this, MainActivity.class);
-        if (extraCheckListPath != null) {
-            mainActivity.putExtra(sNotzWidgets.getChecklistPath(), extraCheckListPath);
-        } else if (extraNoteId != sNotzWidgets.getInvalidNoteId()) {
-            mainActivity.putExtra(sNotzWidgets.getNoteID(), extraNoteId);
-        } else if (externalNote != null) {
-            mainActivity.putExtra(sNotzUtils.getExternalNote(), externalNote);
-        }
-        startActivity(mainActivity);
-        finish();
-        startActivity(mainActivity);
-        finish();
     }
 
 }

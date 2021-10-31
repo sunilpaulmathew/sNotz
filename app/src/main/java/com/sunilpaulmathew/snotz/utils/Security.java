@@ -121,9 +121,7 @@ public class Security {
                                     activity.getString(R.string.deactivated)));
                         } else {
                             // Launch MainActivity
-                            Intent mainActivity = new Intent(activity, MainActivity.class);
-                            activity.startActivity(mainActivity);
-                            activity.finish();
+                            launchMainActivity(activity);
                         }
                     }
                 }, InputType.TYPE_CLASS_NUMBER,activity).setOnDismissListener(dialogInterface -> {
@@ -131,6 +129,23 @@ public class Security {
                         activity.finish();
                     }
         }).show();
+    }
+
+    public static void launchMainActivity(Activity activity) {
+        int extraNoteId = activity.getIntent().getIntExtra(sNotzWidgets.getNoteID(), sNotzWidgets.getInvalidNoteId());
+        String extraCheckListPath = activity.getIntent().getStringExtra(sNotzWidgets.getChecklistPath());
+        String externalNote = activity.getIntent().getStringExtra(sNotzUtils.getExternalNote());
+
+        Intent mainActivity = new Intent(activity, MainActivity.class);
+        if (extraCheckListPath != null) {
+            mainActivity.putExtra(sNotzWidgets.getChecklistPath(), extraCheckListPath);
+        } else if (extraNoteId != sNotzWidgets.getInvalidNoteId()) {
+            mainActivity.putExtra(sNotzWidgets.getNoteID(), extraNoteId);
+        } else if (externalNote != null) {
+            mainActivity.putExtra(sNotzUtils.getExternalNote(), externalNote);
+        }
+        activity.startActivity(mainActivity);
+        activity.finish();
     }
 
 }
