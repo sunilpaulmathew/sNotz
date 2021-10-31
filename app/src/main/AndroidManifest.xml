@@ -71,7 +71,7 @@
             android:name=".activities.WidgetActivity"
             tools:ignore="IntentFilterExportedReceiver"
             android:excludeFromRecents="true"
-            android:exported="false" >
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
