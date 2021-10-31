@@ -198,6 +198,8 @@ public class SettingsActivity extends AppCompatActivity {
             } else if (position == 15) {
                 if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
                     new MaterialAlertDialogBuilder(this)
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setTitle(R.string.warning)
                             .setMessage(getString(R.string.clear_notes_message))
                             .setNegativeButton(R.string.cancel, (dialog, which) -> {
                             })
