@@ -33,11 +33,13 @@ public class NotePicker {
 
     public void handleNotes() {
         if (mNote != null) {
-            if (sNotzUtils.validBackup(Encryption.decrypt(mNote))) {
-                mNewNote = Encryption.decrypt(mNote);
-            } else if (sNotzUtils.validBackup(mNote)) {
-                mNewNote = mNote;
-            }
+            try {
+                if (sNotzUtils.validBackup(Encryption.decrypt(mNote))) {
+                    mNewNote = Encryption.decrypt(mNote);
+                } else if (sNotzUtils.validBackup(mNote)) {
+                    mNewNote = mNote;
+                }
+            } catch (IllegalArgumentException ignored) {}
             if (mNewNote != null) {
                 new MaterialAlertDialogBuilder(mActivity)
                         .setCancelable(false)
