@@ -91,11 +91,13 @@ public class sNotzReminders {
         Calendar mCalendar = Calendar.getInstance();
         return new DatePickerDialog(context,
                 (view, year, month, dayOfMonth) -> {
-                    setYear(year);
-                    setMonth(month);
-                    setDay(dayOfMonth);
-                    if (getYear() != -1 && getMonth() != -1 && getDay() != -1) {
-                        launchTimePicker(year, month, dayOfMonth, noteID, note, context).show();
+                    if (view.isShown()) {
+                        setYear(year);
+                        setMonth(month);
+                        setDay(dayOfMonth);
+                        if (getYear() != -1 && getMonth() != -1 && getDay() != -1) {
+                            launchTimePicker(year, month, dayOfMonth, noteID, note, context).show();
+                        }
                     }
                 }, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
     }
@@ -104,7 +106,11 @@ public class sNotzReminders {
                                                     String note, Context context) {
         Calendar mCalendar = Calendar.getInstance();
         return new TimePickerDialog(context,
-                (view, hourOfDay, minute) -> setReminder(year, month,  day, hourOfDay, minute, noteID, note, context), mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), false);
+                (view, hourOfDay, minute) -> {
+                    if (view.isShown()) {
+                        setReminder(year, month, day, hourOfDay, minute, noteID, note, context);
+                    }
+                }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), false);
     }
 
     public static void launchReminderMenu(String note, int noteID, Context context) {
