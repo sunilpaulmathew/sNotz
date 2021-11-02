@@ -14,7 +14,7 @@
     <string name="backup_notes_message">"Vos notes sont sauvegardées sous '%s'"</string>
     <string name="backup_notes_summary">"Sauvegarder vos notes dans 'sdcard'"</string>
     <string name="bottom_fab_click_message">"Cliquer sur l’icône 'Plus' du bas pour créer une note"</string>
-    <string name="cancel">"ANnuler"</string>
+    <string name="cancel">"Annuler"</string>
     <string name="change_logs">"Notes de version"</string>
     <string name="clear_notes">"Effacer les notes"</string>
     <string name="clear_notes_message">"Veuillez noter que toutes les notes seront supprimées"</string>
@@ -23,8 +23,8 @@
     <string name="color_select_dialog">"choisir %s des notes"</string>
     <string name="content_hint">"Ajouter du contenu ici…"</string>
     <string name="deactivated">"désactivé"</string>
-    <string name="delete">"Effacer"</string>
-    <string name="delete_sure_question">"Effacer %s ?"</string>
+    <string name="delete">"Supprimer"</string>
+    <string name="delete_sure_question">"Supprimer %s ?"</string>
     <string name="developed_by">"Réalisé avec \u2665 par"</string>
     <string name="dismiss">"Rejeter"</string>
     <string name="donations">"Donations"</string>
@@ -51,7 +51,7 @@
     <string name="restore_notes_summary">"Restaurer des notes à partir d'un fichier de sauvegarde"</string>
     <string name="restore_notes_question">"Restaurer les notes à partir du fichier sélectionné ?"</string>
     <string name="reverse_order">"Ordre inverse"</string>
-    <string name="search_hint">"Chercher…"</string>
+    <string name="search_hint">"Rechercher…"</string>
     <string name="settings">"Paramètres"</string>
     <string name="share">"Partager"</string>
     <string name="share_with">"Partager avec"</string>
@@ -69,7 +69,7 @@
     <string name="support_dinner">"Offrez-moi un dîner"</string>
     <string name="support_meal">"Offrez-moi un repas"</string>
     <string name="support_coffee">"Offrez-moi un café"</string>
-    <string name="support_already_received_message">"Vous avez déjà aidé le développement avec ce choix précédemment !"</string>
+    <string name="support_already_received_message">"Vous avez déjà aidé le développement avec ce choix précédemment!"</string>
     <string name="support_received_message">"Merci beaucoup pour votre soutien \u2665
         Cela me motivera beaucoup à continuer activement mes projets."</string>
     <string name="support_retry_message">"Veuillez réessayer d'acheter"</string>
@@ -111,7 +111,7 @@
     <string name="image_add_warning">"Remarque : L'ajout de notes contenant des images peut affecter les performances de sNotz."</string>
     <string name="image_excluded_warning">"Veuillez noter : les images seront exclues."</string>
     <string name="image_include">"Autoriser les images"</string>
-    <string name="image_include_summary">"Autoriser l'inclusion d'une image avec des notes"</string>
+    <string name="image_include_summary">"Autoriser l'inclusion d'une image dans les notes"</string>
     <string name="image_remove">"Supprimer l'image"</string>
     <string name="image_replace">"Remplacer l'image"</string>
     <string name="import_item">"Importer"</string>
@@ -150,4 +150,6 @@
     <string name="select_note">"Sélectionner la note"</string>
     <string name="widget_loading_failed">"Échec du chargement du widget"</string>
     <string name="add_new">"Ajouter un nouveau"</string>
+    <string name="notes_in_row_default">"Défaut"</string>
+    <string name="notes_in_row_summary">"Note %s"</string>
 </resources>
