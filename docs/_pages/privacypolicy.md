@@ -6,8 +6,7 @@ include_in_header: false
 
 <h2 style="color: blue">Privacy Policy</h2>
 
-**Last updated**
-November 02, 2021
+**Last updated** (November 02, 2021)
 
 <h3 style="color: green">General</h3>
 

@@ -3,18 +3,12 @@ page_title                                : sNotz - Notes & Checklists
 
 fdroid_link                               : https://f-droid.org/packages/com.sunilpaulmathew.snotz
 playstore_link                            : https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz
-presskit_download_link                    : 
 app_icon                                  : assets/appicon.png
 app_name                                  : sNotz - Notes & Checklists
 app_price                                 : Free
 app_description                           : An open-source, privacy-friendly, and completely offline application, which will let you create, customize, and manage simple notes and checklists.
 
 enable_smart_app_banner                   : true
-
-# Informations
-your_name                                 : sunilpaulmathew        
-email_address                             : smartpack.org@gmail.com
-github_username                           : sunilpaulmathew
 
 # Features
 features                                  :

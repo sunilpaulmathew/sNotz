@@ -1,51 +1,39 @@
 <footer>
 	<div class="footerIcons">
+		<a href="https://github.com/sunilpaulmathew/sNotz">
+			<span class="fa-stack fa-1x">
+				<i class="iconBack fas fa-circle fa-stack-2x"></i>
+				<i class="iconTop fab fa-github fa-stack-1x"></i>
+			</span>
+		</a>
 
-		{% if site.facebook_username %}
-			<a href="https://facebook.com/{{ site.facebook_username }}">
-				<span class="fa-stack fa-1x">
-					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
-					<i class="socialIconTop fab fa-facebook fa-stack-1x"></i>
-				</span>
-			</a>
-		{% endif %}
+		<a href="https://t.me/smartpack_kmanager">
+			<span class="fa-stack fa-1x">
+				<i class="iconBack fas fa-circle fa-stack-2x"></i>
+				<i class="iconTop fab fa-telegram fa-stack-1x"></i>
+			</span>
+		</a>
 
-		{% if site.twitter_username %}
-			<a href="https://twitter.com/{{ site.twitter_username }}">
-				<span class="fa-stack fa-1x">
-					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
-					<i class="socialIconTop fab fa-twitter fa-stack-1x"></i>
-				</span>
-			</a>
-		{% endif %}
+		<a href="https://play.google.com/store/apps/dev?id=5836199813143882901">
+			<span class="fa-stack fa-1x">
+				<i class="iconBack fas fa-circle fa-stack-2x"></i>
+				<i class="iconTop fab fa-google-play fa-stack-1x"></i>
+			</span>
+		</a>
 
-		{% if site.instagram_username %}
-			<a href="https://instagram.com/{{ site.instagram_username }}">
-				<span class="fa-stack fa-1x">
-					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
-					<i class="socialIconTop fab fa-instagram fa-stack-1x"></i>
-				</span>
-			</a>
-		{% endif %}
+		<a href="https://www.paypal.me/menacherry">
+			<span class="fa-stack fa-1x">
+				<i class="iconBack fas fa-circle fa-stack-2x"></i>
+				<i class="iconTop fab fa-paypal fa-stack-1x"></i>
+			</span>
+		</a>
 
-		{% if site.github_username %}
-			<a href="https://github.com/{{ site.github_username }}">
-				<span class="fa-stack fa-1x">
-					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
-					<i class="socialIconTop fab fa-github fa-stack-1x"></i>
-				</span>
-			</a>
-		{% endif %}
-
-		{% if site.email_address %}
-			<a href="mailto:{{ site.email_address }}">
-				<span class="fa-stack fa-1x">
-					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
-					<i class="socialIconTop fas fa-envelope fa-stack-1x"></i>
-				</span>
-			</a>
-		{% endif %}
-
+		<a href="mailto:smartpack.org@gmail.com">
+			<span class="fa-stack fa-1x">
+				<i class="iconBack fas fa-circle fa-stack-2x"></i>
+				<i class="iconTop fas fa-envelope fa-stack-1x"></i>
+			</span>
+		</a>
 	</div>
 	<div class="footerLinks">
 		{% for page in site.pages %}
