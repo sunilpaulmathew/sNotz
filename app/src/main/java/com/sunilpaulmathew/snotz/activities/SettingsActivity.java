@@ -88,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.translations), getString(R.string.translations_summary), sNotzUtils.getDrawable(R.drawable.ic_translate, this), "https://poeditor.com/join/project?hash=LOg2GmFfbV"));
         mData.add(new SettingsItems(getString(R.string.rate_us), getString(R.string.rate_us_Summary), sNotzUtils.getDrawable(R.drawable.ic_rate, this), "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"));
         mData.add(new SettingsItems(getString(R.string.support), getString(R.string.support_summary), sNotzUtils.getDrawable(R.drawable.ic_support, this), "https://t.me/smartpack_kmanager"));
-        mData.add(new SettingsItems(getString(R.string.faq), getString(R.string.faq_summary), sNotzUtils.getDrawable(R.drawable.ic_faq, this), "https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8"));
+        mData.add(new SettingsItems(getString(R.string.faq), getString(R.string.faq_summary), sNotzUtils.getDrawable(R.drawable.ic_faq, this), "https://sunilpaulmathew.github.io/sNotz/faq/"));
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
             if (mData.get(position).getUrl() != null) {
