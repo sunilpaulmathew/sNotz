@@ -6,11 +6,11 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
-<h3 style="color: green">(Unreleased)</h3>
-- sNotz now supports Android 4.2 and above (credite: @cloneconf).
-- Adapt Main UI with custom font size/style.
+<h3 style="color: green">v0.19</h3>
+- sNotz now supports Android 4.2 and above (credits: @cloneconf).
+- Main UI: Adapt with custom font size/style.
 - sNotz now supports directly capture notes from shared text.
-- Not Picker page is now improved and simplified.
+- Note Picker page is now improved and simplified.
 - sNotz backup is now saved in Base64 format.
 - Now possible to set number of notes in a Row.
 - Updated and improved welcome notes.
