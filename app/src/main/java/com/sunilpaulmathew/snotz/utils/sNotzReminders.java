@@ -83,7 +83,7 @@ public class sNotzReminders {
                 .setTitle(R.string.app_name)
                 .setMessage(context.getString(R.string.reminder_message, Common.getAdjustedTime(year, month, day, hour, min)))
                 .setCancelable(false)
-                .setPositiveButton(R.string.cancel, (dialogInterface, i) -> {
+                .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
                 }).show();
     }
 
