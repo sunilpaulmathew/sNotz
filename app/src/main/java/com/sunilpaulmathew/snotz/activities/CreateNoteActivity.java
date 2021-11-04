@@ -139,7 +139,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         mColorBackground.setOnClickListener(v -> ColorPickerDialogBuilder
                 .with(this)
                 .setTitle(R.string.choose_color)
-                .initialColor(sNotzColor.getAccentColor(this))
+                .initialColor(mSelectedColorBg)
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(selectedColor -> {
@@ -155,7 +155,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         mColorText.setOnClickListener(v -> ColorPickerDialogBuilder
                 .with(this)
                 .setTitle(R.string.choose_color)
-                .initialColor(sNotzColor.getAccentColor(this))
+                .initialColor(mSelectedColorTxt)
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(selectedColor -> {
