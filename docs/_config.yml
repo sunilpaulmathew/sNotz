@@ -22,7 +22,7 @@ features                                  :
     fontawesome_icon_name                 : eye-dropper
 
   - title                                 : Privacy-friendly
-    description                           : sNotz respects your privacy (no data collection, storing, or sharing
+    description                           : sNotz respects your privacy (no data collection, storing, or sharing)
     fontawesome_icon_name                 : user-secret
 
   - title                                 : Compatibility

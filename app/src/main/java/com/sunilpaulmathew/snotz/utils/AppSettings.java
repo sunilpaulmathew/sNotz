@@ -34,7 +34,7 @@ public class AppSettings {
     private static int getFontSizePosition(Context context) {
         String value = String.valueOf(Utils.getInt("font_size", 18, context));
         for (int i = 0; i < getFontSizes().length; i++) {
-            if (getFontSizes()[i].contains(value)) {
+            if ((value + "sp").equals(getFontSizes()[i])) {
                 return i;
             }
         }
@@ -114,24 +114,38 @@ public class AppSettings {
         }
     }
 
+    private static String[] getBackupOptions(Context context) {
+        return new String[] {
+                context.getString(R.string.backup_snotz),
+                context.getString(R.string.save_text)
+        };
+    }
+
     private static String[] getRowOptions(Context context) {
-        return new String[]{context.getString(R.string.notes_in_row_default), context.getString(R.string.notes_in_row_summary, "1"),
-                context.getString(R.string.notes_in_row_summary, "2"), context.getString(R.string.notes_in_row_summary, "3"),
-                context.getString(R.string.notes_in_row_summary, "4"), context.getString(R.string.notes_in_row_summary, "5")};
+        return new String[] {
+                context.getString(R.string.notes_in_row_default),
+                context.getString(R.string.notes_in_row_summary, "1"),
+                context.getString(R.string.notes_in_row_summary, "2"),
+                context.getString(R.string.notes_in_row_summary, "3"),
+                context.getString(R.string.notes_in_row_summary, "4"),
+                context.getString(R.string.notes_in_row_summary, "5")
+        };
     }
 
     private static String[] getFontSizes() {
-        return new String[]{"10sp", "11sp", "12sp", "13sp", "14sp", "15sp", "16sp", "17sp", "18sp", "19sp", "20sp",
-                "21sp", "22sp", "23sp", "24sp", "25sp"};
+        return new String[] {
+                "10sp", "11sp", "12sp", "13sp", "14sp", "15sp", "16sp", "17sp", "18sp", "19sp", "20sp",
+                "21sp", "22sp", "23sp", "24sp", "25sp"
+        };
     }
 
     private static String[] getFontStyles(Context context) {
-        return new String[]{context.getString(R.string.text_style_regular), context.getString(R.string.text_style_italics),
-                context.getString(R.string.text_style_bold), context.getString(R.string.text_style_bold_italics)};
-    }
-
-    private static String[] getBackupOptions(Context context) {
-        return new String[]{context.getString(R.string.backup_snotz), context.getString(R.string.save_text)};
+        return new String[] {
+                context.getString(R.string.text_style_regular),
+                context.getString(R.string.text_style_italics),
+                context.getString(R.string.text_style_bold),
+                context.getString(R.string.text_style_bold_italics)
+        };
     }
 
     public static void setRows(Activity activity) {
@@ -173,8 +187,7 @@ public class AppSettings {
 
     public static void showBackupOptions(Activity activity) {
         new MaterialAlertDialogBuilder(activity)
-                .setTitle(R.string.backup_notes)
-                .setSingleChoiceItems(getBackupOptions(activity), 0, (dialog, itemPosition) -> {
+                .setItems(getBackupOptions(activity), (dialog, itemPosition) -> {
                     if (itemPosition == 0) {
                         saveDialog(Encryption.encrypt(Objects.requireNonNull(Utils.read(activity.getFilesDir().getPath() + "/snotz"))), activity);
                     } else {

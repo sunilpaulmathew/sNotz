@@ -16,6 +16,7 @@ import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
+import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         } else {
             holder.mIcon.setImageDrawable(null);
         }
-        if (!Utils.exist(holder.mTitle.getContext().getFilesDir().getPath() + "/snotz")) {
+        if (sNotzData.isNotesEmpty(holder.mTitle.getContext())) {
             if (position == 13 || position == 15) {
                 holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);

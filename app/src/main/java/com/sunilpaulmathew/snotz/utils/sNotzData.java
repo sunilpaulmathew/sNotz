@@ -77,6 +77,12 @@ public class sNotzData {
         return mData;
     }
 
+    public static boolean isNotesEmpty(Context context) {
+        return !Utils.exist(context.getFilesDir().getPath() + "/snotz") ||
+                (Utils.exist(context.getFilesDir().getPath() + "/snotz") &&
+                        getRawData(context).size() == 0);
+    }
+
     public static JsonObject getJSONObject(String string) {
         try {
             return JsonParser.parseString(string).getAsJsonObject();

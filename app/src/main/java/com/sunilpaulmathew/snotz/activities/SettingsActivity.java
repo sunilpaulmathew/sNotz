@@ -29,6 +29,7 @@ import com.sunilpaulmathew.snotz.utils.Encryption;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.io.BufferedInputStream;
@@ -184,10 +185,10 @@ public class SettingsActivity extends AppCompatActivity {
             } else if (position == 11) {
                 AppSettings.setFontStyle(position, mData, mRecycleViewAdapter, this);
             } else if (position == 13) {
-                if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
-                    AppSettings.showBackupOptions(this);
-                } else {
+                if (sNotzData.isNotesEmpty(this)) {
                     Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
+                } else {
+                    AppSettings.showBackupOptions(this);
                 }
             } else if (position == 14) {
                 if (mJSONString != null) mJSONString = null;
@@ -196,7 +197,9 @@ public class SettingsActivity extends AppCompatActivity {
                 restore.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(restore, 0);
             } else if (position == 15) {
-                if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
+                if (sNotzData.isNotesEmpty(this)) {
+                    Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
+                } else {
                     new MaterialAlertDialogBuilder(this)
                             .setIcon(R.mipmap.ic_launcher)
                             .setTitle(R.string.warning)
@@ -216,8 +219,6 @@ public class SettingsActivity extends AppCompatActivity {
                                     finish();
                                 }
                             }).show();
-                } else {
-                    Utils.showSnackbar(mRecyclerView, getString(R.string.note_list_empty));
                 }
             } else if (position == 16) {
                 Billing.showDonationMenu(this);
