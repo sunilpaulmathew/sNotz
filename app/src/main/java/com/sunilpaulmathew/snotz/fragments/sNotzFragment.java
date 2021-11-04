@@ -145,6 +145,19 @@ public class sNotzFragment extends Fragment {
 
         itemTouchHelper.attachToRecyclerView(Common.getRecyclerView());
 
+        /*
+         * Based on the following Stack Overflow discussion
+         * https://stackoverflow.com/questions/36127734/detect-when-recyclerview-reaches-the-bottom-most-position-while-scrolling
+         */
+        Common.getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                mAddNoteCard.setVisibility(newState == RecyclerView.SCROLL_STATE_IDLE ? View.VISIBLE : View.GONE);
+            }
+        });
+
         mAddIcon.setColorFilter(sNotzColor.getAccentColor(requireActivity()));
         mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
 
