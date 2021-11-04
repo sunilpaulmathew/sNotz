@@ -34,7 +34,7 @@ features                                  :
     fontawesome_icon_name                 : globe
 
   - title                                 : Open-Source
-    description                           : Up-to-date source code, which is always open for suggestions/contributions
+    description                           : Up-to-date source code, which is always open for suggestions or/and contributions
     fontawesome_icon_name                 : code-branch
 
 

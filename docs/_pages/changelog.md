@@ -6,6 +6,15 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">(Unreleased)</h3>
+- Hide "Add Note" button when scrolling recyclerview.
+- Fixed note colour selector displaying wrong colour.
+- Improve settings page options.
+- Added Swedish Translations.
+- Miscellaneous changes.
+
+<hr>
+
 <h3 style="color: green">v0.19</h3>
 - sNotz now supports Android 4.2 and above (credits: @cloneconf).
 - Main UI: Adapt with custom font size/style.
