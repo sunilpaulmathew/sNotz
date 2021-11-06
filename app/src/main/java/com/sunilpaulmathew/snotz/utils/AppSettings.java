@@ -32,9 +32,9 @@ public class AppSettings {
     }
 
     private static int getFontSizePosition(Context context) {
-        String value = String.valueOf(Utils.getInt("font_size", 18, context));
         for (int i = 0; i < getFontSizes().length; i++) {
-            if ((value + "sp").equals(getFontSizes()[i])) {
+            if (Utils.getInt("font_size", 18, context) == Integer.parseInt(
+                    getFontSizes()[i].replace("sp",""))) {
                 return i;
             }
         }
