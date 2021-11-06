@@ -206,7 +206,7 @@ public class sNotzFragment extends Fragment {
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mSortButton);
             Menu menu = popupMenu.getMenu();
             SubMenu sort = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.sort_by));
-            sort.add(0, 1, Menu.NONE, getString(R.string.created_order)).setCheckable(true)
+            sort.add(0, 1, Menu.NONE, getString(R.string.sort_by_date)).setCheckable(true)
                     .setChecked(Utils.getInt("sort_notes", 2, requireActivity()) == 2);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 sort.add(0, 2, Menu.NONE, getString(R.string.note_color_background)).setCheckable(true)
