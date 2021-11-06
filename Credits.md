@@ -8,18 +8,19 @@ sNotz is, and as always, an open-source project which is ready to accept contrib
 * [QuadFlask](https://github.com/QuadFlask/colorpicker/): Color Picker
 
 ## Translations
-* [MONSTER_PC](https://t.me/MONSTER_PC), Russian & Ukrainian Translations
-* [Hafitz Setya](https://github.com/breakdowns), Indonesian Translations
-* [Mikesew1320](https://github.com/Mikesew1320), Amharic Translations
-* Negroibarra301, Spanish Translations
-* [FTno](https://github.com/FTno), Norwegian Translations
-* Murilogs & [Lennoard Silva](https://github.com/Lennoard), Portuguese (Brazilian) Translations
+* [MONSTER_PC](https://t.me/MONSTER_PC): Ukrainian Translations
+* [MONSTER_PC](https://t.me/MONSTER_PC), Sshsmnv2000 & anonymous: Russian Translations
+* [Hafitz Setya](https://github.com/breakdowns): Indonesian Translations
+* [Mikesew1320](https://github.com/Mikesew1320): Amharic Translations
+* Negroibarra301: Spanish Translations
+* [FTno](https://github.com/FTno): Norwegian Translations
+* Murilogs & [Lennoard Silva](https://github.com/Lennoard): Portuguese (Brazilian) Translations
 * Axel Schaab, German Translations
-* [AbsurdUsername](https://github.com/AbsurdUsername), Italian Translations
-* [Clone Conflict ](https://github.com/QuadFlask/cloneconf/), Arabic Translations
-* [Reno](https://t.me/Renoooooo), French Translations
-* Emrehelvaci83, Turkish Translations
-* Bo Lindholm, Swedish Translations
+* [AbsurdUsername](https://github.com/AbsurdUsername): Italian Translations
+* [Clone Conflict ](https://github.com/QuadFlask/cloneconf/): Arabic Translations
+* [Reno](https://t.me/Renoooooo): French Translations
+* Emrehelvaci83: Turkish Translations
+* Bo Lindholm: Swedish Translations
 * Many other people contributed via [POEditor](https://poeditor.com/join/project?hash=LOg2GmFfbV)
 
 ## Testing
