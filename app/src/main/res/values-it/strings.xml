@@ -53,14 +53,12 @@
     <string name="donations">Donazioni</string>
     <string name="donation_app">Acquista l\'App Donazione</string>
     <string name="donations_summary">Supporta lo sviluppo con una donazione</string>
-    <string name="edit">Modifica</string>
     <string name="faq">Domande Frequenti</string>
     <string name="faq_summary">Leggi le domande frequenti</string>
     <string name="file_path_error">Errore nel recuperare il percorso del file dal File Manager esterno</string>
     <string name="font_size">Dimensione Font</string>
     <string name="font_size_summary">Dimensione attuale: %ssp</string>
     <string name="go_ahead">Vai Avanti</string>
-    <string name="grant">Concedi</string>
     <string name="hide">Nascondi</string>
     <string name="hidden_note">Nota Nascosta</string>
     <string name="hidden_note_message">Visita la pagina delle \'Impostazioni\' per cambiare la visibilià delle note nascoste</string>

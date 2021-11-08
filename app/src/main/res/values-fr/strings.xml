@@ -90,8 +90,6 @@
     <string name="file_path_error">"Impossible d'obtenir le chemin du fichier à partir du gestionnaire de fichiers externe"</string>
     <string name="note_editor">"Éditeur de notes"</string>
     <string name="choose_color_message">"Veuillez noter : le nouveau '%s' ne sera appliqué qu'aux nouvelles notes."</string>
-    <string name="edit">"Éditer"</string>
-    <string name="grant">"Accorder"</string>
     <string name="hide">"Masquer"</string>
     <string name="permission_denied_message">"Autorisation refusée pour accéder au stockage de l'appareil"</string>
     <string name="set_reminder">"Définir un rappel"</string>

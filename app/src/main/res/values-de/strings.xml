@@ -88,8 +88,6 @@
     <string name="file_path_error">"Dateipfad konnte nicht vom externen Dateimanager geholt werden"</string>
     <string name="note_editor">"Notizeneditor"</string>
     <string name="choose_color_message">"Achtung: das neue '%s' wird nur auf neue Notizen angewendet"</string>
-    <string name="edit">"Editieren"</string>
-    <string name="grant">"Freigeben"</string>
     <string name="hide">"Verstecken"</string>
     <string name="permission_denied_message">"Speicherzugriff verweigert"</string>
     <string name="set_reminder">"Erinnerung einstellen"</string>

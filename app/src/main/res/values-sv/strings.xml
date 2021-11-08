@@ -90,8 +90,6 @@
     <string name="file_path_error">"Kunde inte hitta sökväg till fil med extern Filhanterare"</string>
     <string name="note_editor">"Anteckningsredigerare"</string>
     <string name="choose_color_message">"Notera: Nya '%s' kommer endast att appliceras på nya anteckningar"</string>
-    <string name="edit">"Editera"</string>
-    <string name="grant">"Bevilja"</string>
     <string name="hide">"Göm"</string>
     <string name="permission_denied_message">"Nekat tillträde till produktens lagring"</string>
     <string name="set_reminder">"Lägg till påminnelse"</string>

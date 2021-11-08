@@ -90,8 +90,6 @@
     <string name="file_path_error">"Falha ao obter o caminho pelo Gerenciador de Arquivos externo"</string>
     <string name="note_editor">"Editor de notas"</string>
     <string name="choose_color_message">"Por favor note: A nova '%s' será aplicada somente às novas notas."</string>
-    <string name="edit">"Editar"</string>
-    <string name="grant">"Conceder"</string>
     <string name="hide">"Esconder"</string>
     <string name="permission_denied_message">"Permissão para gravar no armazenamento negada"</string>
     <string name="set_reminder">"Definir Lembrete"</string>

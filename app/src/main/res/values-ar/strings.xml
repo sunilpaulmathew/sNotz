@@ -89,8 +89,6 @@
     <string name="discard_note">"تجاهل التغييرات التي تم إجراؤها على هذه الصفحة؟"</string>
     <string name="file_path_error">"فشل الحصول على مسار الملف من الملفات الخارجية"</string>
     <string name="note_editor">"محرر الملاحظات"</string>
-    <string name="edit">"تعديل"</string>
-    <string name="grant">"منح"</string>
     <string name="hide">"اخفاء"</string>
     <string name="permission_denied_message">"تم رفض الإذن للوصول إلى تخزين الجهاز"</string>
     <string name="set_reminder">"تعيين تذكير"</string>

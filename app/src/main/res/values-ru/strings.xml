@@ -90,8 +90,6 @@
     <string name="file_path_error">"Не удалось получить путь к файлу из внешнего файлового менеджера"</string>
     <string name="note_editor">"Редактор заметок"</string>
     <string name="choose_color_message">"Пожалуйста, обратите внимание: Новый \"%s\" будет применяться только к новым заметкам."</string>
-    <string name="edit">"Изменить"</string>
-    <string name="grant">"Предоставить"</string>
     <string name="hide">"Скрыть"</string>
     <string name="permission_denied_message">"Отказано в разрешении на доступ к хранилищу устройства"</string>
     <string name="set_reminder">"Установить напоминание"</string>
