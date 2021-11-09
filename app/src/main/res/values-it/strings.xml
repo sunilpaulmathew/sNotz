@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">sNotz</string>
 
     <string name="about">Informazioni</string>
+    <string name="add_new">Aggiungi Nuova Nota</string>
     <string name="add_text_hint">Aggiungi il testo qui…</string>
     <string name="app_name_summary" translatable="false">An open-source, privacy-friendly, and completely offline application to manage notes</string>
     <string name="activated">attivata</string>
@@ -79,6 +80,9 @@
     <string name="note_color_text">Colore Testo</string>
     <string name="note_editor">Editor Note</string>
     <string name="note_list_empty">Non hai ancora creato nessuna nota</string>
+    <string name="notes_in_row">Note in una Riga</string>
+    <string name="notes_in_row_default">Default</string>
+    <string name="notes_in_row_summary">%s Notes</string>
     <string name="ok">OK</string>
     <string name="permission_denied_message">Autorizzazione per l\'accesso all\'archiviazione del dispositivo negata</string>
     <string name="pin_enter">Inserisci il PIN</string>
@@ -119,6 +123,7 @@
     <string name="single_click_note_message">Singolo click su una nota per modificare</string>
     <string name="skip">SALTA</string>
     <string name="sort_by">Ordina Per</string>
+    <string name="sort_by_date">Data Ultima Modifica</string>
     <string name="source_code">Codice Sorgente</string>
     <string name="support">Supporto</string>
     <string name="support_acknowledged">Donazione Riconosciuta \u2665</string>
