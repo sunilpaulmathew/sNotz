@@ -12,7 +12,7 @@ sNotz is, and as always, an open-source project which is ready to accept contrib
 * [MONSTER_PC](https://t.me/MONSTER_PC), Sshsmnv2000 & anonymous: Russian Translations
 * [Hafitz Setya](https://github.com/breakdowns): Indonesian Translations
 * [Mikesew1320](https://github.com/Mikesew1320): Amharic Translations
-* Negroibarra301: Spanish Translations
+* Negroibarra301 & [el-leo-pardo](https://github.com/el-leo-pardo): Spanish Translations
 * [FTno](https://github.com/FTno): Norwegian Translations
 * Murilogs & [Lennoard Silva](https://github.com/Lennoard): Portuguese (Brazilian) Translations
 * Axel Schaab, German Translations
