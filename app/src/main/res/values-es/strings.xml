@@ -12,10 +12,10 @@
     <string name="biometric_lock_summary">"Utiliza la autenticación biométrica para proteger sNotz"</string>
     <string name="backup_notes">"Respaldar notas"</string>
     <string name="backup_notes_message">"Tus notas están respaldadas como '%s'"</string>
-    <string name="backup_notes_summary">"Respaldar tus notas en 'tarjeta sd'"</string>
+    <string name="backup_notes_summary">"Respalda tus notas en una 'tarjeta sd'"</string>
     <string name="bottom_fab_click_message">"Haga clic en el icono 'Más' para crear una nota."</string>
     <string name="cancel">"Cancelar"</string>
-    <string name="change_logs">"Registros de cambios"</string>
+    <string name="change_logs">"Registro de cambios"</string>
     <string name="clear_notes">"Borrar notas"</string>
     <string name="clear_notes_message">"Advertencia: todas las notas serán eliminadas"</string>
     <string name="clear_notes_summary">"Elimina todas las notas de sNotz"</string>
@@ -31,7 +31,7 @@
     <string name="donation_app">"Compra la aplicación de donación"</string>
     <string name="donations_summary">"Apoya el desarrollo con una donación"</string>
     <string name="faq">"Preguntas frecuentes"</string>
-    <string name="faq_summary">"Lea las preguntas frecuentes"</string>
+    <string name="faq_summary">"Lee las preguntas frecuentes"</string>
     <string name="hidden_note">"Nota oculta"</string>
     <string name="hidden_note_message">"Visita la página 'Ajustes' para cambiar la visibilidad de las notas ocultas."</string>
     <string name="invite_friends">"Invitar a amigos"</string>
@@ -48,7 +48,7 @@
     <string name="report_issue">"Reporta un problema"</string>
     <string name="restore_error">"Has seleccionado un archivo de respaldo no válido. Abortando."</string>
     <string name="restore_notes">"Restaurar notas"</string>
-    <string name="restore_notes_summary">"Restaurar notas desde un archivo de respaldo"</string>
+    <string name="restore_notes_summary">"Restaura notas desde un archivo de respaldo"</string>
     <string name="restore_notes_question">"¿Restaurar notas desde un archivo seleccionado?"</string>
     <string name="reverse_order">"Orden inverso"</string>
     <string name="search_hint">"Buscar…"</string>
@@ -56,9 +56,9 @@
     <string name="share">"Compartir"</string>
     <string name="share_with">"Compartir con"</string>
     <string name="shared_by">"Compartido por sNotz %s"</string>
-    <string name="shared_by_message">"Obtén sNotz %s, una aplicación simple pero muy útil para administrar notas, de PlayStore: https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"</string>
+    <string name="shared_by_message">"Obtén sNotz %s, una aplicación simple pero muy útil para administrar notas, en PlayStore: https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"</string>
     <string name="show_hidden_notes">"Mostrar notas ocultas"</string>
-    <string name="show_hidden_notes_summary">"Mostrar notas que están ocultas de la interfaz de usuario"</string>
+    <string name="show_hidden_notes_summary">"Mostrar las notas que están ocultas en la interfaz de usuario"</string>
     <string name="single_click_note_message">"Haz clic en una nota para editarla"</string>
     <string name="skip">"SALTAR"</string>
     <string name="source_code">"Código fuente"</string>
@@ -87,7 +87,7 @@
     <string name="created_order">"Fecha de creación"</string>
     <string name="discard">"Descartar"</string>
     <string name="discard_note">"¿Descartar los cambios realizados en esta nota?"</string>
-    <string name="file_path_error">"No se pudo obtener la ruta del archivo desde el Administrador de archivos externo"</string>
+    <string name="file_path_error">"No se pudo obtener la ruta del archivo desde el administrador de archivos externo"</string>
     <string name="note_editor">"Editor de notas"</string>
     <string name="choose_color_message">"Advertencia: El nuevo '%s' se aplicará solamente a las notas nuevas."</string>
     <string name="hide">"Ocultar"</string>
@@ -112,10 +112,10 @@
     <string name="image_include_summary">"Permitir incluir una imagen con notas"</string>
     <string name="image_remove">"Eliminar imagen"</string>
     <string name="image_replace">"Reemplazar la imagen"</string>
-    <string name="import_item">"Imprtar"</string>
+    <string name="import_item">"Importar"</string>
     <string name="pin_enter">"Ingresa el PIN"</string>
     <string name="pin_reenter">"Ingresa nuevamente el PIN"</string>
-    <string name="pin_mismatch_message">"El PIN no coincide. Por favor, inténtelo de nuevo"</string>
+    <string name="pin_mismatch_message">"El PIN no coincide. Por favor, inténtalo de nuevo"</string>
     <string name="pin_protection">"Protección del PIN"</string>
     <string name="pin_protection_status">"La protección del PIN es %s"</string>
     <string name="pin_length_warning">"El PIN debe ser un número de 4 dígitos"</string>
@@ -125,7 +125,7 @@
     <string name="try_again">"Intenta de nuevo"</string>
     <string name="warning">"Advertencia"</string>
     <string name="customize_note">"Personalizaciones de notas"</string>
-    <string name="font_size">"Tamaño de fuente "</string>
+    <string name="font_size">"Tamaño de fuente"</string>
     <string name="font_size_summary">"Tamaño actual: %ssp"</string>
     <string name="misc">"Varios"</string>
     <string name="reading_mode_message">"¿Reiniciar esta nota en modo de sólo lectura?"</string>
@@ -133,7 +133,7 @@
     <string name="security">"Seguridad"</string>
     <string name="text_style">"Estilo de texto"</string>
     <string name="text_style_bold">"Negrita"</string>
-    <string name="text_style_bold_italics">"Nerita y cursiva"</string>
+    <string name="text_style_bold_italics">"Negrita y cursiva"</string>
     <string name="text_style_italics">"Cursiva"</string>
     <string name="text_style_regular">"Normal"</string>
     <string name="backup_notes_hint">"¿Respaldar notas como?"</string>
@@ -150,6 +150,6 @@
     <string name="add_new">"Añadir nueva"</string>
     <string name="notes_in_row">"Notas por fila"</string>
     <string name="notes_in_row_default">"Por defecto"</string>
-    <string name="notes_in_row_summary">"Nota %s"</string>
+    <string name="notes_in_row_summary">"%s nota(s)"</string>
     <string name="sort_by_date">"Fecha de modificación"</string>
 </resources>
