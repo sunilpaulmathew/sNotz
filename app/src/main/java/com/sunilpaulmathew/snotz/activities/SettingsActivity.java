@@ -298,11 +298,13 @@ public class SettingsActivity extends AppCompatActivity {
                 for (int result = bis.read(); result != -1; result = bis.read()) {
                     buf.write((byte) result);
                 }
-                if (sNotzUtils.validBackup(Encryption.decrypt(buf.toString("UTF-8")))) {
-                    mJSONString = Encryption.decrypt(buf.toString("UTF-8"));
-                } else if (sNotzUtils.validBackup(buf.toString("UTF-8"))) {
-                    mJSONString = buf.toString("UTF-8");
-                }
+                try {
+                    if (sNotzUtils.validBackup(Encryption.decrypt(buf.toString("UTF-8")))) {
+                        mJSONString = Encryption.decrypt(buf.toString("UTF-8"));
+                    } else if (sNotzUtils.validBackup(buf.toString("UTF-8"))) {
+                        mJSONString = buf.toString("UTF-8");
+                    }
+                } catch (IllegalArgumentException ignored) {}
             } catch (IOException ignored) {}
 
             if (mJSONString == null) {
