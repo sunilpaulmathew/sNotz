@@ -24,7 +24,6 @@
     <string name="backup_notes_warning">Un precedente file di backup con lo stesso nome esiste già. Vuoi rimpiazzarlo?</string>
     <string name="backup_snotz">Come Backup sNotz</string>
     <string name="bottom_fab_click_message">Clicca l\'icona \'Più\' in basso per creare una nota</string>
-    <string name="cancel">Annulla</string>
     <string name="change_name">Cambia Nome</string>
     <string name="check_lists">Checklists</string>
     <string name="check_list_backup_question">Nome Backup di \'%s\'?</string>
@@ -50,7 +49,6 @@
     <string name="developed_by">Fatto con \u2665 da</string>
     <string name="discard">Scarta</string>
     <string name="discard_note">Scartare le modifiche apportate in questa pagina?</string>
-    <string name="dismiss">Ignora</string>
     <string name="donations">Donazioni</string>
     <string name="donation_app">Acquista l\'App Donazione</string>
     <string name="donations_summary">Supporta lo sviluppo con una donazione</string>
@@ -142,8 +140,6 @@
     <string name="text_style_bold_italics">Grassetto &amp; Corsivo</string>
     <string name="text_style_italics">Corsivo</string>
     <string name="text_style_regular">Normale</string>
-    <string name="translations">Traduzioni</string>
-    <string name="translations_summary">Aiutami a tradurre questa app. Clicca qui per visitare il progetto di localizzazione POEditor.</string>
     <string name="try_again">Riprovare</string>
     <string name="warning">Attenzione</string>
     <string name="welcome_note">Nota di Benvenuto</string>

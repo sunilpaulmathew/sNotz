@@ -14,7 +14,6 @@
     <string name="backup_notes_message">Catatan Anda dicadangkan sebagai \'%s\'!</string>
     <string name="backup_notes_summary">Cadangkan catatan Anda ke \'sdcard\'</string>
     <string name="bottom_fab_click_message">Klik bawah \'Plus\' ikon untuk membuat catatan!</string>
-    <string name="cancel">Membatalkan</string>
     <string name="change_logs">Log-Perubahan</string>
     <string name="clear_notes">Hapus Catatan</string>
     <string name="clear_notes_message">Tolong dicatat. Semua catatan akan dihapus!</string>
@@ -26,7 +25,6 @@
     <string name="delete">Hapus</string>
     <string name="delete_sure_question">Hapus %s?</string>
     <string name="developed_by">Dibuat dengan \u2665 by</string>
-    <string name="dismiss">Memberhentikan</string>
     <string name="donations">Donasi</string>
     <string name="donation_app">Beli Aplikasi Donasi</string>
     <string name="donations_summary">Dukung perkembangan dengan donasi</string>

@@ -4,7 +4,10 @@ import android.content.Context;
 
 import com.google.gson.JsonObject;
 
+import java.io.File;
 import java.util.Objects;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 21, 2021
@@ -22,7 +25,7 @@ public class sNotzWidgets {
     }
 
     public static String getChecklistPath(int appWidgetId, Context context) {
-        return Utils.getString("appwidget" + appWidgetId, null, context);
+        return sUtils.getString("appwidget" + appWidgetId, null, context);
     }
 
     public static String getNoteID() {
@@ -37,10 +40,10 @@ public class sNotzWidgets {
     }
 
     public static String getWidgetText(String path) {
-        if (!CheckLists.isValidCheckList(Utils.read(path))) {
+        if (!CheckLists.isValidCheckList(sUtils.read(new File(path)))) {
             return null;
         }
-        String jsonString = Utils.read(path);
+        String jsonString = sUtils.read(new File(path));
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < Objects.requireNonNull(CheckLists.getChecklists(jsonString)).size(); i++) {
             JsonObject object = Objects.requireNonNull(CheckLists.getChecklists(jsonString)).get(i).getAsJsonObject();

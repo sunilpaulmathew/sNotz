@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Vos notes sont sauvegardées sous '%s'"</string>
     <string name="backup_notes_summary">"Sauvegarder vos notes dans 'sdcard'"</string>
     <string name="bottom_fab_click_message">"Cliquer sur l’icône 'Plus' du bas pour créer une note"</string>
-    <string name="cancel">"Annuler"</string>
     <string name="change_logs">"Notes de version"</string>
     <string name="clear_notes">"Effacer les notes"</string>
     <string name="clear_notes_message">"Veuillez noter que toutes les notes seront supprimées"</string>
@@ -26,7 +25,6 @@
     <string name="delete">"Supprimer"</string>
     <string name="delete_sure_question">"Supprimer %s ?"</string>
     <string name="developed_by">"Réalisé avec \u2665 par"</string>
-    <string name="dismiss">"Rejeter"</string>
     <string name="donations">"Donations"</string>
     <string name="donation_app">"Acheter l'appli de donation"</string>
     <string name="donations_summary">"Soutenez le développement avec un don"</string>
@@ -81,8 +79,6 @@
     <string name="backup_snotz">"En tant que sauvegarde sNotz"</string>
     <string name="save_text">"Enregistrer en tant que texte"</string>
     <string name="save_text_message">"La note sélectionnée est exportée en tant que %s"</string>
-    <string name="translations">"Traductions"</string>
-    <string name="translations_summary">"Aidez-moi à traduire cette application. Cliquez ici pour visiter le projet de traduction de POEditor."</string>
     <string name="az_order">"Ordre de A à Z"</string>
     <string name="created_order">"date créée"</string>
     <string name="discard">"Ne pas sauvegarder"</string>

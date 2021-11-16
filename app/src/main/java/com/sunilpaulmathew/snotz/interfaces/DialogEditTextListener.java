@@ -12,10 +12,10 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.util.Objects;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -49,10 +49,10 @@ public interface DialogEditTextListener {
                 @Override
                 public void afterTextChanged(Editable s) {
                     if (s.toString().length() > 4) {
-                        Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_length_warning));
-                        editText.setTextColor(sNotzUtils.getColor(R.color.color_red, activity));
+                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_length_warning)).show();
+                        editText.setTextColor(sUtils.getColor(R.color.color_red, activity));
                     } else {
-                        editText.setTextColor(sNotzUtils.getColor(Utils.isDarkTheme(activity) ? R.color.color_white : R.color.color_black, activity));
+                        editText.setTextColor(sUtils.getColor(sUtils.isDarkTheme(activity) ? R.color.color_white : R.color.color_black, activity));
                     }
                 }
             });

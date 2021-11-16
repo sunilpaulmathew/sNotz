@@ -38,7 +38,6 @@ import com.sunilpaulmathew.snotz.activities.CheckListsActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
 import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
-import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -49,6 +48,9 @@ import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import java.io.File;
+
+import in.sunilpaulmathew.sCommon.Utils.sExecutor;
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -130,7 +132,7 @@ public class sNotzFragment extends Fragment {
                     View itemView = viewHolder.itemView;
 
                     Paint mPaint = new Paint();
-                    mPaint.setColor(sNotzUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
+                    mPaint.setColor(sUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
                     if (dX > 0) {
                         canvas.drawRect((float) itemView.getLeft(), (float) itemView.getTop(), dX,
                                 (float) itemView.getBottom(), mPaint);
@@ -207,40 +209,40 @@ public class sNotzFragment extends Fragment {
             Menu menu = popupMenu.getMenu();
             SubMenu sort = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.sort_by));
             sort.add(0, 1, Menu.NONE, getString(R.string.sort_by_date)).setCheckable(true)
-                    .setChecked(Utils.getInt("sort_notes", 2, requireActivity()) == 2);
+                    .setChecked(sUtils.getInt("sort_notes", 2, requireActivity()) == 2);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 sort.add(0, 2, Menu.NONE, getString(R.string.note_color_background)).setCheckable(true)
-                        .setChecked(Utils.getInt("sort_notes", 2, requireActivity()) == 1);
+                        .setChecked(sUtils.getInt("sort_notes", 2, requireActivity()) == 1);
             }
             sort.add(0, 3, Menu.NONE, getString(R.string.az_order)).setCheckable(true)
-                    .setChecked(Utils.getInt("sort_notes", 2, requireActivity()) == 0);
+                    .setChecked(sUtils.getInt("sort_notes", 2, requireActivity()) == 0);
             sort.setGroupCheckable(0, true, true);
             menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
-                    .setChecked(Utils.getBoolean("reverse_order", false, requireActivity()));
+                    .setChecked(sUtils.getBoolean("reverse_order", false, requireActivity()));
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
                         break;
                     case 1:
-                        if (Utils.getInt("sort_notes", 2, requireActivity()) != 2) {
-                            Utils.saveInt("sort_notes", 2, requireActivity());
+                        if (sUtils.getInt("sort_notes", 2, requireActivity()) != 2) {
+                            sUtils.saveInt("sort_notes", 2, requireActivity());
                             loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 2:
-                        if (Utils.getInt("sort_notes", 2, requireActivity()) != 1) {
-                            Utils.saveInt("sort_notes", 1, requireActivity());
+                        if (sUtils.getInt("sort_notes", 2, requireActivity()) != 1) {
+                            sUtils.saveInt("sort_notes", 1, requireActivity());
                             loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 3:
-                        if (Utils.getInt("sort_notes", 2, requireActivity()) != 0) {
-                            Utils.saveInt("sort_notes", 0, requireActivity());
+                        if (sUtils.getInt("sort_notes", 2, requireActivity()) != 0) {
+                            sUtils.saveInt("sort_notes", 0, requireActivity());
                             loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 4:
-                        Utils.saveBoolean("reverse_order", !Utils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
+                        sUtils.saveBoolean("reverse_order", !sUtils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
                         loadUI(mProgressBar, requireActivity()).execute();
                         break;
                 }
@@ -296,7 +298,7 @@ public class sNotzFragment extends Fragment {
                     mExit = false;
                     requireActivity().finish();
                 } else {
-                    Utils.showSnackbar(mAppTitle, getString(R.string.press_back_exit));
+                    sUtils.snackBar(mAppTitle, getString(R.string.press_back_exit)).show();
                     mExit = true;
                     mHandler.postDelayed(() -> mExit = false, 2000);
                 }
@@ -306,8 +308,8 @@ public class sNotzFragment extends Fragment {
         return mRootView;
     }
 
-    private static AsyncTasks loadUI(ProgressBar progressBar, Activity activity) {
-        return new AsyncTasks() {
+    private static sExecutor loadUI(ProgressBar progressBar, Activity activity) {
+        return new sExecutor() {
             private NotesAdapter mNotesAdapter;
             @Override
             public void onPreExecute() {
@@ -335,7 +337,7 @@ public class sNotzFragment extends Fragment {
                     mExternalNote = null;
                     Intent createNote = new Intent(activity, CreateNoteActivity.class);
                     activity.startActivity(createNote);
-                } else if (mExtraCheckListPath != null && Utils.exist(mExtraCheckListPath)) {
+                } else if (mExtraCheckListPath != null && sUtils.exist(new File(mExtraCheckListPath))) {
                     CheckLists.setCheckListName(new File(mExtraCheckListPath).getName());
                     // It should be set null right after finishing the job as we are calling this method for other tasks as well
                     mExtraCheckListPath = null;

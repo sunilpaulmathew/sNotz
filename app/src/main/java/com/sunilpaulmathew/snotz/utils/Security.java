@@ -13,21 +13,23 @@ import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 
 import java.io.File;
 
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
+
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 07, 2021
  */
 public class Security {
 
     public static boolean isBiometricEnabled(Context context) {
-        return Utils.getBoolean("use_biometric", false, context);
+        return sUtils.getBoolean("use_biometric", false, context);
     }
 
     public static boolean isHiddenNotesUnlocked(Context context) {
-        return Utils.getBoolean("hidden_note",false, context);
+        return sUtils.getBoolean("hidden_note",false, context);
     }
 
     public static boolean isPINEnabled(Context context) {
-        return Utils.exist(new File(context.getCacheDir(),"pin").getAbsolutePath()) && Utils
+        return sUtils.exist(new File(context.getCacheDir(),"pin")) && sUtils
                 .getBoolean("use_pin", false, context);
     }
 
@@ -36,16 +38,16 @@ public class Security {
     }
 
     public static String getPIN(Context context) {
-        return Utils.read(new File(context.getCacheDir(),"pin").getAbsolutePath());
+        return sUtils.read(new File(context.getCacheDir(),"pin"));
     }
 
     public static void removePIN(Context context) {
-        Utils.delete(new File(context.getCacheDir(),"pin").getAbsolutePath());
-        Utils.saveBoolean("use_pin", false, context);
+        sUtils.delete(new File(context.getCacheDir(),"pin"));
+        sUtils.saveBoolean("use_pin", false, context);
     }
 
     public static void setPIN(String pin, Context context) {
-        Utils.create(pin, new File(context.getCacheDir(),"pin").getAbsolutePath());
+        sUtils.create(pin, new File(context.getCacheDir(),"pin"));
     }
 
     public static void setPIN(boolean verify, String title, SettingsAdapter adapter, Activity activity) {
@@ -56,7 +58,7 @@ public class Security {
                         if (verify) {
                             removePIN(activity);
                         }
-                        Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_length_warning));
+                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_length_warning)).show();
                     } else if (!verify) {
                         setPIN(text, activity);
                         setPIN(true, activity.getString(R.string.pin_reenter), adapter, activity);
@@ -68,9 +70,9 @@ public class Security {
                                 .setPositiveButton(R.string.try_again, (dialog, which) -> setPIN(true,
                                         activity.getString(R.string.pin_reenter), adapter, activity)).show();
                     } else {
-                        Utils.saveBoolean("use_pin", true, activity);
-                        Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
-                                activity.getString(R.string.activated)));
+                        sUtils.saveBoolean("use_pin", true, activity);
+                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
+                                activity.getString(R.string.activated))).show();
                         adapter.notifyItemChanged(2);
                     }
                 }, InputType.TYPE_CLASS_NUMBER,activity).setOnDismissListener(dialogInterface -> {
@@ -89,9 +91,9 @@ public class Security {
                                 .setPositiveButton(R.string.try_again, (dialog, which) -> authenticate(adapter, position, activity)).show();
                     } else {
                         if (position == 3) {
-                            Utils.saveBoolean("hidden_note", !Utils.getBoolean("hidden_note", false, activity), activity);
+                            sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, activity), activity);
                         } else {
-                            Utils.delete(activity.getFilesDir().getPath() + "/snotz");
+                            sUtils.delete(new File(activity.getFilesDir().getPath(),"snotz"));
                         }
                         Utils.reloadUI(activity);
                         if (adapter != null) {
@@ -117,8 +119,8 @@ public class Security {
                         if (remove) {
                             removePIN(activity);
                             adapter.notifyItemChanged(2);
-                            Utils.showSnackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
-                                    activity.getString(R.string.deactivated)));
+                            sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
+                                    activity.getString(R.string.deactivated))).show();
                         } else {
                             // Launch MainActivity
                             launchMainActivity(activity);

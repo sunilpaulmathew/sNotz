@@ -15,6 +15,9 @@ import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 
 import java.io.File;
 
+import in.sunilpaulmathew.sCommon.Utils.sExecutor;
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
+
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 30, 2021
  */
@@ -68,8 +71,8 @@ public class NotePicker {
         }
     }
 
-    private AsyncTasks restoreNote() {
-        return new AsyncTasks() {
+    private sExecutor restoreNote() {
+        return new sExecutor() {
             private int i = 0;
 
             @Override
@@ -81,7 +84,7 @@ public class NotePicker {
             public void doInBackground() {
                 JsonObject mJSONObject = new JsonObject();
                 JsonArray mJSONArray = new JsonArray();
-                if (Utils.exist(mActivity.getFilesDir().getPath() + "/snotz")) {
+                if (sUtils.exist(new File(mActivity.getFilesDir(),"snotz"))) {
                     for (sNotzItems items : sNotzData.getRawData(mActivity)) {
                         JsonObject note = new JsonObject();
                         note.addProperty("note", items.getNote());
@@ -109,7 +112,7 @@ public class NotePicker {
                     mJSONArray.add(note);
                 }
                 mJSONObject.add("sNotz", mJSONArray);
-                Utils.create(mJSONObject.toString(), mActivity.getFilesDir().getPath() + "/snotz");
+                sUtils.create(mJSONObject.toString(), new File(mActivity.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -127,7 +130,7 @@ public class NotePicker {
                         makeToast(R.string.check_list_name_empty_message).show();
                         return;
                     }
-                    if (Utils.exist(new File(mActivity.getExternalFilesDir("checklists"), text).getAbsolutePath())) {
+                    if (sUtils.exist(new File(mActivity.getExternalFilesDir("checklists"), text))) {
                         new MaterialAlertDialogBuilder(mActivity)
                                 .setMessage(mActivity.getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(mActivity.getString(R.string.change_name), (dialogInterface, i) -> importCheckList())
@@ -142,7 +145,7 @@ public class NotePicker {
     }
 
     private void launchCheckList(String path) {
-        Utils.create(mNote, path);
+        sUtils.create(mNote, new File(path));
         Intent mIntent = new Intent(mActivity, StartActivity.class);
         mIntent.putExtra(sNotzWidgets.getChecklistPath(), path);
         mActivity.startActivity(mIntent);

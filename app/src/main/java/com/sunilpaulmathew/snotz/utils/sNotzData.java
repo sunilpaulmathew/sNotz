@@ -7,11 +7,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 17, 2020
@@ -20,16 +23,16 @@ public class sNotzData {
 
     public static List<sNotzItems> getData(Context context) {
         List<sNotzItems> mData = new ArrayList<>();
-        if (Utils.exist(context.getFilesDir().getPath() + "/snotz")) {
+        if (sUtils.exist(new File(context.getFilesDir(),"snotz"))) {
             for (sNotzItems items : getRawData(context)) {
                 if (Common.getSearchText() == null) {
-                    if (Utils.getBoolean("hidden_note", false, context)) {
+                    if (sUtils.getBoolean("hidden_note", false, context)) {
                         mData.add(items);
                     } else if (!items.isHidden()) {
                         mData.add(items);
                     }
                 } else if (Common.isTextMatched(items.getNote())) {
-                    if (Utils.getBoolean("hidden_note", false, context)) {
+                    if (sUtils.getBoolean("hidden_note", false, context)) {
                         mData.add(items);
                     } else if (!items.isHidden()) {
                         mData.add(items);
@@ -37,13 +40,13 @@ public class sNotzData {
                 }
             }
         }
-        if (Utils.getInt("sort_notes", 2, context) == 2) {
+        if (sUtils.getInt("sort_notes", 2, context) == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Collections.sort(mData, Comparator.comparingLong(sNotzItems::getTimeStamp));
             } else {
                 Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(String.valueOf(lhs.getTimeStamp()), String.valueOf(rhs.getTimeStamp())));
             }
-        } else if (Utils.getInt("sort_notes", 2, context) == 1) {
+        } else if (sUtils.getInt("sort_notes", 2, context) == 1) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Collections.sort(mData, Comparator.comparingLong(sNotzItems::getColorBackground));
             } else {
@@ -52,7 +55,7 @@ public class sNotzData {
         } else {
             Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(rhs.getNote(), lhs.getNote()));
         }
-        if (!Utils.getBoolean("reverse_order", false, context)) {
+        if (!sUtils.getBoolean("reverse_order", false, context)) {
             Collections.reverse(mData);
         }
         return mData;
@@ -61,8 +64,8 @@ public class sNotzData {
     public static List<sNotzItems> getRawData(Context context) {
         List<sNotzItems> mData = new ArrayList<>();
         String json = context.getFilesDir().getPath() + "/snotz";
-        if (Utils.exist(json)) {
-            JsonArray sNotz = Objects.requireNonNull(getJSONObject(Utils.read(json))).getAsJsonArray("sNotz");
+        if (sUtils.exist(new File(json))) {
+            JsonArray sNotz = Objects.requireNonNull(getJSONObject(sUtils.read(new File(json)))).getAsJsonArray("sNotz");
             for (int i = 0; i < sNotz.size(); i++) {
                 mData.add(new sNotzItems(getNote(sNotz.get(i).getAsJsonObject()),
                         getDate(sNotz.get(i).getAsJsonObject()),
@@ -78,8 +81,8 @@ public class sNotzData {
     }
 
     public static boolean isNotesEmpty(Context context) {
-        return !Utils.exist(context.getFilesDir().getPath() + "/snotz") ||
-                (Utils.exist(context.getFilesDir().getPath() + "/snotz") &&
+        return !sUtils.exist(new File(context.getFilesDir(),"snotz")) ||
+                (sUtils.exist(new File(context.getFilesDir(),"snotz")) &&
                         getRawData(context).size() == 0);
     }
 

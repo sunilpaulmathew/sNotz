@@ -11,11 +11,13 @@ import android.widget.RemoteViews;
 
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.StartActivity;
-import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
-import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
+
+import java.io.File;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 19, 2021
@@ -55,9 +57,9 @@ public class WidgetProvider extends AppWidgetProvider {
         PendingIntent mPendingIntent;
 
         if (sNotzWidgets.getChecklistPath(appWidgetId, context) != null) {
-            if (Utils.exist(sNotzWidgets.getChecklistPath(appWidgetId, context))) {
+            if (sUtils.exist(new File(sNotzWidgets.getChecklistPath(appWidgetId, context)))) {
                 mViews.setTextViewText(R.id.note, sNotzWidgets.getWidgetText(sNotzWidgets.getChecklistPath(appWidgetId, context)));
-                mViews.setInt(R.id.layout, "setBackgroundColor", sNotzUtils.getColor(android.R.color.transparent, context));
+                mViews.setInt(R.id.layout, "setBackgroundColor", sUtils.getColor(android.R.color.transparent, context));
                 mIntent.putExtra(sNotzWidgets.getChecklistPath(), sNotzWidgets.getChecklistPath(appWidgetId, context));
                 mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, 0);
                 mViews.setOnClickPendingIntent(R.id.layout, mPendingIntent);

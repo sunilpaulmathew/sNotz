@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"En backup av dina antecningar som '%s'"</string>
     <string name="backup_notes_summary">"Gör en backup av dina anteckningar på 'sdkortet'"</string>
     <string name="bottom_fab_click_message">"Tryck på 'Plus' ikonen för att göra en ny anteckning"</string>
-    <string name="cancel">"Ångra"</string>
     <string name="change_logs">"Ändringslogg"</string>
     <string name="clear_notes">"Radera anteckningar"</string>
     <string name="clear_notes_message">"Alla anteckningar kommer att raderas"</string>
@@ -26,7 +25,6 @@
     <string name="delete">"Radera"</string>
     <string name="delete_sure_question">"Radera %s?"</string>
     <string name="developed_by">"Skapad med \u2665 av"</string>
-    <string name="dismiss">"Avvisa"</string>
     <string name="donations">"Donera"</string>
     <string name="donation_app">"Köp donations app"</string>
     <string name="donations_summary">"Stöd utvecklingen med en donation"</string>
@@ -81,8 +79,6 @@
     <string name="backup_snotz">"Som sNotz backup"</string>
     <string name="save_text">"Spara som text"</string>
     <string name="save_text_message">"Den valda anteckningen kommer att expoteras som %s"</string>
-    <string name="translations">"Översättningar"</string>
-    <string name="translations_summary">"Hjälp mig att översätta denna apo.  Klicka här för att gå till POEditor lokaliseringsprojekt."</string>
     <string name="az_order">"Ordna A-Z"</string>
     <string name="created_order">"Enligt datum"</string>
     <string name="discard">"Kassera"</string>

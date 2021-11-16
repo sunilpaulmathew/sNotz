@@ -14,12 +14,12 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
-import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
-import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.util.ArrayList;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -77,21 +77,21 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.mCircle.setVisibility(View.GONE);
         }
         if (position == 2) {
-            holder.mChecked.setImageDrawable(sNotzUtils.getDrawable(Security.isScreenLocked(holder.mChecked.getContext()) ?
+            holder.mChecked.setImageDrawable(sUtils.getDrawable(Security.isScreenLocked(holder.mChecked.getContext()) ?
                     R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked, holder.mChecked.getContext()));
         } else if (position == 3) {
-            holder.mChecked.setImageDrawable(sNotzUtils.getDrawable(Security.isHiddenNotesUnlocked(holder.mChecked.getContext()) ?
+            holder.mChecked.setImageDrawable(sUtils.getDrawable(Security.isHiddenNotesUnlocked(holder.mChecked.getContext()) ?
                     R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked, holder.mChecked.getContext()));
         } else if (position == 5) {
             holder.mCircle.setCardBackgroundColor(sNotzColor.getAccentColor(holder.mCircle.getContext()));
         } else if (position == 6) {
             holder.mCircle.setCardBackgroundColor(sNotzColor.getTextColor(holder.mCircle.getContext()));
         } else if (position == 7) {
-            holder.mChecked.setImageDrawable(sNotzUtils.getDrawable(Utils.getBoolean("allow_images", false,
+            holder.mChecked.setImageDrawable(sUtils.getDrawable(sUtils.getBoolean("allow_images", false,
                     holder.mChecked.getContext()) ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked,
                     holder.mChecked.getContext()));
         } else if (position == 8) {
-            holder.mChecked.setImageDrawable(sNotzUtils.getDrawable(Utils.getBoolean("auto_save", false,
+            holder.mChecked.setImageDrawable(sUtils.getDrawable(sUtils.getBoolean("auto_save", false,
                     holder.mChecked.getContext()) ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked,
                     holder.mChecked.getContext()));
         }

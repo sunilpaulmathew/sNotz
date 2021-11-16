@@ -15,6 +15,8 @@ import com.sunilpaulmathew.snotz.receivers.ReminderReceiver;
 
 import java.util.Calendar;
 
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
+
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 02, 2021
  */
@@ -23,7 +25,7 @@ public class sNotzReminders {
     private static double mYear = -1, mMonth = -1, mDay = -1;
 
     public static int getNotificationID(Context context) {
-        return Utils.getInt("notificationID", 0, context);
+        return sUtils.getInt("notificationID", 0, context);
     }
 
     private static double getYear() {
@@ -77,7 +79,7 @@ public class sNotzReminders {
             mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
         }
 
-        Utils.saveInt("notificationID", mNotificationID + 1, context);
+        sUtils.saveInt("notificationID", mNotificationID + 1, context);
         new MaterialAlertDialogBuilder(context)
                 .setIcon(R.mipmap.ic_launcher)
                 .setTitle(R.string.app_name)
@@ -114,7 +116,7 @@ public class sNotzReminders {
     }
 
     public static void launchReminderMenu(String note, int noteID, Context context) {
-        if (Utils.getBoolean("first_reminder", true, context)) {
+        if (sUtils.getBoolean("first_reminder", true, context)) {
             new MaterialAlertDialogBuilder(context)
                     .setIcon(R.mipmap.ic_launcher)
                     .setTitle(R.string.warning)
@@ -122,7 +124,7 @@ public class sNotzReminders {
                     .setCancelable(false)
                     .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
                         launchDatePicker(note, noteID, context).show();
-                        Utils.saveBoolean("first_reminder", false, context);
+                        sUtils.saveBoolean("first_reminder", false, context);
                     }).show();
         } else {
             launchDatePicker(note, noteID, context).show();

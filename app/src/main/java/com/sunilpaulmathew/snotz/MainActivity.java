@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment;
 
 import com.sunilpaulmathew.snotz.activities.WelcomeActivity;
 import com.sunilpaulmathew.snotz.fragments.sNotzFragment;
-import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -24,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_main);
 
-        if (!Utils.getBoolean("welcome_message", false, this)) {
+        if (!sUtils.getBoolean("welcome_message", false, this)) {
             Intent welcome = new Intent(this, WelcomeActivity.class);
             startActivity(welcome);
-            Utils.saveBoolean("welcome_message", true, this);
+            sUtils.saveBoolean("welcome_message", true, this);
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

@@ -13,7 +13,6 @@
     <string name="backup_notes_message">"Deine Notizen sind unter '%s' gesichert"</string>
     <string name="backup_notes_summary">"Notizen unter 'sdcard' sichern"</string>
     <string name="bottom_fab_click_message">"'+'-Symbol zum Erstellen einer Notiz anwählen"</string>
-    <string name="cancel">"Abbruch"</string>
     <string name="change_logs">"Change-log"</string>
     <string name="clear_notes">"Notizen löschen"</string>
     <string name="clear_notes_message">"Achtung: alle Notizen werden gelöscht"</string>
@@ -25,7 +24,6 @@
     <string name="delete">"Löschen"</string>
     <string name="delete_sure_question">"Lösche %s?"</string>
     <string name="developed_by">"Entwickelt mit \u2665 von"</string>
-    <string name="dismiss">"Schließen"</string>
     <string name="donations">"Spenden"</string>
     <string name="donation_app">"Kaufe Spendenapp"</string>
     <string name="donations_summary">"Unterstütze die Entwicklung mit einer Spende"</string>
@@ -79,8 +77,6 @@
     <string name="backup_snotz">"als sNotz-Backup"</string>
     <string name="save_text">"sichere als Text"</string>
     <string name="save_text_message">"Die gewählte Notiz wurde als %s exportiert"</string>
-    <string name="translations">"Übersetzungen"</string>
-    <string name="translations_summary">"Hilf mir die App zu übersetzen. Clicke hier um das POEditor-Sprachanpassungsprojekt zu besuchen"</string>
     <string name="az_order">"Reihenfolge A-Z"</string>
     <string name="created_order">"Erstellungsdatum"</string>
     <string name="discard">"Verwerfen"</string>

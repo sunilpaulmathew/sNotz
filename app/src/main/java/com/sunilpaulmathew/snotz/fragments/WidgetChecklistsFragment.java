@@ -25,7 +25,6 @@ import com.sunilpaulmathew.snotz.adapters.CheckListAdapter;
 import com.sunilpaulmathew.snotz.adapters.WidgetChecklistsAdapter;
 import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.providers.WidgetProvider;
-import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.CheckListItems;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -33,6 +32,9 @@ import com.sunilpaulmathew.snotz.utils.Utils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import in.sunilpaulmathew.sCommon.Utils.sExecutor;
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 19, 2021
@@ -67,7 +69,7 @@ public class WidgetChecklistsFragment extends Fragment {
         mRecyclerViewCheckList.addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
         mRecyclerViewCheckList.setAdapter(new CheckListAdapter(mData));
 
-        if (Utils.exist(requireActivity().getExternalFilesDir("checklists") + "/" + CheckLists.getCheckListName()) && CheckLists.getData(requireActivity()).size() > 0) {
+        if (sUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), CheckLists.getCheckListName())) && CheckLists.getData(requireActivity()).size() > 0) {
             mData.addAll(CheckLists.getData(requireActivity()));
         } else {
             mData.add(new CheckListItems("", false));
@@ -114,7 +116,7 @@ public class WidgetChecklistsFragment extends Fragment {
 
     private void saveCheckList() {
         if (CheckLists.getChecklists(mData).size() == 0) return;
-        new AsyncTasks() {
+        new sExecutor() {
 
             @Override
             public void onPreExecute() {
@@ -126,12 +128,12 @@ public class WidgetChecklistsFragment extends Fragment {
                 String mCheckListName = CheckLists.getCheckListName();
                 JsonObject mJSONObject = new JsonObject();
                 mJSONObject.add("checklist", CheckLists.getChecklists(mData));
-                Utils.create(mJSONObject.toString(), requireActivity().getExternalFilesDir("checklists") + "/" + mCheckListName);
+                sUtils.create(mJSONObject.toString(), new File(requireActivity().getExternalFilesDir("checklists"), mCheckListName));
             }
 
             @Override
             public void onPostExecute() {
-                if (Utils.exist(requireActivity().getExternalFilesDir("checklists") + "/" + CheckLists.getCheckListName())) {
+                if (sUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), CheckLists.getCheckListName()))) {
                     create(requireActivity().getExternalFilesDir("checklists") + "/" + CheckLists.getCheckListName());
                 }
             }
@@ -143,10 +145,10 @@ public class WidgetChecklistsFragment extends Fragment {
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
-                        Utils.showSnackbar(requireActivity().findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message));
+                        sUtils.snackBar(requireActivity().findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
                         return;
                     }
-                    if (Utils.exist(new File(requireActivity().getExternalFilesDir("checklists"), text).getAbsolutePath())) {
+                    if (sUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), text))) {
                         new MaterialAlertDialogBuilder(requireActivity())
                                 .setMessage(getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> createCheckList())
@@ -167,7 +169,7 @@ public class WidgetChecklistsFragment extends Fragment {
     }
 
     private void create(String path) {
-        Utils.saveString("appwidget" + mAppWidgetId, path, requireActivity());
+        sUtils.saveString("appwidget" + mAppWidgetId, path, requireActivity());
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(requireActivity());
         WidgetProvider.update(appWidgetManager, mAppWidgetId, requireActivity());
         Intent resultValue = new Intent();

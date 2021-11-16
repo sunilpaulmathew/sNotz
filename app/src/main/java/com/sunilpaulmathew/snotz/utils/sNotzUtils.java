@@ -8,12 +8,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.text.Editable;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
@@ -31,6 +33,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import in.sunilpaulmathew.sCommon.Utils.sExecutor;
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -61,7 +66,7 @@ public class sNotzUtils {
 
     public static String sNotzToText(Context context) {
         StringBuilder sb = new StringBuilder();
-        JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"))).getAsJsonArray("sNotz");
+        JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(), "snotz")))).getAsJsonArray("sNotz");
         for (int i = 0; i < sNotz.size(); i++) {
             sb.append(sNotzData.getNote(sNotz.get(i).getAsJsonObject())).append("\n... ... ... ... ...\n\n");
         }
@@ -73,10 +78,7 @@ public class sNotzUtils {
                 .getJSONObject(backupData)).getAsJsonArray("sNotz") != null;
     }
 
-    public static Drawable getDrawable(int drawable, Context context) {
-        return ContextCompat.getDrawable(context, drawable);
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static Drawable getColoredDrawable(int color, int drawable, Context context) {
         Drawable d = ContextCompat.getDrawable(context, drawable);
         if (d != null) {
@@ -98,15 +100,11 @@ public class sNotzUtils {
     public static int getMaxSize(Activity activity) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        if (Utils.getOrientation(activity) == Configuration.ORIENTATION_PORTRAIT) {
+        if (sUtils.getOrientation(activity) == Configuration.ORIENTATION_PORTRAIT) {
             return displayMetrics.widthPixels / 3;
         } else {
             return displayMetrics.heightPixels / 3;
         }
-    }
-
-    public static int getColor(int color, Context context) {
-        return ContextCompat.getColor(context, color);
     }
 
     public static String bitmapToBase64(Bitmap bitmap, Activity activity) {
@@ -148,14 +146,14 @@ public class sNotzUtils {
         share_note.putExtra(Intent.EXTRA_TEXT, "\"" + note + "\"\n\n" +
                 context.getString(R.string.shared_by_message, BuildConfig.VERSION_NAME));
         if (imageString != null) {
-            new AsyncTasks() {
+            new sExecutor() {
                 private final File mImageFile = new File(context.getExternalCacheDir(), "photo.png");
 
                 @Override
                 public void onPreExecute() {
                     Common.isWorking(true);
-                    if (Utils.exist(mImageFile.toString())) {
-                        Utils.delete(mImageFile.toString());
+                    if (sUtils.exist(mImageFile)) {
+                        sUtils.delete(mImageFile);
                     }
                 }
 
@@ -183,9 +181,9 @@ public class sNotzUtils {
         }
     }
 
-    public static AsyncTasks addNote(Editable newNote, String image, int colorBg, int colorTxt,
+    public static sExecutor addNote(Editable newNote, String image, int colorBg, int colorTxt,
                                boolean hidden, ProgressBar progressBar, Context context) {
-        return new AsyncTasks() {
+        return new sExecutor() {
             @Override
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
@@ -194,7 +192,7 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"));
+                JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(),"snotz")));
                 JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
                 JsonObject note = new JsonObject();
                 note.addProperty("note", newNote.toString());
@@ -208,7 +206,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
+                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -220,8 +218,8 @@ public class sNotzUtils {
         };
     }
 
-    public static AsyncTasks deleteNote(int noteID, ProgressBar progressBar, Context context) {
-        return new AsyncTasks() {
+    public static sExecutor deleteNote(int noteID, ProgressBar progressBar, Context context) {
+        return new sExecutor() {
             @Override
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
@@ -230,7 +228,7 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"));
+                JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(),"snotz")));
                 JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
 
                 for (int i = 0; i < mJSONArray.size(); i++) {
@@ -242,7 +240,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
+                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -254,8 +252,8 @@ public class sNotzUtils {
         };
     }
 
-    public static AsyncTasks hideNote(int noteID, boolean hidden, ProgressBar progressBar, Context context) {
-        return new AsyncTasks() {
+    public static sExecutor hideNote(int noteID, boolean hidden, ProgressBar progressBar, Context context) {
+        return new sExecutor() {
             @Override
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
@@ -264,7 +262,7 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"));
+                JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(),"snotz")));
                 JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
 
                 for (int i = 0; i < mJSONArray.size(); i++) {
@@ -278,7 +276,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
+                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -290,9 +288,9 @@ public class sNotzUtils {
         };
     }
 
-    public static AsyncTasks initializeNotes(Editable newNote, String image, int colorBg, int colorTxt,
+    public static sExecutor initializeNotes(Editable newNote, String image, int colorBg, int colorTxt,
                                              boolean hidden, ProgressBar progressBar, Context context) {
-        return new AsyncTasks() {
+        return new sExecutor() {
             @Override
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
@@ -315,7 +313,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
+                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -327,8 +325,8 @@ public class sNotzUtils {
         };
     }
 
-    public static AsyncTasks restoreNotes(String backupData, ProgressBar progressBar, Context context) {
-        return new AsyncTasks() {
+    public static sExecutor restoreNotes(String backupData, ProgressBar progressBar, Context context) {
+        return new sExecutor() {
             private int i = 0;
             @Override
             public void onPreExecute() {
@@ -342,7 +340,7 @@ public class sNotzUtils {
             public void doInBackground() {
                 JsonObject mJSONObject = new JsonObject();
                 JsonArray mJSONArray = new JsonArray();
-                if (Utils.exist(context.getFilesDir().getPath() + "/snotz")) {
+                if (sUtils.exist(new File(context.getFilesDir(),"snotz"))) {
                     for (sNotzItems items : sNotzData.getRawData(context)) {
                         JsonObject note = new JsonObject();
                         note.addProperty("note", items.getNote());
@@ -372,7 +370,7 @@ public class sNotzUtils {
                     }
                 }
                 mJSONObject.add("sNotz", mJSONArray);
-                Utils.create(mJSONObject.toString(), context.getFilesDir().getPath() + "/snotz");
+                sUtils.create(mJSONObject.toString(), new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -386,9 +384,9 @@ public class sNotzUtils {
         };
     }
 
-    public static AsyncTasks updateNote(Editable newNote, String image, int noteID, int colorBg, int colorTxt,
+    public static sExecutor updateNote(Editable newNote, String image, int noteID, int colorBg, int colorTxt,
                                         boolean hidden, ProgressBar progressBar, Context context) {
-        return new AsyncTasks() {
+        return new sExecutor() {
             @Override
             public void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
@@ -397,7 +395,7 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                JsonObject mJSONObject = sNotzData.getJSONObject(Utils.read(context.getFilesDir().getPath() + "/snotz"));
+                JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(),"snotz")));
                 JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
 
                 JsonObject mNote = new JsonObject();
@@ -418,7 +416,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                Utils.create(json, context.getFilesDir().getPath() + "/snotz");
+                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override

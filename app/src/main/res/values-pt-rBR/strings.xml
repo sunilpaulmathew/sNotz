@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"O backup das notas foi criado em '%s'"</string>
     <string name="backup_notes_summary">"Fazer backup das notas no cartão SD"</string>
     <string name="bottom_fab_click_message">"Clique no + para criar uma nota"</string>
-    <string name="cancel">"Cancelar"</string>
     <string name="change_logs">"Changelogs"</string>
     <string name="clear_notes">"Limpar notas"</string>
     <string name="clear_notes_message">"Atenção. Todas as suas notas serão deletadas"</string>
@@ -26,7 +25,6 @@
     <string name="delete">"Deletar"</string>
     <string name="delete_sure_question">"Deletar %s?"</string>
     <string name="developed_by">"Feito com \u2665 por"</string>
-    <string name="dismiss">"Ignorar"</string>
     <string name="donations">"Doações"</string>
     <string name="donation_app">"Comprar o app de doação"</string>
     <string name="donations_summary">"Ajuda no desenvolvimento com uma doação"</string>
@@ -81,8 +79,6 @@
     <string name="backup_snotz">"Como backup do sNotz"</string>
     <string name="save_text">"Salvar como texto"</string>
     <string name="save_text_message">"A nota selecionada foi exportada como %s"</string>
-    <string name="translations">"Traduções"</string>
-    <string name="translations_summary">"Me ajude a traduzir esse app. Clique aqui para visitar o projeto no POEditor."</string>
     <string name="az_order">"Ordem alfabética"</string>
     <string name="created_order">"Data de Criação"</string>
     <string name="discard">"Descartar"</string>

@@ -15,8 +15,8 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
-import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzUtils;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2021
@@ -46,15 +46,15 @@ public class ReadNoteActivity extends AppCompatActivity {
             });
         }
 
-        if (Utils.isDarkTheme(this)) {
-            mContents.setTextColor(sNotzUtils.getColor(R.color.color_white, this));
-            mScrollView.setBackgroundColor(sNotzUtils.getColor(R.color.color_black, this));
+        if (sUtils.isDarkTheme(this)) {
+            mContents.setTextColor(sUtils.getColor(R.color.color_white, this));
+            mScrollView.setBackgroundColor(sUtils.getColor(R.color.color_black, this));
         } else {
-            mContents.setTextColor(sNotzUtils.getColor(R.color.color_black, this));
-            mScrollView.setBackgroundColor(sNotzUtils.getColor(R.color.color_white, this));
+            mContents.setTextColor(sUtils.getColor(R.color.color_black, this));
+            mScrollView.setBackgroundColor(sUtils.getColor(R.color.color_white, this));
         }
 
-        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, this));
+        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sUtils.getInt("font_size", 18, this));
         mContents.setTypeface(null, AppSettings.getStyle(this));
 
         mBack.setOnClickListener(v -> finish());

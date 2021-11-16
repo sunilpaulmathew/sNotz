@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Notlarınız '%s' olarak yedeklendi"</string>
     <string name="backup_notes_summary">"Notlarınızı 'sdcard'a yedekleyin"</string>
     <string name="bottom_fab_click_message">"Bir not oluşturmak için alttaki 'Artı' simgesine tıklayın"</string>
-    <string name="cancel">"İptal"</string>
     <string name="change_logs">"Değişiklik günlükleri"</string>
     <string name="clear_notes">"Notları Temizle"</string>
     <string name="clear_notes_message">"Lütfen aklınızda bulundurun. Tüm notlar silinecek"</string>
@@ -26,7 +25,6 @@
     <string name="delete">"Sil"</string>
     <string name="delete_sure_question">"%s silinsin mi?"</string>
     <string name="developed_by">"Tarafından yapılan \u2665"</string>
-    <string name="dismiss">"Azletmek"</string>
     <string name="donations">"Bağışlar"</string>
     <string name="donation_app">"Bağış Uygulaması Satın Alın"</string>
     <string name="donations_summary">"Gelişimi bağışla destekleyin"</string>
@@ -81,8 +79,6 @@
     <string name="backup_snotz">"sNotz Yedekleme olarak"</string>
     <string name="save_text">"Metin Olarak Kaydet"</string>
     <string name="save_text_message">"Seçilen not %s olarak dışa aktarılır"</string>
-    <string name="translations">"Çeviriler"</string>
-    <string name="translations_summary">"Bu uygulamayı çevirmeme yardım et. POEditor yerelleştirme projesini ziyaret etmek için buraya tıklayın."</string>
     <string name="az_order">"A'dan Z'ye Sipariş"</string>
     <string name="created_order">"tarih oluşturuldu"</string>
     <string name="discard">"atmak"</string>

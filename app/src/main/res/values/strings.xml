@@ -24,7 +24,6 @@
     <string name="backup_notes_warning">A previous backup file with same name already exists. Do you want to replace it?</string>
     <string name="backup_snotz">As sNotz Backup</string>
     <string name="bottom_fab_click_message">Click bottom \'Plus\' icon to create a note</string>
-    <string name="cancel">Cancel</string>
     <string name="change_name">Change Name</string>
     <string name="check_lists">Checklists</string>
     <string name="check_list_backup_question">Backup \'%s\' as?</string>
@@ -50,7 +49,6 @@
     <string name="developed_by">Made with \u2665 by</string>
     <string name="discard">Discard</string>
     <string name="discard_note">Discard changes made on this page?</string>
-    <string name="dismiss">Dismiss</string>
     <string name="donations">Donations</string>
     <string name="donation_app">Buy Donation App</string>
     <string name="donations_summary">Support the development with a donation</string>
@@ -142,8 +140,6 @@
     <string name="text_style_bold_italics">Bold &amp; Italics</string>
     <string name="text_style_italics">Italics</string>
     <string name="text_style_regular">Regular</string>
-    <string name="translations">Translations</string>
-    <string name="translations_summary">Help me to translate this app. Click here to visit POEditor localization project.</string>
     <string name="try_again">Try Again</string>
     <string name="warning">Warning</string>
     <string name="welcome_note">Welcome Note</string>

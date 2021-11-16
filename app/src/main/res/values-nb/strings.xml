@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Dine notater er sikkerhetskopiert som '%s'"</string>
     <string name="backup_notes_summary">"Sikkerhetskopier dine notater til 'sd-kort'"</string>
     <string name="bottom_fab_click_message">"Trykk 'Pluss'-ikon nederst for å opprette et notat"</string>
-    <string name="cancel">"Avbryt"</string>
     <string name="change_logs">"Endringslogger"</string>
     <string name="clear_notes">"Fjern notater"</string>
     <string name="clear_notes_message">"Merk. Alle notatene blir slettet"</string>
@@ -26,7 +25,6 @@
     <string name="delete">"Slett"</string>
     <string name="delete_sure_question">"Slette %s?"</string>
     <string name="developed_by">"Lagd med \u2665 av"</string>
-    <string name="dismiss">"Avvis"</string>
     <string name="donations">"Donasjoner"</string>
     <string name="donation_app">"Kjøp donasjons-app"</string>
     <string name="donations_summary">"Støtt utviklingen med en donasjon"</string>
@@ -81,8 +79,6 @@
     <string name="backup_snotz">"Som sNotz-sikkerhetskopi"</string>
     <string name="save_text">"Lagre som tekst"</string>
     <string name="save_text_message">"Det valgte notatet er eksportert som %s"</string>
-    <string name="translations">"Oversettelser"</string>
-    <string name="translations_summary">"Hjelp med å oversette appen. Trykk her for å gå til POEditor localization project."</string>
     <string name="az_order">"A-Z rekkefølge"</string>
     <string name="created_order">"Dato opprettet"</string>
     <string name="discard">"Forkast"</string>

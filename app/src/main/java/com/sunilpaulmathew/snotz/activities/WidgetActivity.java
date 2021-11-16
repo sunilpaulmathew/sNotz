@@ -9,9 +9,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.adapters.PagerAdapter;
 import com.sunilpaulmathew.snotz.fragments.WidgetChecklistsFragment;
 import com.sunilpaulmathew.snotz.fragments.WidgetNotesFragment;
+
+import in.sunilpaulmathew.sCommon.Adapters.sPagerAdapter;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 21, 2021
@@ -34,7 +35,7 @@ public class WidgetActivity extends AppCompatActivity {
         TabLayout mTabLayout = findViewById(R.id.tab_Layout);
         ViewPager mViewPager = findViewById(R.id.view_pager);
 
-        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
+        sPagerAdapter adapter = new sPagerAdapter(getSupportFragmentManager());
         adapter.AddFragment(new WidgetNotesFragment(), getString(R.string.select_note));
         adapter.AddFragment(new WidgetChecklistsFragment(), getString(R.string.select_checklist));
 

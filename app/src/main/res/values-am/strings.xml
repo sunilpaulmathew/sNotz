@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"ማስታወሻዎች እርስዎ እንደ '%s' ምትኬ ተቀምጠዋል!"</string>
     <string name="backup_notes_summary">"ማስታወሻዎችዎን ወደ 'sdcard' ያስቀምጡ"</string>
     <string name="bottom_fab_click_message">"ማስታወሻ ለመፍጠር ታችኛው ‘ፕላስ’ አዶን ጠቅ ያድርጉ!"</string>
-    <string name="cancel">"ሰርዝ"</string>
     <string name="change_logs">"ለውጥ-ምዝግብ ማስታወሻዎች"</string>
     <string name="clear_notes">"ማስታወሻዎችን አጽዳ"</string>
     <string name="clear_notes_message">"ማስታወሻ ያዝ. ሁሉም ማስታወሻዎች ይሰረዛሉ!"</string>
@@ -26,7 +25,6 @@
     <string name="delete">"ሰርዝ"</string>
     <string name="delete_sure_question">"%s ይጋራ?"</string>
     <string name="developed_by">"በ ♥ በ የተሰራ"</string>
-    <string name="dismiss">"አሰናብት"</string>
     <string name="donations">"ልገሳዎች"</string>
     <string name="donation_app">"የልገሳ መተግበሪያን ይግዙ"</string>
     <string name="donations_summary">"ልማቱን በልገሳ ይደግፉ"</string>
@@ -78,7 +76,6 @@
     <string name="welcome_note_summary">"የእንኳን ደህና መጣችሁ ማስታወሻ እንደገና አሳይ"</string>
     <string name="yes">" አዎ"</string>
     <string name="save_text">"እንደ ቴክስት ያዝ"</string>
-    <string name="translations">" ትርጉም"</string>
     <string name="az_order">" በሀ-ፐ መሠረት"</string>
     <string name="created_order">" የተመዘገበበት ቀን"</string>
     <string name="discard">"ሰርዝ"</string>

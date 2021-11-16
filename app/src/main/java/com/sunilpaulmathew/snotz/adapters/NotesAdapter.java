@@ -19,7 +19,6 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -30,17 +29,20 @@ import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
-import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.List;
 import java.util.Objects;
+
+import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -63,7 +65,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mContents.setText(this.data.get(position).getNote());
         holder.mContents.setTextColor(data.get(position).getColorText());
-        holder.mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, holder.mContents.getContext()));
+        holder.mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sUtils.getInt("font_size", 18, holder.mContents.getContext()));
         holder.mContents.setTypeface(null, AppSettings.getStyle(holder.mContents.getContext()));
         holder.mExpand.setVisibility(Common.getSpanCount() > 1 ? View.GONE : View.VISIBLE);
         holder.mExpand.setOnClickListener(v -> {
@@ -72,14 +74,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             }
             if (holder.mContents.getLineCount() > 1) {
                 holder.mContents.setSingleLine(true);
-                holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_expand, v.getContext()));
+                holder.mExpand.setImageDrawable(sUtils.getDrawable(R.drawable.ic_expand, v.getContext()));
             } else {
                 holder.mContents.setSingleLine(false);
-                holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(R.drawable.ic_collapse, v.getContext()));
+                holder.mExpand.setImageDrawable(sUtils.getDrawable(R.drawable.ic_collapse, v.getContext()));
             }
         });
         holder.mExpand.setColorFilter(sNotzColor.getTextColor(holder.mExpand.getContext()));
-        holder.mExpand.setImageDrawable(sNotzUtils.getDrawable(holder.mContents.getLineCount() > 1 ? R.drawable.ic_collapse :
+        holder.mExpand.setImageDrawable(sUtils.getDrawable(holder.mContents.getLineCount() > 1 ? R.drawable.ic_collapse :
                 R.drawable.ic_expand, holder.mExpand.getContext()));
         holder.mExpand.setColorFilter(data.get(position).getColorText());
         holder.mRVCard.setOnLongClickListener(item -> {
@@ -104,7 +106,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             sNotzUtils.hideNote(this.data.get(position).getNoteID(),false, holder.mProgress, holder.mRVCard.getContext()).execute();
                         } else {
                             sNotzUtils.hideNote(this.data.get(position).getNoteID(),true, holder.mProgress, holder.mRVCard.getContext()).execute();
-                            Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message));
+                            sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message)).show();
                         }
                         break;
                     case 2:
@@ -114,18 +116,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         sNotzReminders.launchReminderMenu(data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
                         break;
                     case 3:
-                        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(holder.mRVCard.getContext())) {
-                            ActivityCompat.requestPermissions((Activity) holder.mRVCard.getContext(), new String[] {
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, holder.mRVCard.getContext())) {
+                            sPermissionUtils.requestPermission(new String[] {
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            }, (Activity) item.getContext());
                         } else {
                             if (this.data.get(position).getImageString() != null) {
-                                Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.image_excluded_warning));
+                                sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.image_excluded_warning)).show();
                             }
                             DialogEditTextListener.dialogEditText(null, null,
                                     (dialogInterface, i) -> {
                                     }, text -> {
                                         if (text.isEmpty()) {
-                                            Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty));
+                                            sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
                                             return;
                                         }
                                         if (!text.endsWith(".txt")) {
@@ -147,10 +150,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                             } catch (IOException ignored) {
                                             }
                                         } else {
-                                            Utils.create(this.data.get(position).getNote(), Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text);
+                                            sUtils.create(this.data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text));
                                         }
-                                        Utils.showSnackbar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
-                                                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text));
+                                        sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
+                                                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text)).show();
                                     }, -1, (Activity) holder.mRVCard.getContext()).setOnDismissListener(dialogInterface -> {
                             }).show();
                         }

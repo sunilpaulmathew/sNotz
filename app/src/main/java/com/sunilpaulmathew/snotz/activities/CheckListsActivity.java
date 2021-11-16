@@ -25,13 +25,14 @@ import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
@@ -84,7 +85,7 @@ public class CheckListsActivity extends AppCompatActivity {
                     View itemView = viewHolder.itemView;
 
                     Paint mPaint = new Paint();
-                    mPaint.setColor(sNotzUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
+                    mPaint.setColor(sUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
                     if (dX > 0) {
                         canvas.drawRect((float) itemView.getLeft(), (float) itemView.getTop(), dX,
                                 (float) itemView.getBottom(), mPaint);
@@ -129,10 +130,10 @@ public class CheckListsActivity extends AppCompatActivity {
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
-                        Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message));
+                        sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
                         return;
                     }
-                    if (Utils.exist(new File(getExternalFilesDir("checklists"), text).getAbsolutePath())) {
+                    if (sUtils.exist(new File(getExternalFilesDir("checklists"), text))) {
                         new MaterialAlertDialogBuilder(this)
                                 .setMessage(getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> createCheckList())
@@ -155,17 +156,17 @@ public class CheckListsActivity extends AppCompatActivity {
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
-                        Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message));
+                        sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
                         return;
                     }
-                    if (Utils.exist(new File(getExternalFilesDir("checklists"), text).getAbsolutePath())) {
+                    if (sUtils.exist(new File(getExternalFilesDir("checklists"), text))) {
                         new MaterialAlertDialogBuilder(this)
                                 .setMessage(getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> importCheckList())
-                                .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> Utils.create(mJSONString, getExternalFilesDir("checklists") + "/" + text)).show();
+                                .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> sUtils.create(mJSONString, new File(getExternalFilesDir("checklists"), text))).show();
                         return;
                     }
-                    Utils.create(mJSONString, getExternalFilesDir("checklists") + "/" + text);
+                    sUtils.create(mJSONString, new File(getExternalFilesDir("checklists"), text));
                     mRecyclerView.setAdapter(new CheckListsAdapter(CheckLists.getCheckLists(this)));
                 }, -1,this).setOnDismissListener(dialogInterface -> {
         }).show();
@@ -188,7 +189,7 @@ public class CheckListsActivity extends AppCompatActivity {
             } catch (IOException ignored) {}
 
             if (mJSONString == null || !CheckLists.isValidCheckList(mJSONString)) {
-                Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.restore_error));
+                sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.restore_error)).show();
                 return;
             }
             importCheckList();

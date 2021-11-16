@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Ваши заметки сохранены как '%s'!"</string>
     <string name="backup_notes_summary">"Сделайте бэкап ваших заметок в 'sdcard'"</string>
     <string name="bottom_fab_click_message">"Щелкните внизу 'Плюс', чтобы создать заметку!"</string>
-    <string name="cancel">"Отмена"</string>
     <string name="change_logs">"Изменения"</string>
     <string name="clear_notes">"Очистить заметки"</string>
     <string name="clear_notes_message">"Пожалуйста, обратите внимание. Все заметки будут удалены!"</string>
@@ -26,7 +25,6 @@
     <string name="delete">"Удалить"</string>
     <string name="delete_sure_question">"Удалить %s?"</string>
     <string name="developed_by">"Сделано с \u2665 от"</string>
-    <string name="dismiss">"Закрыть"</string>
     <string name="donations">"Пожертвования"</string>
     <string name="donation_app">"Купить приложение для пожертвований"</string>
     <string name="donations_summary">"Поддержите разработчика…"</string>
@@ -81,8 +79,6 @@
     <string name="backup_snotz">"Резервное копирование "</string>
     <string name="save_text">"Сохранить как текст"</string>
     <string name="save_text_message">"Выбранная заметка экспортируется в %s"</string>
-    <string name="translations">"Переводы"</string>
-    <string name="translations_summary">"Помогите мне перевести это приложение. Нажмите здесь, чтобы посетить проект локализации POEditor."</string>
     <string name="az_order">"От А до Я"</string>
     <string name="created_order">"Дата создана"</string>
     <string name="discard">"отклонить"</string>

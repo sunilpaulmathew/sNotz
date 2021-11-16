@@ -24,7 +24,6 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.ActivityCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.flask.colorpicker.ColorPickerView;
@@ -38,7 +37,11 @@ import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
+import java.io.File;
 import java.io.IOException;
+
+import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -70,7 +73,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
         mHidden = findViewById(R.id.hidden);
 
-        if (Utils.getBoolean("auto_save", false, this)) {
+        if (sUtils.getBoolean("auto_save", false, this)) {
             mSave.setVisibility(View.GONE);
         }
 
@@ -95,13 +98,13 @@ public class CreateNoteActivity extends AppCompatActivity {
             mSelectedColorTxt = sNotzColor.getTextColor(this);
         }
 
-        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, Utils.getInt("font_size", 18, this));
+        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sUtils.getInt("font_size", 18, this));
         mContents.setTypeface(null, AppSettings.getStyle(this));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             mContents.setTextCursorDrawable(sNotzUtils.getColoredDrawable(mContents.getCurrentTextColor(), R.drawable.ic_cursor, this));
         }
 
-        if (Utils.getBoolean("allow_images", false, this)) {
+        if (sUtils.getBoolean("allow_images", false, this)) {
             mAdd.setVisibility(View.VISIBLE);
         }
 
@@ -181,9 +184,10 @@ public class CreateNoteActivity extends AppCompatActivity {
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
-                        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(this)) {
-                            ActivityCompat.requestPermissions(this, new String[] {
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                        if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, this)) {
+                            sPermissionUtils.requestPermission(new String[] {
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            },this);
                         } else {
                             Intent addImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             try {
@@ -224,13 +228,13 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     private void saveNote() {
         if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
-            Utils.showSnackbar(findViewById(R.id.contents), getString(R.string.text_empty));
+            sUtils.snackBar(findViewById(R.id.contents), getString(R.string.text_empty)).show();
             return;
         }
         if (Common.getNote() != null) {
             sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
                     mSelectedColorTxt, mHidden.isChecked(),  mProgress,this).execute();
-        } else if (Utils.exist(getFilesDir().getPath() + "/snotz")) {
+        } else if (sUtils.exist(new File(getFilesDir(),"snotz"))) {
             sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
         } else {
             sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
@@ -308,7 +312,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (isUnsavedNote()) {
-            if (Utils.getBoolean("auto_save", false, this)) {
+            if (sUtils.getBoolean("auto_save", false, this)) {
                 saveNote();
             } else {
                 new MaterialAlertDialogBuilder(this)

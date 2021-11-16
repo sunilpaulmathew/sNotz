@@ -18,13 +18,17 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.providers.WidgetProvider;
-import com.sunilpaulmathew.snotz.utils.AsyncTasks;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 
+import java.io.File;
 import java.util.concurrent.Executor;
+
+import in.sunilpaulmathew.sCommon.Utils.sExecutor;
+import in.sunilpaulmathew.sCommon.Utils.sThemeUtils;
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 19, 2020
@@ -38,7 +42,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Initialize App Theme
-        Utils.initializeAppTheme();
+        sThemeUtils.initializeAppTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
@@ -74,16 +78,16 @@ public class StartActivity extends AppCompatActivity {
                 mAuthenticationStatus.setTextColor(Color.RED);
                 mAuthenticationStatus.setText(getString(R.string.authentication_failed));
                 mAuthenticationStatus.setVisibility(View.VISIBLE);
-                Utils.showSnackbar(mAuthenticationStatus, getString(R.string.authentication_failed));
+                sUtils.snackBar(mAuthenticationStatus, getString(R.string.authentication_failed)).show();
             }
         });
 
         Utils.showBiometricPrompt(this);
 
-        if (!Utils.getBoolean("reOrganized", false, this)) {
+        if (!sUtils.getBoolean("reOrganized", false, this)) {
             reOrganizeNotes(this).execute();
         } else {
-            if (Utils.getBoolean("use_biometric", false, this)) {
+            if (sUtils.getBoolean("use_biometric", false, this)) {
                 mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
             } else if (Security.isPINEnabled(this)) {
                 Security.authenticate(false, null, this);
@@ -93,8 +97,8 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-    private AsyncTasks reOrganizeNotes(Activity activity) {
-        return new AsyncTasks() {
+    private sExecutor reOrganizeNotes(Activity activity) {
+        return new sExecutor() {
             @Override
             public void onPreExecute() {
             }
@@ -117,13 +121,13 @@ public class StartActivity extends AppCompatActivity {
                     mJSONArray.add(note);
                 }
                 mJSONObject.add("sNotz", mJSONArray);
-                Utils.create(mJSONObject.toString(), activity.getFilesDir().getPath() + "/snotz");
+                sUtils.create(mJSONObject.toString(), new File(activity.getFilesDir(),"/snotz"));
             }
 
             @Override
             public void onPostExecute() {
-                Utils.saveBoolean("reOrganized", true, activity);
-                if (Utils.getBoolean("use_biometric", false, activity)) {
+                sUtils.saveBoolean("reOrganized", true, activity);
+                if (sUtils.getBoolean("use_biometric", false, activity)) {
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(activity));
                 } else if (Security.isPINEnabled(activity)) {
                     Security.authenticate(false, null, activity);
