@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
+import in.sunilpaulmathew.sCommon.Utils.sThemeUtils;
 import in.sunilpaulmathew.sCommon.Utils.sTranslatorUtils;
 import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
@@ -67,6 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
         mData.add(new SettingsItems(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", "Copyright: © 2021-2022, sunilpaulmathew", sUtils.getDrawable(R.drawable.ic_info, this), null));
+        mData.add(new SettingsItems(getString(R.string.app_theme), sThemeUtils.getAppTheme(this), sUtils.getDrawable(R.drawable.ic_theme, this), null));
         mData.add(new SettingsItems(getString(R.string.security), null, null, null));
         if (Utils.isFingerprintAvailable(this)) {
             mData.add(new SettingsItems(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), sUtils.getDrawable(R.drawable.ic_fingerprint, this), null));
@@ -105,7 +107,9 @@ public class SettingsActivity extends AppCompatActivity {
                 settings.setData(uri);
                 startActivity(settings);
                 finish();
-            } else if (position == 2) {
+            } else if (position == 1) {
+                sThemeUtils.setAppTheme(this);
+            } else if (position == 3) {
                 if (Utils.isFingerprintAvailable(this)) {
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else {
@@ -115,7 +119,7 @@ public class SettingsActivity extends AppCompatActivity {
                         Security.setPIN(false, getString(R.string.pin_enter), mRecycleViewAdapter, this);
                     }
                 }
-            } else if (position == 3) {
+            } else if (position == 4) {
                 if (sUtils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
                     Common.isHiddenNote(true);
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
@@ -126,7 +130,7 @@ public class SettingsActivity extends AppCompatActivity {
                     mRecycleViewAdapter.notifyItemChanged(position);
                     Utils.reloadUI( this);
                 }
-            } else if (position == 5) {
+            } else if (position == 6) {
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
@@ -144,7 +148,7 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
-            } else if (position == 6) {
+            } else if (position == 7) {
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
@@ -162,7 +166,7 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
-            } else if (position == 7) {
+            } else if (position == 8) {
                 if (sUtils.getBoolean("allow_images", false, this)) {
                     sUtils.saveBoolean("allow_images", false, this);
                     mRecycleViewAdapter.notifyItemChanged(position);
@@ -179,25 +183,25 @@ public class SettingsActivity extends AppCompatActivity {
                                 mRecycleViewAdapter.notifyItemChanged(position);
                             }).show();
                 }
-            } else if (position == 8) {
+            } else if (position == 9) {
                 sUtils.saveBoolean("auto_save", !sUtils.getBoolean("auto_save", false, this), this);
                 mRecycleViewAdapter.notifyItemChanged(position);
-            } else if (position == 9) {
-                AppSettings.setRows(this);
             } else if (position == 10) {
-                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+                AppSettings.setRows(this);
             } else if (position == 11) {
+                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+            } else if (position == 12) {
                 AppSettings.setFontStyle(position, mData, mRecycleViewAdapter, this);
-            } else if (position == 13) {
+            } else if (position == 14) {
                 if (sNotzData.isNotesEmpty(this)) {
                     sUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
                 } else {
                     AppSettings.showBackupOptions(this);
                 }
-            } else if (position == 14) {
+            } else if (position == 15) {
                 if (mJSONString != null) mJSONString = null;
                 sUtils.filePickerIntent(false, 0, null, this);
-            } else if (position == 15) {
+            } else if (position == 16) {
                 if (sNotzData.isNotesEmpty(this)) {
                     sUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
                 } else {
@@ -221,9 +225,9 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             }).show();
                 }
-            } else if (position == 16) {
-                Billing.showDonationMenu(this);
             } else if (position == 17) {
+                Billing.showDonationMenu(this);
+            } else if (position == 18) {
                 Intent share_app = new Intent();
                 share_app.setAction(Intent.ACTION_SEND);
                 share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
@@ -231,11 +235,11 @@ public class SettingsActivity extends AppCompatActivity {
                 share_app.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
                 startActivity(shareIntent);
-            } else if (position == 18) {
+            } else if (position == 19) {
                 Intent welcome = new Intent(this, WelcomeActivity.class);
                 startActivity(welcome);
                 finish();
-            } else if (position == 19) {
+            } else if (position == 20) {
                 sTranslatorUtils.showTranslationMessage(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();
             }
         });
