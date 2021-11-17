@@ -21,6 +21,7 @@ sNotz is, and as always, an open-source project which is ready to accept contrib
 * [Reno](https://t.me/Renoooooo): French Translations
 * Emrehelvaci83: Turkish Translations
 * Bo Lindholm: Swedish Translations
+* [jaswinder77](https://github.com/jaswinder77): Hindi Translations
 * Many other people contributed via [POEditor](https://poeditor.com/join/project?hash=LOg2GmFfbV)
 
 ## Testing
