@@ -143,4 +143,9 @@
     <string name="select_checklist">"Selecione o checklist"</string>
     <string name="select_note">"Selecione a nota"</string>
     <string name="widget_loading_failed">"O carregamento do widget falhou"</string>
+    <string name="add_new">"Adicionar novo"</string>
+    <string name="notes_in_row">"Notas por linha"</string>
+    <string name="notes_in_row_default">"Padrão"</string>
+    <string name="notes_in_row_summary">"%s nota"</string>
+    <string name="sort_by_date">"Data modificada"</string>
 </resources>

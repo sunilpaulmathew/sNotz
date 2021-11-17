@@ -143,4 +143,8 @@
     <string name="select_checklist">"Velg sjekkliste"</string>
     <string name="select_note">"Velg notat"</string>
     <string name="widget_loading_failed">"Modul-lasting feilet"</string>
+    <string name="notes_in_row">"Notater pr. rekke"</string>
+    <string name="notes_in_row_default">"Standard"</string>
+    <string name="notes_in_row_summary">"%s notat(er)"</string>
+    <string name="sort_by_date">"Dato endret"</string>
 </resources>
