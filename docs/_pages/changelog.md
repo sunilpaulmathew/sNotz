@@ -6,11 +6,14 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
-<h3 style="color: green">(Unreleased)</h3>
+<h3 style="color: green">v0.20</h3>
 - Hide "Add Note" button when scrolling recyclerview.
+- Improved settings page options
+- Added Credits page & App Theme menu
+- Fixed crashing while restoring notes from setting page
 - Fixed note colour selector displaying wrong colour.
 - Improve settings page options.
-- Added Swedish Translations.
+- Added Swedish & Hindi Translations & updated others.
 - Miscellaneous changes.
 
 <hr>
