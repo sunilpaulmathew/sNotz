@@ -18,10 +18,12 @@ import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
+import in.sunilpaulmathew.sCommon.Utils.sSerializableItems;
 import in.sunilpaulmathew.sCommon.Utils.sSingleChoiceDialog;
 import in.sunilpaulmathew.sCommon.Utils.sSingleItemDialog;
 import in.sunilpaulmathew.sCommon.Utils.sUtils;
@@ -71,6 +73,35 @@ public class AppSettings {
             default:
                 return Typeface.BOLD_ITALIC;
         }
+    }
+
+    public static List<sSerializableItems> getCredits() {
+        List<sSerializableItems> mData = new ArrayList<>();
+
+        mData.add(new sSerializableItems(null, "Grarak", "Code contributions", "https://github.com/Grarak/"));
+        mData.add(new sSerializableItems(null, "Lennoard Silva", "Code contributions & Portuguese (Brazilian) Translations", "https://github.com/Lennoard/"));
+        mData.add(new sSerializableItems(null, "Clone Conflict" , "Code contributions & Arabic Translations", "https://github.com/cloneconf/"));
+        mData.add(new sSerializableItems(null, "QuadFlask", "Color Picker", "https://github.com/QuadFlask/colorpicker/"));
+
+        mData.add(new sSerializableItems(null, "MONSTER_PC", "Ukrainian & Russian Translations", "https://t.me/MONSTER_PC"));
+        mData.add(new sSerializableItems(null, "Sshsmnv2000", "Russian Translations", null));
+        mData.add(new sSerializableItems(null, "anonymous", "Russian Translations", null));
+        mData.add(new sSerializableItems(null, "Hafitz Setya", "Indonesian Translations", "https://github.com/breakdowns/"));
+        mData.add(new sSerializableItems(null, "Mikesew1320", "Amharic Translations", "https://github.com/Mikesew1320/"));
+        mData.add(new sSerializableItems(null, "Negroibarra301", "Spanish Translations", null));
+        mData.add(new sSerializableItems(null, "el-leo-pardo", "Spanish Translations", "https://github.com/el-leo-pardo/"));
+        mData.add(new sSerializableItems(null, "FTno", "Norwegian Translations", "https://github.com/FTno/"));
+        mData.add(new sSerializableItems(null, "Murilogs", "Portuguese (Brazilian) Translations", null));
+        mData.add(new sSerializableItems(null, "Axel Schaab", "German Translations", null));
+        mData.add(new sSerializableItems(null, "AbsurdUsername","Italian Translations", "https://github.com/AbsurdUsername/"));
+        mData.add(new sSerializableItems(null, "Reno", "French Translations", "https://t.me/Renoooooo"));
+        mData.add(new sSerializableItems(null, "Emrehelvaci83", "Turkish Translations", null));
+        mData.add(new sSerializableItems(null, "Bo Lindholm", "Swedish Translations", null));
+
+        mData.add(new sSerializableItems(null, "jaswinder77", "Testing", "https://github.com/jaswinder77/"));
+        mData.add(new sSerializableItems(null, "Alfie", "Testing", "https://t.me/AlfieFie"));
+
+        return mData;
     }
 
     public static String getFontStyle(Context context) {

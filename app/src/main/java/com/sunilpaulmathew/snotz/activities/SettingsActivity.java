@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
+import in.sunilpaulmathew.sCommon.Utils.sCreditsUtils;
 import in.sunilpaulmathew.sCommon.Utils.sThemeUtils;
 import in.sunilpaulmathew.sCommon.Utils.sTranslatorUtils;
 import in.sunilpaulmathew.sCommon.Utils.sUtils;
@@ -95,6 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.translations), getString(R.string.translations_summary), sUtils.getDrawable(R.drawable.ic_translate, this), null));
         mData.add(new SettingsItems(getString(R.string.rate_us), getString(R.string.rate_us_Summary), sUtils.getDrawable(R.drawable.ic_rate, this), "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"));
         mData.add(new SettingsItems(getString(R.string.support), getString(R.string.support_summary), sUtils.getDrawable(R.drawable.ic_support, this), "https://t.me/smartpack_kmanager"));
+        mData.add(new SettingsItems(getString(R.string.credits), getString(R.string.credits_summary), sUtils.getDrawable(R.drawable.ic_credits, this), null));
         mData.add(new SettingsItems(getString(R.string.faq), getString(R.string.faq_summary), sUtils.getDrawable(R.drawable.ic_faq, this), "https://sunilpaulmathew.github.io/sNotz/faq/"));
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
@@ -241,6 +243,13 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
             } else if (position == 20) {
                 sTranslatorUtils.showTranslationMessage(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();
+            } else if (position == 23) {
+                new sCreditsUtils(AppSettings.getCredits(),
+                        sUtils.getDrawable(R.mipmap.ic_launcher, this),
+                        sUtils.getDrawable(R.drawable.ic_back, this),
+                        sUtils.getColor(R.color.color_teal, this),
+                        25, getString(R.string.app_name), "2021-2022, sunilpaulmathew",
+                        BuildConfig.VERSION_NAME).launchCredits(this);
             }
         });
 
