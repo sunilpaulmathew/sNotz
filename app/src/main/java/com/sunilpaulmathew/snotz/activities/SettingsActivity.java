@@ -242,7 +242,7 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(welcome);
                 finish();
             } else if (position == 20) {
-                sTranslatorUtils.showTranslationMessage(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();
+                new sTranslatorUtils(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();;
             } else if (position == 23) {
                 new sCreditsUtils(AppSettings.getCredits(),
                         sUtils.getDrawable(R.mipmap.ic_launcher, this),
