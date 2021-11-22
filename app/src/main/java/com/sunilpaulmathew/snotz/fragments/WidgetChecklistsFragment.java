@@ -69,12 +69,6 @@ public class WidgetChecklistsFragment extends Fragment {
         mRecyclerViewCheckList.addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
         mRecyclerViewCheckList.setAdapter(new CheckListAdapter(mData));
 
-        if (sUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), CheckLists.getCheckListName())) && CheckLists.getData(requireActivity()).size() > 0) {
-            mData.addAll(CheckLists.getData(requireActivity()));
-        } else {
-            mData.add(new CheckListItems("", false));
-        }
-
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> create(CheckLists.getCheckLists(requireActivity())
                 .get(position).getAbsolutePath()));
 
@@ -164,6 +158,7 @@ public class WidgetChecklistsFragment extends Fragment {
                     mSave.setVisibility(View.VISIBLE);
                     CheckLists.setCheckListName(text);
                     mRecyclerViewCheckList.setVisibility(View.VISIBLE);
+                    mData.add(new CheckListItems("", false));
                 }, -1,requireActivity()).setOnDismissListener(dialogInterface -> {
         }).show();
     }
