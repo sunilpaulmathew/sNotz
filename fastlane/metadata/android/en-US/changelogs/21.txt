@@ -1,0 +1,6 @@
+* Fixed crashes on widgets page.
+* Fix settings page checkbox positions wrongly shown.
+* Update translation request.
+* Updated Spanish translation.
+* Updated build tools to latest.
+* Miscellaneous changes.

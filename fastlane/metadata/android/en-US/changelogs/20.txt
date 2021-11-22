@@ -1,8 +1,0 @@
-* Hide "Add Note" button when scrolling recyclerview.
-* Improved settings page options
-* Added Credits page & App Theme menu
-* Fixed crashing while restoring notes from setting page
-* Fixed note colour selector displaying wrong colour.
-* Improve settings page options.
-* Added Swedish & Hindi Translations & updated others.
-* Miscellaneous changes.
