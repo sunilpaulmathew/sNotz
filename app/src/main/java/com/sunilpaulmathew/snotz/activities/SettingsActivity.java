@@ -242,7 +242,7 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(welcome);
                 finish();
             } else if (position == 20) {
-                new sTranslatorUtils(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();;
+                new sTranslatorUtils(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();
             } else if (position == 23) {
                 new sCreditsUtils(AppSettings.getCredits(),
                         sUtils.getDrawable(R.mipmap.ic_launcher, this),
@@ -261,7 +261,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 sUtils.snackBar(mBack, getString(R.string.authentication_error, errString)).show();
-                mRecycleViewAdapter.notifyItemRangeChanged(1,2);
+                mRecycleViewAdapter.notifyItemRangeChanged(3,4);
             }
 
             @Override
@@ -271,15 +271,15 @@ public class SettingsActivity extends AppCompatActivity {
                     sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, SettingsActivity.this), SettingsActivity.this);
                     Common.isHiddenNote(false);
                     Utils.reloadUI(SettingsActivity.this);
-                    mRecycleViewAdapter.notifyItemChanged(3);
+                    mRecycleViewAdapter.notifyItemChanged(4);
                 } else if (Common.isClearingNotes()) {
                     Common.isClearingNotes(false);
                     sUtils.delete(new File(getFilesDir(),"snotz"));
                     Utils.reloadUI(SettingsActivity.this);
-                    mRecycleViewAdapter.notifyItemChanged(13);
+                    mRecycleViewAdapter.notifyItemChanged(16);
                 } else {
-                    Utils.useBiometric(mBack, SettingsActivity.this);
-                    mRecycleViewAdapter.notifyItemChanged(2);
+                    Utils.useBiometric(SettingsActivity.this);
+                    mRecycleViewAdapter.notifyItemChanged(3);
                 }
             }
 
@@ -287,7 +287,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
                 sUtils.snackBar(mBack, getString(R.string.authentication_failed)).show();
-                mRecycleViewAdapter.notifyItemRangeChanged(1,2);
+                mRecycleViewAdapter.notifyItemRangeChanged(3,4);
             }
         });
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.widget.AppCompatEditText;
@@ -74,13 +73,15 @@ public class Utils {
         }
     }
 
-    public static void useBiometric(View view, Context context) {
-        if (sUtils.getBoolean("use_biometric", false, context)) {
-            sUtils.saveBoolean("use_biometric", false, context);
-            sUtils.snackBar(view, context.getString(R.string.biometric_lock_status, context.getString(R.string.deactivated))).show();
+    public static void useBiometric(Activity activity) {
+        if (sUtils.getBoolean("use_biometric", false, activity)) {
+            sUtils.saveBoolean("use_biometric", false, activity);
+            sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.biometric_lock_status,
+                    activity.getString(R.string.deactivated))).show();
         } else {
-            sUtils.saveBoolean("use_biometric", true, context);
-            sUtils.snackBar(view, context.getString(R.string.biometric_lock_status, context.getString(R.string.activated))).show();
+            sUtils.saveBoolean("use_biometric", true, activity);
+            sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.biometric_lock_status,
+                    activity.getString(R.string.activated))).show();
         }
     }
 
