@@ -40,7 +40,7 @@
     <string name="note_color_text">"Color de texto"</string>
     <string name="note_list_empty">"Aún no has creado ninguna nota"</string>
     <string name="ok">"OK"</string>
-    <string name="press_back_exit">"Presione el botón 'Atrás' nuevamente para salir"</string>
+    <string name="press_back_exit">"Presiona el botón 'Atrás' nuevamente para salir"</string>
     <string name="rate_us">"Califícanos"</string>
     <string name="rate_us_Summary">"Califica o revisa sNotz en PlayStore"</string>
     <string name="report_issue">"Reporta un problema"</string>
