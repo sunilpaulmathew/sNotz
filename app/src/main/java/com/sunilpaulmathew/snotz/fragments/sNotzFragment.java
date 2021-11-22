@@ -1,6 +1,8 @@
 package com.sunilpaulmathew.snotz.fragments;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +10,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -36,10 +39,12 @@ import com.sunilpaulmathew.snotz.activities.AboutActivity;
 import com.sunilpaulmathew.snotz.activities.CheckListActivity;
 import com.sunilpaulmathew.snotz.activities.CheckListsActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
+import com.sunilpaulmathew.snotz.activities.QRCodeScannerActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
 import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
@@ -50,6 +55,7 @@ import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 import java.io.File;
 
 import in.sunilpaulmathew.sCommon.Utils.sExecutor;
+import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
 import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
@@ -167,6 +173,7 @@ public class sNotzFragment extends Fragment {
             if (Common.isWorking()) {
                 return;
             }
+            Common.setExternalNote(null);
             Common.setNote(null);
             Common.setImageString(null);
             Common.isHiddenNote(false);
@@ -257,20 +264,47 @@ public class sNotzFragment extends Fragment {
             }
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mMenu);
             Menu menu = popupMenu.getMenu();
-            menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.settings));
-            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.check_lists));
-            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
+            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.settings));
+            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.check_lists));
+            SubMenu qrCode = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.qr_code));
+            qrCode.add(Menu.NONE, 3, Menu.NONE, getString(R.string.qr_code_scan));
+            qrCode.add(Menu.NONE, 4, Menu.NONE, getString(R.string.qr_code_read));
+            menu.add(Menu.NONE, 5, Menu.NONE, getString(R.string.about));
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
+                        break;
+                    case 1:
                         Intent settings = new Intent(requireActivity(), SettingsActivity.class);
                         startActivity(settings);
                         break;
-                    case 1:
+                    case 2:
                         Intent checkLists = new Intent(requireActivity(), CheckListsActivity.class);
                         startActivity(checkLists);
                         break;
-                    case 2:
+                    case 3:
+                        if (sPermissionUtils.isPermissionDenied(Manifest.permission.CAMERA, requireActivity())) {
+                            sPermissionUtils.requestPermission(new String[] {
+                                    Manifest.permission.CAMERA
+                            }, requireActivity());
+                        } else {
+                            Intent scanner = new Intent(requireActivity(), QRCodeScannerActivity.class);
+                            startActivity(scanner);
+                        }
+                        break;
+                    case 4:
+                        if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, requireActivity())) {
+                            sPermissionUtils.requestPermission(new String[] {
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            },requireActivity());
+                        } else {
+                            Intent pickImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            try {
+                                startActivityForResult(pickImage, 0);
+                            } catch (ActivityNotFoundException ignored) {}
+                        }
+                        break;
+                    case 5:
                         Intent aboutsNotz = new Intent(requireActivity(), AboutActivity.class);
                         startActivity(aboutsNotz);
                         break;
@@ -369,6 +403,23 @@ public class sNotzFragment extends Fragment {
                 }
             }
         };
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+            if (data.getData() != null) {
+                if (new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode() != null) {
+                    Common.setExternalNote(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode());
+                    Intent scanner = new Intent(requireActivity(), CreateNoteActivity.class);
+                    startActivity(scanner);
+                } else {
+                    sUtils.snackBar(mAppTitle, getString(R.string.qr_code_error_message)).show();
+                }
+            }
+        }
     }
 
     @Override

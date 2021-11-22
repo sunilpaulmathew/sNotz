@@ -130,7 +130,7 @@ public class sNotzUtils {
         return null;
     }
 
-    private static void bitmapToPNG(Bitmap bitmap, File file) {
+    static void bitmapToPNG(Bitmap bitmap, File file) {
         try {
             OutputStream outStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
@@ -171,7 +171,6 @@ public class sNotzUtils {
                     Intent shareIntent = Intent.createChooser(share_note, context.getString(R.string.share_with));
                     context.startActivity(shareIntent);
                     Common.isWorking(false);
-
                 }
             }.execute();
         } else {

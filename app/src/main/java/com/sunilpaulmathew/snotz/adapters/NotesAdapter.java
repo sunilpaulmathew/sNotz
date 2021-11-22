@@ -29,6 +29,7 @@ import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
@@ -94,8 +95,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             menu.add(Menu.NONE, 1, Menu.NONE, holder.mRVCard.getContext().getString(R.string.hidden_note)).setCheckable(true)
                     .setChecked(this.data.get(position).isHidden());
             menu.add(Menu.NONE, 2, Menu.NONE, holder.mRVCard.getContext().getString(R.string.set_reminder));
-            menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.save_text));
-            menu.add(Menu.NONE, 4, Menu.NONE, holder.mRVCard.getContext().getString(R.string.delete));
+            menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.qr_code_share));
+            menu.add(Menu.NONE, 4, Menu.NONE, holder.mRVCard.getContext().getString(R.string.save_text));
+            menu.add(Menu.NONE, 5, Menu.NONE, holder.mRVCard.getContext().getString(R.string.delete));
             popupMenu.setOnMenuItemClickListener(popupMenuItem -> {
                 switch (popupMenuItem.getItemId()) {
                     case 0:
@@ -116,6 +118,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         sNotzReminders.launchReminderMenu(data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
                         break;
                     case 3:
+                        new QRCodeUtils(this.data.get(position).getNote(), null, (Activity) holder.mRVCard.getContext()).shareQRCode().execute();
+                        break;
+                    case 4:
                         if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, holder.mRVCard.getContext())) {
                             sPermissionUtils.requestPermission(new String[] {
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -158,7 +163,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             }).show();
                         }
                         break;
-                    case 4:
+                    case 5:
                         String[] sNotzContents = this.data.get(position).getNote().split("\\s+");
                         new MaterialAlertDialogBuilder(holder.mRVCard.getContext())
                                 .setMessage(holder.mRVCard.getContext().getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
@@ -179,6 +184,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             if (Common.isWorking()) {
                 return;
             }
+            Common.setExternalNote(null);
             Common.setNote(this.data.get(position).getNote());
             Common.setID(this.data.get(position).getNoteID());
             Common.setBackgroundColor(this.data.get(position).getColorBackground());

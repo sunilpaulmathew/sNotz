@@ -61,4 +61,5 @@ dependencies {
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     implementation "com.google.android.material:material:1.4.0"
     implementation "com.google.code.gson:gson:2.8.8"
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
 }

@@ -91,6 +91,11 @@
     <string name="pin_length_warning">PIN should be a 4 digit number</string>
     <string name="pin_protection_message">Use a 4 digit PIN to secure sNotz</string>
     <string name="press_back_exit">Press the \'Back\' button again to Exit</string>
+    <string name="qr_code">QR Code</string>
+    <string name="qr_code_error_message">Faild to acquire data from QR Code</string>
+    <string name="qr_code_read">Read from Image</string>
+    <string name="qr_code_scan">Scan QR Code</string>
+    <string name="qr_code_share">Share as QR Code</string>
     <string name="rate_us">Rate Us</string>
     <string name="rate_us_Summary">Rate or/and Review sNotz in PlayStore</string>
     <string name="reading_mode_message">Restart this note in read-only mode?</string>
