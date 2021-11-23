@@ -18,7 +18,7 @@
 
 <b>Privacy Policy</b>
 
-The developer of <b>sNotz</b> doesn't collect any kind of user data from the app. Other than the official Auto Backup by google, <b>sNotz</b> doesn't use any third-party data backup systems. All the notes are stored locally in "json" format within the files directory (/data/data/com.sunilpaulmathew.snotz/files/) of <b>sNotz</b>. For more information, please read the privacy policy at <a href="https://smartpack.github.io/privacy-policy/">https://smartpack.github.io/privacy-policy/</a>. Also, a very detailed FAQ can be found at <a href="https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8">https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8</a>.
+The developer of <b>sNotz</b> doesn't collect any kind of user data from the app. Other than the official Auto Backup by google, <b>sNotz</b> doesn't use any third-party data backup systems. All the notes are stored locally in "json" format within the files directory (/data/data/com.sunilpaulmathew.snotz/files/) of <b>sNotz</b>. For more information, please read our <a href="https://sunilpaulmathew.github.io/sNotz/privacypolicy/">privacy policy</a>. Also, a very detailed FAQ can be found <a href="https://sunilpaulmathew.github.io/sNotz/faq/">here</a>.
 
 <b>Translations</b>
 
