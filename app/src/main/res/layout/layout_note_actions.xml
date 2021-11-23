@@ -1,0 +1,79 @@
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/layout_actions"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_gravity="end"
+    android:visibility="gone"
+    android:gravity="end" >
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        app:srcCompat="@drawable/ic_share"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:gravity="center" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/qr_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        app:srcCompat="@drawable/ic_qr_code"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:gravity="center" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        app:srcCompat="@drawable/ic_download"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:gravity="center" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/hidden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        app:srcCompat="@drawable/ic_notification"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:gravity="center" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        app:srcCompat="@drawable/ic_delete"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:gravity="center" />
+</androidx.appcompat.widget.LinearLayoutCompat>

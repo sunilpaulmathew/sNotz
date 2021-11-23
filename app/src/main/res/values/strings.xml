@@ -93,9 +93,11 @@
     <string name="press_back_exit">Press the \'Back\' button again to Exit</string>
     <string name="qr_code">QR Code</string>
     <string name="qr_code_error_message">Faild to acquire data from QR Code</string>
+    <string name="qr_code_generate">Generate QR Code</string>
+    <string name="qr_code_generate_error_message">Faild to generate QR Code</string>
     <string name="qr_code_read">Read from Image</string>
+    <string name="qr_code_save_hint">Save QR Image as?</string>
     <string name="qr_code_scan">Scan QR Code</string>
-    <string name="qr_code_share">Share as QR Code</string>
     <string name="rate_us">Rate Us</string>
     <string name="rate_us_Summary">Rate or/and Review sNotz in PlayStore</string>
     <string name="reading_mode_message">Restart this note in read-only mode?</string>

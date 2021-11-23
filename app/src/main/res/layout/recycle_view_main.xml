@@ -59,5 +59,7 @@
                     android:textSize="12sp"
                     android:padding="5dp"
                     android:gravity="end" />
+
+                <include layout="@layout/layout_note_actions" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>

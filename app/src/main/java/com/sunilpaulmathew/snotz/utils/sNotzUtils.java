@@ -130,7 +130,7 @@ public class sNotzUtils {
         return null;
     }
 
-    static void bitmapToPNG(Bitmap bitmap, File file) {
+    public static void bitmapToPNG(Bitmap bitmap, File file) {
         try {
             OutputStream outStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
