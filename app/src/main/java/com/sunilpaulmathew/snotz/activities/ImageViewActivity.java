@@ -46,7 +46,7 @@ public class ImageViewActivity extends AppCompatActivity {
 
         mSave.setOnClickListener(v -> saveDialog());
 
-        mShare.setOnClickListener(v -> new QRCodeUtils(null, null, this).shareQRCode(Common.getReadModeImage()).execute());
+        mShare.setOnClickListener(v -> new QRCodeUtils(Common.getNote(), null, this).shareQRCode(Common.getReadModeImage()).execute());
     }
 
     private void saveDialog() {
@@ -78,6 +78,7 @@ public class ImageViewActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (!Common.isWorking()) {
+            Common.setNote(null);
             Common.setReadModeImage(null);
             finish();
         }

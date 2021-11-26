@@ -134,6 +134,10 @@ public class QRCodeUtils {
                     Intent share_QRCode = new Intent();
                     share_QRCode.setAction(Intent.ACTION_SEND);
                     share_QRCode.putExtra(Intent.EXTRA_SUBJECT, mActivity.getString(R.string.shared_by, BuildConfig.VERSION_NAME));
+                    if (mData != null) {
+                        String[] sNotzContents = mData.split("\\s+");
+                        share_QRCode.putExtra(Intent.EXTRA_TEXT, sNotzContents.length <= 2 ? mData : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "...");
+                    }
                     Uri uri = FileProvider.getUriForFile(mActivity,BuildConfig.APPLICATION_ID + ".provider", mImageFile);
                     share_QRCode.putExtra(Intent.EXTRA_STREAM, uri);
                     share_QRCode.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

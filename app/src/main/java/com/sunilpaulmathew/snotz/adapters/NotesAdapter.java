@@ -130,6 +130,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             sNotzReminders.launchReminderMenu(data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
                             break;
                         case 3:
+                            Common.setNote(this.data.get(position).getNote());
                             new QRCodeUtils(this.data.get(position).getNote(), null, (Activity) holder.mRVCard.getContext()).generateQRCode().execute();
                             break;
                         case 4:
@@ -218,8 +219,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mDelete.setColorFilter(data.get(position).getColorText());
         holder.mHidden.setThumbTintList(ColorStateList.valueOf(data.get(position).getColorText()));
         holder.mHidden.setChecked(this.data.get(position).isHidden());
-        holder.mQrCode.setOnClickListener(v -> new QRCodeUtils(this.data.get(position).getNote(), null,
-                (Activity) v.getContext()).generateQRCode().execute());
+        holder.mQrCode.setOnClickListener(v -> {
+            Common.setNote(this.data.get(position).getNote());
+            new QRCodeUtils(this.data.get(position).getNote(), null, (Activity) v.getContext()).generateQRCode().execute();
+        });
         holder.mShare.setOnClickListener(v -> sNotzUtils.shareNote(this.data.get(position).getNote(),
                 this.data.get(position).getImageString(), v.getContext()));
         holder.mDownload.setOnClickListener(v -> {
