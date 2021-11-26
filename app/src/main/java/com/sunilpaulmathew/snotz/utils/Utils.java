@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.widget.AppCompatEditText;
@@ -41,6 +42,17 @@ public class Utils {
                 .setTitle(context.getString(R.string.authenticate))
                 .setNegativeButtonText(context.getString(R.string.cancel))
                 .build();
+    }
+
+    public static boolean isActionMenuSize(Activity activity) {
+        int ratio;
+        int dpi = activity.getResources().getDisplayMetrics().densityDpi;
+        if (sUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE) {
+            ratio = dpi / 150;
+        } else {
+            ratio = dpi / 250;
+        }
+        return Common.getSpanCount() > ratio;
     }
 
     public static int getSpanCount(Activity activity) {

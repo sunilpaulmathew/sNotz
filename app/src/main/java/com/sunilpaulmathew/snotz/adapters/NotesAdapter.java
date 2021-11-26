@@ -32,6 +32,7 @@ import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
+import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
@@ -99,7 +100,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             if (Common.isWorking()) {
                 return true;
             }
-            if (Common.getSpanCount() > 1) {
+            if (Utils.isActionMenuSize((Activity) item.getContext())) {
                 PopupMenu popupMenu = new PopupMenu(holder.mRVCard.getContext(), holder.mExpand);
                 Menu menu = popupMenu.getMenu();
                 menu.add(Menu.NONE, 0, Menu.NONE, holder.mRVCard.getContext().getString(R.string.share));
