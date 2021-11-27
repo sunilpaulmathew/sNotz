@@ -1,0 +1,17 @@
+<b>sNotz</b> ist eine Open-Source-, datenschutzfreundliche, sichere und vollständig offline verfügbare Anwendung, mit der Sie einfache Notizen auf Ihrem Android-Gerät erstellen, anpassen und verwalten können.
+
+<br><b>Funktionen</b>
+
+* Einfache Notizen erstellen und verwalten.
+* Unterstützt biometrische Authentifizierung, um Notizen zu sichern.
+* Unterstützt die Verwendung benutzerdefinierter Farben (Hintergrund und Text) für einzelne Notizen.
+* Sortieren Sie Notizen alphabetisch oder nach Datum oder Hintergrundfarbe.
+* Unterstützt das Erstellen von geheimen Notizen, die standardmäßig von der Hauptbenutzeroberfläche ausgeblendet werden.
+* Erstellen Sie Erinnerungen für jede (separate) Notiz (experimentell).
+* Exportieren und teilen Sie Notizen einfach über Apps von Drittanbietern.
+* Kein Cloud-Speicher oder Login erforderlich. sNotz funktioniert komplett offline.
+* Bietet eine einfache Sicherungs-/Wiederherstellungsfunktion für diejenigen, die alte Notizen auf einem neuen Gerät speichern möchten.
+
+<br><b>Datenschutzerklärung</b>
+
+Der Entwickler von <b>sNotz</b> erhebt keinerlei Nutzerdaten von der App. Abgesehen von der offiziellen automatischen Sicherung von Google verwendet <b>sNotz</b> keine Datensicherungssysteme von Drittanbietern. Alle Notizen werden lokal im &quot;json&quot;-Format im Dateiverzeichnis (/data/data/com.sunilpaulmathew.snotz/files/) von <b>sNotz</b> gespeichert. Weitere Informationen finden Sie in der Datenschutzerklärung unter <a href="https://smartpack.github.io/privacy-policy/" target='_blank' rel='nofollow'>https://smartpack.github.io/privacy-policy/</a>. Außerdem finden Sie eine sehr ausführliche FAQ unter <a href="https://ko-fi.com/post/sNotz-FAQ-H2H42H6A8" target='_blank' rel='nofollow'>https://ko-fi.com/post/sNotz-FAQ- H2H42H6A8</a>.
