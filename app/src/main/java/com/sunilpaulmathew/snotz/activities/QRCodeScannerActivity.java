@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.Result;
+import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -42,10 +43,14 @@ public class QRCodeScannerActivity extends AppCompatActivity implements ZXingSca
 
     @Override
     public void handleResult(Result rawResult) {
-        Common.setExternalNote(rawResult.getText());
-        Intent scanner = new Intent(QRCodeScannerActivity.this, CreateNoteActivity.class);
-        startActivity(scanner);
-        finish();
+        if (CheckLists.isValidCheckList(rawResult.getText())) {
+            CheckLists.importCheckList(rawResult.getText(), true,this);
+        } else {
+            Common.setExternalNote(rawResult.getText());
+            Intent scanner = new Intent(QRCodeScannerActivity.this, CreateNoteActivity.class);
+            startActivity(scanner);
+            finish();
+        }
     }
 
 }

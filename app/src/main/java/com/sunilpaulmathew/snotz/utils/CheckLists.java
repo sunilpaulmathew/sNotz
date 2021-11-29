@@ -4,14 +4,17 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.activities.CheckListsActivity;
 import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 
 import java.io.File;
@@ -127,6 +130,38 @@ public class CheckLists implements Serializable {
                         sUtils.create(sUtils.read(new File(activity.getExternalFilesDir("checklists"), CheckLists.getCheckListName())), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text));
                     }
                     sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text)).show();
+                }, -1, activity).setOnDismissListener(dialogInterface -> {
+        }).show();
+    }
+
+    public static void importCheckList(String jsonString, boolean scan, Activity activity) {
+        DialogEditTextListener.dialogEditText(null, activity.getString(R.string.check_list_import_question),
+                (dialogInterface, i) -> {
+                }, text -> {
+                    if (text.isEmpty()) {
+                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.check_list_name_empty_message)).show();
+                        return;
+                    }
+                    if (sUtils.exist(new File(activity.getExternalFilesDir("checklists"), text))) {
+                        new MaterialAlertDialogBuilder(activity)
+                                .setMessage(activity.getString(R.string.check_list_exist_warning))
+                                .setNegativeButton(activity.getString(R.string.change_name), (dialogInterface, i) -> importCheckList(jsonString, scan, activity))
+                                .setPositiveButton(activity.getString(R.string.replace), (dialogInterface, i) -> {
+                                    sUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), text));
+                                    Intent checkListIntent = new Intent(activity, CheckListsActivity.class);
+                                    activity.startActivity(checkListIntent);
+                                    if (scan) {
+                                        activity.finish();
+                                    }
+                                }).show();
+                        return;
+                    }
+                    sUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), text));
+                    Intent checkListIntent = new Intent(activity, CheckListsActivity.class);
+                    activity.startActivity(checkListIntent);
+                    if (scan) {
+                        activity.finish();
+                    }
                 }, -1, activity).setOnDismissListener(dialogInterface -> {
         }).show();
     }

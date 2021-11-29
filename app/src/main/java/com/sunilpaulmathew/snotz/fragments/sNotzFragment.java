@@ -412,9 +412,13 @@ public class sNotzFragment extends Fragment {
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getData() != null) {
                 if (new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode() != null) {
-                    Common.setExternalNote(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode());
-                    Intent scanner = new Intent(requireActivity(), CreateNoteActivity.class);
-                    startActivity(scanner);
+                    if (CheckLists.isValidCheckList(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode())) {
+                        CheckLists.importCheckList(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode(), false, requireActivity());
+                    } else {
+                        Common.setExternalNote(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode());
+                        Intent scanner = new Intent(requireActivity(), CreateNoteActivity.class);
+                        startActivity(scanner);
+                    }
                 } else {
                     sUtils.snackBar(mAppTitle, getString(R.string.qr_code_error_message)).show();
                 }

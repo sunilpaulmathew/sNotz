@@ -16,10 +16,14 @@ import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CheckListActivity;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
+import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 
 import java.io.File;
 import java.text.DateFormat;
 import java.util.List;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
@@ -42,6 +46,11 @@ public class CheckListsAdapter extends RecyclerView.Adapter<CheckListsAdapter.Vi
     public void onBindViewHolder(@NonNull CheckListsAdapter.ViewHolder holder, int position) {
         holder.mTitle.setText(data.get(position).getName());
         holder.mStatus.setText(DateFormat.getDateTimeInstance().format(data.get(position).lastModified()));
+
+        holder.mQRCode.setOnClickListener(v -> {
+            Common.setNote(data.get(position).getName());
+            new QRCodeUtils(sUtils.read(data.get(position)), null, (Activity) v.getContext()).generateQRCode().execute();
+        });
 
         holder.mShare.setOnClickListener(v -> {
             Intent mIntent = new Intent();
@@ -67,7 +76,7 @@ public class CheckListsAdapter extends RecyclerView.Adapter<CheckListsAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final AppCompatImageButton mShare, mDownload;
+        private final AppCompatImageButton mQRCode, mShare, mDownload;
         private final MaterialTextView mTitle, mStatus;
 
         public ViewHolder(View view) {
@@ -75,6 +84,7 @@ public class CheckListsAdapter extends RecyclerView.Adapter<CheckListsAdapter.Vi
             view.setOnClickListener(this);
             this.mTitle = view.findViewById(R.id.title);
             this.mStatus = view.findViewById(R.id.status);
+            this.mQRCode = view.findViewById(R.id.qr_code);
             this.mShare = view.findViewById(R.id.share);
             this.mDownload = view.findViewById(R.id.download);
         }
