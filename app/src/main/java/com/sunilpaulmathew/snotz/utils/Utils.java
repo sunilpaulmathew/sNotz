@@ -44,7 +44,7 @@ public class Utils {
                 .build();
     }
 
-    public static boolean isActionMenuSize(Activity activity) {
+    public static boolean isSmallScreenSize(Activity activity) {
         int ratio;
         int dpi = activity.getResources().getDisplayMetrics().densityDpi;
         if (sUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE) {

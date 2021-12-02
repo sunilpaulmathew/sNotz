@@ -69,13 +69,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mContents.setText(this.data.get(position).getNote());
-        if (position == mPosition) {
-            holder.mActionLayout.setVisibility(View.VISIBLE);
-            holder.mDate.setVisibility(View.GONE);
-        } else {
-            holder.mActionLayout.setVisibility(View.GONE);
-            holder.mDate.setVisibility(View.VISIBLE);
-        }
+        holder.mActionLayout.setVisibility(position == mPosition ? View.VISIBLE : View.GONE);
+        holder.mDate.setVisibility(position == mPosition ? View.GONE : View.VISIBLE);
         holder.mContents.setTextColor(data.get(position).getColorText());
         holder.mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sUtils.getInt("font_size", 18, holder.mContents.getContext()));
         holder.mContents.setTypeface(null, AppSettings.getStyle(holder.mContents.getContext()));
@@ -100,7 +95,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             if (Common.isWorking()) {
                 return true;
             }
-            if (Utils.isActionMenuSize((Activity) item.getContext())) {
+            if (Utils.isSmallScreenSize((Activity) item.getContext())) {
                 PopupMenu popupMenu = new PopupMenu(holder.mRVCard.getContext(), holder.mExpand);
                 Menu menu = popupMenu.getMenu();
                 menu.add(Menu.NONE, 0, Menu.NONE, holder.mRVCard.getContext().getString(R.string.share));
@@ -301,9 +296,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
     private void setActionLayout(int position) {
-        notifyItemChanged(mPosition);
-        mPosition = position;
-        notifyItemChanged(mPosition);
+        if (mPosition != position) {
+            notifyItemChanged(mPosition);
+            mPosition = position;
+        } else {
+            mPosition = RecyclerView.NO_POSITION;
+        }
+        notifyItemChanged(position);
     }
 
     @Override
