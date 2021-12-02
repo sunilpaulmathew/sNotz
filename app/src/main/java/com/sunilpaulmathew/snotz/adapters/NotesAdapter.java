@@ -53,7 +53,7 @@ import in.sunilpaulmathew.sCommon.Utils.sUtils;
  */
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    private int mPosition = RecyclerView.NO_POSITION;
+    private int mExpandPosition = RecyclerView.NO_POSITION, mPosition = RecyclerView.NO_POSITION;
     private final List<sNotzItems> data;
     public NotesAdapter(List<sNotzItems> data) {
         this.data = data;
@@ -69,27 +69,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mContents.setText(this.data.get(position).getNote());
-        holder.mActionLayout.setVisibility(position == mPosition ? View.VISIBLE : View.GONE);
-        holder.mDate.setVisibility(position == mPosition ? View.GONE : View.VISIBLE);
         holder.mContents.setTextColor(data.get(position).getColorText());
         holder.mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sUtils.getInt("font_size", 18, holder.mContents.getContext()));
         holder.mContents.setTypeface(null, AppSettings.getStyle(holder.mContents.getContext()));
+        holder.mContents.setSingleLine(mExpandPosition != position);
+        holder.mActionLayout.setVisibility(position == mPosition ? View.VISIBLE : View.GONE);
         holder.mExpand.setVisibility(Common.getSpanCount() > 1 ? View.GONE : View.VISIBLE);
-        holder.mExpand.setOnClickListener(v -> {
-            if (Common.isWorking() || Common.getSpanCount() > 1) {
-                return;
-            }
-            if (holder.mContents.getLineCount() > 1) {
-                holder.mContents.setSingleLine(true);
-                holder.mExpand.setImageDrawable(sUtils.getDrawable(R.drawable.ic_expand, v.getContext()));
-            } else {
-                holder.mContents.setSingleLine(false);
-                holder.mExpand.setImageDrawable(sUtils.getDrawable(R.drawable.ic_collapse, v.getContext()));
-            }
-        });
+        holder.mExpand.setImageDrawable(sUtils.getDrawable(mExpandPosition != position ? R.drawable.ic_expand : R.drawable.ic_collapse, holder.mExpand.getContext()));
+        holder.mExpand.setOnClickListener(v -> setExpandStatus(position));
         holder.mExpand.setColorFilter(sNotzColor.getTextColor(holder.mExpand.getContext()));
-        holder.mExpand.setImageDrawable(sUtils.getDrawable(holder.mContents.getLineCount() > 1 ? R.drawable.ic_collapse :
-                R.drawable.ic_expand, holder.mExpand.getContext()));
         holder.mExpand.setColorFilter(data.get(position).getColorText());
         holder.mRVCard.setOnLongClickListener(item -> {
             if (Common.isWorking()) {
@@ -289,6 +277,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
         holder.mDate.setText(DateFormat.getDateTimeInstance().format(this.data.get(position).getTimeStamp()));
         holder.mDate.setTextColor(data.get(position).getColorText());
+        holder.mDate.setVisibility(position == mPosition ? View.GONE : View.VISIBLE);
         // TODO: This should replaced.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.mProgress.setIndeterminateTintList(ColorStateList.valueOf(data.get(position).getColorBackground()));
@@ -301,6 +290,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             mPosition = position;
         } else {
             mPosition = RecyclerView.NO_POSITION;
+        }
+        notifyItemChanged(position);
+    }
+
+    private void setExpandStatus(int position) {
+        if (Common.isWorking() || Common.getSpanCount() > 1) {
+            return;
+        }
+        if (mExpandPosition != position) {
+            notifyItemChanged(mExpandPosition);
+            mExpandPosition = position;
+        } else {
+            mExpandPosition = RecyclerView.NO_POSITION;
         }
         notifyItemChanged(position);
     }
