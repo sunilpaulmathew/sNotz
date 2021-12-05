@@ -17,8 +17,8 @@ android {
         applicationId "com.sunilpaulmathew.snotz"
         minSdkVersion 17
         targetSdkVersion 31
-        versionCode 21
-        versionName "v0.21"
+        versionCode 22
+        versionName "v0.22"
         vectorDrawables.useSupportLibrary = true
         signingConfig signingConfigs.release
         testFunctionalTest = false
@@ -57,7 +57,7 @@ android {
 dependencies {
     implementation 'androidx.biometric:biometric:1.1.0'
     playImplementation 'com.android.billingclient:billing:4.0.0'
-    implementation 'com.github.sunilpaulmathew:sCommon:c1a53e4e85'
+    implementation 'com.github.sunilpaulmathew:sCommon:101f0ee72b'
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     implementation "com.google.android.material:material:1.4.0"
     implementation "com.google.code.gson:gson:2.8.8"

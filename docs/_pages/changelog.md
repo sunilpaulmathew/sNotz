@@ -6,6 +6,13 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.22</h3>
+- Added QR Code (scan, read & share) support for notes & checklists.
+- Added new long-click action menu layout.
+- Miscellaneous changes.
+
+<hr>
+
 <h3 style="color: green">v0.21</h3>
 - Fixed crashing widgets page.
 - Fixed settings page checkbox positions wrongly shown.
