@@ -91,6 +91,13 @@
     <string name="pin_length_warning">Il PIN deve essere un numero a 4 cifre</string>
     <string name="pin_protection_message">Usa un PIN a 4 cifre per garantire la sicurezza di sNotz</string>
     <string name="press_back_exit">Premi ancora il pulsante \'Indietro\' per Uscire</string>
+    <string name="qr_code">Codice QR</string>
+    <string name="qr_code_error_message">Errore nell\'acquisire i dati dal Codice QR</string>
+    <string name="qr_code_generate">Genera Codice QR</string>
+    <string name="qr_code_generate_error_message">Errore nella generazione del Codice QR</string>
+    <string name="qr_code_read">Leggi da immagine</string>
+    <string name="qr_code_save_hint">Come vuoi salvare l\'immagine QR?</string>
+    <string name="qr_code_scan">Scansiona Codice QR</string>
     <string name="rate_us">Votaci</string>
     <string name="rate_us_Summary">Vota o/e Recensisci sNotz sul PlayStore</string>
     <string name="reading_mode_message">Riavviare questa nota in modalità di sola lettura?</string>
