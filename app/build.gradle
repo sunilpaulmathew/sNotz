@@ -47,17 +47,12 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
     implementation 'androidx.biometric:biometric:1.1.0'
     playImplementation 'com.android.billingclient:billing:4.0.0'
-    implementation 'com.github.sunilpaulmathew:sCommon:101f0ee72b'
+    implementation 'com.github.sunilpaulmathew:sCommon:7c8e60468b'
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     implementation "com.google.android.material:material:1.4.0"
     implementation "com.google.code.gson:gson:2.8.8"

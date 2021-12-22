@@ -12,6 +12,7 @@ import com.sunilpaulmathew.snotz.fragments.sNotzFragment;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
+import in.sunilpaulmathew.sCommon.Utils.sCrashReporterUtils;
 import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_main);
+
+        // Record crashes
+        new sCrashReporterUtils(sUtils.getColor(R.color.color_teal, this), 25, this).initialize();
 
         if (!sUtils.getBoolean("welcome_message", false, this)) {
             Intent welcome = new Intent(this, WelcomeActivity.class);
