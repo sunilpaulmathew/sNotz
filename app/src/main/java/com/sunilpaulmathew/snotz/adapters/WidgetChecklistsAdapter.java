@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.io.File;
 import java.util.List;
+
+import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 21, 2021
@@ -35,9 +36,11 @@ public class WidgetChecklistsAdapter extends RecyclerView.Adapter<WidgetChecklis
 
     @Override
     public void onBindViewHolder(@NonNull WidgetChecklistsAdapter.ViewHolder holder, int position) {
-        holder.mCard.setCardBackgroundColor(sNotzColor.getAccentColor(holder.mCard.getContext()));
+        holder.mCard.setCardBackgroundColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal,
+                holder.mCard.getContext()), holder.mCard.getContext()));
         holder.mTitle.setText(this.data.get(position).getName());
-        holder.mTitle.setTextColor(sNotzColor.getTextColor(holder.mTitle.getContext()));
+        holder.mTitle.setTextColor(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white,
+                holder.mTitle.getContext()), holder.mTitle.getContext()));
     }
 
     @Override

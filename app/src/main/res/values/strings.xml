@@ -76,6 +76,9 @@
     <string name="more_apps">More Apps</string>
     <string name="note_color_background">Background Color</string>
     <string name="note_color_text">Text Color</string>
+    <string name="note_color_random">Random Colors</string>
+    <string name="note_color_random_message">Please disable \'Random Colors\' to use this feature</string>
+    <string name="note_color_random_summary">Randomly apply colors when creating new notes</string>
     <string name="note_editor">Note Editor</string>
     <string name="note_list_empty">You haven\'t create any notes yet</string>
     <string name="notes_in_row">Notes in a Row</string>

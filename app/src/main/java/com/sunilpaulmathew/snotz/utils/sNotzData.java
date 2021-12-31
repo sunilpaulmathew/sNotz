@@ -6,6 +6,7 @@ import android.os.Build;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sunilpaulmathew.snotz.R;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -126,7 +127,7 @@ public class sNotzData {
             return object.get("colorBackground").getAsInt();
         } catch (Exception ignored) {
         }
-        return sNotzColor.getAccentColor(context);
+        return sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, context), context);
     }
 
     public static int getTextColor(JsonObject object, Context context) {
@@ -134,7 +135,7 @@ public class sNotzData {
             return object.get("colorText").getAsInt();
         } catch (Exception ignored) {
         }
-        return sNotzColor.getTextColor(context);
+        return sUtils.getInt("text_color", sUtils.getColor(R.color.color_white, context), context);
     }
 
     public static int getNoteID(JsonObject object) {

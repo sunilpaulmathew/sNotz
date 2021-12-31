@@ -46,7 +46,6 @@ import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
@@ -166,8 +165,8 @@ public class sNotzFragment extends Fragment {
             }
         });
 
-        mAddIcon.setColorFilter(sNotzColor.getAccentColor(requireActivity()));
-        mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
+        mAddIcon.setColorFilter(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
+        mAddNoteCard.setCardBackgroundColor(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
 
         mAddNoteCard.setOnClickListener(v -> {
             if (Common.isWorking()) {
@@ -178,11 +177,13 @@ public class sNotzFragment extends Fragment {
             Common.setImageString(null);
             Common.isHiddenNote(false);
             Common.setID(-1);
-            Common.setBackgroundColor(123456789);
-            Common.setTextColor(123456789);
+            Common.setBackgroundColor(Integer.MIN_VALUE);
+            Common.setTextColor(Integer.MIN_VALUE);
+
             Intent createNote = new Intent(requireActivity(), CreateNoteActivity.class);
             startActivity(createNote);
         });
+
         mSearchButton.setOnClickListener(v -> {
             if (Common.isWorking()) {
                 return;
@@ -431,8 +432,8 @@ public class sNotzFragment extends Fragment {
         super.onResume();
         if (Common.isReloading()) {
             Common.isReloading(false);
-            mAddIcon.setColorFilter(sNotzColor.getAccentColor(requireActivity()));
-            mAddNoteCard.setCardBackgroundColor(sNotzColor.getTextColor(requireActivity()));
+            mAddIcon.setColorFilter(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
+            mAddNoteCard.setCardBackgroundColor(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
         }
     }
 

@@ -18,7 +18,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center"
                     android:tint="@color/color_teal"
-                    android:background="@null" />
+                    android:background="@null"
+                    android:clickable="false" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

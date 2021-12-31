@@ -29,6 +29,7 @@ import com.sunilpaulmathew.snotz.utils.Encryption;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
@@ -80,6 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.customize_note), null, null, null));
         mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), sUtils.getDrawable(R.drawable.ic_color, this), null));
         mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sUtils.getDrawable(R.drawable.ic_text_color, this), null));
+        mData.add(new SettingsItems(getString(R.string.note_color_random), getString(R.string.note_color_random_summary), sUtils.getDrawable(R.drawable.ic_colorize, this), null));
         mData.add(new SettingsItems(getString(R.string.image_include), getString(R.string.image_include_summary), sUtils.getDrawable(R.drawable.ic_image, this), null));
         mData.add(new SettingsItems(getString(R.string.auto_save), getString(R.string.auto_save_summary), sUtils.getDrawable(R.drawable.ic_save, this), null));
         mData.add(new SettingsItems(getString(R.string.notes_in_row), AppSettings.getRows(this), sUtils.getDrawable(R.drawable.ic_row, this), null));
@@ -133,6 +135,10 @@ public class SettingsActivity extends AppCompatActivity {
                     Utils.reloadUI( this);
                 }
             } else if (position == 6) {
+                if (sNotzColor.isRandomColorScheme(this)) {
+                    sUtils.snackBar(mRecyclerView, getString(R.string.note_color_random_message)).show();
+                    return;
+                }
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
@@ -151,6 +157,10 @@ public class SettingsActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
             } else if (position == 7) {
+                if (sNotzColor.isRandomColorScheme(this)) {
+                    sUtils.snackBar(mRecyclerView, getString(R.string.note_color_random_message)).show();
+                    return;
+                }
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
@@ -169,6 +179,13 @@ public class SettingsActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
             } else if (position == 8) {
+                if (sNotzColor.isRandomColorScheme(this)) {
+                    sUtils.saveInt("random_color", Integer.MIN_VALUE, this);
+                } else {
+                    sUtils.saveInt("random_color", 0, this);
+                }
+                mRecycleViewAdapter.notifyItemRangeChanged(6, 3);
+            } else if (position == 9) {
                 if (sUtils.getBoolean("allow_images", false, this)) {
                     sUtils.saveBoolean("allow_images", false, this);
                     mRecycleViewAdapter.notifyItemChanged(position);
@@ -185,25 +202,25 @@ public class SettingsActivity extends AppCompatActivity {
                                 mRecycleViewAdapter.notifyItemChanged(position);
                             }).show();
                 }
-            } else if (position == 9) {
+            } else if (position == 10) {
                 sUtils.saveBoolean("auto_save", !sUtils.getBoolean("auto_save", false, this), this);
                 mRecycleViewAdapter.notifyItemChanged(position);
-            } else if (position == 10) {
-                AppSettings.setRows(this);
             } else if (position == 11) {
-                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+                AppSettings.setRows(this);
             } else if (position == 12) {
+                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+            } else if (position == 13) {
                 AppSettings.setFontStyle(position, mData, mRecycleViewAdapter, this);
-            } else if (position == 14) {
+            } else if (position == 15) {
                 if (sNotzData.isNotesEmpty(this)) {
                     sUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
                 } else {
                     AppSettings.showBackupOptions(this);
                 }
-            } else if (position == 15) {
+            } else if (position == 16) {
                 if (mJSONString != null) mJSONString = null;
                 sUtils.filePickerIntent(false, 0, null, this);
-            } else if (position == 16) {
+            } else if (position == 17) {
                 if (sNotzData.isNotesEmpty(this)) {
                     sUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
                 } else {
@@ -227,9 +244,9 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             }).show();
                 }
-            } else if (position == 17) {
-                Billing.showDonationMenu(this);
             } else if (position == 18) {
+                Billing.showDonationMenu(this);
+            } else if (position == 19) {
                 Intent share_app = new Intent();
                 share_app.setAction(Intent.ACTION_SEND);
                 share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
@@ -237,13 +254,13 @@ public class SettingsActivity extends AppCompatActivity {
                 share_app.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
                 startActivity(shareIntent);
-            } else if (position == 19) {
+            } else if (position == 20) {
                 Intent welcome = new Intent(this, WelcomeActivity.class);
                 startActivity(welcome);
                 finish();
-            } else if (position == 20) {
+            } else if (position == 21) {
                 new sTranslatorUtils(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();
-            } else if (position == 23) {
+            } else if (position == 24) {
                 new sCreditsUtils(AppSettings.getCredits(),
                         sUtils.getDrawable(R.mipmap.ic_launcher, this),
                         sUtils.getDrawable(R.drawable.ic_back, this),
@@ -276,7 +293,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Common.isClearingNotes(false);
                     sUtils.delete(new File(getFilesDir(),"snotz"));
                     Utils.reloadUI(SettingsActivity.this);
-                    mRecycleViewAdapter.notifyItemChanged(16);
+                    mRecycleViewAdapter.notifyItemChanged(17);
                 } else {
                     Utils.useBiometric(SettingsActivity.this);
                     mRecycleViewAdapter.notifyItemChanged(3);

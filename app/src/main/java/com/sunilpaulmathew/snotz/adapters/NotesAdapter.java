@@ -75,9 +75,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mContents.setSingleLine(mExpandPosition != position);
         holder.mActionLayout.setVisibility(position == mPosition ? View.VISIBLE : View.GONE);
         holder.mExpand.setVisibility(Common.getSpanCount() > 1 ? View.GONE : View.VISIBLE);
-        holder.mExpand.setImageDrawable(sUtils.getDrawable(mExpandPosition != position ? R.drawable.ic_expand : R.drawable.ic_collapse, holder.mExpand.getContext()));
+        holder.mExpand.setImageDrawable(sUtils.getDrawable(mExpandPosition != position ? R.drawable.ic_expand :
+                R.drawable.ic_collapse,holder.mExpand.getContext()));
         holder.mExpand.setOnClickListener(v -> setExpandStatus(position));
-        holder.mExpand.setColorFilter(sNotzColor.getTextColor(holder.mExpand.getContext()));
+        holder.mExpand.setColorFilter(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white,
+                holder.mExpand.getContext()), holder.mExpand.getContext()));
         holder.mExpand.setColorFilter(data.get(position).getColorText());
         holder.mRVCard.setOnLongClickListener(item -> {
             if (Common.isWorking()) {

@@ -10,7 +10,6 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.text.DateFormat;
 
@@ -42,8 +41,8 @@ public class WelcomeActivity extends AppCompatActivity {
         MaterialTextView mDate = findViewById(R.id.date);
 
         mOne.setTextColor(sUtils.getColor(R.color.color_orange, this));
-        mTwo.setTextColor(sNotzColor.getAccentColor(this));
-        mThree.setTextColor(sNotzColor.getAccentColor(this));
+        mTwo.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
+        mThree.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
 
         mSkip.setOnClickListener(v -> finish());
         mArrowFront.setOnClickListener(v -> {
@@ -57,8 +56,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 mNoteLongClick.setVisibility(View.VISIBLE);
                 mNoteLongClickMessage.setVisibility(View.VISIBLE);
                 mNote.setText(getString(R.string.welcome_note_screen_three));
-                mOne.setTextColor(sNotzColor.getAccentColor(this));
-                mTwo.setTextColor(sNotzColor.getAccentColor(this));
+                mOne.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
+                mTwo.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
                 mThree.setTextColor(sUtils.getColor(R.color.color_red, this));
             } else if (mFABClick.getVisibility() == View.VISIBLE &&
                     mFABClickMessage.getVisibility() == View.VISIBLE) {
@@ -67,9 +66,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 mNoteClick.setVisibility(View.VISIBLE);
                 mNoteClickMessage.setVisibility(View.VISIBLE);
                 mNote.setText(getString(R.string.welcome_note_screen_two));
-                mOne.setTextColor(sNotzColor.getAccentColor(this));
+                mOne.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
                 mTwo.setTextColor(sUtils.getColor(R.color.color_blue, this));
-                mThree.setTextColor(sNotzColor.getAccentColor(this));
+                mThree.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
             }
         });
         mArrowBack.setOnClickListener(v -> {
@@ -84,8 +83,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 mFABClickMessage.setVisibility(View.VISIBLE);
                 mNote.setText(getString(R.string.welcome_note_screen_one));
                 mOne.setTextColor(sUtils.getColor(R.color.color_orange, this));
-                mTwo.setTextColor(sNotzColor.getAccentColor(this));
-                mThree.setTextColor(sNotzColor.getAccentColor(this));
+                mTwo.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
+                mThree.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
             } else if (mNoteLongClick.getVisibility() == View.VISIBLE &&
                     mNoteLongClickMessage.getVisibility() == View.VISIBLE) {
                 mNoteLongClick.setVisibility(View.GONE);
@@ -93,9 +92,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 mNoteClick.setVisibility(View.VISIBLE);
                 mNoteClickMessage.setVisibility(View.VISIBLE);
                 mNote.setText(getString(R.string.welcome_note_screen_two));
-                mOne.setTextColor(sNotzColor.getAccentColor(this));
+                mOne.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
                 mTwo.setTextColor(sUtils.getColor(R.color.color_blue, this));
-                mThree.setTextColor(sNotzColor.getAccentColor(this));
+                mThree.setTextColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this));
             }
         });
         mDate.setText(DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));

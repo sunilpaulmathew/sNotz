@@ -77,7 +77,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             mSave.setVisibility(View.GONE);
         }
 
-        if (Common.getBackgroundColor() != 123456789) {
+        if (Common.getBackgroundColor() != Integer.MIN_VALUE) {
             mColorBackground.setCardBackgroundColor(Common.getBackgroundColor());
             mScrollView.setBackgroundColor(Common.getBackgroundColor());
             mSelectedColorBg = Common.getBackgroundColor();
@@ -86,7 +86,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             mScrollView.setBackgroundColor(sNotzColor.getAccentColor(this));
             mSelectedColorBg = sNotzColor.getAccentColor(this);
         }
-        if (Common.getTextColor() != 123456789) {
+        if (Common.getTextColor() != Integer.MIN_VALUE) {
             mColorText.setCardBackgroundColor(Common.getTextColor());
             mContents.setTextColor(Common.getTextColor());
             mContents.setHintTextColor(Common.getTextColor());
@@ -228,6 +228,9 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     private void saveNote() {
         if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
+            if (sUtils.getBoolean("auto_save", false, this)) {
+                finish();
+            }
             sUtils.snackBar(findViewById(R.id.contents), getString(R.string.text_empty)).show();
             return;
         }
@@ -239,21 +242,25 @@ public class CreateNoteActivity extends AppCompatActivity {
         } else {
             sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
         }
+        sNotzColor.updateRandomColorCode(this);
         exit(this);
     }
 
     private boolean isUnsavedNote() {
-        return mNote != null && mContents.getText() != null && !mNote.equals(mContents.getText().toString().trim()) || mNote == null
-                && mContents.getText() != null && !mContents.getText().toString().trim().isEmpty();
+        return mNote != null && mContents.getText() != null && !mNote.equals(mContents.getText().toString().trim())
+                || mNote == null && mContents.getText() != null && !mContents.getText().toString().trim().isEmpty()
+                || Common.getBackgroundColor() != Integer.MIN_VALUE && Common.getBackgroundColor() != mSelectedColorBg
+                || Common.getTextColor() != Integer.MIN_VALUE && Common.getTextColor() != mSelectedColorTxt
+                || Common.getExternalNote() != null;
     }
 
     private static void exit(Activity activity) {
         if (Common.getNote() != null) Common.setNote(null);
         if (Common.getImageString() != null) Common.setImageString(null);
         if (Common.isHiddenNote()) Common.isHiddenNote(false);
-        if (Common.getBackgroundColor() != 123456789) Common.setBackgroundColor(123456789);
+        if (Common.getBackgroundColor() != Integer.MIN_VALUE) Common.setBackgroundColor(Integer.MIN_VALUE);
         if (Common.getID() != -1) Common.setID(-1);
-        if (Common.getTextColor() != 123456789) Common.setTextColor(123456789);
+        if (Common.getTextColor() != Integer.MIN_VALUE) Common.setTextColor(Integer.MIN_VALUE);
         activity.finish();
     }
 
