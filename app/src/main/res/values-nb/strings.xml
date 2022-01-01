@@ -147,4 +147,11 @@
     <string name="notes_in_row_default">"Standard"</string>
     <string name="notes_in_row_summary">"%s notat(er)"</string>
     <string name="sort_by_date">"Dato endret"</string>
+    <string name="qr_code">"QR-kode"</string>
+    <string name="qr_code_error_message">"Kunne ikke få data fra QR-kode"</string>
+    <string name="qr_code_generate">"Generer QR-kode"</string>
+    <string name="qr_code_generate_error_message">"Kunne ikke generere QR-kode"</string>
+    <string name="qr_code_read">"Les fra bilde"</string>
+    <string name="qr_code_save_hint">"Lagre QR-bilde som?"</string>
+    <string name="qr_code_scan">"Skann QR-kode"</string>
 </resources>
