@@ -6,6 +6,15 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.23</h3>
+- Added an option to use random colors for new notes.
+- sNotz will now record and prompt to report crashes.
+- Improved reminder notification.
+- Updated Italian, French & Norwegian translations.
+- Miscellaneous changes.
+
+<hr>
+
 <h3 style="color: green">v0.22</h3>
 - Added QR Code (scan, read & share) support for notes & checklists.
 - Added new long-click action menu layout.

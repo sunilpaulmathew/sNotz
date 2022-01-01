@@ -1,3 +1,0 @@
-* Added QR Code (scan, read & share) support for notes & checklists.
-* Added new long-click action menu layout.
-* Miscellaneous changes.
