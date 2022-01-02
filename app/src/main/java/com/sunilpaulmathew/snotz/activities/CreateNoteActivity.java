@@ -246,6 +246,10 @@ public class CreateNoteActivity extends AppCompatActivity {
         exit(this);
     }
 
+    private boolean isNoteCleared() {
+        return Common.getNote() != null && (mContents.getText() == null || mContents.getText().toString().trim().isEmpty());
+    }
+
     private boolean isUnsavedNote() {
         return mNote != null && mContents.getText() != null && !mNote.equals(mContents.getText().toString().trim())
                 || mNote == null && mContents.getText() != null && !mContents.getText().toString().trim().isEmpty()
@@ -318,7 +322,22 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (isUnsavedNote()) {
+        if (isNoteCleared()) {
+            String[] sNotzContents = Common.getNote().split("\\s+");
+            new MaterialAlertDialogBuilder(this)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle(R.string.app_name)
+                    .setMessage(getString(R.string.delete_sure_question, sNotzContents.length <= 2 ? Common.getNote() :
+                            sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
+                    .setCancelable(false)
+                    .setNegativeButton(R.string.exit, (dialogInterface, i) -> {
+                        exit(this);
+                    })
+                    .setPositiveButton(R.string.delete, (dialogInterface, i) -> {
+                        sNotzUtils.deleteNote(Common.getID(), mProgress, this).execute();
+                        exit(this);
+                    }).show();
+        } else if (isUnsavedNote()) {
             if (sUtils.getBoolean("auto_save", false, this)) {
                 saveNote();
             } else {
