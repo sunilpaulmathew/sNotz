@@ -338,6 +338,8 @@ public class SettingsActivity extends AppCompatActivity {
                 return;
             }
             new MaterialAlertDialogBuilder(this)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle(R.string.app_name)
                     .setMessage(getString(R.string.restore_notes_question))
                     .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                     })
