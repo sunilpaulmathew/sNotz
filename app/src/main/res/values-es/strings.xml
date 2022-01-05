@@ -148,4 +148,15 @@
     <string name="notes_in_row_default">"Por defecto"</string>
     <string name="notes_in_row_summary">"%s nota(s)"</string>
     <string name="sort_by_date">"Fecha de modificación"</string>
+    <string name="qr_code">"Código QR"</string>
+    <string name="qr_code_error_message">"Error al obtener datos del código QR"</string>
+    <string name="qr_code_generate">"Generar código QR"</string>
+    <string name="qr_code_generate_error_message">"Error al generar el código QR"</string>
+    <string name="qr_code_read">"Leer desde imagen"</string>
+    <string name="qr_code_save_hint">"¿Guardar imagen QR como?"</string>
+    <string name="qr_code_scan">"Escanear código QR"</string>
+    <string name="note_color_random">"Colores aleatorios"</string>
+    <string name="note_color_random_message">"Por favor, deshabilita 'Colores aleatorios' para usar esta función"</string>
+    <string name="note_color_random_summary">"Aplicar colores aleatorios al crear notas nuevas"</string>
+    <string name="exit">"Salir"</string>
 </resources>

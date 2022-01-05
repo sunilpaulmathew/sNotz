@@ -154,4 +154,7 @@
     <string name="qr_code_read">"Les fra bilde"</string>
     <string name="qr_code_save_hint">"Lagre QR-bilde som?"</string>
     <string name="qr_code_scan">"Skann QR-kode"</string>
+    <string name="note_color_random">"Vilkårlige farger"</string>
+    <string name="note_color_random_message">"Slå av 'Vilkårlige farger' for å bruke denne funksjonen"</string>
+    <string name="note_color_random_summary">"Bruk vilkårlige farger ved opprettelse av nye notater"</string>
 </resources>
