@@ -62,7 +62,8 @@ public class sNotzReminders {
         int mNotificationID = getNotificationID(context);
 
         @SuppressLint("UnspecifiedImmutableFlag")
-        PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, mNotificationID, mIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, mNotificationID, mIntent, android.os.Build.VERSION.SDK_INT >=
+                android.os.Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar mCalendar = Calendar.getInstance();
         mCalendar.set(Calendar.YEAR, (int) year);
