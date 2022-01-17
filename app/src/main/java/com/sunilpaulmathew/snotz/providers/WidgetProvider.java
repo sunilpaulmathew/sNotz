@@ -1,12 +1,11 @@
 package com.sunilpaulmathew.snotz.providers;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Build;
 import android.widget.RemoteViews;
 
 import com.sunilpaulmathew.snotz.R;
@@ -44,13 +43,10 @@ public class WidgetProvider extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            SharedPreferences.Editor prefs = context.getSharedPreferences("AppWidget", 0).edit();
-            prefs.remove("appwidget" + appWidgetId);
-            prefs.apply();
+            sUtils.remove("appwidget" + appWidgetId, context);
         }
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
     public static void update(AppWidgetManager appWidgetManager, int appWidgetId, Context context) {
         RemoteViews mViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
         Intent mIntent = new Intent(context, StartActivity.class);
@@ -61,7 +57,8 @@ public class WidgetProvider extends AppWidgetProvider {
                 mViews.setTextViewText(R.id.note, sNotzWidgets.getWidgetText(sNotzWidgets.getChecklistPath(appWidgetId, context)));
                 mViews.setInt(R.id.layout, "setBackgroundColor", sUtils.getColor(android.R.color.transparent, context));
                 mIntent.putExtra(sNotzWidgets.getChecklistPath(), sNotzWidgets.getChecklistPath(appWidgetId, context));
-                mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, 0);
+                mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, Build.VERSION.SDK_INT >=
+                        android.os.Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
                 mViews.setOnClickPendingIntent(R.id.layout, mPendingIntent);
                 appWidgetManager.updateAppWidget(appWidgetId, mViews);
             } else if (sNotzWidgets.getNoteID(appWidgetId, context) != -1) {
@@ -82,7 +79,8 @@ public class WidgetProvider extends AppWidgetProvider {
                          * (once in every 30 min as per https://github.com/sunilpaulmathew/sNotz/blob/1eb52b17b275fc87ea58e371bc4c2f26409a82e7/app/src/main/res/xml/widget_provider.xml#L9)
                          * Probably, use PendingIntent.FLAG_UPDATE_CURRENT?
                          */
-                        mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, 0);
+                        mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, Build.VERSION.SDK_INT >=
+                                android.os.Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
                         mViews.setOnClickPendingIntent(R.id.layout, mPendingIntent);
                         appWidgetManager.updateAppWidget(appWidgetId, mViews);
                     }
