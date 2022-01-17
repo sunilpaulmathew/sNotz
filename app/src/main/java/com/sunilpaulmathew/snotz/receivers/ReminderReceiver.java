@@ -1,6 +1,5 @@
 package com.sunilpaulmathew.snotz.receivers;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -39,9 +38,9 @@ public class ReminderReceiver extends BroadcastReceiver {
         Intent mIntent = new Intent(context, StartActivity.class);
         mIntent.putExtra(sNotzWidgets.getNoteID(), mNoteID);
         mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        
-        @SuppressLint("UnspecifiedImmutableFlag")
-        PendingIntent mPendingIntent = PendingIntent.getActivity(context, mNotificationID, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, mNotificationID, mIntent, android.os.Build.VERSION.SDK_INT >=
+                android.os.Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
 
         NotificationChannel mNotificationChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
