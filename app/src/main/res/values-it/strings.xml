@@ -52,7 +52,7 @@
     <string name="donations">Donazioni</string>
     <string name="donation_app">Acquista l\'App Donazione</string>
     <string name="donations_summary">Supporta lo sviluppo con una donazione</string>
-	<string name="exit">Esci</string>
+    <string name="exit">Esci</string>
     <string name="faq">Domande Frequenti</string>
     <string name="faq_summary">Leggi le domande frequenti</string>
     <string name="file_path_error">Errore nel recuperare il percorso del file dal File Manager esterno</string>
@@ -77,7 +77,7 @@
     <string name="more_apps">Altre Apps</string>
     <string name="note_color_background">Colore di Sfondo</string>
     <string name="note_color_text">Colore Testo</string>
-	<string name="note_color_random">Colori Casuali</string>
+    <string name="note_color_random">Colori Casuali</string>
     <string name="note_color_random_message">Per favore disabilita \'Colori Casuali\' per usare questa funzione</string>
     <string name="note_color_random_summary">Applica colori casuali quando crei nuove note</string>
     <string name="note_editor">Editor Note</string>
