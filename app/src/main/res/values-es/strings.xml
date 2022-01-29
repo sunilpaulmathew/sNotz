@@ -2,13 +2,13 @@
 
     <string name="about">"Acerca de"</string>
     <string name="add_text_hint">"Agrega texto aquí…"</string>
-    <string name="activated">"activado"</string>
+    <string name="activated">"activado/a"</string>
     <string name="authenticate">"Autenticar"</string>
     <string name="authentication_error">"Error de autenticación: %s"</string>
     <string name="authentication_failed">"Autenticación fallida"</string>
     <string name="billing_client_disconnected">"No se pudo conectar con el cliente de facturación de Google Play."</string>
     <string name="biometric_lock">"Bloqueo biométrico"</string>
-    <string name="biometric_lock_status">"La autenticación biométrica es %s"</string>
+    <string name="biometric_lock_status">"La autenticación biométrica está %s"</string>
     <string name="biometric_lock_summary">"Utiliza la autenticación biométrica para proteger sNotz"</string>
     <string name="backup_notes">"Respaldar notas"</string>
     <string name="backup_notes_message">"Tus notas están respaldadas como '%s'"</string>
@@ -21,7 +21,7 @@
     <string name="choose_color">"Elige color"</string>
     <string name="color_select_dialog">"Elige %s de las notas"</string>
     <string name="content_hint">"Agrega contenido aquí…"</string>
-    <string name="deactivated">"desactivado"</string>
+    <string name="deactivated">"desactivado/a"</string>
     <string name="delete">"Eliminar"</string>
     <string name="delete_sure_question">"¿Eliminar %s?"</string>
     <string name="developed_by">"Hecho con \u2665 por"</string>
@@ -34,7 +34,7 @@
     <string name="hidden_note_message">"Visita la página 'Ajustes' para cambiar la visibilidad de las notas ocultas."</string>
     <string name="invite_friends">"Invitar a amigos"</string>
     <string name="invite_friends_Summary">"Invita a tus amigos a probar sNotz"</string>
-    <string name="long_click_note_message">"Haga clic largo en una nota para opciones avanzadas, como 'compartir', 'ocultar' y 'eliminar'."</string>
+    <string name="long_click_note_message">"Haz clic largo en una nota para opciones avanzadas, como 'compartir', 'ocultar' y 'eliminar'."</string>
     <string name="more_apps">"Más aplicaciones"</string>
     <string name="note_color_background">"Color de fondo"</string>
     <string name="note_color_text">"Color de texto"</string>
@@ -42,7 +42,7 @@
     <string name="ok">"OK"</string>
     <string name="press_back_exit">"Presiona el botón 'Atrás' nuevamente para salir"</string>
     <string name="rate_us">"Califícanos"</string>
-    <string name="rate_us_Summary">"Califica o revisa sNotz en PlayStore"</string>
+    <string name="rate_us_Summary">"Califica o reseña sNotz en PlayStore"</string>
     <string name="report_issue">"Reporta un problema"</string>
     <string name="restore_error">"Has seleccionado un archivo de respaldo no válido. Abortando."</string>
     <string name="restore_notes">"Restaurar notas"</string>
@@ -105,7 +105,7 @@
     <string name="image_add_warning">"Advertencia: Añadir notas que contengan imágenes puede afectar al rendimiento de sNotz."</string>
     <string name="image_excluded_warning">"Advertencia: Se excluirán las imágenes"</string>
     <string name="image_include">"Permitir imágenes"</string>
-    <string name="image_include_summary">"Permitir incluir una imagen con notas"</string>
+    <string name="image_include_summary">"Permitir incluir una imagen en las notas"</string>
     <string name="image_remove">"Eliminar imagen"</string>
     <string name="image_replace">"Reemplazar la imagen"</string>
     <string name="import_item">"Importar"</string>
