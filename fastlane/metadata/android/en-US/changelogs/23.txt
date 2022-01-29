@@ -1,5 +1,0 @@
-* Added an option to use random colors for new notes.
-* sNotz will now record and prompt to report crashes.
-* Improved reminder notification.
-* Updated Italian, French & Norwegian translations.
-* Miscellaneous changes.

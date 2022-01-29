@@ -6,6 +6,13 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.24</h3>
+- sNotz Widgets: Fixed crashing on Android 12.
+- sNotz Reminders: Fixed crashing on Android 12.
+- Notes are now deletable by simply clearing the contents.
+- Updated Italian, Spanish, Portuguese (Brazilian) & Norwegian translations.
+- Miscellaneous changes.
+
 <h3 style="color: green">v0.23</h3>
 - Added an option to use random colors for new notes.
 - sNotz will now record and prompt to report crashes.
