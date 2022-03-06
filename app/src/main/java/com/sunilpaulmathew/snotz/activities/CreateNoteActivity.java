@@ -50,6 +50,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     private AppCompatEditText mContents;
     private AppCompatImageView mImage;
+    private boolean mNoteSaved = false;
     private Bitmap mBitmap = null;
     private int mSelectedColorBg, mSelectedColorTxt;
     private ProgressBar mProgress;
@@ -236,13 +237,14 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
         if (Common.getNote() != null) {
             sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
-                    mSelectedColorTxt, mHidden.isChecked(),  mProgress,this).execute();
+                    mSelectedColorTxt, mHidden.isChecked(),  mProgress,this);
         } else if (sUtils.exist(new File(getFilesDir(),"snotz"))) {
-            sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
+            sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this);
         } else {
-            sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this).execute();
+            sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this);
         }
         sNotzColor.updateRandomColorCode(this);
+        mNoteSaved = true;
         exit(this);
     }
 
@@ -318,6 +320,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         super.onStart();
 
         Utils.toggleKeyboard(mContents, this);
+        mNoteSaved = false;
     }
 
     @Override
@@ -352,6 +355,22 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         } else {
             exit(this);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (sUtils.getBoolean("auto_save", false, this) && isUnsavedNote() && !mNoteSaved) {
+            if (Common.getNote() != null) {
+                sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
+                        mSelectedColorTxt, mHidden.isChecked(),  true, mProgress,this).execute();
+            } else if (sUtils.exist(new File(getFilesDir(),"snotz"))) {
+                sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();
+            } else {
+                sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();
+            }
         }
     }
 

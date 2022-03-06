@@ -180,12 +180,20 @@ public class sNotzUtils {
         }
     }
 
+    public static void addNote(Editable newNote, String image, int colorBg, int colorTxt,
+                                    boolean hidden, ProgressBar progressBar, Context context) {
+        addNote(newNote, image, colorBg, colorTxt, hidden, false, progressBar, context).execute();
+
+    }
+
     public static sExecutor addNote(Editable newNote, String image, int colorBg, int colorTxt,
-                               boolean hidden, ProgressBar progressBar, Context context) {
+                               boolean hidden, boolean autoSave, ProgressBar progressBar, Context context) {
         return new sExecutor() {
             @Override
             public void onPreExecute() {
-                progressBar.setVisibility(View.VISIBLE);
+                if (!autoSave) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
                 Common.isWorking(true);
             }
 
@@ -212,7 +220,9 @@ public class sNotzUtils {
             public void onPostExecute() {
                 Utils.reloadUI(context);
                 Common.isWorking(false);
-                progressBar.setVisibility(View.GONE);
+                if (!autoSave) {
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         };
     }
@@ -287,12 +297,19 @@ public class sNotzUtils {
         };
     }
 
+    public static void initializeNotes(Editable newNote, String image, int colorBg, int colorTxt,
+                                            boolean hidden, ProgressBar progressBar, Context context) {
+        initializeNotes(newNote, image, colorBg, colorTxt, hidden, false, progressBar, context).execute();
+    }
+
     public static sExecutor initializeNotes(Editable newNote, String image, int colorBg, int colorTxt,
-                                             boolean hidden, ProgressBar progressBar, Context context) {
+                                             boolean hidden, boolean autoSave, ProgressBar progressBar, Context context) {
         return new sExecutor() {
             @Override
             public void onPreExecute() {
-                progressBar.setVisibility(View.VISIBLE);
+                if (!autoSave) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
                 Common.isWorking(true);
             }
 
@@ -319,7 +336,9 @@ public class sNotzUtils {
             public void onPostExecute() {
                 Utils.reloadUI(context);
                 Common.isWorking(false);
-                progressBar.setVisibility(View.GONE);
+                if (!autoSave) {
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         };
     }
@@ -383,12 +402,19 @@ public class sNotzUtils {
         };
     }
 
+    public static void updateNote(Editable newNote, String image, int noteID, int colorBg, int colorTxt,
+                                       boolean hidden, ProgressBar progressBar, Context context) {
+        updateNote(newNote, image, noteID, colorBg, colorTxt, hidden, false, progressBar, context).execute();
+    }
+
     public static sExecutor updateNote(Editable newNote, String image, int noteID, int colorBg, int colorTxt,
-                                        boolean hidden, ProgressBar progressBar, Context context) {
+                                        boolean hidden, boolean autoSave, ProgressBar progressBar, Context context) {
         return new sExecutor() {
             @Override
             public void onPreExecute() {
-                progressBar.setVisibility(View.VISIBLE);
+                if (!autoSave) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
                 Common.isWorking(true);
             }
 
@@ -422,7 +448,9 @@ public class sNotzUtils {
             public void onPostExecute() {
                 Utils.reloadUI(context);
                 Common.isWorking(false);
-                progressBar.setVisibility(View.GONE);
+                if (!autoSave) {
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         };
     }
