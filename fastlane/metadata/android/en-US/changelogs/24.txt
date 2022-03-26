@@ -1,5 +1,0 @@
-* sNotz Widgets: Fixed crashing on Android 12.
-* sNotz Reminders: Fixed crashing on Android 12.
-* Notes are now deletable by simply clearing the contents.
-* Updated Italian, Spanish, Portuguese (Brazilian) & Norwegian translations.
-* Miscellaneous changes.

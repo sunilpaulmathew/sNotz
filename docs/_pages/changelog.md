@@ -6,6 +6,11 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.25</h3>
+- Improved Auto Save mode.
+- Checklist Widget colors are now configurable.
+- Miscellaneous changes.
+
 <h3 style="color: green">v0.24</h3>
 - sNotz Widgets: Fixed crashing on Android 12.
 - sNotz Reminders: Fixed crashing on Android 12.

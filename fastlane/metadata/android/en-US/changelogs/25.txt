@@ -1,0 +1,3 @@
+* Improved Auto Save mode.
+* Checklist Widget colors are now configurable.
+* Miscellaneous changes.
