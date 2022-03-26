@@ -224,21 +224,20 @@ public class CreateNoteActivity extends AppCompatActivity {
                             finish();
                         }).show());
 
-        mSave.setOnClickListener(v -> saveNote());
+        mSave.setOnClickListener(v -> {
+            if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
+                sUtils.snackBar(findViewById(R.id.contents), getString(R.string.text_empty)).show();
+                return;
+            }
+            saveNote();
+        });
     }
 
     private void saveNote() {
-        if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
-            if (sUtils.getBoolean("auto_save", false, this)) {
-                finish();
-            }
-            sUtils.snackBar(findViewById(R.id.contents), getString(R.string.text_empty)).show();
-            return;
-        }
-        if (Common.getNote() != null) {
+        if (Common.getID() != -1) {
             sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
-                    mSelectedColorTxt, mHidden.isChecked(),  mProgress,this);
-        } else if (sUtils.exist(new File(getFilesDir(),"snotz"))) {
+                    mSelectedColorTxt, mHidden.isChecked(), mProgress, this);
+        } else if (sUtils.exist(new File(getFilesDir(), "snotz"))) {
             sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this);
         } else {
             sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this);
@@ -326,6 +325,9 @@ public class CreateNoteActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (isNoteCleared()) {
+            if (Common.getID() == -1) {
+                exit(this);
+            }
             String[] sNotzContents = Common.getNote().split("\\s+");
             new MaterialAlertDialogBuilder(this)
                     .setIcon(R.mipmap.ic_launcher)
@@ -333,14 +335,13 @@ public class CreateNoteActivity extends AppCompatActivity {
                     .setMessage(getString(R.string.delete_sure_question, sNotzContents.length <= 2 ? Common.getNote() :
                             sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                     .setCancelable(false)
-                    .setNegativeButton(R.string.exit, (dialogInterface, i) -> {
-                        exit(this);
-                    })
+                    .setNegativeButton(R.string.exit, (dialogInterface, i) -> exit(this))
                     .setPositiveButton(R.string.delete, (dialogInterface, i) -> {
                         sNotzUtils.deleteNote(Common.getID(), mProgress, this).execute();
                         exit(this);
                     }).show();
-        } else if (isUnsavedNote()) {
+        } else if (isUnsavedNote() && (mContents.getText() != null && !mContents.getText()
+                .toString().trim().isEmpty())) {
             if (sUtils.getBoolean("auto_save", false, this)) {
                 saveNote();
             } else {
@@ -363,13 +364,21 @@ public class CreateNoteActivity extends AppCompatActivity {
         super.onStop();
 
         if (sUtils.getBoolean("auto_save", false, this) && isUnsavedNote() && !mNoteSaved) {
-            if (Common.getNote() != null) {
-                sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
-                        mSelectedColorTxt, mHidden.isChecked(),  true, mProgress,this).execute();
-            } else if (sUtils.exist(new File(getFilesDir(),"snotz"))) {
-                sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();
-            } else {
-                sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();
+            if (Common.getID() != -1) {
+                if (isNoteCleared()) {
+                    sNotzUtils.deleteNote(Common.getID(), mProgress, this).execute();
+                    exit(this);
+                } else if (isUnsavedNote() && !mNoteSaved) {
+                    sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
+                            mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();
+                }
+            } else if (mContents.getText() != null && !mContents.getText().toString().trim().isEmpty()) {
+                if (sUtils.exist(new File(getFilesDir(), "snotz"))) {
+                    sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();
+                } else {
+                    sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();
+                }
+                exit(this);
             }
         }
     }
