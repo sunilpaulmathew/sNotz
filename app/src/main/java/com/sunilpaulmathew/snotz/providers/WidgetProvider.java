@@ -56,6 +56,7 @@ public class WidgetProvider extends AppWidgetProvider {
             if (sUtils.exist(new File(sNotzWidgets.getChecklistPath(appWidgetId, context)))) {
                 mViews.setTextViewText(R.id.note, sNotzWidgets.getWidgetText(sNotzWidgets.getChecklistPath(appWidgetId, context)));
                 mViews.setInt(R.id.layout, "setBackgroundColor", sUtils.getColor(android.R.color.transparent, context));
+                mViews.setTextColor(R.id.note, sUtils.getInt("checklist_color", sUtils.getColor(R.color.color_black, context), context));
                 mIntent.putExtra(sNotzWidgets.getChecklistPath(), sNotzWidgets.getChecklistPath(appWidgetId, context));
                 mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, Build.VERSION.SDK_INT >=
                         android.os.Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);

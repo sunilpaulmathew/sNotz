@@ -32,6 +32,8 @@
     <string name="check_list_name_empty_message">Check List name shouldn\'t be empty. Aborting</string>
     <string name="check_list_import_question">Import selected checklist as?</string>
     <string name="check_list_exist_warning">A checklist with same name already exists. Do you want to replace it?</string>
+    <string name="check_list_widget_color">Checklist Widget Color</string>
+    <string name="check_list_widget_color_summary">Change default color of checklist widgets</string>
     <string name="change_logs">Change-logs</string>
     <string name="clear_notes">Clear Notes</string>
     <string name="clear_notes_message">Please note. All the notes will be deleted</string>

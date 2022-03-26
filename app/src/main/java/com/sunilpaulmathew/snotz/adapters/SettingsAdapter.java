@@ -59,11 +59,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        if ((position == 15 || position == 17) && sNotzData.isNotesEmpty(holder.mTitle.getContext())) {
+        if ((position == 16 || position == 18) && sNotzData.isNotesEmpty(holder.mTitle.getContext())) {
             holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        if (position == 2 || position == 5 || position == 14) {
+        if (position == 2 || position == 5 || position == 15) {
             holder.mDivider.setVisibility(View.VISIBLE);
         } else {
             holder.mDivider.setVisibility(View.GONE);
@@ -73,7 +73,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         } else {
             holder.mChecked.setVisibility(View.GONE);
         }
-        if (position == 6 || position == 7) {
+        if (position == 6 || position == 7 || position == 11) {
             holder.mCircle.setVisibility(View.VISIBLE);
         } else {
             holder.mCircle.setVisibility(View.GONE);
@@ -101,6 +101,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.mChecked.setImageDrawable(sUtils.getDrawable(sUtils.getBoolean("auto_save", false,
                     holder.mChecked.getContext()) ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked,
                     holder.mChecked.getContext()));
+        } else if (position == 11) {
+            holder.mCircle.setCardBackgroundColor(sUtils.getInt("checklist_color", sUtils.getColor(R.color.color_black,
+                    holder.mCircle.getContext()), holder.mCircle.getContext()));
         }
     }
 

@@ -84,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.note_color_random), getString(R.string.note_color_random_summary), sUtils.getDrawable(R.drawable.ic_colorize, this), null));
         mData.add(new SettingsItems(getString(R.string.image_include), getString(R.string.image_include_summary), sUtils.getDrawable(R.drawable.ic_image, this), null));
         mData.add(new SettingsItems(getString(R.string.auto_save), getString(R.string.auto_save_summary), sUtils.getDrawable(R.drawable.ic_save, this), null));
+        mData.add(new SettingsItems(getString(R.string.check_list_widget_color), getString(R.string.check_list_widget_color_summary), sUtils.getDrawable(R.drawable.ic_checklist, this), null));
         mData.add(new SettingsItems(getString(R.string.notes_in_row), AppSettings.getRows(this), sUtils.getDrawable(R.drawable.ic_row, this), null));
         mData.add(new SettingsItems(getString(R.string.font_size), getString(R.string.font_size_summary, "" + sUtils.getInt("font_size", 18, this)),
                 sUtils.getDrawable(R.drawable.ic_format_size, this), null));
@@ -206,21 +207,36 @@ public class SettingsActivity extends AppCompatActivity {
                 sUtils.saveBoolean("auto_save", !sUtils.getBoolean("auto_save", false, this), this);
                 mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 11) {
-                AppSettings.setRows(this);
+                ColorPickerDialogBuilder
+                        .with(this)
+                        .setTitle(R.string.choose_color)
+                        .initialColor(sUtils.getInt("checklist_color", sUtils.getColor(R.color.color_white, this), this))
+                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                        .density(12)
+                        .setOnColorSelectedListener(selectedColor -> {
+                        })
+                        .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
+                            sUtils.saveInt("checklist_color", selectedColor, this);
+                            mRecycleViewAdapter.notifyItemChanged(position);
+                        })
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                        }).build().show();
             } else if (position == 12) {
-                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+                AppSettings.setRows(this);
             } else if (position == 13) {
+                AppSettings.setFontSize(position, mData, mRecycleViewAdapter, this);
+            } else if (position == 14) {
                 AppSettings.setFontStyle(position, mData, mRecycleViewAdapter, this);
-            } else if (position == 15) {
+            } else if (position == 16) {
                 if (sNotzData.isNotesEmpty(this)) {
                     sUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
                 } else {
                     AppSettings.showBackupOptions(this);
                 }
-            } else if (position == 16) {
+            } else if (position == 17) {
                 if (mJSONString != null) mJSONString = null;
                 sUtils.filePickerIntent(false, 0, null, this);
-            } else if (position == 17) {
+            } else if (position == 18) {
                 if (sNotzData.isNotesEmpty(this)) {
                     sUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
                 } else {
@@ -244,9 +260,9 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             }).show();
                 }
-            } else if (position == 18) {
-                Billing.showDonationMenu(this);
             } else if (position == 19) {
+                Billing.showDonationMenu(this);
+            } else if (position == 20) {
                 Intent share_app = new Intent();
                 share_app.setAction(Intent.ACTION_SEND);
                 share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
@@ -254,13 +270,13 @@ public class SettingsActivity extends AppCompatActivity {
                 share_app.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
                 startActivity(shareIntent);
-            } else if (position == 20) {
+            } else if (position == 21) {
                 Intent welcome = new Intent(this, WelcomeActivity.class);
                 startActivity(welcome);
                 finish();
-            } else if (position == 21) {
+            } else if (position == 22) {
                 new sTranslatorUtils(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();
-            } else if (position == 24) {
+            } else if (position == 25) {
                 new sCreditsUtils(AppSettings.getCredits(),
                         sUtils.getDrawable(R.mipmap.ic_launcher, this),
                         sUtils.getDrawable(R.drawable.ic_back, this),
@@ -293,7 +309,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Common.isClearingNotes(false);
                     sUtils.delete(new File(getFilesDir(),"snotz"));
                     Utils.reloadUI(SettingsActivity.this);
-                    mRecycleViewAdapter.notifyItemChanged(17);
+                    mRecycleViewAdapter.notifyItemChanged(18);
                 } else {
                     Utils.useBiometric(SettingsActivity.this);
                     mRecycleViewAdapter.notifyItemChanged(3);
