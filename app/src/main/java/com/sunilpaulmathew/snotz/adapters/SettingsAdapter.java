@@ -55,13 +55,13 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         } else {
             holder.mIcon.setImageDrawable(null);
         }
-        if ((position == 6 || position == 7) && sNotzColor.isRandomColorScheme(holder.mTitle.getContext())) {
+        if ((position == 6 || position == 7) && sNotzColor.isRandomColorScheme(holder.mTitle.getContext())
+                || (position == 16 || position == 18) && sNotzData.isNotesEmpty(holder.mTitle.getContext())) {
             holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        }
-        if ((position == 16 || position == 18) && sNotzData.isNotesEmpty(holder.mTitle.getContext())) {
-            holder.mTitle.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.mDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            holder.mTitle.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
+            holder.mDescription.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
         }
         if (position == 2 || position == 5 || position == 15) {
             holder.mDivider.setVisibility(View.VISIBLE);
