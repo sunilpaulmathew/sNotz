@@ -98,9 +98,9 @@
     <string name="pin_protection_message">Use a 4 digit PIN to secure sNotz</string>
     <string name="press_back_exit">Press the \'Back\' button again to Exit</string>
     <string name="qr_code">QR Code</string>
-    <string name="qr_code_error_message">Faild to acquire data from QR Code</string>
+    <string name="qr_code_error_message">Failed to acquire data from QR Code</string>
     <string name="qr_code_generate">Generate QR Code</string>
-    <string name="qr_code_generate_error_message">Faild to generate QR Code</string>
+    <string name="qr_code_generate_error_message">Failed to generate QR Code</string>
     <string name="qr_code_read">Read from Image</string>
     <string name="qr_code_save_hint">Save QR Image as?</string>
     <string name="qr_code_scan">Scan QR Code</string>
