@@ -32,6 +32,8 @@
     <string name="check_list_name_empty_message">Il nome della Checklist non deve essere vuoto. Operazione interrotta</string>
     <string name="check_list_import_question">Come vuoi importare la checklist selezionata?</string>
     <string name="check_list_exist_warning">Una checklist con lo stesso nome esiste già. Vuoi rimpiazzarla?</string>
+    <string name="check_list_widget_color">Colore Widget Checklist</string>
+    <string name="check_list_widget_color_summary">Cambia colore predefinito dei widgets delle checklist</string>
     <string name="change_logs">Registro delle modifiche</string>
     <string name="clear_notes">Pulisci le Note</string>
     <string name="clear_notes_message">Attenzione. Tutte le note verranno eliminate</string>
