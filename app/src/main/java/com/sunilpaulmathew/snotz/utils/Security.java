@@ -73,7 +73,7 @@ public class Security {
                         sUtils.saveBoolean("use_pin", true, activity);
                         sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
                                 activity.getString(R.string.activated))).show();
-                        adapter.notifyItemChanged(2);
+                        adapter.notifyItemChanged(3);
                     }
                 }, InputType.TYPE_CLASS_NUMBER,activity).setOnDismissListener(dialogInterface -> {
         }).show();
@@ -90,7 +90,7 @@ public class Security {
                                 .setNegativeButton(R.string.cancel, (dialog, which) -> activity.finish())
                                 .setPositiveButton(R.string.try_again, (dialog, which) -> authenticate(adapter, position, activity)).show();
                     } else {
-                        if (position == 3) {
+                        if (position == 4) {
                             sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, activity), activity);
                         } else {
                             sUtils.delete(new File(activity.getFilesDir().getPath(),"snotz"));
@@ -118,7 +118,7 @@ public class Security {
                     } else {
                         if (remove) {
                             removePIN(activity);
-                            adapter.notifyItemChanged(2);
+                            adapter.notifyItemChanged(3);
                             sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
                                     activity.getString(R.string.deactivated))).show();
                         } else {
