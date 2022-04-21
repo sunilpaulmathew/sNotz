@@ -112,6 +112,8 @@
     <string name="reminder_warning">sNotz won\'t monitor reminders. As a result, a reminder once created won\'t be allowed to edit or delete. All the reminders created by sNotz will be notified at time even if the original notes are deleted.</string>
     <string name="replace">Replace</string>
     <string name="report_issue">Report an Issue</string>
+    <string name="restore">Restore</string>
+    <string name="restore_backup_message">Your notes were recently removed. Do you want to restore it from the last auto-backup?\n\nWarning: Auto-backup will be permanently removed after canceling this message.</string>
     <string name="restore_error">You\'re selected an invalid backup file. Aborting</string>
     <string name="restore_notes">Restore Notes</string>
     <string name="restore_notes_summary">Restore notes from a backup file</string>

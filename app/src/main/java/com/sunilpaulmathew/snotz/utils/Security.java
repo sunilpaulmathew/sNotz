@@ -12,7 +12,9 @@ import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
 
 import java.io.File;
+import java.util.concurrent.Executors;
 
+import in.sunilpaulmathew.sCommon.Utils.sExecutor;
 import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
 /*
@@ -93,7 +95,7 @@ public class Security {
                         if (position == 4) {
                             sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, activity), activity);
                         } else {
-                            sUtils.delete(new File(activity.getFilesDir().getPath(),"snotz"));
+                            sUtils.delete(new File(activity.getFilesDir(),"snotz"));
                         }
                         Utils.reloadUI(activity);
                         if (adapter != null) {
@@ -146,6 +148,45 @@ public class Security {
         } else if (externalNote != null) {
             mainActivity.putExtra(sNotzUtils.getExternalNote(), externalNote);
         }
+
+        // Manage auto-backup
+        File sNotz = new File(activity.getFilesDir(),"snotz");
+        File sNotzAutoBackup = new File(activity.getExternalFilesDir("autoBackup"),"autoBackup");
+
+        if (sNotz.exists() && sNotzData.getRawData(activity).size() > 0 && sNotz.length() != sNotzAutoBackup.length()) {
+            Executors.newSingleThreadExecutor().execute(() -> sUtils.copy(sNotz, sNotzAutoBackup));
+        } else if ((!sNotz.exists() || sNotzData.getRawData(activity).size() == 0) && sNotzAutoBackup.exists()) {
+            new MaterialAlertDialogBuilder(activity)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle(R.string.app_name)
+                    .setMessage(activity.getString(R.string.restore_backup_message))
+                    .setCancelable(false)
+                    .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                        sUtils.delete(sNotzAutoBackup);
+                        activity.startActivity(mainActivity);
+                        activity.finish();
+                    })
+                    .setPositiveButton(R.string.restore, (dialog, which) ->
+                            new sExecutor() {
+                                @Override
+                                public void onPreExecute() {
+                                }
+
+                                @Override
+                                public void doInBackground() {
+                                    sUtils.copy(sNotzAutoBackup, sNotz);
+                                }
+
+                                @Override
+                                public void onPostExecute() {
+                                    activity.startActivity(mainActivity);
+                                    activity.finish();
+                                }
+                            }.execute()
+                    ).show();
+            return;
+        }
+
         activity.startActivity(mainActivity);
         activity.finish();
     }
