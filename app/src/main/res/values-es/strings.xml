@@ -159,4 +159,6 @@
     <string name="note_color_random_message">"Por favor, deshabilita 'Colores aleatorios' para usar esta función"</string>
     <string name="note_color_random_summary">"Aplicar colores aleatorios al crear notas nuevas"</string>
     <string name="exit">"Salir"</string>
+    <string name="check_list_widget_color">"Color del widget de la lista de chequeo"</string>
+    <string name="check_list_widget_color_summary">"Cambiar el color por defecto de los widgets de la lista de chequeo"</string>
 </resources>
