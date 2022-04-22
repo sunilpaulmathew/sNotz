@@ -1,0 +1,5 @@
+* Fixed a bug leading to data loss when PIN lock is enabled.
+* sNotz will now allow restoring notes after an accidental data loss.
+* Updated build tools.
+* Updated transactions.
+* Miscellaneous changes.

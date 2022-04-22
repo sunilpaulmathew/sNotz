@@ -6,6 +6,13 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.26</h3>
+- Fixed a bug leading to data loss when PIN lock is enabled.
+- sNotz will now allow restoring notes after an accidental data loss.
+- Updated build tools.
+- Updated transactions.
+- Miscellaneous changes.
+
 <h3 style="color: green">v0.25</h3>
 - Improved Auto Save mode.
 - Checklist Widget colors are now configurable.
