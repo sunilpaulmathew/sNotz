@@ -99,6 +99,7 @@ public class AppSettings {
         mData.add(new sSerializableItems(null, "Bo Lindholm", "Swedish Translations", null));
         mData.add(new sSerializableItems(null, "jaswinder77", "Hindi Translations & Testing", "https://github.com/jaswinder77/"));
         mData.add(new sSerializableItems(null, "Leo", "Spanish Translations", null));
+        mData.add(new sSerializableItems(null, "Edp17", "Hungarian Translations", null));
 
         mData.add(new sSerializableItems(null, "Alfie", "Testing", "https://t.me/AlfieFie"));
 
