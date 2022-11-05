@@ -10,13 +10,13 @@ android {
         }
     }
 
-    compileSdkVersion 31
-    buildToolsVersion "30.0.3"
+    namespace 'com.sunilpaulmathew.snotz'
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.sunilpaulmathew.snotz"
         minSdkVersion 17
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 26
         versionName "v0.26"
         vectorDrawables.useSupportLibrary = true
@@ -43,18 +43,18 @@ android {
             dimension "release"
         }
     }
-
-    lintOptions {
+    lint {
         abortOnError false
     }
+
 }
 
 dependencies {
     implementation 'androidx.biometric:biometric:1.1.0'
-    playImplementation 'com.android.billingclient:billing:4.1.0'
+    playImplementation 'com.android.billingclient:billing:5.0.0'
     implementation 'com.github.sunilpaulmathew:sCommon:d6f80842ff'
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
-    implementation "com.google.android.material:material:1.5.0"
-    implementation "com.google.code.gson:gson:2.8.8"
+    implementation "com.google.android.material:material:1.7.0"
+    implementation "com.google.code.gson:gson:2.9.0"
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
 }
