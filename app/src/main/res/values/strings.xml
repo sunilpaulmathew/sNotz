@@ -17,9 +17,10 @@
     <string name="biometric_lock_status">Biometric authentication is %s</string>
     <string name="biometric_lock_summary">Use biometric authentication to secure sNotz</string>
     <string name="backup">Backup</string>
+    <string name="backup_checklist_message">Selected checklist is backed up as \'%s\'</string>
     <string name="backup_notes">Backup Notes</string>
     <string name="backup_notes_hint">Backup Notes As?</string>
-    <string name="backup_notes_message">You\'re notes are backed up as \'%s\'</string>
+    <string name="backup_notes_message">Your notes are backed up as \'%s\'</string>
     <string name="backup_notes_summary">Backup your notes into \'sdcard\'</string>
     <string name="backup_notes_warning">A previous backup file with same name already exists. Do you want to replace it?</string>
     <string name="backup_snotz">As sNotz Backup</string>
@@ -94,7 +95,6 @@
     <string name="pin_mismatch_message">PIN doesn\'t match. Please try again</string>
     <string name="pin_protection">PIN Protection</string>
     <string name="pin_protection_status">PIN Protection is %s</string>
-    <string name="pin_length_warning">PIN should be a 4 digit number</string>
     <string name="pin_protection_message">Use a 4 digit PIN to secure sNotz</string>
     <string name="press_back_exit">Press the \'Back\' button again to Exit</string>
     <string name="qr_code">QR Code</string>

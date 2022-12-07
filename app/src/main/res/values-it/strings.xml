@@ -94,7 +94,6 @@
     <string name="pin_mismatch_message">Il PIN non corrisponde. Per favore prova di nuovo</string>
     <string name="pin_protection">Protezione con il PIN</string>
     <string name="pin_protection_status">La protezione con il PIN è %s</string>
-    <string name="pin_length_warning">Il PIN deve essere un numero a 4 cifre</string>
     <string name="pin_protection_message">Usa un PIN a 4 cifre per garantire la sicurezza di sNotz</string>
     <string name="press_back_exit">Premi ancora il pulsante \'Indietro\' per Uscire</string>
     <string name="qr_code">Codice QR</string>

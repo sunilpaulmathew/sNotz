@@ -85,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else {
                     if (Security.isPINEnabled(this)) {
-                        Security.authenticate(true, mRecycleViewAdapter,this);
+                        Security.authenticate(false, mRecycleViewAdapter, position, this);
                     } else {
                         Security.setPIN(false, getString(R.string.pin_enter), mRecycleViewAdapter, this);
                     }
@@ -95,7 +95,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Common.isHiddenNote(true);
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else if (Security.isPINEnabled(this)) {
-                    Security.authenticate(mRecycleViewAdapter, position,this);
+                    Security.authenticate(false, mRecycleViewAdapter, position,this);
                 } else {
                     sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, this), this);
                     mRecycleViewAdapter.notifyItemChanged(position);
@@ -217,7 +217,7 @@ public class SettingsActivity extends AppCompatActivity {
                                     Common.isClearingNotes(true);
                                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                                 } else if (Security.isPINEnabled(this)) {
-                                    Security.authenticate(mRecycleViewAdapter, position,this);
+                                    Security.authenticate(false, mRecycleViewAdapter, position,this);
                                 } else {
                                     sUtils.delete(new File(getFilesDir(),"snotz"));
                                     mRecycleViewAdapter.notifyItemChanged(position);

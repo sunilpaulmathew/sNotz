@@ -2,16 +2,16 @@ package com.sunilpaulmathew.snotz.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.Editable;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.StartActivity;
-import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
+import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 
 import java.io.File;
 
@@ -123,25 +123,27 @@ public class NotePicker {
         };
     }
     private void importCheckList() {
-        DialogEditTextListener.dialogEditText(null, mActivity.getString(R.string.check_list_import_question),
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.isEmpty()) {
-                        makeToast(R.string.check_list_name_empty_message).show();
-                        return;
-                    }
-                    if (sUtils.exist(new File(mActivity.getExternalFilesDir("checklists"), text))) {
+        new EditTextInterface(null, mActivity.getString(R.string.check_list_import_question), mActivity) {
+
+            @Override
+            public void positiveButtonLister(Editable s) {
+                if (s != null && !s.toString().trim().isEmpty()) {
+                    if (sUtils.exist(new File(mActivity.getExternalFilesDir("checklists"), s.toString().trim()))) {
                         new MaterialAlertDialogBuilder(mActivity)
                                 .setMessage(mActivity.getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(mActivity.getString(R.string.change_name), (dialogInterface, i) -> importCheckList())
                                 .setPositiveButton(mActivity.getString(R.string.replace), (dialogInterface, i) ->
-                                        launchCheckList(mActivity.getExternalFilesDir("checklists") + "/" + text))
+                                        launchCheckList(mActivity.getExternalFilesDir("checklists") + "/" + s.toString().trim()))
                                 .show();
-                        return;
+                    } else {
+                        launchCheckList(mActivity.getExternalFilesDir("checklists") + "/" + s.toString().trim());
+                        mActivity.finish();
                     }
-                    launchCheckList(mActivity.getExternalFilesDir("checklists") + "/" + text);
-                    mActivity.finish();
-                }, -1, mActivity).setOnDismissListener(dialogInterface -> mActivity.finish()).show();
+                } else {
+                    sUtils.toast(mActivity.getString(R.string.check_list_name_empty_message), mActivity).show();
+                }
+            }
+        }.show();
     }
 
     private void launchCheckList(String path) {
@@ -150,10 +152,6 @@ public class NotePicker {
         mIntent.putExtra(sNotzWidgets.getChecklistPath(), path);
         mActivity.startActivity(mIntent);
         mActivity.finish();
-    }
-
-    private Toast makeToast(int message) {
-        return Toast.makeText(mActivity, message, Toast.LENGTH_LONG);
     }
 
 }

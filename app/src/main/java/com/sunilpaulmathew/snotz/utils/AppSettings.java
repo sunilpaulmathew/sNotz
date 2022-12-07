@@ -9,11 +9,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
-import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
+import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 
 import java.io.File;
 import java.io.IOException;
@@ -241,30 +242,32 @@ public class AppSettings {
             },activity);
             return;
         }
-        DialogEditTextListener.dialogEditText("sNotz", activity.getString(R.string.backup_notes_hint),
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.isEmpty()) {
-                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty)).show();
-                        return;
+        new EditTextInterface("sNotz", activity.getString(R.string.backup_notes_hint), activity) {
+
+            @Override
+            public void positiveButtonLister(Editable s) {
+                if (s != null && !s.toString().trim().isEmpty()) {
+                    String fileName = s.toString().trim();
+                    if (!fileName.endsWith(".txt")) {
+                        fileName += ".txt";
                     }
-                    if (!text.endsWith(".txt")) {
-                        text += ".txt";
+                    if (fileName.contains(" ")) {
+                        fileName = fileName.replace(" ", "_");
                     }
-                    if (text.contains(" ")) {
-                        text = text.replace(" ", "_");
-                    }
-                    String fileName = text;
-                    if (sUtils.exist(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text))) {
+                    if (sUtils.exist(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName))) {
+                        String finalFileName = fileName;
                         new MaterialAlertDialogBuilder(activity)
                                 .setMessage(activity.getString(R.string.backup_notes_warning))
                                 .setNegativeButton(activity.getString(R.string.change_name), (dialogInterface, i) -> saveDialog(sNotz, activity))
-                                .setPositiveButton(activity.getString(R.string.replace), (dialogInterface, i) -> save(sNotz, fileName, activity)).show();
-                        return;
+                                .setPositiveButton(activity.getString(R.string.replace), (dialogInterface, i) -> save(sNotz, finalFileName, activity)).show();
+                    } else {
+                        save(sNotz, fileName, activity);
                     }
-                    save(sNotz, fileName, activity);
-                }, -1, activity).setOnDismissListener(dialogInterface -> {
-        }).show();
+                } else {
+                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty)).show();
+                }
+            }
+        }.show();
     }
 
     private static void save(String sNotz, String text, Activity activity) {

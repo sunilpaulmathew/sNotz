@@ -112,7 +112,6 @@
     <string name="pin_mismatch_message">"كلمة المرور غير متطابق. حاول مرة اخرى"</string>
     <string name="pin_protection">"حماية PIN"</string>
     <string name="pin_protection_status">"حماية PIN هي %s"</string>
-    <string name="pin_length_warning">"يجب أن يتكون رقم التعريف الشخصي من 4 أرقام"</string>
     <string name="pin_protection_message">"استخدم رمز PIN المكون من 4 أرقام لتأمين sNotz"</string>
     <string name="reminder_message">"سوف يذكرك sNotz بهذه الملاحظة في %s"</string>
     <string name="replace">"تبديل"</string>

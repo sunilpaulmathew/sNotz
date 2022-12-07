@@ -114,7 +114,6 @@
     <string name="pin_mismatch_message">"पिन मेल नहीं खाती है। कृपया फिर से प्रयास करें"</string>
     <string name="pin_protection">"पिन सुरक्षा"</string>
     <string name="pin_protection_status">"पिन संरक्षण %s है"</string>
-    <string name="pin_length_warning">"पिन एक 4 अंकों की संख्या होनी चाहिए"</string>
     <string name="pin_protection_message">"SNotz को सुरक्षित करने के लिए 4 अंकों का पिन का उपयोग करें"</string>
     <string name="reminder_message">"sNotz आपको %s पर इस नोट के बारे में याद दिलायेगा"</string>
     <string name="replace">"बदलें"</string>

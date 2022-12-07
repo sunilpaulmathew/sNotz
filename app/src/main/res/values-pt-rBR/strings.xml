@@ -114,7 +114,6 @@
     <string name="pin_mismatch_message">"PIN não corresponde. Tente novamente"</string>
     <string name="pin_protection">"Proteção por PIN"</string>
     <string name="pin_protection_status">"Proteção por PIN está %s"</string>
-    <string name="pin_length_warning">"PIN deve ser um número de 4 dígitos"</string>
     <string name="pin_protection_message">"Use um PIN de 4 dígitos para proteger o sNotz"</string>
     <string name="reminder_message">"sNotz vai te lembrar dessa nota em %s"</string>
     <string name="replace">"Substituir"</string>

@@ -3,13 +3,13 @@ package com.sunilpaulmathew.snotz.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.text.InputType;
+import android.text.Editable;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
-import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
+import com.sunilpaulmathew.snotz.interfaces.AuthenticatorInterface;
 
 import java.io.File;
 import java.util.concurrent.Executors;
@@ -40,7 +40,11 @@ public class Security {
     }
 
     public static String getPIN(Context context) {
-        return sUtils.read(new File(context.getCacheDir(),"pin"));
+        if (sUtils.exist(new File(context.getCacheDir(),"pin"))) {
+            return sUtils.read(new File(context.getCacheDir(), "pin"));
+        } else {
+            return null;
+        }
     }
 
     public static void removePIN(Context context) {
@@ -53,86 +57,52 @@ public class Security {
     }
 
     public static void setPIN(boolean verify, String title, SettingsAdapter adapter, Activity activity) {
-        DialogEditTextListener.dialogEditText(null, title,
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.length() != 4) {
-                        if (verify) {
-                            removePIN(activity);
-                        }
-                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_length_warning)).show();
-                    } else if (!verify) {
-                        setPIN(text, activity);
-                        setPIN(true, activity.getString(R.string.pin_reenter), adapter, activity);
-                    } else if (!text.equals(getPIN(activity))) {
-                        new MaterialAlertDialogBuilder(activity)
-                                .setMessage(activity.getString(R.string.pin_mismatch_message))
-                                .setCancelable(false)
-                                .setNegativeButton(R.string.cancel, (dialog, which) -> removePIN(activity))
-                                .setPositiveButton(R.string.try_again, (dialog, which) -> setPIN(true,
-                                        activity.getString(R.string.pin_reenter), adapter, activity)).show();
-                    } else {
-                        sUtils.saveBoolean("use_pin", true, activity);
+        new AuthenticatorInterface(false, title, activity) {
+
+            @Override
+            public void positiveButtonLister(Editable authText) {
+                if (!verify) {
+                    setPIN(authText.toString().trim(), activity);
+                    setPIN(true, activity.getString(R.string.pin_reenter), adapter, activity);
+                } else if (authText.toString().trim().equals(getPIN(activity))) {
+                    sUtils.saveBoolean("use_pin", true, activity);
+                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
+                            activity.getString(R.string.activated))).show();
+                    adapter.notifyItemChanged(3);
+                }
+            }
+        }.show();
+    }
+
+    public static void authenticate(boolean login, SettingsAdapter adapter, int position, Activity activity) {
+        new AuthenticatorInterface(login, activity.getString(R.string.authenticate), activity) {
+
+            @Override
+            public void positiveButtonLister(Editable authText) {
+                if (authText != null && authText.toString().trim().length() == 4
+                        && authText.toString().trim().equals(getPIN(activity))) {
+                    if (login) {
+                        // Launch MainActivity
+                        launchMainActivity(activity);
+                    } else if (position == 3) {
+                        removePIN(activity);
                         sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
-                                activity.getString(R.string.activated))).show();
-                        adapter.notifyItemChanged(3);
-                    }
-                }, InputType.TYPE_CLASS_NUMBER,activity).setOnDismissListener(dialogInterface -> {
-        }).show();
-    }
-
-    public static void authenticate(SettingsAdapter adapter, int position, Activity activity) {
-        DialogEditTextListener.dialogEditText(null, activity.getString(R.string.authenticate),
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (!text.equals(getPIN(activity))) {
-                        new MaterialAlertDialogBuilder(activity)
-                                .setMessage(activity.getString(R.string.pin_mismatch_message))
-                                .setCancelable(false)
-                                .setNegativeButton(R.string.cancel, (dialog, which) -> activity.finish())
-                                .setPositiveButton(R.string.try_again, (dialog, which) -> authenticate(adapter, position, activity)).show();
-                    } else {
-                        if (position == 4) {
-                            sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, activity), activity);
-                        } else {
-                            sUtils.delete(new File(activity.getFilesDir(),"snotz"));
-                        }
+                                activity.getString(R.string.deactivated))).show();
+                    } else if (position == 4) {
+                        sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, activity), activity);
                         Utils.reloadUI(activity);
-                        if (adapter != null) {
-                            adapter.notifyItemChanged(position);
-                        }
-                    }
-                }, InputType.TYPE_CLASS_NUMBER,activity).setOnDismissListener(dialogInterface -> {
-        }).show();
-    }
-
-    public static void authenticate(boolean remove, SettingsAdapter adapter, Activity activity) {
-        DialogEditTextListener.dialogEditText(null, activity.getString(R.string.authenticate),
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (!text.equals(getPIN(activity))) {
-                        new MaterialAlertDialogBuilder(activity)
-                                .setMessage(activity.getString(R.string.pin_mismatch_message))
-                                .setCancelable(false)
-                                .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                                })
-                                .setPositiveButton(R.string.try_again, (dialog, which) -> authenticate(remove, adapter, activity)).show();
+                        activity.finish();
                     } else {
-                        if (remove) {
-                            removePIN(activity);
-                            adapter.notifyItemChanged(3);
-                            sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
-                                    activity.getString(R.string.deactivated))).show();
-                        } else {
-                            // Launch MainActivity
-                            launchMainActivity(activity);
-                        }
-                    }
-                }, InputType.TYPE_CLASS_NUMBER,activity).setOnDismissListener(dialogInterface -> {
-                    if (!remove) {
+                        sUtils.delete(new File(activity.getFilesDir(),"snotz"));
+                        Utils.reloadUI(activity);
                         activity.finish();
                     }
-        }).show();
+                    if (adapter != null) {
+                        adapter.notifyItemChanged(position);
+                    }
+                }
+            }
+        }.show();
     }
 
     public static void launchMainActivity(Activity activity) {

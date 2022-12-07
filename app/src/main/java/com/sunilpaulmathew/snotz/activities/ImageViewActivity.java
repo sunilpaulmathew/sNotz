@@ -3,6 +3,7 @@ package com.sunilpaulmathew.snotz.activities;
 import android.Manifest;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -11,7 +12,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
+import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
@@ -56,23 +57,25 @@ public class ImageViewActivity extends AppCompatActivity {
             }, this);
             return;
         }
-        DialogEditTextListener.dialogEditText(null, getString(R.string.qr_code_save_hint),
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.isEmpty()) {
-                        sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.text_empty)).show();
-                        return;
+        new EditTextInterface("sNotz", getString(R.string.backup_notes_hint), this) {
+
+            @Override
+            public void positiveButtonLister(Editable s) {
+                if (s != null && !s.toString().trim().isEmpty()) {
+                    String fileName = s.toString().trim();
+                    if (!fileName.endsWith(".png")) {
+                        fileName += ".png";
                     }
-                    if (!text.endsWith(".png")) {
-                        text += ".png";
+                    if (fileName.contains(" ")) {
+                        fileName = fileName.replace(" ", "_");
                     }
-                    if (text.contains(" ")) {
-                        text = text.replace(" ", "_");
-                    }
-                    new QRCodeUtils(null, null, this).saveQRCode(Common.getReadModeImage(), text);
+                    new QRCodeUtils(null, null, ImageViewActivity.this).saveQRCode(Common.getReadModeImage(), fileName);
                     onBackPressed();
-                }, -1, this).setOnDismissListener(dialogInterface -> {
-        }).show();
+                } else {
+                    sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.text_empty)).show();
+                }
+            }
+        }.show();
     }
 
     @Override

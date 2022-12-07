@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,12 +29,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
-import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
+import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
@@ -127,38 +127,40 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 if (this.data.get(position).getImageString() != null) {
                                     sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.image_excluded_warning)).show();
                                 }
-                                DialogEditTextListener.dialogEditText(null, null,
-                                        (dialogInterface, i) -> {
-                                        }, text -> {
-                                            if (text.isEmpty()) {
-                                                sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
-                                                return;
+                                new EditTextInterface(null, null, (Activity) holder.mRVCard.getContext()) {
+
+                                    @Override
+                                    public void positiveButtonLister(Editable s) {
+                                        if (s != null && !s.toString().trim().isEmpty()) {
+                                            String fileName = s.toString().trim();
+                                            if (!fileName.endsWith(".txt")) {
+                                                fileName += ".txt";
                                             }
-                                            if (!text.endsWith(".txt")) {
-                                                text += ".txt";
-                                            }
-                                            if (text.contains(" ")) {
-                                                text = text.replace(" ", "_");
+                                            if (fileName.contains(" ")) {
+                                                fileName = fileName.replace(" ", "_");
                                             }
                                             if (Build.VERSION.SDK_INT >= 29) {
                                                 try {
                                                     ContentValues values = new ContentValues();
-                                                    values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
+                                                    values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
                                                     values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
                                                     values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
                                                     Uri uri = holder.mRVCard.getContext().getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
                                                     OutputStream outputStream = holder.mRVCard.getContext().getContentResolver().openOutputStream(uri);
-                                                    outputStream.write(Objects.requireNonNull(this.data.get(position).getNote()).getBytes());
+                                                    outputStream.write(Objects.requireNonNull(data.get(position).getNote()).getBytes());
                                                     outputStream.close();
                                                 } catch (IOException ignored) {
                                                 }
                                             } else {
-                                                sUtils.create(this.data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text));
+                                                sUtils.create(data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
                                             }
                                             sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
-                                                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text)).show();
-                                        }, -1, (Activity) holder.mRVCard.getContext()).setOnDismissListener(dialogInterface -> {
-                                }).show();
+                                                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)).show();
+                                        } else {
+                                            sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
+                                        }
+                                    }
+                                }.show();
                             }
                             break;
                         case 5:
@@ -219,38 +221,40 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 if (this.data.get(position).getImageString() != null) {
                     sUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.image_excluded_warning)).show();
                 }
-                DialogEditTextListener.dialogEditText(null, null,
-                        (dialogInterface, i) -> {
-                        }, text -> {
-                            if (text.isEmpty()) {
-                                sUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.text_empty)).show();
-                                return;
+                new EditTextInterface(null, null, (Activity) holder.mRVCard.getContext()) {
+
+                    @Override
+                    public void positiveButtonLister(Editable s) {
+                        if (s != null && !s.toString().trim().isEmpty()) {
+                            String fileName = s.toString().trim();
+                            if (!fileName.endsWith(".txt")) {
+                                fileName += ".txt";
                             }
-                            if (!text.endsWith(".txt")) {
-                                text += ".txt";
-                            }
-                            if (text.contains(" ")) {
-                                text = text.replace(" ", "_");
+                            if (fileName.contains(" ")) {
+                                fileName = fileName.replace(" ", "_");
                             }
                             if (Build.VERSION.SDK_INT >= 29) {
                                 try {
                                     ContentValues values = new ContentValues();
-                                    values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
+                                    values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
                                     values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
                                     values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
                                     Uri uri = v.getContext().getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
                                     OutputStream outputStream = v.getContext().getContentResolver().openOutputStream(uri);
-                                    outputStream.write(Objects.requireNonNull(this.data.get(position).getNote()).getBytes());
+                                    outputStream.write(Objects.requireNonNull(data.get(position).getNote()).getBytes());
                                     outputStream.close();
                                 } catch (IOException ignored) {
                                 }
                             } else {
-                                sUtils.create(this.data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text));
+                                sUtils.create(data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
                             }
                             sUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.save_text_message,
-                                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text)).show();
-                        }, -1, (Activity) v.getContext()).setOnDismissListener(dialogInterface -> {
-                }).show();
+                                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)).show();
+                        } else {
+                            sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
+                        }
+                    }
+                }.show();
             }
         });
         holder.mHidden.setOnClickListener(v -> {

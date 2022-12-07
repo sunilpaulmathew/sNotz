@@ -9,13 +9,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CheckListsActivity;
-import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
+import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 
 import java.io.File;
 import java.io.IOException;
@@ -104,20 +105,22 @@ public class CheckLists implements Serializable {
             },activity);
             return;
         }
-        DialogEditTextListener.dialogEditText(null, activity.getString(R.string.check_list_backup_question, CheckLists.getCheckListName()),
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.isEmpty()) {
-                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty)).show();
-                        return;
+        new EditTextInterface(CheckLists.getCheckListName(), activity.getString(R.string.check_list_backup_question, CheckLists.getCheckListName()), activity) {
+
+            @Override
+            public void positiveButtonLister(Editable s) {
+                if (s != null && !s.toString().trim().isEmpty()) {
+                    String fileName = s.toString().trim();
+                    if (!fileName.endsWith(".txt")) {
+                        fileName += ".txt";
                     }
-                    if (!text.endsWith(".txt")) {
-                        text += ".txt";
+                    if (fileName.contains(" ")) {
+                        fileName = fileName.replace(" ", "_");
                     }
-                    if (Build.VERSION.SDK_INT >= 30) {
+                    if (Build.VERSION.SDK_INT >= 29) {
                         try {
                             ContentValues values = new ContentValues();
-                            values.put(MediaStore.MediaColumns.DISPLAY_NAME, text);
+                            values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
                             values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
                             values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
                             Uri uri = activity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
@@ -127,27 +130,29 @@ public class CheckLists implements Serializable {
                         } catch (IOException ignored) {
                         }
                     } else {
-                        sUtils.create(sUtils.read(new File(activity.getExternalFilesDir("checklists"), CheckLists.getCheckListName())), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text));
+                        sUtils.create(sUtils.read(new File(activity.getExternalFilesDir("checklists"), CheckLists.getCheckListName())),
+                                new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
                     }
-                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text)).show();
-                }, -1, activity).setOnDismissListener(dialogInterface -> {
-        }).show();
+                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_checklist_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)).show();
+                } else {
+                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty)).show();
+                }
+            }
+        }.show();
     }
 
     public static void importCheckList(String jsonString, boolean scan, Activity activity) {
-        DialogEditTextListener.dialogEditText(null, activity.getString(R.string.check_list_import_question),
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.isEmpty()) {
-                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.check_list_name_empty_message)).show();
-                        return;
-                    }
-                    if (sUtils.exist(new File(activity.getExternalFilesDir("checklists"), text))) {
+        new EditTextInterface(null, activity.getString(R.string.check_list_import_question), activity) {
+
+            @Override
+            public void positiveButtonLister(Editable s) {
+                if (s != null && !s.toString().trim().isEmpty()) {
+                    if (sUtils.exist(new File(activity.getExternalFilesDir("checklists"), s.toString().trim()))) {
                         new MaterialAlertDialogBuilder(activity)
                                 .setMessage(activity.getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(activity.getString(R.string.change_name), (dialogInterface, i) -> importCheckList(jsonString, scan, activity))
                                 .setPositiveButton(activity.getString(R.string.replace), (dialogInterface, i) -> {
-                                    sUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), text));
+                                    sUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), s.toString().trim()));
                                     Intent checkListIntent = new Intent(activity, CheckListsActivity.class);
                                     activity.startActivity(checkListIntent);
                                     if (scan) {
@@ -156,14 +161,17 @@ public class CheckLists implements Serializable {
                                 }).show();
                         return;
                     }
-                    sUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), text));
+                    sUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), s.toString().trim()));
                     Intent checkListIntent = new Intent(activity, CheckListsActivity.class);
                     activity.startActivity(checkListIntent);
                     if (scan) {
                         activity.finish();
                     }
-                }, -1, activity).setOnDismissListener(dialogInterface -> {
-        }).show();
+                } else {
+                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.check_list_name_empty_message)).show();
+                }
+            }
+        }.show();
     }
 
     public static void setCheckListName(String name) {

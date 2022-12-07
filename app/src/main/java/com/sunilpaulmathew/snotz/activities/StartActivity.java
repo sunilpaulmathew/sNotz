@@ -1,6 +1,5 @@
 package com.sunilpaulmathew.snotz.activities;
 
-import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.graphics.Color;
@@ -14,19 +13,13 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textview.MaterialTextView;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.providers.WidgetProvider;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
-import com.sunilpaulmathew.snotz.utils.sNotzData;
-import com.sunilpaulmathew.snotz.utils.sNotzItems;
 
-import java.io.File;
 import java.util.concurrent.Executor;
 
-import in.sunilpaulmathew.sCommon.Utils.sExecutor;
 import in.sunilpaulmathew.sCommon.Utils.sThemeUtils;
 import in.sunilpaulmathew.sCommon.Utils.sUtils;
 
@@ -36,7 +29,6 @@ import in.sunilpaulmathew.sCommon.Utils.sUtils;
 public class StartActivity extends AppCompatActivity {
 
     private AppCompatImageView mAppLogo;
-    private BiometricPrompt mBiometricPrompt;
     private MaterialTextView mAuthenticationStatus;
 
     @Override
@@ -56,7 +48,7 @@ public class StartActivity extends AppCompatActivity {
         mWidgetProvider.onUpdate(this, AppWidgetManager.getInstance(this), ids);
 
         Executor executor = ContextCompat.getMainExecutor(this);
-        mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+        BiometricPrompt mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
@@ -84,58 +76,13 @@ public class StartActivity extends AppCompatActivity {
 
         Utils.showBiometricPrompt(this);
 
-        if (!sUtils.getBoolean("reOrganized", false, this)) {
-            reOrganizeNotes(this).execute();
+        if (sUtils.getBoolean("use_biometric", false, this)) {
+            mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
+        } else if (Security.isPINEnabled(this)) {
+            Security.authenticate(true, null, -1, this);
         } else {
-            if (sUtils.getBoolean("use_biometric", false, this)) {
-                mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
-            } else if (Security.isPINEnabled(this)) {
-                Security.authenticate(false, null, this);
-            } else {
-                Security.launchMainActivity(this);
-            }
+            Security.launchMainActivity(this);
         }
-    }
-
-    private sExecutor reOrganizeNotes(Activity activity) {
-        return new sExecutor() {
-            @Override
-            public void onPreExecute() {
-            }
-
-            @Override
-            public void doInBackground() {
-                int i = 0;
-                JsonObject mJSONObject = new JsonObject();
-                JsonArray mJSONArray = new JsonArray();
-                for (sNotzItems items : sNotzData.getRawData(activity)) {
-                    JsonObject note = new JsonObject();
-                    note.addProperty("note", items.getNote());
-                    note.addProperty("date", items.getTimeStamp());
-                    note.addProperty("image", items.getImageString());
-                    note.addProperty("hidden", items.isHidden());
-                    note.addProperty("colorBackground", items.getColorBackground());
-                    note.addProperty("colorText", items.getColorText());
-                    note.addProperty("noteID", i);
-                    i++;
-                    mJSONArray.add(note);
-                }
-                mJSONObject.add("sNotz", mJSONArray);
-                sUtils.create(mJSONObject.toString(), new File(activity.getFilesDir(),"/snotz"));
-            }
-
-            @Override
-            public void onPostExecute() {
-                sUtils.saveBoolean("reOrganized", true, activity);
-                if (sUtils.getBoolean("use_biometric", false, activity)) {
-                    mBiometricPrompt.authenticate(Utils.showBiometricPrompt(activity));
-                } else if (Security.isPINEnabled(activity)) {
-                    Security.authenticate(false, null, activity);
-                } else {
-                    Security.launchMainActivity(activity);
-                }
-            }
-        };
     }
 
 }

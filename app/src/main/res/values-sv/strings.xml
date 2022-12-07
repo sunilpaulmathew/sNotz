@@ -114,7 +114,6 @@
     <string name="pin_mismatch_message">"PIN koden matchar inte. Försök på nytt"</string>
     <string name="pin_protection">"PIN kod säkerhet"</string>
     <string name="pin_protection_status">"PIN säkerhet %s"</string>
-    <string name="pin_length_warning">"PIN koden skall vara 4 siffror"</string>
     <string name="pin_protection_message">"Använd en 4 siffrig PIN kod för att säkra sNotz"</string>
     <string name="reminder_message">"sNotz kommer att påminna dig om denna anteckning %s"</string>
     <string name="replace">"Byt ut"</string>

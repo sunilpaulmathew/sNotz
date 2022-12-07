@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListAdapter;
 import com.sunilpaulmathew.snotz.adapters.WidgetChecklistsAdapter;
-import com.sunilpaulmathew.snotz.interfaces.DialogEditTextListener;
+import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 import com.sunilpaulmathew.snotz.providers.WidgetProvider;
 import com.sunilpaulmathew.snotz.utils.CheckListItems;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
@@ -135,32 +136,33 @@ public class WidgetChecklistsFragment extends Fragment {
     }
 
     private void createCheckList() {
-        DialogEditTextListener.dialogEditText(null, getString(R.string.check_list_create_question),
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.isEmpty()) {
-                        sUtils.snackBar(requireActivity().findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
-                        return;
-                    }
-                    if (sUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), text))) {
+        new EditTextInterface(null, getString(R.string.check_list_create_question), requireActivity()) {
+
+            @Override
+            public void positiveButtonLister(Editable s) {
+                if (s != null && !s.toString().trim().isEmpty()) {
+                    if (sUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), s.toString().trim()))) {
                         new MaterialAlertDialogBuilder(requireActivity())
                                 .setMessage(getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> createCheckList())
                                 .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> {
-                                    mTitle.setText(text);
+                                    mTitle.setText(s.toString().trim());
                                     mSave.setVisibility(View.VISIBLE);
-                                    CheckLists.setCheckListName(text);
+                                    CheckLists.setCheckListName(s.toString().trim());
                                     mRecyclerViewCheckList.setVisibility(View.VISIBLE);
                                 }).show();
-                        return;
+                    } else {
+                        mTitle.setText(s.toString().trim());
+                        mSave.setVisibility(View.VISIBLE);
+                        CheckLists.setCheckListName(s.toString().trim());
+                        mRecyclerViewCheckList.setVisibility(View.VISIBLE);
+                        mData.add(new CheckListItems("", false));
                     }
-                    mTitle.setText(text);
-                    mSave.setVisibility(View.VISIBLE);
-                    CheckLists.setCheckListName(text);
-                    mRecyclerViewCheckList.setVisibility(View.VISIBLE);
-                    mData.add(new CheckListItems("", false));
-                }, -1,requireActivity()).setOnDismissListener(dialogInterface -> {
-        }).show();
+                } else {
+                    sUtils.snackBar(requireActivity().findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
+                }
+            }
+        }.show();
     }
 
     private void create(String path) {

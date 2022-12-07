@@ -113,7 +113,6 @@
     <string name="pin_mismatch_message">"PIN stimmt nicht überein - bitte versuche es erneut"</string>
     <string name="pin_protection">"PIN-Schutz"</string>
     <string name="pin_protection_status">"PIN-Schutz ist %s"</string>
-    <string name="pin_length_warning">"PIN sollte eine 4-stellige Zahl sein"</string>
     <string name="pin_protection_message">"Nutze eine 4-stellige Zahl um sNotz zu schützen"</string>
     <string name="reminder_message">"sNotz wird Dich zu dieser Notiz am %s erinnern"</string>
     <string name="replace">"Ersetzen"</string>

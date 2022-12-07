@@ -114,7 +114,6 @@
     <string name="pin_mismatch_message">"Nem egyező PIN. Próbáld újra"</string>
     <string name="pin_protection">"PIN védelem"</string>
     <string name="pin_protection_status">"PIN védelem státusza %s"</string>
-    <string name="pin_length_warning">"A PIN egy 4 számjegyből álló szám lehet"</string>
     <string name="pin_protection_message">"Az sNotz védelméhez használj egy 4 számból álló PIN-t"</string>
     <string name="reminder_message">"Az sNotz a megadott %s időben emlékeztetni fog erre a Jegyzetre"</string>
     <string name="replace">"Lecserélés"</string>

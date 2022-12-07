@@ -114,7 +114,6 @@
     <string name="pin_mismatch_message">"PIN stemmer ikke overens. Prøv igjen"</string>
     <string name="pin_protection">"PIN-beskyttelse"</string>
     <string name="pin_protection_status">"PIN-beskyttelse er %s"</string>
-    <string name="pin_length_warning">"PIN skal være et 4-sifret tall"</string>
     <string name="pin_protection_message">"Bruk en 4-sifret PIN for å sikre sNotz"</string>
     <string name="reminder_message">"sNotz vil minne deg om dette notatet %s"</string>
     <string name="replace">"Erstatt"</string>
