@@ -265,12 +265,13 @@ public class sNotzFragment extends Fragment {
             }
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mMenu);
             Menu menu = popupMenu.getMenu();
-            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.settings));
-            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.check_lists));
-            SubMenu qrCode = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.qr_code));
+            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.settings)).setIcon(R.drawable.ic_dots);
+            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.check_lists)).setIcon(R.drawable.ic_checklist);
+            SubMenu qrCode = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.qr_code)).setIcon(R.drawable.ic_qr_code);
             qrCode.add(Menu.NONE, 3, Menu.NONE, getString(R.string.qr_code_scan));
             qrCode.add(Menu.NONE, 4, Menu.NONE, getString(R.string.qr_code_read));
-            menu.add(Menu.NONE, 5, Menu.NONE, getString(R.string.about));
+            menu.add(Menu.NONE, 5, Menu.NONE, getString(R.string.about)).setIcon(R.drawable.ic_info);
+            popupMenu.setForceShowIcon(true);
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
