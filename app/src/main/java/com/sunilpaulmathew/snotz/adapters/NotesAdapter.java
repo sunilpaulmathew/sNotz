@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -89,18 +90,24 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 PopupMenu popupMenu = new PopupMenu(holder.mRVCard.getContext(), holder.mExpand);
                 Menu menu = popupMenu.getMenu();
                 menu.add(Menu.NONE, 0, Menu.NONE, holder.mRVCard.getContext().getString(R.string.share));
-                menu.add(Menu.NONE, 1, Menu.NONE, holder.mRVCard.getContext().getString(R.string.hidden_note)).setCheckable(true)
+                menu.add(Menu.NONE, 1, Menu.NONE, holder.mRVCard.getContext().getString(R.string.duplicate));
+                menu.add(Menu.NONE, 2, Menu.NONE, holder.mRVCard.getContext().getString(R.string.hidden_note)).setCheckable(true)
                         .setChecked(this.data.get(position).isHidden());
-                menu.add(Menu.NONE, 2, Menu.NONE, holder.mRVCard.getContext().getString(R.string.set_reminder));
-                menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.qr_code_generate));
-                menu.add(Menu.NONE, 4, Menu.NONE, holder.mRVCard.getContext().getString(R.string.save_text));
-                menu.add(Menu.NONE, 5, Menu.NONE, holder.mRVCard.getContext().getString(R.string.delete));
+                menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.set_reminder));
+                menu.add(Menu.NONE, 4, Menu.NONE, holder.mRVCard.getContext().getString(R.string.qr_code_generate));
+                menu.add(Menu.NONE, 5, Menu.NONE, holder.mRVCard.getContext().getString(R.string.save_text));
+                menu.add(Menu.NONE, 6, Menu.NONE, holder.mRVCard.getContext().getString(R.string.delete));
                 popupMenu.setOnMenuItemClickListener(popupMenuItem -> {
                     switch (popupMenuItem.getItemId()) {
                         case 0:
                             sNotzUtils.shareNote(this.data.get(position).getNote(), this.data.get(position).getImageString(), holder.mRVCard.getContext());
                             break;
                         case 1:
+                            sNotzUtils.addNote(new SpannableStringBuilder(this.data.get(position).getNote()),
+                                    this.data.get(position).getImageString(), this.data.get(position).getColorBackground(), this.data.get(position).getColorText(),
+                                    this.data.get(position).isHidden(), holder.mProgress, item.getContext());
+                            break;
+                        case 2:
                             if (this.data.get(position).isHidden()) {
                                 sNotzUtils.hideNote(this.data.get(position).getNoteID(),false, holder.mProgress, holder.mRVCard.getContext()).execute();
                             } else {
@@ -108,17 +115,17 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message)).show();
                             }
                             break;
-                        case 2:
+                        case 3:
                             sNotzReminders.setYear(-1);
                             sNotzReminders.setMonth(-1);
                             sNotzReminders.setDay(-1);
                             sNotzReminders.launchReminderMenu(data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
                             break;
-                        case 3:
+                        case 4:
                             Common.setNote(this.data.get(position).getNote());
                             new QRCodeUtils(this.data.get(position).getNote(), null, (Activity) holder.mRVCard.getContext()).generateQRCode().execute();
                             break;
-                        case 4:
+                        case 5:
                             if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, holder.mRVCard.getContext())) {
                                 sPermissionUtils.requestPermission(new String[] {
                                         Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -163,7 +170,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 }.show();
                             }
                             break;
-                        case 5:
+                        case 6:
                             String[] sNotzContents = this.data.get(position).getNote().split("\\s+");
                             new MaterialAlertDialogBuilder(holder.mRVCard.getContext())
                                     .setMessage(holder.mRVCard.getContext().getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
@@ -201,6 +208,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
         holder.mShare.setColorFilter(data.get(position).getColorText());
         holder.mDownload.setColorFilter(data.get(position).getColorText());
+        holder.mDuplicate.setColorFilter(data.get(position).getColorText());
         holder.mQrCode.setColorFilter(data.get(position).getColorText());
         holder.mReminder.setColorFilter(data.get(position).getColorText());
         holder.mDelete.setColorFilter(data.get(position).getColorText());
@@ -212,6 +220,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
         holder.mShare.setOnClickListener(v -> sNotzUtils.shareNote(this.data.get(position).getNote(),
                 this.data.get(position).getImageString(), v.getContext()));
+        holder.mDuplicate.setOnClickListener(v -> sNotzUtils.addNote(new SpannableStringBuilder(this.data.get(position).getNote()),
+                this.data.get(position).getImageString(), this.data.get(position).getColorBackground(), this.data.get(position).getColorText(),
+                this.data.get(position).isHidden(), holder.mProgress, v.getContext()));
         holder.mDownload.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, v.getContext())) {
                 sPermissionUtils.requestPermission(new String[] {
@@ -320,7 +331,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final LinearLayoutCompat mActionLayout;
-        private final AppCompatImageButton mDelete, mDownload, mExpand, mQrCode, mReminder, mShare;
+        private final AppCompatImageButton mDelete, mDownload, mDuplicate, mExpand, mQrCode, mReminder, mShare;
         private final MaterialTextView mContents, mDate;
         private final MaterialCardView mRVCard;
         private final ProgressBar mProgress;
@@ -330,6 +341,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             super(view);
             this.mDelete = view.findViewById(R.id.delete);
             this.mDownload = view.findViewById(R.id.download);
+            this.mDuplicate = view.findViewById(R.id.duplicate);
             this.mExpand = view.findViewById(R.id.expand);
             this.mQrCode = view.findViewById(R.id.qr_code);
             this.mReminder = view.findViewById(R.id.reminder);
