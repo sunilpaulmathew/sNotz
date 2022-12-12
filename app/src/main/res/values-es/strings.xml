@@ -160,4 +160,8 @@
     <string name="exit">"Salir"</string>
     <string name="check_list_widget_color">"Color del widget de la lista de chequeo"</string>
     <string name="check_list_widget_color_summary">"Cambiar el color por defecto de los widgets de la lista de chequeo"</string>
+    <string name="restore">"Restaurar"</string>
+    <string name="restore_backup_message">"Tus notas fueron eliminadas recientemente. ¿Quieres restaurarlas desde la última copia de seguridad automática?
+
+        Advertencia: La copia de seguridad automática se eliminará permanentemente después de cancelar este mensaje."</string>
 </resources>

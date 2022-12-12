@@ -159,4 +159,8 @@
     <string name="exit">"Beenden"</string>
     <string name="check_list_widget_color">"Checkliste Widget Farbe"</string>
     <string name="check_list_widget_color_summary">"Standardfarbe der Checklisten-Widgets ändern"</string>
+    <string name="restore">"Wiederherstellen"</string>
+    <string name="restore_backup_message">"Ihre Notizen wurden entfernt. Möchten Sie diese aus dem letzten automatischen Backup wiederherstellen?
+
+        Warnung: Wenn Sie diese Nachricht mit Abbrechen schließen, geht das automatische Backup für immer verloren."</string>
 </resources>
