@@ -6,7 +6,7 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
-<h3 style="color: green">v0.26</h3>
+<h3 style="color: green">v0.27</h3>
 - Re-designed PIN authentication.
 - Improved pop up menu's in the main screen.
 - Added Hungarian, Polish & Bengali transactions.
@@ -14,7 +14,7 @@ include_in_header: true
 - Updated build tools.
 - Miscellaneous changes.
 
-- <h3 style="color: green">v0.26</h3>
+<h3 style="color: green">v0.26</h3>
 - Fixed a bug leading to data loss when PIN lock is enabled.
 - sNotz will now allow restoring notes after an accidental data loss.
 - Updated build tools.
