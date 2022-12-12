@@ -23,6 +23,8 @@ sNotz is, and as always, an open-source project which is ready to accept contrib
 * Bo Lindholm: Swedish Translations
 * [jaswinder77](https://github.com/jaswinder77/): Hindi Translations
 * Edp17: Hungarian Translations
+* mdnk: Polish Translations
+* Istiaque: Bengali Translations
 * Many other people contributed via [POEditor](https://poeditor.com/join/project?hash=LOg2GmFfbV)
 
 ## Testing
