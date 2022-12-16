@@ -1,6 +1,0 @@
-* Re-designed PIN authentication.
-* Improved pop up menu's in the main screen.
-* Added Hungarian, Polish & Bengali transactions.
-* Updated other transactions.
-* Updated build tools.
-* Miscellaneous changes.

@@ -2,7 +2,7 @@
 
 <p style="text-align: center"><img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/002.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/001.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/005.jpg" alt="" width="250" height="450" /></p>
 
-[![](https://img.shields.io/badge/sNotz-v0.27-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
+[![](https://img.shields.io/badge/sNotz-v0.28-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
 ![](https://img.shields.io/github/contributors/sunilpaulmathew/sNotz)
 
@@ -20,7 +20,7 @@ alt="Get it on IzzyOnDroid"
 height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.sunilpaulmathew.snotz)
 [<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
 alt="Get it on GitHub"
-height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.27/app-fdroid-release.apk)
+height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.28/app-fdroid-release.apk)
 
 ## Features
 * Easily create & manage simple notes.

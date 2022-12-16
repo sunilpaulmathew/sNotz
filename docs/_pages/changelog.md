@@ -6,6 +6,10 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.28</h3>
+- Now possible to delete or modify reminders.
+- Miscellaneous changes.
+
 <h3 style="color: green">v0.27</h3>
 - Re-designed PIN authentication.
 - Improved pop up menu's in the main screen.
