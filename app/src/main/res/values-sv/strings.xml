@@ -132,7 +132,6 @@
     <string name="text_style_italics">"Kursiv"</string>
     <string name="text_style_regular">"Normal"</string>
     <string name="backup_notes_hint">"Gör en backup som?"</string>
-    <string name="reminder_warning">"sNotz övervakar inte påminnelser. Som en följ av detta, kan en påminnelse inte redigeras eller raderas. Alla påminnelser skapade med sNotz kommer att visas vid tidpunkten även om original anteckningen är raderad"</string>
     <string name="welcome_note_screen_one">"Välkommen till sNotz, en öppen källkod, integritetsvänlig, och en helt offline applikation för att hantera dina anteckningar"</string>
     <string name="welcome_note_screen_two">"sNotz låter dig skapa, anpassa, och hantera enkla anteckningar och checklistor"</string>
     <string name="welcome_note_screen_three">"sNotz stöder skapandet av anteckningar med din favorit färg och font storlek/stil. Kolla \"Inställningar\" sidan för mera info."</string>

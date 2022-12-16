@@ -132,7 +132,6 @@
     <string name="text_style_italics">"Corsivo"</string>
     <string name="text_style_regular">"Normale"</string>
     <string name="backup_notes_hint">"Nome Backup delle note?"</string>
-    <string name="reminder_warning">"sNotz non monitorerà i promemoria. Di conseguenza, una volta creato un promemoria non sarà possibile modificarlo o eliminarlo. Verrai notificato da sNotz di tutti i promemoria all'ora fissata anche se le note originali sono state eliminate."</string>
     <string name="welcome_note_screen_one">"Benvenuto su sNotz, un'applicazione open-source, che rispetta la tua privacy, e completamente offline per gestire le tue note."</string>
     <string name="welcome_note_screen_two">"sNotz ti permette di creare, personalizzare, e gestire semplici note &amp; checklists."</string>
     <string name="welcome_note_screen_three">"sNotz supporta la creazione di note con il colore e dimensione/stile del tuo font preferito. Assicurati di controllare la pagina delle \"Impostazioni\" per più informazioni per favore."</string>

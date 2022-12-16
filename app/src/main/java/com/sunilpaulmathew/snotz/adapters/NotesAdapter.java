@@ -117,10 +117,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             }
                             break;
                         case 3:
-                            sNotzReminders.setYear(-1);
-                            sNotzReminders.setMonth(-1);
-                            sNotzReminders.setDay(-1);
-                            sNotzReminders.launchReminderMenu(data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
+                            sNotzReminders.launchReminderMenu(holder.mReminder, data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
                             break;
                         case 4:
                             Common.setNote(this.data.get(position).getNote());
@@ -212,6 +209,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mDuplicate.setColorFilter(data.get(position).getColorText());
         holder.mQrCode.setColorFilter(data.get(position).getColorText());
         holder.mReminder.setColorFilter(data.get(position).getColorText());
+        if (sNotzReminders.isReminderSet(data.get(position).getNoteID(), holder.mReminder.getContext())) {
+            holder.mReminder.setImageDrawable(sUtils.getDrawable(R.drawable.ic_notification_on, holder.mReminder.getContext()));
+        } else {
+            holder.mReminder.setImageDrawable(sUtils.getDrawable(R.drawable.ic_notification, holder.mReminder.getContext()));
+        }
         holder.mDelete.setColorFilter(data.get(position).getColorText());
         holder.mHidden.setThumbTintList(ColorStateList.valueOf(data.get(position).getColorText()));
         holder.mHidden.setChecked(this.data.get(position).isHidden());
@@ -277,12 +279,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 sUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.hidden_note_message)).show();
             }
         });
-        holder.mReminder.setOnClickListener(v -> {
-            sNotzReminders.setYear(-1);
-            sNotzReminders.setMonth(-1);
-            sNotzReminders.setDay(-1);
-            sNotzReminders.launchReminderMenu(data.get(position).getNote(), data.get(position).getNoteID(), v.getContext());
-        });
+        holder.mReminder.setOnClickListener(v -> sNotzReminders.launchReminderMenu(holder.mReminder, data.get(position).getNote(),
+                data.get(position).getNoteID(), v.getContext()));
         holder.mDelete.setOnClickListener(v -> {
             String[] sNotzContents = this.data.get(position).getNote().split("\\s+");
             new MaterialAlertDialogBuilder(v.getContext())

@@ -78,6 +78,7 @@
     <string name="invite_friends_Summary">Invite your friends to try sNotz</string>
     <string name="long_click_note_message">Long click a note for advanced options, such as \'share\', \'hide\' &amp; \'delete\'</string>
     <string name="misc">Miscellaneous</string>
+    <string name="modify">Modify</string>
     <string name="more_apps">More Apps</string>
     <string name="note_color_background">Background Color</string>
     <string name="note_color_text">Text Color</string>
@@ -110,7 +111,7 @@
     <string name="reading_mode_message">Restart this note in read-only mode?</string>
     <string name="reading_mode_warning">Warning: Please save this note before continuing. Recent changes will be otherwise ignored.</string>
     <string name="reminder_message">sNotz will remind you about this note at %s</string>
-    <string name="reminder_warning">sNotz won\'t monitor reminders. As a result, a reminder once created won\'t be allowed to edit or delete. All the reminders created by sNotz will be notified at time even if the original notes are deleted.</string>
+    <string name="reminder_invalid_message">%s is already passed. Aborting…</string>
     <string name="replace">Replace</string>
     <string name="report_issue">Report an Issue</string>
     <string name="restore">Restore</string>

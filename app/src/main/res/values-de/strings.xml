@@ -131,7 +131,6 @@
     <string name="text_style_italics">"Kursiv"</string>
     <string name="text_style_regular">"Normal"</string>
     <string name="backup_notes_hint">"sichere Notizen als?"</string>
-    <string name="reminder_warning">"sNotz wird Erinnerungen nicht überwachen. Das heißt, dass einmal erzeugte Erinnerungen nicht mehr editiert oder gelöscht werden können. Alle von sNotz erzeugten Erinnerungen werde benachrichtigt, auch wenn die ursprüngliche Notiz schon gelöscht ist."</string>
     <string name="welcome_note_screen_one">"Herzlich Willkommen bei sNotz, einer quelloffenen, Datenschutzfreundlichen und vollständig ohne Netzverbindung auskommenden Anwendung um deine Notizen zu verwalten."</string>
     <string name="welcome_note_screen_two">"sNotz ermöglicht dir das Erzeugen, Anpassen und Verwalten von einfachen Notizen und Checklisten"</string>
     <string name="welcome_note_screen_three">"sNotz unterstützt das Erzeugen von Notizen in Deiner Wunschfarbe und -schriftart. Schaue Dir die Einstellungen für mehr Informationen an!"</string>

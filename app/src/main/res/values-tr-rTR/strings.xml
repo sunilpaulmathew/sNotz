@@ -132,7 +132,6 @@
     <string name="text_style_italics">"italik"</string>
     <string name="text_style_regular">"Düzenli"</string>
     <string name="backup_notes_hint">"Yedekleme Notları Olarak?"</string>
-    <string name="reminder_warning">"sNotz, hatırlatıcıları izlemez. Sonuç olarak, oluşturulduktan sonra bir hatırlatıcının düzenlenmesine veya silinmesine izin verilmeyecektir. sNotz tarafından oluşturulan tüm hatırlatıcılar, orijinal notlar silinse bile zamanında bilgilendirilecektir."</string>
     <string name="welcome_note_screen_one">"Notlarınızı yönetmek için açık kaynaklı, gizlilik dostu ve tamamen çevrimdışı bir uygulama olan sNotz'a hoş geldiniz."</string>
     <string name="welcome_note_screen_two">"sNotz, basit notlar ve kontrol listeleri oluşturmanıza, özelleştirmenize ve yönetmenize izin verir."</string>
     <string name="welcome_note_screen_three">"sNotz, en sevdiğiniz renk ve yazı tipi boyutu/tarzı ile notlar oluşturmayı destekler. Daha fazla bilgi için lütfen \"Ayarlar\" sayfasını kontrol ettiğinizden emin olun."</string>

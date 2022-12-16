@@ -132,7 +132,6 @@
     <string name="text_style_italics">"তির্যক"</string>
     <string name="text_style_regular">"নিয়মিত"</string>
     <string name="backup_notes_hint">"ব্যাকআপ নোট হিসাবে?"</string>
-    <string name="reminder_warning">"sNotz অনুস্মারক নিরীক্ষণ করবে না। ফলস্বরূপ, একবার তৈরি করা একটি অনুস্মারক সম্পাদনা বা মুছে ফেলার অনুমতি দেওয়া হবে না। আসল নোট মুছে গেলেও sNotz দ্বারা তৈরি সমস্ত অনুস্মারক সময়ে অবহিত করা হবে।"</string>
     <string name="welcome_note_screen_one">"sNotz-এ স্বাগতম, একটি ওপেন সোর্স, গোপনীয়তা-বান্ধব, এবং আপনার নোটগুলি পরিচালনা করার জন্য সম্পূর্ণ অফলাইন অ্যাপ্লিকেশন৷"</string>
     <string name="welcome_note_screen_two">"sNotz আপনাকে সহজ নোট এবং চেকলিস্ট তৈরি, কাস্টমাইজ এবং পরিচালনা করতে দেবে।"</string>
     <string name="welcome_note_screen_three">"sNotz আপনার পছন্দের রঙ এবং ফন্টের আকার/স্টাইলে নোট তৈরি করতে সহায়তা করে। আরও তথ্যের জন্য অনুগ্রহ করে \"সেটিংস\" পৃষ্ঠাটি চেকআউট করতে ভুলবেন না।"</string>

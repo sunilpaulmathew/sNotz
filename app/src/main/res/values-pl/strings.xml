@@ -132,7 +132,6 @@
     <string name="text_style_italics">"Pochylony"</string>
     <string name="text_style_regular">"Normalny"</string>
     <string name="backup_notes_hint">"Zapisać notatki jako? "</string>
-    <string name="reminder_warning">"sNotz nie monitoruje przypomnień. W rezultacie, po stworzeniu przypomnienia nie można go edytować lub usunąć. Wszystkie przypomnienia stworzone przez sNotz będą powiadomione o czasie nawet jeśli oryginalne notatki zostaną usunięte. "</string>
     <string name="welcome_note_screen_one">"Witaj w sNotz, otwarto-źródłowej, prywatnej i kompletnie offline aplikacji do zarządzania notatkami. "</string>
     <string name="welcome_note_screen_two">"sNotz pozwoli ci tworzyć, dostosowywać oraz zarządzać notatkami i listami. "</string>
     <string name="welcome_note_screen_three">"sNotz wspiera tworzenie notatek w twoim ulubionym kolorze i rozmiarze/stylu czcionki. Proszę, upewnij się, aby zajrzeć do zakładki \"ustawienia\" po więcej informacji. "</string>

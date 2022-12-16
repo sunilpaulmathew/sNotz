@@ -132,7 +132,6 @@
     <string name="text_style_italics">"इटैलिक"</string>
     <string name="text_style_regular">"रैगुलर"</string>
     <string name="backup_notes_hint">"नोट्स बैकअप फ़ाइल का क्या नाम दिया जाए?"</string>
-    <string name="reminder_warning">"sNotz रिमाइंडर्स की निगरानी नहीं करेगा।  परिणामस्वरूप, एक बार बनाए गए रिमाइंडर को संपादित करने या डिलीट करने की अनुमति नहीं दी जाएगी।  sNotz द्वारा बनाए गए सभी रिमाइंडर समय पर अधिसूचित किए जाएंगे, भले ही मूल नोट हटा दिए जाए।"</string>
     <string name="welcome_note_screen_one">"पेश है sNotz―आपके नोट्स को प्रबंधित करने के लिए एक ओपन-सोर्स, गोपनीयता के अनुकूल और पूरी तरह से ऑफ़लाइन ऍप्लिकेशन।"</string>
     <string name="welcome_note_screen_two">"SNotz से आप सिंपल नोट्स व चेकलिस्ट बना, अनुकूलित, और प्रबंधित कर पाएंगे।"</string>
     <string name="welcome_note_screen_three">"sNotz से आप अपने पसंदीदा रंग और फ़ॉन्ट आकार/शैली में नोट्स बना सकते हैं। कृपया अधिक जानकारी के लिए \"सेटिंग्स\" पेज को चेक करें।"</string>

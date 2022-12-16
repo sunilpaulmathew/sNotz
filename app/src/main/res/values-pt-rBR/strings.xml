@@ -132,7 +132,6 @@
     <string name="text_style_italics">"Itálico"</string>
     <string name="text_style_regular">"Normal"</string>
     <string name="backup_notes_hint">"Fazer backup das notas como?"</string>
-    <string name="reminder_warning">"sNotz não irá monitorar lembretes. Uma vez que um lembrete foi criado, ele não poderá ser editado ou deletado. Todos os lembretes criados pelo sNotz serão notificados mesmo que as notas originais tenham sido deletadas."</string>
     <string name="welcome_note_screen_one">"Bem-vindo o sNotz, um app completamente offline de código aberto e que respeita a sua privacidade para gerenciar as suas notas."</string>
     <string name="welcome_note_screen_two">"sNotz permite criar, personalizar e gerenciar notas simples e listas de seleção."</string>
     <string name="welcome_note_screen_three">"sNotz suporta criar notas com sua cor e tamanho/estilo de fonte favorito. Por favor, cheque a página de \"Configurações\" para mais informações."</string>

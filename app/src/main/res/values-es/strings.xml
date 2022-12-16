@@ -132,7 +132,6 @@
     <string name="text_style_italics">"Cursiva"</string>
     <string name="text_style_regular">"Normal"</string>
     <string name="backup_notes_hint">"¿Respaldar notas como?"</string>
-    <string name="reminder_warning">"sNotz no supervisará los recordatorios. Por lo tanto, una vez creado un recordatorio, no se podrá editar o eliminar. Todos los recordatorios creados por sNotz serán notificados en su momento aunque se borren las notas originales."</string>
     <string name="welcome_note_screen_one">"Bienvenido a sNotz, una aplicación de código abierto, respetuosa con la privacidad y completamente fuera de línea para gestionar tus notas."</string>
     <string name="welcome_note_screen_two">"sNotz te permitirá crear, personalizar y gestionar notas simples y listas de chequeo."</string>
     <string name="welcome_note_screen_three">"sNotz permite crear notas en tu color, tamaño y estilo de fuente favoritos. Por favor, asegúrate de revisar la página de \"Ajustes\" para más información."</string>

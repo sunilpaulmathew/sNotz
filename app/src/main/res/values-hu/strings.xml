@@ -132,7 +132,6 @@
     <string name="text_style_italics">"Dőlt"</string>
     <string name="text_style_regular">"Hagyományos"</string>
     <string name="backup_notes_hint">"Biztonsági mentés neve?"</string>
-    <string name="reminder_warning">"Az sNotz nem felügyeli az emlékeztetőket. Ennek eredménye, hogy a beállított emlékeztetők nem módosíthatók. Minden sNotz által létrehozott emlékeztető a megadott időben értesítésre kerül még abban az esetben is ha a hozzá tartozó Jegyzet közben törlésre került."</string>
     <string name="welcome_note_screen_one">"Üdvözöllek az sNotz-ban, amely egy nyilt forráskódú, magánéletet tiszteletben tartó és teljesen offline módon működő, Jegyzetek kezelésére készült alkalmazás."</string>
     <string name="welcome_note_screen_two">"Az sNotz segítségével egyszerű Jegyzeteket és ellenőrző listákat készíthetsz és kezelhetsz."</string>
     <string name="welcome_note_screen_three">"Az sNotz segítségével a Jegyzeteidet a kedvenc szineiddel és betű méretben/stílussal készítheted el. Mindenképp nézd meg a \"Beállítások\" menüt ahol erről több információt találsz."</string>

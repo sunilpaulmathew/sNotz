@@ -130,7 +130,6 @@
     <string name="text_style_italics">"مائل"</string>
     <string name="text_style_regular">"عادي"</string>
     <string name="backup_notes_hint">"نسخ الملاحظات احتياطياً كـ؟"</string>
-    <string name="reminder_warning">"لن يقوم sNotz بمراقبة التذكيرات. نتيجة لذلك، لن يُسمح بتحرير أو الحذف التذكير الذي تم إنشاؤه. سيتم إخطار جميع التذكيرات التي أنشأتها بواسطة sNotz في الوقت المناسب حتى إذا تم حذف الملاحظات الأصلية."</string>
     <string name="welcome_note_screen_one">"مرحبًا بك في sNotz، تطبيق مفتوح المصدر وصديق للخصوصية وبدون انترنت لإدارة ملاحظاتك."</string>
     <string name="welcome_note_screen_two">"سيتيح لك sNotz إنشاء وتخصيص وإدارة الملاحظات وقوائم المراجعة البسيطة."</string>
     <string name="welcome_note_screen_three">"يدعم sNotz إنشاء ملاحظات باللون المفضل لديك وحجم / نمط الخط. يرجى التأكد من إطلاعك على \"الإعدادات\" لمزيد من المعلومات."</string>
