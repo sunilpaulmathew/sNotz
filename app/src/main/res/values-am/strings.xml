@@ -43,6 +43,7 @@
     <string name="press_back_exit">"ለመውጣት እንደገና 'ተመለስ' የሚለውን ቁልፍ ይጫኑ! \""</string>
     <string name="rate_us">"ደረጃ ይስጡን"</string>
     <string name="rate_us_Summary">"በ PlayStore ውስጥ sNotz ን ይገምግሙ ወይም ይገምግሙ"</string>
+    <string name="reminder_set">" ማስታወሻ ያዝ"</string>
     <string name="report_issue">"አንድ ችግር ሪፖርት ያድርጉ"</string>
     <string name="restore_error">"\"ልክ ያልሆነ የመጠባበቂያ ፋይል ተመርጠዋል። በማስወረድ ላይ!\""</string>
     <string name="restore_notes">"ማስታወሻዎችን ወደነበረበት መልስ"</string>
@@ -83,7 +84,6 @@
     <string name="note_editor">" ማስታወሻ ማስተካከያ"</string>
     <string name="hide">"ደብቅ"</string>
     <string name="permission_denied_message">"የስልኩን ቋት ለመድረስ ፍቃድ አልተገኝም!"</string>
-    <string name="set_reminder">" ማስታወሻ ያዝ"</string>
     <string name="sort_by">" በዚህ ድርድር"</string>
     <string name="backup">" ያዝ"</string>
     <string name="change_name">" ስም ለውጥ"</string>

@@ -88,7 +88,6 @@
     <string name="choose_color_message">"Uwaga: nowe '%s' będzie tylko stosowane do nowych notatek"</string>
     <string name="hide">"Ukryj"</string>
     <string name="permission_denied_message">"Odmówiono uprawnienia dostępu do pamięci urządzenia"</string>
-    <string name="set_reminder">"Ustaw przypomnienie"</string>
     <string name="sort_by">"Sortuj według"</string>
     <string name="backup">"Kopia zapasowa"</string>
     <string name="change_name">"Zmień nazwę"</string>
@@ -116,6 +115,7 @@
     <string name="pin_protection_status">"Ochrona PIN jest %s"</string>
     <string name="pin_protection_message">"Użyj 4-cyfrowego kodu PIN, aby zabezpieczyć sNotz"</string>
     <string name="reminder_message">"sNotz przypomni ci o tej notatce o %s"</string>
+    <string name="reminder_set">"Ustaw przypomnienie"</string>
     <string name="replace">"Zamień"</string>
     <string name="try_again">"Spróbuj ponownie"</string>
     <string name="warning">"Ostrzeżenie"</string>

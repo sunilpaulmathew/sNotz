@@ -87,7 +87,6 @@
     <string name="note_editor">"محرر الملاحظات"</string>
     <string name="hide">"اخفاء"</string>
     <string name="permission_denied_message">"تم رفض الإذن للوصول إلى تخزين الجهاز"</string>
-    <string name="set_reminder">"تعيين تذكير"</string>
     <string name="sort_by">"صنف حسب"</string>
     <string name="backup">"نسخ احتياطي"</string>
     <string name="change_name">"تغيير الأسم"</string>
@@ -114,6 +113,7 @@
     <string name="pin_protection_status">"حماية PIN هي %s"</string>
     <string name="pin_protection_message">"استخدم رمز PIN المكون من 4 أرقام لتأمين sNotz"</string>
     <string name="reminder_message">"سوف يذكرك sNotz بهذه الملاحظة في %s"</string>
+    <string name="reminder_set">"تعيين تذكير"</string>
     <string name="replace">"تبديل"</string>
     <string name="try_again">"حاول مجدادا"</string>
     <string name="warning">"تحذير"</string>

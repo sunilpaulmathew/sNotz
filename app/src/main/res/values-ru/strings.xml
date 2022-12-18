@@ -88,7 +88,6 @@
     <string name="choose_color_message">"Пожалуйста, обратите внимание: Новый \"%s\" будет применяться только к новым заметкам."</string>
     <string name="hide">"Скрыть"</string>
     <string name="permission_denied_message">"Отказано в разрешении на доступ к хранилищу устройства"</string>
-    <string name="set_reminder">"Установить напоминание"</string>
     <string name="sort_by">"Сортировка"</string>
     <string name="backup">"Резервное копирование "</string>
     <string name="change_name">"Изменить название"</string>
@@ -116,6 +115,7 @@
     <string name="pin_protection_status">"PIN-код - %s"</string>
     <string name="pin_protection_message">"Используйте 4-значный PIN-код для защиты sNotz"</string>
     <string name="reminder_message">"sNotz напомнит вам об этой заметке в %s"</string>
+    <string name="reminder_set">"Установить напоминание"</string>
     <string name="replace">"Заменить"</string>
     <string name="try_again">"повторите попытку"</string>
     <string name="warning">"предупреждение"</string>

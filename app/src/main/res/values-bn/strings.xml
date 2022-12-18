@@ -88,7 +88,6 @@
     <string name="choose_color_message">"অনুগ্রহ করে মনে রাখবেন: নতুন '%s' শুধুমাত্র নতুন নোটে প্রয়োগ করা হবে।"</string>
     <string name="hide">"লুকান"</string>
     <string name="permission_denied_message">"ডিভাইস স্টোরেজ অ্যাক্সেস করার জন্য অনুমতি অস্বীকার করা হয়েছে"</string>
-    <string name="set_reminder">"রিমাইন্ডার সেট করুন"</string>
     <string name="sort_by">"ক্রমানুসার"</string>
     <string name="backup">"ব্যাকআপ"</string>
     <string name="change_name">"নাম পরিবর্তন কর"</string>
@@ -116,6 +115,7 @@
     <string name="pin_protection_status">"পিন সুরক্ষা হল %s"</string>
     <string name="pin_protection_message">"sNotz সুরক্ষিত করতে একটি 4 সংখ্যার পিন ব্যবহার করুন"</string>
     <string name="reminder_message">"sNotz আপনাকে %s এ এই নোট সম্পর্কে মনে করিয়ে দেবে"</string>
+    <string name="reminder_set">"রিমাইন্ডার সেট করুন"</string>
     <string name="replace">"প্রতিস্থাপন করুন"</string>
     <string name="try_again">"আবার চেষ্টা করুন"</string>
     <string name="warning">"সতর্কতা"</string>

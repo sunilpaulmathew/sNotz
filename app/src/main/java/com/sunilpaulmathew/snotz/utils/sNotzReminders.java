@@ -242,7 +242,7 @@ public class sNotzReminders {
 
     public static void launchReminderMenu(AppCompatImageButton button, String note, int noteID, Context context) {
         if (isReminderSet(noteID, context)) {
-            new sSingleItemDialog(R.mipmap.ic_launcher, context.getString(R.string.app_name),
+            new sSingleItemDialog(R.mipmap.ic_launcher, context.getString(R.string.reminder_manage),
                     new String[] {
                             context.getString(R.string.modify),
                             context.getString(R.string.delete)

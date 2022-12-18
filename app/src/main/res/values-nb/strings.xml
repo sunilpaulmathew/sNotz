@@ -88,7 +88,6 @@
     <string name="choose_color_message">"Merk: Ny '%s' blir bare brukt på nye notater."</string>
     <string name="hide">"Skjul"</string>
     <string name="permission_denied_message">"Tillatelse nektet for tilgang til enhetslagring"</string>
-    <string name="set_reminder">"Still inn påminnelse"</string>
     <string name="sort_by">"Sorter etter"</string>
     <string name="backup">"Sikkerhetskopier"</string>
     <string name="change_name">"Endre navn"</string>
@@ -116,6 +115,7 @@
     <string name="pin_protection_status">"PIN-beskyttelse er %s"</string>
     <string name="pin_protection_message">"Bruk en 4-sifret PIN for å sikre sNotz"</string>
     <string name="reminder_message">"sNotz vil minne deg om dette notatet %s"</string>
+    <string name="reminder_set">"Still inn påminnelse"</string>
     <string name="replace">"Erstatt"</string>
     <string name="try_again">"Prøv igjen"</string>
     <string name="warning">"Advarsel"</string>

@@ -88,7 +88,6 @@
     <string name="choose_color_message">"कृपया ध्यान दें: नया '%s' केवल नए नोटों पर ही लागू किया जाएगा।"</string>
     <string name="hide">"छिपाएं"</string>
     <string name="permission_denied_message">"डिवाइस स्टोरेज तक पहुंच की अनुमति अस्वीकार्य"</string>
-    <string name="set_reminder">"रिमाइंडर सेट करें"</string>
     <string name="sort_by">"क्रमबद्ध करने की विधि"</string>
     <string name="backup">"बैकअप करें"</string>
     <string name="change_name">"नाम बदलें"</string>
@@ -116,6 +115,7 @@
     <string name="pin_protection_status">"पिन संरक्षण %s है"</string>
     <string name="pin_protection_message">"SNotz को सुरक्षित करने के लिए 4 अंकों का पिन का उपयोग करें"</string>
     <string name="reminder_message">"sNotz आपको %s पर इस नोट के बारे में याद दिलायेगा"</string>
+    <string name="reminder_set">"रिमाइंडर सेट करें"</string>
     <string name="replace">"बदलें"</string>
     <string name="try_again">"दोबारा कोशिश करें"</string>
     <string name="warning">"चेतावनी"</string>

@@ -88,7 +88,6 @@
     <string name="choose_color_message">"Lütfen Dikkat: Yeni '%s' sadece yeni notlara uygulanacaktır."</string>
     <string name="hide">"Saklamak"</string>
     <string name="permission_denied_message">"Cihaz deposuna erişim izni reddedildi"</string>
-    <string name="set_reminder">"Hatırlatıcıyı Kur"</string>
     <string name="sort_by">"Göre sırala"</string>
     <string name="backup">"Destek olmak"</string>
     <string name="change_name">"İsmini değiştir"</string>
@@ -116,6 +115,7 @@
     <string name="pin_protection_status">"PIN Koruması: %s"</string>
     <string name="pin_protection_message">"sNotz'u güvenceye almak için 4 haneli bir PIN kullanın"</string>
     <string name="reminder_message">"sNotz size bu notu %s saatinde hatırlatacak"</string>
+    <string name="reminder_set">"Hatırlatıcıyı Kur"</string>
     <string name="replace">"Yer değiştirmek"</string>
     <string name="try_again">"Tekrar deneyin"</string>
     <string name="warning">"Uyarı"</string>

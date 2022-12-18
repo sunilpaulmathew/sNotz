@@ -88,7 +88,6 @@
     <string name="choose_color_message">"Notera: Nya '%s' kommer endast att appliceras på nya anteckningar"</string>
     <string name="hide">"Göm"</string>
     <string name="permission_denied_message">"Nekat tillträde till produktens lagring"</string>
-    <string name="set_reminder">"Lägg till påminnelse"</string>
     <string name="sort_by">"Sorteringsmetod"</string>
     <string name="backup">"Backup"</string>
     <string name="change_name">"Ändra namn"</string>
@@ -116,6 +115,7 @@
     <string name="pin_protection_status">"PIN säkerhet %s"</string>
     <string name="pin_protection_message">"Använd en 4 siffrig PIN kod för att säkra sNotz"</string>
     <string name="reminder_message">"sNotz kommer att påminna dig om denna anteckning %s"</string>
+    <string name="reminder_set">"Lägg till påminnelse"</string>
     <string name="replace">"Byt ut"</string>
     <string name="try_again">"Försök pånytt"</string>
     <string name="warning">"Varning"</string>

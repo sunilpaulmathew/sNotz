@@ -93,7 +93,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 menu.add(Menu.NONE, 1, Menu.NONE, holder.mRVCard.getContext().getString(R.string.duplicate)).setIcon(R.drawable.ic_duplicate);
                 menu.add(Menu.NONE, 2, Menu.NONE, holder.mRVCard.getContext().getString(R.string.hidden_note)).setIcon(R.drawable.ic_eye).setCheckable(true)
                         .setChecked(this.data.get(position).isHidden());
-                menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.set_reminder)).setIcon(R.drawable.ic_notification);
+                if (sNotzReminders.isReminderSet(data.get(position).getNoteID(), holder.mReminder.getContext())) {
+                    menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.reminder_manage)).setIcon(R.drawable.ic_notification_on);
+                } else {
+                    menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.reminder_set)).setIcon(R.drawable.ic_notification);
+                }
                 menu.add(Menu.NONE, 4, Menu.NONE, holder.mRVCard.getContext().getString(R.string.qr_code_generate)).setIcon(R.drawable.ic_qr_code);
                 menu.add(Menu.NONE, 5, Menu.NONE, holder.mRVCard.getContext().getString(R.string.save_text)).setIcon(R.drawable.ic_save);
                 menu.add(Menu.NONE, 6, Menu.NONE, holder.mRVCard.getContext().getString(R.string.delete)).setIcon(R.drawable.ic_delete);

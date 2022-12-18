@@ -88,7 +88,6 @@
     <string name="choose_color_message">"Megjegyzés: Az új '%s' csak az új Jegyzetekre lesz érvényes."</string>
     <string name="hide">"Elrejtés"</string>
     <string name="permission_denied_message">"A tárhely hozzáférése letiltva"</string>
-    <string name="set_reminder">"Emlékeztető megadása"</string>
     <string name="sort_by">"Rendezés"</string>
     <string name="backup">"Biztonsági mentés"</string>
     <string name="change_name">"Név módosítása"</string>
@@ -116,6 +115,7 @@
     <string name="pin_protection_status">"PIN védelem státusza %s"</string>
     <string name="pin_protection_message">"Az sNotz védelméhez használj egy 4 számból álló PIN-t"</string>
     <string name="reminder_message">"Az sNotz a megadott %s időben emlékeztetni fog erre a Jegyzetre"</string>
+    <string name="reminder_set">"Emlékeztető megadása"</string>
     <string name="replace">"Lecserélés"</string>
     <string name="try_again">"Ismét"</string>
     <string name="warning">"Figyelmeztetés"</string>
