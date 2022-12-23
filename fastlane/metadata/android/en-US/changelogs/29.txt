@@ -1,0 +1,6 @@
+* Creating widgets now requires authentication (if set).
+* Fixed notifications on Android 13 and above.
+* Improved reminder status text and icons.
+* Added partial Czech Translations.
+* Updated Norwegian transactions.
+* Miscellaneous changes.

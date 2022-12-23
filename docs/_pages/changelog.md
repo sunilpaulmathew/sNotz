@@ -6,6 +6,14 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.29</h3>
+- Creating widgets now requires authentication (if set).
+- Fixed notifications on Android 13 and above.
+- Improved reminder status text and icons.
+- Added partial Czech Translations.
+- Updated Norwegian transactions.
+- Miscellaneous changes.
+
 <h3 style="color: green">v0.28</h3>
 - Now possible to delete or modify reminders.
 - Miscellaneous changes.

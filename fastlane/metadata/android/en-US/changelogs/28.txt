@@ -1,2 +1,0 @@
-* Now possible to delete or modify (new) reminders.
-* Miscellaneous changes.
