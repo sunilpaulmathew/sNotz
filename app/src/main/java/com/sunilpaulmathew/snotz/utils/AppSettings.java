@@ -103,6 +103,9 @@ public class AppSettings {
         mData.add(new sSerializableItems(null, "Edp17", "Hungarian Translations", null));
         mData.add(new sSerializableItems(null, "mdnk", "Polish Translations", null));
         mData.add(new sSerializableItems(null, "Istiaque", "Bengali Translations", null));
+        mData.add(new sSerializableItems(null, "MasterixCZ", "Czech Translations", "https://github.com/MasterixCZ/"));
+        mData.add(new sSerializableItems(null, "czvilda", "Czech Translations", null));
+        mData.add(new sSerializableItems(null, "Jens", "Czech Translations", null));
 
         mData.add(new sSerializableItems(null, "Alfie", "Testing", "https://t.me/AlfieFie"));
 
