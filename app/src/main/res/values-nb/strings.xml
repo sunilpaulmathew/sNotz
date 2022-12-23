@@ -158,4 +158,12 @@
     <string name="exit">"Avslutt"</string>
     <string name="check_list_widget_color">"Farge for sjekklistemodul"</string>
     <string name="check_list_widget_color_summary">"Endre standardfarge for sjekklistemoduler"</string>
+    <string name="restore">"Gjenopprett"</string>
+    <string name="restore_backup_message">"Notater ble nylig fjernet. Vil du gjenopprette fra siste auto-sikkerhetskopi?
+
+        Advarsel: Auto-sikkerhetskopi fjernes permanent etter at denne meldingen er avbrutt."</string>
+    <string name="backup_checklist_message">"Valgt sjekkliste er sikkerhetskopiert som '%s'"</string>
+    <string name="duplicate">"Dupliser"</string>
+    <string name="modify">"Endre"</string>
+    <string name="reminder_invalid_message">"%s er allerede passert. Avbryter…"</string>
 </resources>
