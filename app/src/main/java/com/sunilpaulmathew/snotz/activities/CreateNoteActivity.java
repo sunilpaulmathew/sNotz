@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -193,7 +195,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                         } else {
                             Intent addImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             try {
-                                startActivityForResult(addImage, 0);
+                                addImageToNote.launch(addImage);
                             } catch (ActivityNotFoundException ignored) {}
                         }
                         break;
@@ -293,47 +295,49 @@ public class CreateNoteActivity extends AppCompatActivity {
         activity.finish();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && data != null && resultCode == RESULT_OK){
-            if (data.getData() != null) {
-                try {
-                    float mRatio;
-                    mImage.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData()));
-                    mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    int mSize = sNotzUtils.getMaxSize(this);
-                    int mHeight, mWidth;
-                    if (mBitmap.getHeight() > mBitmap.getWidth()) {
-                        mRatio = (float) (mBitmap.getHeight() / mBitmap.getWidth());
-                        mHeight = mSize;
-                        mWidth = (int) (mSize / mRatio);
-                    } else if (mBitmap.getHeight() == mBitmap.getWidth()) {
-                        mHeight = mSize;
-                        mWidth = mSize;
-                    } else {
-                        mRatio = (float) (mBitmap.getWidth() / mBitmap.getHeight());
-                        mHeight = (int) (mSize / mRatio);
-                        mWidth = mSize;
-                    }
-                    LinearLayoutCompat.LayoutParams mLayoutParams = new LinearLayoutCompat.LayoutParams(mWidth, mHeight);
-                    mLayoutParams.gravity = Gravity.CENTER;
-                    mImage.setLayoutParams(mLayoutParams);
-                    mImage.setVisibility(View.VISIBLE);
-                } catch (IOException ignored) {}
+    ActivityResultLauncher<Intent> addImageToNote = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Intent data = result.getData();
+                    try {
+                        float mRatio;
+                        mImage.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData()));
+                        mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                        int mSize = sNotzUtils.getMaxSize(this);
+                        int mHeight, mWidth;
+                        if (mBitmap.getHeight() > mBitmap.getWidth()) {
+                            mRatio = (float) (mBitmap.getHeight() / mBitmap.getWidth());
+                            mHeight = mSize;
+                            mWidth = (int) (mSize / mRatio);
+                        } else if (mBitmap.getHeight() == mBitmap.getWidth()) {
+                            mHeight = mSize;
+                            mWidth = mSize;
+                        } else {
+                            mRatio = (float) (mBitmap.getWidth() / mBitmap.getHeight());
+                            mHeight = (int) (mSize / mRatio);
+                            mWidth = mSize;
+                        }
+                        LinearLayoutCompat.LayoutParams mLayoutParams = new LinearLayoutCompat.LayoutParams(mWidth, mHeight);
+                        mLayoutParams.gravity = Gravity.CENTER;
+                        mImage.setLayoutParams(mLayoutParams);
+                        mImage.setVisibility(View.VISIBLE);
+                    } catch (IOException ignored) {}
+                }
             }
-        }
-    }
+    );
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 0 && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Intent addImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             try {
-                startActivityForResult(addImage, 0);
-            } catch (ActivityNotFoundException ignored) {}
+                addImageToNote.launch(addImage);
+            } catch (ActivityNotFoundException ignored) {
+            }
         }
 
     }
