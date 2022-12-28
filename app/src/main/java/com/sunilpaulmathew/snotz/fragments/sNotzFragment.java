@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -302,7 +304,7 @@ public class sNotzFragment extends Fragment {
                         } else {
                             Intent pickImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             try {
-                                startActivityForResult(pickImage, 0);
+                                pickImageForQRReader.launch(pickImage);
                             } catch (ActivityNotFoundException ignored) {}
                         }
                         break;
@@ -407,26 +409,25 @@ public class sNotzFragment extends Fragment {
         };
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
-            if (data.getData() != null) {
-                if (new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode() != null) {
-                    if (CheckLists.isValidCheckList(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode())) {
-                        CheckLists.importCheckList(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode(), false, requireActivity());
+    ActivityResultLauncher<Intent> pickImageForQRReader = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Intent data = result.getData();
+                    if (new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode() != null) {
+                        if (CheckLists.isValidCheckList(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode())) {
+                            CheckLists.importCheckList(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode(), false, requireActivity());
+                        } else {
+                            Common.setExternalNote(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode());
+                            Intent scanner = new Intent(requireActivity(), CreateNoteActivity.class);
+                            startActivity(scanner);
+                        }
                     } else {
-                        Common.setExternalNote(new QRCodeUtils(null, data.getData(), requireActivity()).readQRCode());
-                        Intent scanner = new Intent(requireActivity(), CreateNoteActivity.class);
-                        startActivity(scanner);
+                        sUtils.snackBar(mAppTitle, getString(R.string.qr_code_error_message)).show();
                     }
-                } else {
-                    sUtils.snackBar(mAppTitle, getString(R.string.qr_code_error_message)).show();
                 }
             }
-        }
-    }
+    );
 
     @Override
     public void onResume() {
