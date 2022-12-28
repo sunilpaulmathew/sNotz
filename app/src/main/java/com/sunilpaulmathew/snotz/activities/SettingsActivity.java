@@ -1,12 +1,15 @@
 package com.sunilpaulmathew.snotz.activities;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.ProgressBar;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -201,7 +204,13 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             } else if (position == 17) {
                 if (mJSONString != null) mJSONString = null;
-                sUtils.filePickerIntent(false, 0, null, this);
+                try {
+                    Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
+                    restore.setType("text/plain");
+                    restoreNotes.launch(restore);
+                } catch (ActivityNotFoundException e) {
+                    sUtils.snackBar(mRecyclerView, e.getMessage()).show();
+                }
             } else if (position == 18) {
                 if (sNotzData.isNotesEmpty(this)) {
                     sUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
@@ -330,43 +339,44 @@ public class SettingsActivity extends AppCompatActivity {
         return mData;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    ActivityResultLauncher<Intent> restoreNotes = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Intent data = result.getData();
+                    Uri uri = data.getData();
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(uri);
+                        BufferedInputStream bis = new BufferedInputStream(inputStream);
+                        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+                        for (int jsonResult = bis.read(); jsonResult != -1; jsonResult = bis.read()) {
+                            buf.write((byte) jsonResult);
+                        }
+                        try {
+                            if (sNotzUtils.validBackup(Encryption.decrypt(buf.toString("UTF-8")))) {
+                                mJSONString = Encryption.decrypt(buf.toString("UTF-8"));
+                            } else if (sNotzUtils.validBackup(buf.toString("UTF-8"))) {
+                                mJSONString = buf.toString("UTF-8");
+                            }
+                        } catch (IllegalArgumentException ignored) {}
+                    } catch (IOException ignored) {}
 
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            Uri uri = data.getData();
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(uri);
-                BufferedInputStream bis = new BufferedInputStream(inputStream);
-                ByteArrayOutputStream buf = new ByteArrayOutputStream();
-                for (int result = bis.read(); result != -1; result = bis.read()) {
-                    buf.write((byte) result);
-                }
-                try {
-                    if (sNotzUtils.validBackup(Encryption.decrypt(buf.toString("UTF-8")))) {
-                        mJSONString = Encryption.decrypt(buf.toString("UTF-8"));
-                    } else if (sNotzUtils.validBackup(buf.toString("UTF-8"))) {
-                        mJSONString = buf.toString("UTF-8");
+                    if (mJSONString == null) {
+                        sUtils.snackBar(mBack, getString(R.string.restore_error)).show();
+                        return;
                     }
-                } catch (IllegalArgumentException ignored) {}
-            } catch (IOException ignored) {}
-
-            if (mJSONString == null) {
-                sUtils.snackBar(mBack, getString(R.string.restore_error)).show();
-                return;
+                    new MaterialAlertDialogBuilder(this)
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setTitle(R.string.app_name)
+                            .setMessage(getString(R.string.restore_notes_question))
+                            .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                            })
+                            .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
+                                sNotzUtils.restoreNotes(mJSONString, mProgress,this).execute();
+                                finish();
+                            }).show();
+                }
             }
-            new MaterialAlertDialogBuilder(this)
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle(R.string.app_name)
-                    .setMessage(getString(R.string.restore_notes_question))
-                    .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
-                    })
-                    .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                        sNotzUtils.restoreNotes(mJSONString, mProgress,this).execute();
-                        finish();
-                    }).show();
-        }
-    }
+    );
 
 }
