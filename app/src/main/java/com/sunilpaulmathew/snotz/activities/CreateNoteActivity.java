@@ -29,6 +29,7 @@ import androidx.core.widget.NestedScrollView;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
@@ -206,13 +207,34 @@ public class CreateNoteActivity extends AppCompatActivity {
             popupMenu.show();
         });
 
-        mReadingMode.setOnClickListener(v ->
+        mReadingMode.setOnClickListener(v -> {
+            if (sUtils.getBoolean("readmode_warning_hide", false, this)) {
+                Intent readOnlyMode = new Intent(this, ReadNoteActivity.class);
+                Common.setReadModeText(Common.getNote());
+                if (mBitmap != null) {
+                    Common.setReadModeImage(mBitmap);
+                } else {
+                    Common.setReadModeImage(null);
+                }
+                startActivity(readOnlyMode);
+                finish();
+            } else {
+                View checkBoxView = View.inflate(this, R.layout.layout_checkbox, null);
+                MaterialCheckBox checkBox = checkBoxView.findViewById(R.id.checkbox);
+                checkBox.setChecked(false);
+                checkBox.setText(getString(R.string.hide));
+
                 new MaterialAlertDialogBuilder(this)
+                        .setCancelable(false)
+                        .setView(checkBoxView)
+                        .setTitle(R.string.app_name)
+                        .setIcon(R.mipmap.ic_launcher)
                         .setMessage(getString(R.string.reading_mode_message) + (isUnsavedNote() ? "\n\n" + getString(
                                 R.string.reading_mode_warning) : ""))
                         .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                         })
                         .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
+                            sUtils.saveBoolean("readmode_warning_hide", checkBox.isChecked(), this);
                             Intent readOnlyMode = new Intent(this, ReadNoteActivity.class);
                             Common.setReadModeText(Common.getNote());
                             if (mBitmap != null) {
@@ -222,7 +244,9 @@ public class CreateNoteActivity extends AppCompatActivity {
                             }
                             startActivity(readOnlyMode);
                             finish();
-                        }).show());
+                        }).show();
+            }
+        });
 
         mSave.setOnClickListener(v -> {
             if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
