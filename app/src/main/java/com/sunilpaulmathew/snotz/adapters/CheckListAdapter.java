@@ -16,6 +16,7 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.CheckListItems;
 
 import java.util.List;
+import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
@@ -23,6 +24,7 @@ import java.util.List;
 public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.ViewHolder> {
 
     private final List<CheckListItems> data;
+
     public CheckListAdapter(List<CheckListItems> data) {
         this.data = data;
     }
@@ -58,23 +60,24 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.View
             }
             @Override
             public void afterTextChanged(Editable s) {
-                if (s != null && !s.toString().isEmpty() && !s.toString().equals("")) {
-                    if (s.toString().startsWith("\n")) {
-                        editText.setText(s.toString().replace("\n",""));
-                        return;
-                    }
-                    if (s.toString().equals("\n")) {
-                        editText.setText(null);
+                if (s != null && !s.toString().trim().isEmpty()) {
+                    String newText = s.toString().trim().replace("\n", "");
+                    if (s.toString().trim().startsWith("\n")) {
+                        editText.setText(newText);
                         return;
                     }
                     if (s.toString().endsWith("\n")) {
-                        editText.setText(data.get(position).getTitle());
+                        editText.setText(newText);
                         if (position == data.size() - 1) {
-                            data.add(data.size(), new CheckListItems("", false));
-                            editText.clearFocus();
+                            data.add(data.size(), new CheckListItems(null, false));
                         }
+                    } else if (s.toString().contains("\n")) {
+                        editText.setText(newText);
                     }
-                    data.get(position).setTitle(s.toString());
+                    data.get(position).setTitle(newText);
+                    editText.setSelection(Objects.requireNonNull(editText.getText()).length());
+                } else if (s != null && s.toString().equals("\n")) {
+                    editText.setText(null);
                 } else {
                     data.get(position).setTitle("");
                 }
