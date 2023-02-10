@@ -54,7 +54,7 @@ dependencies {
     playImplementation 'com.android.billingclient:billing:5.1.0'
     implementation 'com.github.sunilpaulmathew:sCommon:ed84559b58'
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
-    implementation "com.google.android.material:material:1.7.0"
+    implementation "com.google.android.material:material:1.8.0"
     implementation "com.google.code.gson:gson:2.9.0"
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
 }
