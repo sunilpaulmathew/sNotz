@@ -7,7 +7,7 @@ import com.sunilpaulmathew.snotz.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -15,24 +15,24 @@ import in.sunilpaulmathew.sCommon.Utils.sUtils;
 public class sNotzColor {
 
     public static boolean isRandomColorScheme(Context context) {
-        return sUtils.getInt("random_color", Integer.MIN_VALUE, context) != Integer.MIN_VALUE;
+        return sCommonUtils.getInt("random_color", Integer.MIN_VALUE, context) != Integer.MIN_VALUE;
     }
 
     public static int getAccentColor(Context context) {
-        int mRandomColor = sUtils.getInt("random_color", Integer.MIN_VALUE, context);
+        int mRandomColor = sCommonUtils.getInt("random_color", Integer.MIN_VALUE, context);
         if (isRandomColorScheme(context)) {
             return getRandomColors().get(mRandomColor).getBackgroundColor();
         } else {
-            return sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, context), context);
+            return sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
         }
     }
 
     public static int getTextColor(Context context) {
-        int mRandomColor = sUtils.getInt("random_color", Integer.MIN_VALUE, context);
+        int mRandomColor = sCommonUtils.getInt("random_color", Integer.MIN_VALUE, context);
         if (isRandomColorScheme(context)) {
             return getRandomColors().get(mRandomColor).getTextColor();
         } else {
-            return sUtils.getInt("text_color", sUtils.getColor(R.color.color_white, context), context);
+            return sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, context), context);
         }
     }
 
@@ -52,12 +52,12 @@ public class sNotzColor {
     }
 
     public static void updateRandomColorCode(Context context) {
-        int mRandomColor = sUtils.getInt("random_color", Integer.MIN_VALUE, context);
+        int mRandomColor = sCommonUtils.getInt("random_color", Integer.MIN_VALUE, context);
         if (isRandomColorScheme(context)) {
             if (mRandomColor == getRandomColors().size() - 1) {
-                sUtils.saveInt("random_color", 0, context);
+                sCommonUtils.saveInt("random_color", 0, context);
             } else {
-                sUtils.saveInt("random_color", mRandomColor + 1, context);
+                sCommonUtils.saveInt("random_color", mRandomColor + 1, context);
             }
         }
     }

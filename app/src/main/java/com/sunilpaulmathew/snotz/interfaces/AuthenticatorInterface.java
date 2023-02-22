@@ -12,7 +12,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.Security;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on December 04, 2022
@@ -51,7 +51,7 @@ public abstract class AuthenticatorInterface {
                 if (s != null && s.toString().trim().length() == 4 && Security.getPIN(mActivity) != null
                         && !s.toString().trim().equals(Security.getPIN(mActivity))) {
                     mText.setText(null);
-                    sUtils.toast(mActivity.getString(R.string.pin_mismatch_message), mActivity).show();
+                    sCommonUtils.toast(mActivity.getString(R.string.pin_mismatch_message), mActivity).show();
                 }
             }
         });

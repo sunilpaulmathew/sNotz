@@ -15,10 +15,10 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
+import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
-import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 07, 2021
@@ -51,8 +51,8 @@ public class ImageViewActivity extends AppCompatActivity {
     }
 
     private void saveDialog() {
-        if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, this)) {
-            sPermissionUtils.requestPermission(new String[] {
+        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, this)) {
+            Utils.requestPermission(new String[] {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
             }, this);
             return;
@@ -72,7 +72,7 @@ public class ImageViewActivity extends AppCompatActivity {
                     new QRCodeUtils(null, null, ImageViewActivity.this).saveQRCode(Common.getReadModeImage(), fileName);
                     onBackPressed();
                 } else {
-                    sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.text_empty)).show();
+                    sCommonUtils.snackBar(findViewById(android.R.id.content), getString(R.string.text_empty)).show();
                 }
             }
         }.show();

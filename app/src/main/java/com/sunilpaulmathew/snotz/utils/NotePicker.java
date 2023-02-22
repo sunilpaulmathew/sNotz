@@ -15,8 +15,9 @@ import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 
 import java.io.File;
 
-import in.sunilpaulmathew.sCommon.Utils.sExecutor;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 30, 2021
@@ -84,7 +85,7 @@ public class NotePicker {
             public void doInBackground() {
                 JsonObject mJSONObject = new JsonObject();
                 JsonArray mJSONArray = new JsonArray();
-                if (sUtils.exist(new File(mActivity.getFilesDir(),"snotz"))) {
+                if (sFileUtils.exist(new File(mActivity.getFilesDir(),"snotz"))) {
                     for (sNotzItems items : sNotzData.getRawData(mActivity)) {
                         JsonObject note = new JsonObject();
                         note.addProperty("note", items.getNote());
@@ -112,7 +113,7 @@ public class NotePicker {
                     mJSONArray.add(note);
                 }
                 mJSONObject.add("sNotz", mJSONArray);
-                sUtils.create(mJSONObject.toString(), new File(mActivity.getFilesDir(),"snotz"));
+                sFileUtils.create(mJSONObject.toString(), new File(mActivity.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -128,7 +129,7 @@ public class NotePicker {
             @Override
             public void positiveButtonLister(Editable s) {
                 if (s != null && !s.toString().trim().isEmpty()) {
-                    if (sUtils.exist(new File(mActivity.getExternalFilesDir("checklists"), s.toString().trim()))) {
+                    if (sFileUtils.exist(new File(mActivity.getExternalFilesDir("checklists"), s.toString().trim()))) {
                         new MaterialAlertDialogBuilder(mActivity)
                                 .setMessage(mActivity.getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(mActivity.getString(R.string.change_name), (dialogInterface, i) -> importCheckList())
@@ -140,14 +141,14 @@ public class NotePicker {
                         mActivity.finish();
                     }
                 } else {
-                    sUtils.toast(mActivity.getString(R.string.check_list_name_empty_message), mActivity).show();
+                    sCommonUtils.toast(mActivity.getString(R.string.check_list_name_empty_message), mActivity).show();
                 }
             }
         }.show();
     }
 
     private void launchCheckList(String path) {
-        sUtils.create(mNote, new File(path));
+        sFileUtils.create(mNote, new File(path));
         Intent mIntent = new Intent(mActivity, StartActivity.class);
         mIntent.putExtra(sNotzWidgets.getChecklistPath(), path);
         mActivity.startActivity(mIntent);

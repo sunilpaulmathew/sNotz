@@ -14,7 +14,7 @@ import com.sunilpaulmathew.snotz.R;
 import java.io.File;
 import java.util.List;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 21, 2021
@@ -36,10 +36,10 @@ public class WidgetChecklistsAdapter extends RecyclerView.Adapter<WidgetChecklis
 
     @Override
     public void onBindViewHolder(@NonNull WidgetChecklistsAdapter.ViewHolder holder, int position) {
-        holder.mCard.setCardBackgroundColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal,
+        holder.mCard.setCardBackgroundColor(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal,
                 holder.mCard.getContext()), holder.mCard.getContext()));
         holder.mTitle.setText(this.data.get(position).getName());
-        holder.mTitle.setTextColor(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white,
+        holder.mTitle.setTextColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white,
                 holder.mTitle.getContext()), holder.mTitle.getContext()));
     }
 

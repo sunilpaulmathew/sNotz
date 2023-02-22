@@ -15,7 +15,8 @@ import com.sunilpaulmathew.snotz.utils.sNotzData;
 
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 17, 2020
@@ -36,14 +37,14 @@ public class AboutActivity extends AppCompatActivity {
         LinearLayoutCompat mMoreApps = findViewById(R.id.play_store);
         LinearLayoutCompat mReportIssue = findViewById(R.id.report_issue);
 
-        mSourceCode.setOnClickListener(v -> sUtils.launchUrl("https://github.com/sunilpaulmathew/sNotz/", this));
-        mMoreApps.setOnClickListener(v -> sUtils.launchUrl("https://play.google.com/store/apps/dev?id=5836199813143882901", this));
-        mReportIssue.setOnClickListener(v -> sUtils.launchUrl("https://github.com/sunilpaulmathew/sNotz/issues/new", this));
-        mSunil.setOnClickListener(v -> sUtils.launchUrl("https://github.com/sunilpaulmathew", this));
+        mSourceCode.setOnClickListener(v -> sCommonUtils.launchUrl("https://github.com/sunilpaulmathew/sNotz/", this));
+        mMoreApps.setOnClickListener(v -> sCommonUtils.launchUrl("https://play.google.com/store/apps/dev?id=5836199813143882901", this));
+        mReportIssue.setOnClickListener(v -> sCommonUtils.launchUrl("https://github.com/sunilpaulmathew/sNotz/issues/new", this));
+        mSunil.setOnClickListener(v -> sCommonUtils.launchUrl("https://github.com/sunilpaulmathew", this));
         mCancel.setOnClickListener(v -> onBackPressed());
 
         mAppName.setText(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
-        mChange_logs.setText(Objects.requireNonNull(sNotzData.getJSONObject(sUtils.readAssetFile(
+        mChange_logs.setText(Objects.requireNonNull(sNotzData.getJSONObject(sFileUtils.readAssetFile(
                 "changelogs.json", this))).get("releaseNotes").getAsString());
     }
 

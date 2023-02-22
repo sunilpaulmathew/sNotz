@@ -29,13 +29,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.Utils.sExecutor;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -66,7 +66,7 @@ public class sNotzUtils {
 
     public static String sNotzToText(Context context) {
         StringBuilder sb = new StringBuilder();
-        JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(), "snotz")))).getAsJsonArray("sNotz");
+        JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(sFileUtils.read(new File(context.getFilesDir(), "snotz")))).getAsJsonArray("sNotz");
         for (int i = 0; i < sNotz.size(); i++) {
             sb.append(sNotzData.getNote(sNotz.get(i).getAsJsonObject())).append("\n... ... ... ... ...\n\n");
         }
@@ -100,7 +100,7 @@ public class sNotzUtils {
     public static int getMaxSize(Activity activity) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        if (sUtils.getOrientation(activity) == Configuration.ORIENTATION_PORTRAIT) {
+        if (sCommonUtils.getOrientation(activity) == Configuration.ORIENTATION_PORTRAIT) {
             return displayMetrics.widthPixels / 3;
         } else {
             return displayMetrics.heightPixels / 3;
@@ -132,7 +132,7 @@ public class sNotzUtils {
 
     public static void bitmapToPNG(Bitmap bitmap, File file) {
         try {
-            OutputStream outStream = new FileOutputStream(file);
+            FileOutputStream outStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
             outStream.flush();
             outStream.close();
@@ -152,8 +152,8 @@ public class sNotzUtils {
                 @Override
                 public void onPreExecute() {
                     Common.isWorking(true);
-                    if (sUtils.exist(mImageFile)) {
-                        sUtils.delete(mImageFile);
+                    if (sFileUtils.exist(mImageFile)) {
+                        sFileUtils.delete(mImageFile);
                     }
                 }
 
@@ -199,7 +199,7 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(),"snotz")));
+                JsonObject mJSONObject = sNotzData.getJSONObject(sFileUtils.read(new File(context.getFilesDir(),"snotz")));
                 JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
                 JsonObject note = new JsonObject();
                 note.addProperty("note", newNote.toString());
@@ -213,7 +213,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
+                sFileUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -237,7 +237,7 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(),"snotz")));
+                JsonObject mJSONObject = sNotzData.getJSONObject(sFileUtils.read(new File(context.getFilesDir(),"snotz")));
                 JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
 
                 for (int i = 0; i < mJSONArray.size(); i++) {
@@ -249,7 +249,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
+                sFileUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -271,7 +271,7 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(),"snotz")));
+                JsonObject mJSONObject = sNotzData.getJSONObject(sFileUtils.read(new File(context.getFilesDir(),"snotz")));
                 JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
 
                 for (int i = 0; i < mJSONArray.size(); i++) {
@@ -285,7 +285,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
+                sFileUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -329,7 +329,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
+                sFileUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -358,7 +358,7 @@ public class sNotzUtils {
             public void doInBackground() {
                 JsonObject mJSONObject = new JsonObject();
                 JsonArray mJSONArray = new JsonArray();
-                if (sUtils.exist(new File(context.getFilesDir(),"snotz"))) {
+                if (sFileUtils.exist(new File(context.getFilesDir(),"snotz"))) {
                     for (sNotzItems items : sNotzData.getRawData(context)) {
                         JsonObject note = new JsonObject();
                         note.addProperty("note", items.getNote());
@@ -388,7 +388,7 @@ public class sNotzUtils {
                     }
                 }
                 mJSONObject.add("sNotz", mJSONArray);
-                sUtils.create(mJSONObject.toString(), new File(context.getFilesDir(),"snotz"));
+                sFileUtils.create(mJSONObject.toString(), new File(context.getFilesDir(),"snotz"));
             }
 
             @Override
@@ -420,7 +420,7 @@ public class sNotzUtils {
 
             @Override
             public void doInBackground() {
-                JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(new File(context.getFilesDir(),"snotz")));
+                JsonObject mJSONObject = sNotzData.getJSONObject(sFileUtils.read(new File(context.getFilesDir(),"snotz")));
                 JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
 
                 JsonObject mNote = new JsonObject();
@@ -441,7 +441,7 @@ public class sNotzUtils {
                 mJSONObject.add("sNotz", mJSONArray);
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
-                sUtils.create(json, new File(context.getFilesDir(),"snotz"));
+                sFileUtils.create(json, new File(context.getFilesDir(),"snotz"));
             }
 
             @Override

@@ -24,8 +24,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.Utils.sSingleItemDialog;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.Dialog.sSingleItemDialog;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 02, 2021
@@ -44,7 +45,7 @@ public class sNotzReminders {
     }
 
     public static int getNotificationID(Context context) {
-        return sUtils.getInt("notificationID", 0, context);
+        return sCommonUtils.getInt("notificationID", 0, context);
     }
 
     public static File getReminders(Context context) {
@@ -61,8 +62,8 @@ public class sNotzReminders {
 
     private static List<ReminderItems> getRawData(Context context) {
         List<ReminderItems> mData = new ArrayList<>();
-        if (sUtils.exist(getReminders(context))) {
-            JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(sUtils.read(getReminders(
+        if (sFileUtils.exist(getReminders(context))) {
+            JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(sFileUtils.read(getReminders(
                     context)))).getAsJsonArray("sNotz");
             for (int i = 0; i < sNotz.size(); i++) {
                 mData.add(new ReminderItems(getNoteID(sNotz.get(i).getAsJsonObject()),
@@ -109,7 +110,7 @@ public class sNotzReminders {
         mCalendar.set(Calendar.SECOND, 0);
 
         if (mCalendar.getTimeInMillis() < System.currentTimeMillis()) {
-            sUtils.toast(context.getString(R.string.reminder_invalid_message, Common.getAdjustedTime(year, month, day, hour, min)), context).show();
+            sCommonUtils.toast(context.getString(R.string.reminder_invalid_message, Common.getAdjustedTime(year, month, day, hour, min)), context).show();
             return;
         }
 
@@ -129,7 +130,7 @@ public class sNotzReminders {
         }
 
         if (!modify) {
-            sUtils.saveInt("notificationID", mNotificationID + 1, context);
+            sCommonUtils.saveInt("notificationID", mNotificationID + 1, context);
         }
         new MaterialAlertDialogBuilder(context)
                 .setIcon(R.mipmap.ic_launcher)
@@ -167,7 +168,7 @@ public class sNotzReminders {
     }
 
     private static void addReminder(AppCompatImageButton button, Calendar calendar, int noteID, int notificationID, Context context) {
-        JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(getReminders(context)));
+        JsonObject mJSONObject = sNotzData.getJSONObject(sFileUtils.read(getReminders(context)));
         JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
         JsonObject reminders = new JsonObject();
         reminders.addProperty("noteID", noteID);
@@ -177,13 +178,13 @@ public class sNotzReminders {
         mJSONObject.add("sNotz", mJSONArray);
         Gson gson = new Gson();
         String json = gson.toJson(mJSONObject);
-        sUtils.create(json, getReminders(context));
-        button.setImageDrawable(sUtils.getDrawable(isReminderSet(noteID, context) ? R.drawable.ic_notification_on
+        sFileUtils.create(json, getReminders(context));
+        button.setImageDrawable(sCommonUtils.getDrawable(isReminderSet(noteID, context) ? R.drawable.ic_notification_on
                 : R.drawable.ic_notification, context));
     }
 
     private static void deleteReminder(AppCompatImageButton button, int noteID, Context context) {
-        JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(getReminders(context)));
+        JsonObject mJSONObject = sNotzData.getJSONObject(sFileUtils.read(getReminders(context)));
         JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
 
         for (int i = 0; i < mJSONArray.size(); i++) {
@@ -201,13 +202,13 @@ public class sNotzReminders {
         mJSONObject.add("sNotz", mJSONArray);
         Gson gson = new Gson();
         String json = gson.toJson(mJSONObject);
-        sUtils.create(json, getReminders(context));
-        button.setImageDrawable(sUtils.getDrawable(isReminderSet(noteID, context) ? R.drawable.ic_notification_on
+        sFileUtils.create(json, getReminders(context));
+        button.setImageDrawable(sCommonUtils.getDrawable(isReminderSet(noteID, context) ? R.drawable.ic_notification_on
                 : R.drawable.ic_notification, context));
     }
 
     private static void editReminder(Calendar calendar, int noteID, int notificationID, Context context) {
-        JsonObject mJSONObject = sNotzData.getJSONObject(sUtils.read(getReminders(context)));
+        JsonObject mJSONObject = sNotzData.getJSONObject(sFileUtils.read(getReminders(context)));
         JsonArray mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
         JsonObject reminders = new JsonObject();
         reminders.addProperty("noteID", noteID);
@@ -223,7 +224,7 @@ public class sNotzReminders {
         mJSONObject.add("sNotz", mJSONArray);
         Gson gson = new Gson();
         String json = gson.toJson(mJSONObject);
-        sUtils.create(json, getReminders(context));
+        sFileUtils.create(json, getReminders(context));
     }
 
     private static void initialize(Calendar calendar, int noteID, int notificationID, Context context) {
@@ -237,7 +238,7 @@ public class sNotzReminders {
         mJSONObject.add("sNotz", mJSONArray);
         Gson gson = new Gson();
         String json = gson.toJson(mJSONObject);
-        sUtils.create(json, getReminders(context));
+        sFileUtils.create(json, getReminders(context));
     }
 
     public static void launchReminderMenu(AppCompatImageButton button, String note, int noteID, Context context) {

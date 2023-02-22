@@ -55,9 +55,9 @@ import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import java.io.File;
 
-import in.sunilpaulmathew.sCommon.Utils.sExecutor;
-import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -139,7 +139,7 @@ public class sNotzFragment extends Fragment {
                     View itemView = viewHolder.itemView;
 
                     Paint mPaint = new Paint();
-                    mPaint.setColor(sUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
+                    mPaint.setColor(sCommonUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
                     if (dX > 0) {
                         canvas.drawRect((float) itemView.getLeft(), (float) itemView.getTop(), dX,
                                 (float) itemView.getBottom(), mPaint);
@@ -167,8 +167,8 @@ public class sNotzFragment extends Fragment {
             }
         });
 
-        mAddIcon.setColorFilter(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
-        mAddNoteCard.setCardBackgroundColor(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
+        mAddIcon.setColorFilter(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
+        mAddNoteCard.setCardBackgroundColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
 
         mAddNoteCard.setOnClickListener(v -> {
             if (Common.isWorking()) {
@@ -219,40 +219,40 @@ public class sNotzFragment extends Fragment {
             Menu menu = popupMenu.getMenu();
             SubMenu sort = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.sort_by));
             sort.add(0, 1, Menu.NONE, getString(R.string.sort_by_date)).setCheckable(true)
-                    .setChecked(sUtils.getInt("sort_notes", 2, requireActivity()) == 2);
+                    .setChecked(sCommonUtils.getInt("sort_notes", 2, requireActivity()) == 2);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 sort.add(0, 2, Menu.NONE, getString(R.string.note_color_background)).setCheckable(true)
-                        .setChecked(sUtils.getInt("sort_notes", 2, requireActivity()) == 1);
+                        .setChecked(sCommonUtils.getInt("sort_notes", 2, requireActivity()) == 1);
             }
             sort.add(0, 3, Menu.NONE, getString(R.string.az_order)).setCheckable(true)
-                    .setChecked(sUtils.getInt("sort_notes", 2, requireActivity()) == 0);
+                    .setChecked(sCommonUtils.getInt("sort_notes", 2, requireActivity()) == 0);
             sort.setGroupCheckable(0, true, true);
             menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
-                    .setChecked(sUtils.getBoolean("reverse_order", false, requireActivity()));
+                    .setChecked(sCommonUtils.getBoolean("reverse_order", false, requireActivity()));
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
                         break;
                     case 1:
-                        if (sUtils.getInt("sort_notes", 2, requireActivity()) != 2) {
-                            sUtils.saveInt("sort_notes", 2, requireActivity());
+                        if (sCommonUtils.getInt("sort_notes", 2, requireActivity()) != 2) {
+                            sCommonUtils.saveInt("sort_notes", 2, requireActivity());
                             loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 2:
-                        if (sUtils.getInt("sort_notes", 2, requireActivity()) != 1) {
-                            sUtils.saveInt("sort_notes", 1, requireActivity());
+                        if (sCommonUtils.getInt("sort_notes", 2, requireActivity()) != 1) {
+                            sCommonUtils.saveInt("sort_notes", 1, requireActivity());
                             loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 3:
-                        if (sUtils.getInt("sort_notes", 2, requireActivity()) != 0) {
-                            sUtils.saveInt("sort_notes", 0, requireActivity());
+                        if (sCommonUtils.getInt("sort_notes", 2, requireActivity()) != 0) {
+                            sCommonUtils.saveInt("sort_notes", 0, requireActivity());
                             loadUI(mProgressBar, requireActivity()).execute();
                         }
                         break;
                     case 4:
-                        sUtils.saveBoolean("reverse_order", !sUtils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
+                        sCommonUtils.saveBoolean("reverse_order", !sCommonUtils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
                         loadUI(mProgressBar, requireActivity()).execute();
                         break;
                 }
@@ -287,8 +287,8 @@ public class sNotzFragment extends Fragment {
                         startActivity(checkLists);
                         break;
                     case 3:
-                        if (sPermissionUtils.isPermissionDenied(Manifest.permission.CAMERA, requireActivity())) {
-                            sPermissionUtils.requestPermission(new String[] {
+                        if (Utils.isPermissionDenied(Manifest.permission.CAMERA, requireActivity())) {
+                            Utils.requestPermission(new String[] {
                                     Manifest.permission.CAMERA
                             }, requireActivity());
                         } else {
@@ -297,8 +297,8 @@ public class sNotzFragment extends Fragment {
                         }
                         break;
                     case 4:
-                        if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, requireActivity())) {
-                            sPermissionUtils.requestPermission(new String[] {
+                        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, requireActivity())) {
+                            Utils.requestPermission(new String[] {
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                             },requireActivity());
                         } else {
@@ -336,7 +336,7 @@ public class sNotzFragment extends Fragment {
                     mExit = false;
                     requireActivity().finish();
                 } else {
-                    sUtils.snackBar(mAppTitle, getString(R.string.press_back_exit)).show();
+                    sCommonUtils.snackBar(mAppTitle, getString(R.string.press_back_exit)).show();
                     mExit = true;
                     mHandler.postDelayed(() -> mExit = false, 2000);
                 }
@@ -375,7 +375,7 @@ public class sNotzFragment extends Fragment {
                     mExternalNote = null;
                     Intent createNote = new Intent(activity, CreateNoteActivity.class);
                     activity.startActivity(createNote);
-                } else if (mExtraCheckListPath != null && sUtils.exist(new File(mExtraCheckListPath))) {
+                } else if (mExtraCheckListPath != null && sFileUtils.exist(new File(mExtraCheckListPath))) {
                     CheckLists.setCheckListName(new File(mExtraCheckListPath).getName());
                     // It should be set null right after finishing the job as we are calling this method for other tasks as well
                     mExtraCheckListPath = null;
@@ -423,7 +423,7 @@ public class sNotzFragment extends Fragment {
                             startActivity(scanner);
                         }
                     } else {
-                        sUtils.snackBar(mAppTitle, getString(R.string.qr_code_error_message)).show();
+                        sCommonUtils.snackBar(mAppTitle, getString(R.string.qr_code_error_message)).show();
                     }
                 }
             }
@@ -434,8 +434,8 @@ public class sNotzFragment extends Fragment {
         super.onResume();
         if (Common.isReloading()) {
             Common.isReloading(false);
-            mAddIcon.setColorFilter(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
-            mAddNoteCard.setCardBackgroundColor(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
+            mAddIcon.setColorFilter(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
+            mAddNoteCard.setCardBackgroundColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
         }
     }
 

@@ -9,15 +9,14 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.biometric.BiometricPrompt;
+import androidx.core.app.ActivityCompat;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
-import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 
-import in.sunilpaulmathew.sCommon.Utils.sPackageUtils;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -31,9 +30,8 @@ public class Utils {
         return false;
     }
 
-    public static boolean isNotDonated(Context context) {
-        if (BuildConfig.DEBUG) return false;
-        return !sPackageUtils.isPackageInstalled("com.smartpack.donate", context);
+    public static boolean isPermissionDenied(String permission, Context context) {
+        return (context.checkCallingOrSelfPermission(permission) != PackageManager.PERMISSION_GRANTED);
     }
 
     public static BiometricPrompt.PromptInfo showBiometricPrompt(Context context) {
@@ -46,7 +44,7 @@ public class Utils {
     public static boolean isSmallScreenSize(Activity activity) {
         int ratio;
         int dpi = activity.getResources().getDisplayMetrics().densityDpi;
-        if (sUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE) {
+        if (sCommonUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE) {
             ratio = dpi / 150;
         } else {
             ratio = dpi / 250;
@@ -55,10 +53,10 @@ public class Utils {
     }
 
     public static int getSpanCount(Activity activity) {
-        int rows = sUtils.getInt("span_count", 0, activity);
+        int rows = sCommonUtils.getInt("span_count", 0, activity);
         if (rows == 0) {
-            return sUtils.isTablet(activity) ? sUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2 :
-                    sUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
+            return sCommonUtils.isTablet(activity) ? sCommonUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2 :
+                    sCommonUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
         } else {
             return rows;
         }
@@ -68,6 +66,10 @@ public class Utils {
         try {
             Common.getRecyclerView().setAdapter(new NotesAdapter(sNotzData.getData(context)));
         } catch (NullPointerException ignored) {}
+    }
+
+    public static void requestPermission(String[] permissions, Activity activity) {
+        ActivityCompat.requestPermissions(activity, permissions, 0);
     }
 
     public static void restartApp(Activity activity) {
@@ -85,13 +87,13 @@ public class Utils {
     }
 
     public static void useBiometric(Activity activity) {
-        if (sUtils.getBoolean("use_biometric", false, activity)) {
-            sUtils.saveBoolean("use_biometric", false, activity);
-            sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.biometric_lock_status,
+        if (sCommonUtils.getBoolean("use_biometric", false, activity)) {
+            sCommonUtils.saveBoolean("use_biometric", false, activity);
+            sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.biometric_lock_status,
                     activity.getString(R.string.deactivated))).show();
         } else {
-            sUtils.saveBoolean("use_biometric", true, activity);
-            sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.biometric_lock_status,
+            sCommonUtils.saveBoolean("use_biometric", true, activity);
+            sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.biometric_lock_status,
                     activity.getString(R.string.activated))).show();
         }
     }

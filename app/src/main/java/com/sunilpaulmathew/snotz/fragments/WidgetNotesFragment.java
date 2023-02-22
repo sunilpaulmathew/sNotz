@@ -43,8 +43,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.Utils.sExecutor;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 19, 2021
@@ -112,7 +113,7 @@ public class WidgetNotesFragment extends Fragment {
         mContents.setHintTextColor(sNotzColor.getTextColor(requireActivity()));
         mSelectedColorTxt = sNotzColor.getTextColor(requireActivity());
 
-        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sUtils.getInt("font_size", 18, requireActivity()));
+        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sCommonUtils.getInt("font_size", 18, requireActivity()));
         mContents.setTypeface(null, AppSettings.getStyle(requireActivity()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             mContents.setTextCursorDrawable(sNotzUtils.getColoredDrawable(mContents.getCurrentTextColor(), R.drawable.ic_cursor, requireActivity()));
@@ -190,8 +191,8 @@ public class WidgetNotesFragment extends Fragment {
                         JsonObject mJSONObject;
                         JsonArray mJSONArray;
                         JsonObject note = new JsonObject();
-                        if (sUtils.exist(new File(requireActivity().getFilesDir(),"snotz"))) {
-                            mJSONObject = sNotzData.getJSONObject(sUtils.read(new File(requireActivity().getFilesDir(), "snotz")));
+                        if (sFileUtils.exist(new File(requireActivity().getFilesDir(),"snotz"))) {
+                            mJSONObject = sNotzData.getJSONObject(sFileUtils.read(new File(requireActivity().getFilesDir(), "snotz")));
                             mJSONArray = Objects.requireNonNull(mJSONObject).getAsJsonArray("sNotz");
                             note.addProperty("noteID", sNotzUtils.generateNoteID(requireActivity()));
                             mNoteID = sNotzUtils.generateNoteID(requireActivity());
@@ -211,7 +212,7 @@ public class WidgetNotesFragment extends Fragment {
                         mJSONObject.add("sNotz", mJSONArray);
                         Gson gson = new Gson();
                         String json = gson.toJson(mJSONObject);
-                        sUtils.create(json, new File(requireActivity().getFilesDir(),"snotz"));
+                        sFileUtils.create(json, new File(requireActivity().getFilesDir(),"snotz"));
                     }
 
                     @Override
@@ -226,7 +227,7 @@ public class WidgetNotesFragment extends Fragment {
     }
 
     private void create(int noteID) {
-        sUtils.saveString("appwidget" + mAppWidgetId, String.valueOf(noteID), requireActivity());
+        sCommonUtils.saveString("appwidget" + mAppWidgetId, String.valueOf(noteID), requireActivity());
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(requireActivity());
         WidgetProvider.update(appWidgetManager, mAppWidgetId, requireActivity());
         Intent resultValue = new Intent();

@@ -19,7 +19,7 @@ import com.sunilpaulmathew.snotz.utils.sNotzData;
 
 import java.util.ArrayList;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -79,30 +79,30 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.mCircle.setVisibility(View.GONE);
         }
         if (position == 3) {
-            holder.mChecked.setImageDrawable(sUtils.getDrawable(Security.isScreenLocked(holder.mChecked.getContext()) ?
+            holder.mChecked.setImageDrawable(sCommonUtils.getDrawable(Security.isScreenLocked(holder.mChecked.getContext()) ?
                     R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked, holder.mChecked.getContext()));
         } else if (position == 4) {
-            holder.mChecked.setImageDrawable(sUtils.getDrawable(Security.isHiddenNotesUnlocked(holder.mChecked.getContext()) ?
+            holder.mChecked.setImageDrawable(sCommonUtils.getDrawable(Security.isHiddenNotesUnlocked(holder.mChecked.getContext()) ?
                     R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked, holder.mChecked.getContext()));
         } else if (position == 6) {
-            holder.mCircle.setCardBackgroundColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal,
+            holder.mCircle.setCardBackgroundColor(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal,
                     holder.mCircle.getContext()), holder.mCircle.getContext()));
         } else if (position == 7) {
-            holder.mCircle.setCardBackgroundColor(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white,
+            holder.mCircle.setCardBackgroundColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white,
                     holder.mCircle.getContext()), holder.mCircle.getContext()));
         } else if (position == 8) {
-            holder.mChecked.setImageDrawable(sUtils.getDrawable(sNotzColor.isRandomColorScheme(holder.mChecked.getContext()) ?
+            holder.mChecked.setImageDrawable(sCommonUtils.getDrawable(sNotzColor.isRandomColorScheme(holder.mChecked.getContext()) ?
                     R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked, holder.mChecked.getContext()));
         } else if (position == 9) {
-            holder.mChecked.setImageDrawable(sUtils.getDrawable(sUtils.getBoolean("allow_images", false,
+            holder.mChecked.setImageDrawable(sCommonUtils.getDrawable(sCommonUtils.getBoolean("allow_images", false,
                     holder.mChecked.getContext()) ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked,
                     holder.mChecked.getContext()));
         } else if (position == 10) {
-            holder.mChecked.setImageDrawable(sUtils.getDrawable(sUtils.getBoolean("auto_save", false,
+            holder.mChecked.setImageDrawable(sCommonUtils.getDrawable(sCommonUtils.getBoolean("auto_save", false,
                     holder.mChecked.getContext()) ? R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked,
                     holder.mChecked.getContext()));
         } else if (position == 11) {
-            holder.mCircle.setCardBackgroundColor(sUtils.getInt("checklist_color", sUtils.getColor(R.color.color_black,
+            holder.mCircle.setCardBackgroundColor(sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_black,
                     holder.mCircle.getContext()), holder.mCircle.getContext()));
         }
     }

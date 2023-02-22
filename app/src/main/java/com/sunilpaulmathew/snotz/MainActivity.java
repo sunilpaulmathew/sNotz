@@ -12,8 +12,8 @@ import com.sunilpaulmathew.snotz.fragments.sNotzFragment;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
-import in.sunilpaulmathew.sCommon.Utils.sCrashReporterUtils;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CrashReporter.sCrashReporter;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -27,12 +27,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Record crashes
-        new sCrashReporterUtils(sUtils.getColor(R.color.color_teal, this), 25, this).initialize();
+        sCrashReporter crashReporter = new sCrashReporter(this);
+        crashReporter.setAccentColor(sCommonUtils.getColor(R.color.color_teal, this));
+        crashReporter.setTitleSize(25);
+        crashReporter.initialize();
 
-        if (!sUtils.getBoolean("welcome_message", false, this)) {
+        if (!sCommonUtils.getBoolean("welcome_message", false, this)) {
             Intent welcome = new Intent(this, WelcomeActivity.class);
             startActivity(welcome);
-            sUtils.saveBoolean("welcome_message", true, this);
+            sCommonUtils.saveBoolean("welcome_message", true, this);
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

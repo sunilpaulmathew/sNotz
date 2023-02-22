@@ -22,7 +22,7 @@ import com.sunilpaulmathew.snotz.utils.Utils;
 import java.util.concurrent.Executor;
 
 import in.sunilpaulmathew.sCommon.Adapters.sPagerAdapter;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 21, 2021
@@ -67,13 +67,13 @@ public class WidgetActivity extends AppCompatActivity {
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                sUtils.toast(getString(R.string.authentication_failed), WidgetActivity.this).show();
+                sCommonUtils.toast(getString(R.string.authentication_failed), WidgetActivity.this).show();
             }
         });
 
         Utils.showBiometricPrompt(this);
 
-        if (sUtils.getBoolean("use_biometric", false, this)) {
+        if (sCommonUtils.getBoolean("use_biometric", false, this)) {
             mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
         } else if (Security.isPINEnabled(this)) {
             new AuthenticatorInterface(false, getString(R.string.authenticate), this) {

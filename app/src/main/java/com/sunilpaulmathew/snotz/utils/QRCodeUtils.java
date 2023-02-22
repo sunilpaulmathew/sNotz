@@ -32,8 +32,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import in.sunilpaulmathew.sCommon.Utils.sExecutor;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 22, 2021
@@ -67,8 +68,8 @@ public class QRCodeUtils {
                     mBitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565);
                     for (int x = 0; x < 200; x++) {
                         for (int y = 0; y < 200; y++) {
-                            mBitmap.setPixel(x, y, matrix.get(x, y) ? sUtils.getColor(R.color.color_black, mActivity) :
-                                    sUtils.getColor(R.color.color_white, mActivity));
+                            mBitmap.setPixel(x, y, matrix.get(x, y) ? sCommonUtils.getColor(R.color.color_black, mActivity) :
+                                    sCommonUtils.getColor(R.color.color_white, mActivity));
                         }
                     }
                 } catch (WriterException ignored) {}
@@ -82,7 +83,7 @@ public class QRCodeUtils {
                     Intent imageView = new Intent(mActivity, ImageViewActivity.class);
                     mActivity.startActivity(imageView);
                 } else {
-                    sUtils.snackBar(mActivity.findViewById(android.R.id.content), mActivity.getString(R.string.qr_code_generate_error_message)).show();
+                    sCommonUtils.snackBar(mActivity.findViewById(android.R.id.content), mActivity.getString(R.string.qr_code_generate_error_message)).show();
                 }
             }
         };
@@ -117,8 +118,8 @@ public class QRCodeUtils {
             @Override
             public void onPreExecute() {
                 Common.isWorking(true);
-                if (sUtils.exist(mImageFile)) {
-                    sUtils.delete(mImageFile);
+                if (sFileUtils.exist(mImageFile)) {
+                    sFileUtils.delete(mImageFile);
                 }
             }
 
@@ -130,7 +131,7 @@ public class QRCodeUtils {
             @Override
             public void onPostExecute() {
                 Common.isWorking(false);
-                if (sUtils.exist(mImageFile)) {
+                if (sFileUtils.exist(mImageFile)) {
                     Intent share_QRCode = new Intent();
                     share_QRCode.setAction(Intent.ACTION_SEND);
                     share_QRCode.putExtra(Intent.EXTRA_SUBJECT, mActivity.getString(R.string.shared_by, BuildConfig.VERSION_NAME));
@@ -145,7 +146,7 @@ public class QRCodeUtils {
                     Intent shareIntent = Intent.createChooser(share_QRCode, mActivity.getString(R.string.share_with));
                     mActivity.startActivity(shareIntent);
                 } else {
-                    sUtils.snackBar(mActivity.findViewById(android.R.id.content), mActivity.getString(R.string.qr_code_generate_error_message)).show();
+                    sCommonUtils.snackBar(mActivity.findViewById(android.R.id.content), mActivity.getString(R.string.qr_code_generate_error_message)).show();
                 }
             }
         };

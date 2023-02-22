@@ -28,8 +28,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
@@ -68,7 +68,7 @@ public class CheckLists implements Serializable {
 
     public static List<CheckListItems> getData(Context context) {
         List<CheckListItems> mSavedData = new ArrayList<>();
-        String jsonString = sUtils.read(new File(context.getExternalFilesDir("checklists"), getCheckListName()));
+        String jsonString = sFileUtils.read(new File(context.getExternalFilesDir("checklists"), getCheckListName()));
         for (int i = 0; i < Objects.requireNonNull(getChecklists(jsonString)).size(); i++) {
             JsonObject object = Objects.requireNonNull(getChecklists(jsonString)).get(i).getAsJsonObject();
             mSavedData.add(new CheckListItems(getTitle(object), isDone(object)));
@@ -79,7 +79,7 @@ public class CheckLists implements Serializable {
     public static List<File> getCheckLists(Context context) {
         List<File> mCheckLists = new ArrayList<>();
         for (File checklists : Objects.requireNonNull(context.getExternalFilesDir("checklists").listFiles())) {
-            if (CheckLists.isValidCheckList(sUtils.read(checklists))) {
+            if (CheckLists.isValidCheckList(sFileUtils.read(checklists))) {
                 mCheckLists.add(checklists);
             }
         }
@@ -99,8 +99,8 @@ public class CheckLists implements Serializable {
     }
 
     public static void backupCheckList(Activity activity) {
-        if (Build.VERSION.SDK_INT < 30 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, activity)) {
-            sPermissionUtils.requestPermission(new String[] {
+        if (Build.VERSION.SDK_INT < 30 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, activity)) {
+            Utils.requestPermission(new String[] {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
             },activity);
             return;
@@ -125,17 +125,17 @@ public class CheckLists implements Serializable {
                             values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
                             Uri uri = activity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
                             OutputStream outputStream = activity.getContentResolver().openOutputStream(uri);
-                            outputStream.write(Objects.requireNonNull(sUtils.read(new File(activity.getExternalFilesDir("checklists"), CheckLists.getCheckListName()))).getBytes());
+                            outputStream.write(Objects.requireNonNull(sFileUtils.read(new File(activity.getExternalFilesDir("checklists"), CheckLists.getCheckListName()))).getBytes());
                             outputStream.close();
                         } catch (IOException ignored) {
                         }
                     } else {
-                        sUtils.create(sUtils.read(new File(activity.getExternalFilesDir("checklists"), CheckLists.getCheckListName())),
+                        sFileUtils.create(sFileUtils.read(new File(activity.getExternalFilesDir("checklists"), CheckLists.getCheckListName())),
                                 new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
                     }
-                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_checklist_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)).show();
+                    sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_checklist_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)).show();
                 } else {
-                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty)).show();
+                    sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty)).show();
                 }
             }
         }.show();
@@ -147,12 +147,12 @@ public class CheckLists implements Serializable {
             @Override
             public void positiveButtonLister(Editable s) {
                 if (s != null && !s.toString().trim().isEmpty()) {
-                    if (sUtils.exist(new File(activity.getExternalFilesDir("checklists"), s.toString().trim()))) {
+                    if (sFileUtils.exist(new File(activity.getExternalFilesDir("checklists"), s.toString().trim()))) {
                         new MaterialAlertDialogBuilder(activity)
                                 .setMessage(activity.getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(activity.getString(R.string.change_name), (dialogInterface, i) -> importCheckList(jsonString, scan, activity))
                                 .setPositiveButton(activity.getString(R.string.replace), (dialogInterface, i) -> {
-                                    sUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), s.toString().trim()));
+                                    sFileUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), s.toString().trim()));
                                     Intent checkListIntent = new Intent(activity, CheckListsActivity.class);
                                     activity.startActivity(checkListIntent);
                                     if (scan) {
@@ -161,14 +161,14 @@ public class CheckLists implements Serializable {
                                 }).show();
                         return;
                     }
-                    sUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), s.toString().trim()));
+                    sFileUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), s.toString().trim()));
                     Intent checkListIntent = new Intent(activity, CheckListsActivity.class);
                     activity.startActivity(checkListIntent);
                     if (scan) {
                         activity.finish();
                     }
                 } else {
-                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.check_list_name_empty_message)).show();
+                    sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.check_list_name_empty_message)).show();
                 }
             }
         }.show();

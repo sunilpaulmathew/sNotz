@@ -14,8 +14,9 @@ import com.sunilpaulmathew.snotz.interfaces.AuthenticatorInterface;
 import java.io.File;
 import java.util.concurrent.Executors;
 
-import in.sunilpaulmathew.sCommon.Utils.sExecutor;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 07, 2021
@@ -23,15 +24,15 @@ import in.sunilpaulmathew.sCommon.Utils.sUtils;
 public class Security {
 
     public static boolean isBiometricEnabled(Context context) {
-        return sUtils.getBoolean("use_biometric", false, context);
+        return sCommonUtils.getBoolean("use_biometric", false, context);
     }
 
     public static boolean isHiddenNotesUnlocked(Context context) {
-        return sUtils.getBoolean("hidden_note",false, context);
+        return sCommonUtils.getBoolean("hidden_note",false, context);
     }
 
     public static boolean isPINEnabled(Context context) {
-        return sUtils.exist(new File(context.getCacheDir(),"pin")) && sUtils
+        return sFileUtils.exist(new File(context.getCacheDir(),"pin")) && sCommonUtils
                 .getBoolean("use_pin", false, context);
     }
 
@@ -40,20 +41,20 @@ public class Security {
     }
 
     public static String getPIN(Context context) {
-        if (sUtils.exist(new File(context.getCacheDir(),"pin"))) {
-            return sUtils.read(new File(context.getCacheDir(), "pin"));
+        if (sFileUtils.exist(new File(context.getCacheDir(),"pin"))) {
+            return sFileUtils.read(new File(context.getCacheDir(), "pin"));
         } else {
             return null;
         }
     }
 
     public static void removePIN(Context context) {
-        sUtils.delete(new File(context.getCacheDir(),"pin"));
-        sUtils.saveBoolean("use_pin", false, context);
+        sFileUtils.delete(new File(context.getCacheDir(),"pin"));
+        sCommonUtils.saveBoolean("use_pin", false, context);
     }
 
     public static void setPIN(String pin, Context context) {
-        sUtils.create(pin, new File(context.getCacheDir(),"pin"));
+        sFileUtils.create(pin, new File(context.getCacheDir(),"pin"));
     }
 
     public static void setPIN(boolean verify, String title, SettingsAdapter adapter, Activity activity) {
@@ -65,8 +66,8 @@ public class Security {
                     setPIN(authText.toString().trim(), activity);
                     setPIN(true, activity.getString(R.string.pin_reenter), adapter, activity);
                 } else if (authText.toString().trim().equals(getPIN(activity))) {
-                    sUtils.saveBoolean("use_pin", true, activity);
-                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
+                    sCommonUtils.saveBoolean("use_pin", true, activity);
+                    sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
                             activity.getString(R.string.activated))).show();
                     adapter.notifyItemChanged(3);
                 }
@@ -86,14 +87,14 @@ public class Security {
                         launchMainActivity(activity);
                     } else if (position == 3) {
                         removePIN(activity);
-                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
+                        sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
                                 activity.getString(R.string.deactivated))).show();
                     } else if (position == 4) {
-                        sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, activity), activity);
+                        sCommonUtils.saveBoolean("hidden_note", !sCommonUtils.getBoolean("hidden_note", false, activity), activity);
                         Utils.reloadUI(activity);
                         activity.finish();
                     } else {
-                        sUtils.delete(new File(activity.getFilesDir(),"snotz"));
+                        sFileUtils.delete(new File(activity.getFilesDir(),"snotz"));
                         Utils.reloadUI(activity);
                         activity.finish();
                     }
@@ -124,7 +125,7 @@ public class Security {
         File sNotzAutoBackup = new File(activity.getExternalFilesDir("autoBackup"),"autoBackup");
 
         if (sNotz.exists() && sNotzData.getRawData(activity).size() > 0 && sNotz.length() != sNotzAutoBackup.length()) {
-            Executors.newSingleThreadExecutor().execute(() -> sUtils.copy(sNotz, sNotzAutoBackup));
+            Executors.newSingleThreadExecutor().execute(() -> sFileUtils.copy(sNotz, sNotzAutoBackup));
         } else if ((!sNotz.exists() || sNotzData.getRawData(activity).size() == 0) && sNotzAutoBackup.exists()) {
             new MaterialAlertDialogBuilder(activity)
                     .setIcon(R.mipmap.ic_launcher)
@@ -132,7 +133,7 @@ public class Security {
                     .setMessage(activity.getString(R.string.restore_backup_message))
                     .setCancelable(false)
                     .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                        sUtils.delete(sNotzAutoBackup);
+                        sFileUtils.delete(sNotzAutoBackup);
                         activity.startActivity(mainActivity);
                         activity.finish();
                     })
@@ -144,7 +145,7 @@ public class Security {
 
                                 @Override
                                 public void doInBackground() {
-                                    sUtils.copy(sNotzAutoBackup, sNotz);
+                                    sFileUtils.copy(sNotzAutoBackup, sNotz);
                                 }
 
                                 @Override

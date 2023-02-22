@@ -34,8 +34,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.sunilpaulmathew.sCommon.Utils.sExecutor;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 19, 2021
@@ -123,12 +124,12 @@ public class WidgetChecklistsFragment extends Fragment {
                 String mCheckListName = CheckLists.getCheckListName();
                 JsonObject mJSONObject = new JsonObject();
                 mJSONObject.add("checklist", CheckLists.getChecklists(mData));
-                sUtils.create(mJSONObject.toString(), new File(requireActivity().getExternalFilesDir("checklists"), mCheckListName));
+                sFileUtils.create(mJSONObject.toString(), new File(requireActivity().getExternalFilesDir("checklists"), mCheckListName));
             }
 
             @Override
             public void onPostExecute() {
-                if (sUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), CheckLists.getCheckListName()))) {
+                if (sFileUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), CheckLists.getCheckListName()))) {
                     create(requireActivity().getExternalFilesDir("checklists") + "/" + CheckLists.getCheckListName());
                 }
             }
@@ -141,7 +142,7 @@ public class WidgetChecklistsFragment extends Fragment {
             @Override
             public void positiveButtonLister(Editable s) {
                 if (s != null && !s.toString().trim().isEmpty()) {
-                    if (sUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), s.toString().trim()))) {
+                    if (sFileUtils.exist(new File(requireActivity().getExternalFilesDir("checklists"), s.toString().trim()))) {
                         new MaterialAlertDialogBuilder(requireActivity())
                                 .setMessage(getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> createCheckList())
@@ -159,14 +160,14 @@ public class WidgetChecklistsFragment extends Fragment {
                         mData.add(new CheckListItems("", false));
                     }
                 } else {
-                    sUtils.snackBar(requireActivity().findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
+                    sCommonUtils.snackBar(requireActivity().findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
                 }
             }
         }.show();
     }
 
     private void create(String path) {
-        sUtils.saveString("appwidget" + mAppWidgetId, path, requireActivity());
+        sCommonUtils.saveString("appwidget" + mAppWidgetId, path, requireActivity());
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(requireActivity());
         WidgetProvider.update(appWidgetManager, mAppWidgetId, requireActivity());
         Intent resultValue = new Intent();

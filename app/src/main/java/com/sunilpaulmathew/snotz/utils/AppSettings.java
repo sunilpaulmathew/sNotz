@@ -23,11 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
-import in.sunilpaulmathew.sCommon.Utils.sSerializableItems;
-import in.sunilpaulmathew.sCommon.Utils.sSingleChoiceDialog;
-import in.sunilpaulmathew.sCommon.Utils.sSingleItemDialog;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sSerializableItems;
+import in.sunilpaulmathew.sCommon.Dialog.sSingleChoiceDialog;
+import in.sunilpaulmathew.sCommon.Dialog.sSingleItemDialog;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 14, 2021
@@ -35,12 +35,12 @@ import in.sunilpaulmathew.sCommon.Utils.sUtils;
 public class AppSettings {
 
     private static int getRowPosition(Context context) {
-        return sUtils.getInt("span_count", 0, context);
+        return sCommonUtils.getInt("span_count", 0, context);
     }
 
     private static int getFontSizePosition(Context context) {
         for (int i = 0; i < getFontSizes().length; i++) {
-            if (sUtils.getInt("font_size", 18, context) == Integer.parseInt(
+            if (sCommonUtils.getInt("font_size", 18, context) == Integer.parseInt(
                     getFontSizes()[i].replace("sp",""))) {
                 return i;
             }
@@ -49,7 +49,7 @@ public class AppSettings {
     }
 
     private static int getFontStylePosition(Context context) {
-        String style = sUtils.getString("font_style", "bold|italic", context);
+        String style = sCommonUtils.getString("font_style", "bold|italic", context);
         switch (style) {
             case "regular":
                 return 0;
@@ -63,7 +63,7 @@ public class AppSettings {
     }
 
     public static int getStyle(Context context) {
-        String style = sUtils.getString("font_style", "bold|italic", context);
+        String style = sCommonUtils.getString("font_style", "bold|italic", context);
         switch (style) {
             case "regular":
                 return Typeface.NORMAL;
@@ -113,7 +113,7 @@ public class AppSettings {
     }
 
     public static String getFontStyle(Context context) {
-        String style = sUtils.getString("font_style", "bold|italic", context);
+        String style = sCommonUtils.getString("font_style", "bold|italic", context);
         switch (style) {
             case "regular":
                 return context.getString(R.string.text_style_regular);
@@ -140,7 +140,7 @@ public class AppSettings {
     }
 
     public static String getRows(Context context) {
-        int rows = sUtils.getInt("span_count", 0, context);
+        int rows = sCommonUtils.getInt("span_count", 0, context);
         switch (rows) {
             case 1:
                 return context.getString(R.string.notes_in_row_summary, "1");
@@ -177,7 +177,7 @@ public class AppSettings {
 
             @Override
             public void onItemSelected(int itemPosition) {
-                sUtils.saveInt("span_count", itemPosition, activity);
+                sCommonUtils.saveInt("span_count", itemPosition, activity);
                 Utils.restartApp(activity);
             }
         }.show();
@@ -189,10 +189,10 @@ public class AppSettings {
 
             @Override
             public void onItemSelected(int itemPosition) {
-                sUtils.saveInt("font_size", Integer.parseInt(getFontSizes()[itemPosition].replace("sp","")), context);
+                sCommonUtils.saveInt("font_size", Integer.parseInt(getFontSizes()[itemPosition].replace("sp","")), context);
                 items.set(position, new SettingsItems(context.getString(R.string.font_size), context.getString(R.string.font_size_summary,
                         "" + Integer.parseInt(getFontSizes()[itemPosition].replace("sp",""))),
-                        sUtils.getDrawable(R.drawable.ic_format_size, context), null));
+                        sCommonUtils.getDrawable(R.drawable.ic_format_size, context), null));
                 adapter.notifyItemChanged(position);
                 Utils.reloadUI(context);
             }
@@ -210,9 +210,9 @@ public class AppSettings {
 
             @Override
             public void onItemSelected(int itemPosition) {
-                sUtils.saveString("font_style", getFontStyle(itemPosition), context);
+                sCommonUtils.saveString("font_style", getFontStyle(itemPosition), context);
                 items.set(position, new SettingsItems(context.getString(R.string.text_style), getFontStyle(context),
-                        sUtils.getDrawable(R.drawable.ic_text_style, context), null));
+                        sCommonUtils.getDrawable(R.drawable.ic_text_style, context), null));
                 adapter.notifyItemChanged(position);
                 Utils.reloadUI(context);
             }
@@ -229,10 +229,10 @@ public class AppSettings {
             @Override
             public void onItemSelected(int itemPosition) {
                 if (itemPosition == 0) {
-                    saveDialog(Encryption.encrypt(Objects.requireNonNull(sUtils.read(new File(activity.getFilesDir(),"snotz")))), activity);
+                    saveDialog(Encryption.encrypt(Objects.requireNonNull(sFileUtils.read(new File(activity.getFilesDir(),"snotz")))), activity);
                 } else {
-                    if (sUtils.getBoolean("allow_images", false, activity)) {
-                        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.image_excluded_warning)).show();
+                    if (sCommonUtils.getBoolean("allow_images", false, activity)) {
+                        sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.image_excluded_warning)).show();
                     }
                     saveDialog(sNotzUtils.sNotzToText(activity), activity);
                 }
@@ -241,8 +241,8 @@ public class AppSettings {
     }
 
     private static void saveDialog(String sNotz, Activity activity) {
-        if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, activity)) {
-            sPermissionUtils.requestPermission(new String[] {
+        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, activity)) {
+            Utils.requestPermission(new String[] {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
             },activity);
             return;
@@ -259,7 +259,7 @@ public class AppSettings {
                     if (fileName.contains(" ")) {
                         fileName = fileName.replace(" ", "_");
                     }
-                    if (sUtils.exist(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName))) {
+                    if (sFileUtils.exist(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName))) {
                         String finalFileName = fileName;
                         new MaterialAlertDialogBuilder(activity)
                                 .setMessage(activity.getString(R.string.backup_notes_warning))
@@ -269,7 +269,7 @@ public class AppSettings {
                         save(sNotz, fileName, activity);
                     }
                 } else {
-                    sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty)).show();
+                    sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty)).show();
                 }
             }
         }.show();
@@ -289,9 +289,9 @@ public class AppSettings {
             } catch (IOException ignored) {
             }
         } else {
-            sUtils.create(sNotz, new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text));
+            sFileUtils.create(sNotz, new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text));
         }
-        sUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text)).show();
+        sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text)).show();
     }
 
 }

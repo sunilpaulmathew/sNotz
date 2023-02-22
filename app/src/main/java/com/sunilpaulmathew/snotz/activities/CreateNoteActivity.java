@@ -43,8 +43,8 @@ import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import java.io.File;
 import java.io.IOException;
 
-import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -77,7 +77,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
         mHidden = findViewById(R.id.hidden);
 
-        if (sUtils.getBoolean("auto_save", false, this)) {
+        if (sCommonUtils.getBoolean("auto_save", false, this)) {
             mSave.setVisibility(View.GONE);
         }
 
@@ -102,13 +102,13 @@ public class CreateNoteActivity extends AppCompatActivity {
             mSelectedColorTxt = sNotzColor.getTextColor(this);
         }
 
-        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sUtils.getInt("font_size", 18, this));
+        mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sCommonUtils.getInt("font_size", 18, this));
         mContents.setTypeface(null, AppSettings.getStyle(this));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             mContents.setTextCursorDrawable(sNotzUtils.getColoredDrawable(mContents.getCurrentTextColor(), R.drawable.ic_cursor, this));
         }
 
-        if (sUtils.getBoolean("allow_images", false, this)) {
+        if (sCommonUtils.getBoolean("allow_images", false, this)) {
             mAdd.setVisibility(View.VISIBLE);
         }
 
@@ -188,8 +188,8 @@ public class CreateNoteActivity extends AppCompatActivity {
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
-                        if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, this)) {
-                            sPermissionUtils.requestPermission(new String[] {
+                        if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, this)) {
+                            Utils.requestPermission(new String[] {
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                             },this);
                         } else {
@@ -210,7 +210,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         });
 
         mReadingMode.setOnClickListener(v -> {
-            if (sUtils.getBoolean("readmode_warning_hide", false, this)) {
+            if (sCommonUtils.getBoolean("readmode_warning_hide", false, this)) {
                 Intent readOnlyMode = new Intent(this, ReadNoteActivity.class);
                 Common.setReadModeText(Common.getNote());
                 if (mBitmap != null) {
@@ -236,7 +236,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                         })
                         .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
-                            sUtils.saveBoolean("readmode_warning_hide", checkBox.isChecked(), this);
+                            sCommonUtils.saveBoolean("readmode_warning_hide", checkBox.isChecked(), this);
                             Intent readOnlyMode = new Intent(this, ReadNoteActivity.class);
                             Common.setReadModeText(Common.getNote());
                             if (mBitmap != null) {
@@ -252,7 +252,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         mSave.setOnClickListener(v -> {
             if (mContents.getText() == null || mContents.getText().toString().trim().isEmpty()) {
-                sUtils.snackBar(findViewById(R.id.contents), getString(R.string.text_empty)).show();
+                sCommonUtils.snackBar(findViewById(R.id.contents), getString(R.string.text_empty)).show();
                 return;
             }
             saveNote();
@@ -263,7 +263,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         if (Common.getID() != -1) {
             sNotzUtils.updateNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), Common.getID(), mSelectedColorBg,
                     mSelectedColorTxt, mHidden.isChecked(), mProgress, this);
-        } else if (sUtils.exist(new File(getFilesDir(), "snotz"))) {
+        } else if (sFileUtils.exist(new File(getFilesDir(), "snotz"))) {
             sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this);
         } else {
             sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), mProgress, this);
@@ -370,7 +370,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                     }).show();
         } else if (isUnsavedNote() && (mContents.getText() != null && !mContents.getText()
                 .toString().trim().isEmpty())) {
-            if (sUtils.getBoolean("auto_save", false, this)) {
+            if (sCommonUtils.getBoolean("auto_save", false, this)) {
                 saveNote();
             } else {
                 new MaterialAlertDialogBuilder(this)
@@ -391,7 +391,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
 
-        if (sUtils.getBoolean("auto_save", false, this) && isUnsavedNote() && !mNoteSaved) {
+        if (sCommonUtils.getBoolean("auto_save", false, this) && isUnsavedNote() && !mNoteSaved) {
             if (Common.getID() != -1) {
                 if (isNoteCleared()) {
                     sNotzUtils.deleteNote(Common.getID(), mProgress, this).execute();
@@ -401,7 +401,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                             mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();
                 }
             } else if (mContents.getText() != null && !mContents.getText().toString().trim().isEmpty()) {
-                if (sUtils.exist(new File(getFilesDir(), "snotz"))) {
+                if (sFileUtils.exist(new File(getFilesDir(), "snotz"))) {
                     sNotzUtils.addNote(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();
                 } else {
                     sNotzUtils.initializeNotes(mContents.getText(), (mBitmap != null ? sNotzUtils.bitmapToBase64(mBitmap, this) : null), mSelectedColorBg, mSelectedColorTxt, mHidden.isChecked(), true, mProgress, this).execute();

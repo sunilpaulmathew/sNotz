@@ -25,7 +25,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
@@ -47,7 +48,7 @@ public class CheckListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        if (sUtils.exist(new File(getExternalFilesDir("checklists"), CheckLists.getCheckListName())) && CheckLists.getData(this).size() > 0) {
+        if (sFileUtils.exist(new File(getExternalFilesDir("checklists"), CheckLists.getCheckListName())) && CheckLists.getData(this).size() > 0) {
             mData.addAll(CheckLists.getData(this));
         } else {
             mData.add(new CheckListItems("", false));
@@ -101,12 +102,12 @@ public class CheckListActivity extends AppCompatActivity {
         if (CheckLists.getChecklists(mData).size() == 0) return;
         String mCheckListName = CheckLists.getCheckListName();
         if (mCheckListName.isEmpty()) {
-            sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
+            sCommonUtils.snackBar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
             return;
         }
         JsonObject mJSONObject = new JsonObject();
         mJSONObject.add("checklist", CheckLists.getChecklists(mData));
-        sUtils.create(mJSONObject.toString(), new File(getExternalFilesDir("checklists"), mCheckListName));
+        sFileUtils.create(mJSONObject.toString(), new File(getExternalFilesDir("checklists"), mCheckListName));
         Common.isReloading(true);
         finish();
     }

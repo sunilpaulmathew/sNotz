@@ -44,10 +44,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
-import in.sunilpaulmathew.sCommon.Utils.sCreditsUtils;
-import in.sunilpaulmathew.sCommon.Utils.sThemeUtils;
-import in.sunilpaulmathew.sCommon.Utils.sTranslatorUtils;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.Credits.sCreditsUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
+import in.sunilpaulmathew.sCommon.ThemeUtils.sThemeUtils;
+import in.sunilpaulmathew.sCommon.TranslatorUtils.sTranslatorUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 17, 2020
@@ -73,7 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
             if (getData().get(position).getUrl() != null) {
-                sUtils.launchUrl(getData().get(position).getUrl(), this);
+                sCommonUtils.launchUrl(getData().get(position).getUrl(), this);
             } else if (position == 0) {
                 Intent settings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 settings.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -94,32 +95,32 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
             } else if (position == 4) {
-                if (sUtils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
+                if (sCommonUtils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
                     Common.isHiddenNote(true);
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else if (Security.isPINEnabled(this)) {
                     Security.authenticate(false, mRecycleViewAdapter, position,this);
                 } else {
-                    sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, this), this);
+                    sCommonUtils.saveBoolean("hidden_note", !sCommonUtils.getBoolean("hidden_note", false, this), this);
                     mRecycleViewAdapter.notifyItemChanged(position);
                     Utils.reloadUI( this);
                 }
             } else if (position == 6) {
                 if (sNotzColor.isRandomColorScheme(this)) {
-                    sUtils.snackBar(mRecyclerView, getString(R.string.note_color_random_message)).show();
+                    sCommonUtils.snackBar(mRecyclerView, getString(R.string.note_color_random_message)).show();
                     return;
                 }
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
-                        .initialColor(sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, this), this))
+                        .initialColor(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, this), this))
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
-                            sUtils.saveInt("accent_color", selectedColor, this);
-                            sUtils.snackBar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_background))).show();
+                            sCommonUtils.saveInt("accent_color", selectedColor, this);
+                            sCommonUtils.snackBar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_background))).show();
                             Utils.reloadUI(this);
                             mRecycleViewAdapter.notifyItemChanged(position);
                             Common.isReloading(true);
@@ -128,20 +129,20 @@ public class SettingsActivity extends AppCompatActivity {
                         }).build().show();
             } else if (position == 7) {
                 if (sNotzColor.isRandomColorScheme(this)) {
-                    sUtils.snackBar(mRecyclerView, getString(R.string.note_color_random_message)).show();
+                    sCommonUtils.snackBar(mRecyclerView, getString(R.string.note_color_random_message)).show();
                     return;
                 }
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
-                        .initialColor(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white, this), this))
+                        .initialColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, this), this))
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
-                            sUtils.saveInt("text_color", selectedColor, this);
-                            sUtils.snackBar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_text))).show();
+                            sCommonUtils.saveInt("text_color", selectedColor, this);
+                            sCommonUtils.snackBar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_text))).show();
                             Utils.reloadUI(this);
                             mRecycleViewAdapter.notifyItemChanged(position);
                             Common.isReloading(true);
@@ -150,14 +151,14 @@ public class SettingsActivity extends AppCompatActivity {
                         }).build().show();
             } else if (position == 8) {
                 if (sNotzColor.isRandomColorScheme(this)) {
-                    sUtils.saveInt("random_color", Integer.MIN_VALUE, this);
+                    sCommonUtils.saveInt("random_color", Integer.MIN_VALUE, this);
                 } else {
-                    sUtils.saveInt("random_color", 0, this);
+                    sCommonUtils.saveInt("random_color", 0, this);
                 }
                 mRecycleViewAdapter.notifyItemRangeChanged(6, 3);
             } else if (position == 9) {
-                if (sUtils.getBoolean("allow_images", false, this)) {
-                    sUtils.saveBoolean("allow_images", false, this);
+                if (sCommonUtils.getBoolean("allow_images", false, this)) {
+                    sCommonUtils.saveBoolean("allow_images", false, this);
                     mRecycleViewAdapter.notifyItemChanged(position);
                 } else {
                     new MaterialAlertDialogBuilder(this)
@@ -168,24 +169,24 @@ public class SettingsActivity extends AppCompatActivity {
                             .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                             })
                             .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
-                                sUtils.saveBoolean("allow_images", true, this);
+                                sCommonUtils.saveBoolean("allow_images", true, this);
                                 mRecycleViewAdapter.notifyItemChanged(position);
                             }).show();
                 }
             } else if (position == 10) {
-                sUtils.saveBoolean("auto_save", !sUtils.getBoolean("auto_save", false, this), this);
+                sCommonUtils.saveBoolean("auto_save", !sCommonUtils.getBoolean("auto_save", false, this), this);
                 mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 11) {
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
-                        .initialColor(sUtils.getInt("checklist_color", sUtils.getColor(R.color.color_white, this), this))
+                        .initialColor(sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_white, this), this))
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
-                            sUtils.saveInt("checklist_color", selectedColor, this);
+                            sCommonUtils.saveInt("checklist_color", selectedColor, this);
                             mRecycleViewAdapter.notifyItemChanged(position);
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
@@ -198,7 +199,7 @@ public class SettingsActivity extends AppCompatActivity {
                 AppSettings.setFontStyle(position, getData(), mRecycleViewAdapter, this);
             } else if (position == 16) {
                 if (sNotzData.isNotesEmpty(this)) {
-                    sUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
+                    sCommonUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
                 } else {
                     AppSettings.showBackupOptions(this);
                 }
@@ -209,11 +210,11 @@ public class SettingsActivity extends AppCompatActivity {
                     restore.setType("text/plain");
                     restoreNotes.launch(restore);
                 } catch (ActivityNotFoundException e) {
-                    sUtils.snackBar(mRecyclerView, e.getMessage()).show();
+                    sCommonUtils.snackBar(mRecyclerView, e.getMessage()).show();
                 }
             } else if (position == 18) {
                 if (sNotzData.isNotesEmpty(this)) {
-                    sUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
+                    sCommonUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
                 } else {
                     new MaterialAlertDialogBuilder(this)
                             .setIcon(R.mipmap.ic_launcher)
@@ -222,13 +223,13 @@ public class SettingsActivity extends AppCompatActivity {
                             .setNegativeButton(R.string.cancel, (dialog, which) -> {
                             })
                             .setPositiveButton(R.string.delete, (dialog, which) -> {
-                                if (sUtils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
+                                if (sCommonUtils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
                                     Common.isClearingNotes(true);
                                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                                 } else if (Security.isPINEnabled(this)) {
                                     Security.authenticate(false, mRecycleViewAdapter, position,this);
                                 } else {
-                                    sUtils.delete(new File(getFilesDir(),"snotz"));
+                                    sFileUtils.delete(new File(getFilesDir(),"snotz"));
                                     mRecycleViewAdapter.notifyItemChanged(position);
                                     Utils.reloadUI(this);
                                     finish();
@@ -253,10 +254,10 @@ public class SettingsActivity extends AppCompatActivity {
                 new sTranslatorUtils(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();
             } else if (position == 25) {
                 new sCreditsUtils(AppSettings.getCredits(),
-                        sUtils.getDrawable(R.mipmap.ic_launcher, this),
-                        sUtils.getDrawable(R.drawable.ic_back, this),
-                        sUtils.getColor(R.color.color_teal, this),
-                        25, getString(R.string.app_name), "2021-2022, sunilpaulmathew",
+                        sCommonUtils.getDrawable(R.mipmap.ic_launcher, this),
+                        sCommonUtils.getDrawable(R.drawable.ic_back, this),
+                        sCommonUtils.getColor(R.color.color_teal, this),
+                        25, getString(R.string.app_name), "2023-2024, sunilpaulmathew",
                         BuildConfig.VERSION_NAME).launchCredits(this);
             }
         });
@@ -268,7 +269,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                sUtils.snackBar(mBack, getString(R.string.authentication_error, errString)).show();
+                sCommonUtils.snackBar(mBack, getString(R.string.authentication_error, errString)).show();
                 mRecycleViewAdapter.notifyItemRangeChanged(3,4);
             }
 
@@ -276,13 +277,13 @@ public class SettingsActivity extends AppCompatActivity {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
                 if (Common.isHiddenNote()) {
-                    sUtils.saveBoolean("hidden_note", !sUtils.getBoolean("hidden_note", false, SettingsActivity.this), SettingsActivity.this);
+                    sCommonUtils.saveBoolean("hidden_note", !sCommonUtils.getBoolean("hidden_note", false, SettingsActivity.this), SettingsActivity.this);
                     Common.isHiddenNote(false);
                     Utils.reloadUI(SettingsActivity.this);
                     mRecycleViewAdapter.notifyItemChanged(4);
                 } else if (Common.isClearingNotes()) {
                     Common.isClearingNotes(false);
-                    sUtils.delete(new File(getFilesDir(),"snotz"));
+                    sFileUtils.delete(new File(getFilesDir(),"snotz"));
                     Utils.reloadUI(SettingsActivity.this);
                     mRecycleViewAdapter.notifyItemChanged(18);
                 } else {
@@ -294,7 +295,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                sUtils.snackBar(mBack, getString(R.string.authentication_failed)).show();
+                sCommonUtils.snackBar(mBack, getString(R.string.authentication_failed)).show();
                 mRecycleViewAdapter.notifyItemRangeChanged(3,4);
             }
         });
@@ -304,38 +305,38 @@ public class SettingsActivity extends AppCompatActivity {
 
     private ArrayList<SettingsItems> getData() {
         ArrayList<SettingsItems> mData = new ArrayList<>();
-        mData.add(new SettingsItems(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", "Copyright: © 2021-2022, sunilpaulmathew", sUtils.getDrawable(R.drawable.ic_info, this), null));
-        mData.add(new SettingsItems(getString(R.string.app_theme), sThemeUtils.getAppTheme(this), sUtils.getDrawable(R.drawable.ic_theme, this), null));
+        mData.add(new SettingsItems(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", "Copyright: © 2023-2024, sunilpaulmathew", sCommonUtils.getDrawable(R.drawable.ic_info, this), null));
+        mData.add(new SettingsItems(getString(R.string.app_theme), sThemeUtils.getAppTheme(this), sCommonUtils.getDrawable(R.drawable.ic_theme, this), null));
         mData.add(new SettingsItems(getString(R.string.security), null, null, null));
         if (Utils.isFingerprintAvailable(this)) {
-            mData.add(new SettingsItems(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), sUtils.getDrawable(R.drawable.ic_fingerprint, this), null));
+            mData.add(new SettingsItems(getString(R.string.biometric_lock), getString(R.string.biometric_lock_summary), sCommonUtils.getDrawable(R.drawable.ic_fingerprint, this), null));
         } else {
-            mData.add(new SettingsItems(getString(R.string.pin_protection), getString(R.string.pin_protection_message), sUtils.getDrawable(R.drawable.ic_lock, this), null));
+            mData.add(new SettingsItems(getString(R.string.pin_protection), getString(R.string.pin_protection_message), sCommonUtils.getDrawable(R.drawable.ic_lock, this), null));
         }
-        mData.add(new SettingsItems(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), sUtils.getDrawable(R.drawable.ic_eye, this), null));
+        mData.add(new SettingsItems(getString(R.string.show_hidden_notes), getString(R.string.show_hidden_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_eye, this), null));
         mData.add(new SettingsItems(getString(R.string.customize_note), null, null, null));
-        mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), sUtils.getDrawable(R.drawable.ic_color, this), null));
-        mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sUtils.getDrawable(R.drawable.ic_text_color, this), null));
-        mData.add(new SettingsItems(getString(R.string.note_color_random), getString(R.string.note_color_random_summary), sUtils.getDrawable(R.drawable.ic_colorize, this), null));
-        mData.add(new SettingsItems(getString(R.string.image_include), getString(R.string.image_include_summary), sUtils.getDrawable(R.drawable.ic_image, this), null));
-        mData.add(new SettingsItems(getString(R.string.auto_save), getString(R.string.auto_save_summary), sUtils.getDrawable(R.drawable.ic_save, this), null));
-        mData.add(new SettingsItems(getString(R.string.check_list_widget_color), getString(R.string.check_list_widget_color_summary), sUtils.getDrawable(R.drawable.ic_checklist, this), null));
-        mData.add(new SettingsItems(getString(R.string.notes_in_row), AppSettings.getRows(this), sUtils.getDrawable(R.drawable.ic_row, this), null));
-        mData.add(new SettingsItems(getString(R.string.font_size), getString(R.string.font_size_summary, "" + sUtils.getInt("font_size", 18, this)),
-                sUtils.getDrawable(R.drawable.ic_format_size, this), null));
-        mData.add(new SettingsItems(getString(R.string.text_style), AppSettings.getFontStyle(this), sUtils.getDrawable(R.drawable.ic_text_style, this), null));
+        mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), sCommonUtils.getDrawable(R.drawable.ic_color, this), null));
+        mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sCommonUtils.getDrawable(R.drawable.ic_text_color, this), null));
+        mData.add(new SettingsItems(getString(R.string.note_color_random), getString(R.string.note_color_random_summary), sCommonUtils.getDrawable(R.drawable.ic_colorize, this), null));
+        mData.add(new SettingsItems(getString(R.string.image_include), getString(R.string.image_include_summary), sCommonUtils.getDrawable(R.drawable.ic_image, this), null));
+        mData.add(new SettingsItems(getString(R.string.auto_save), getString(R.string.auto_save_summary), sCommonUtils.getDrawable(R.drawable.ic_save, this), null));
+        mData.add(new SettingsItems(getString(R.string.check_list_widget_color), getString(R.string.check_list_widget_color_summary), sCommonUtils.getDrawable(R.drawable.ic_checklist, this), null));
+        mData.add(new SettingsItems(getString(R.string.notes_in_row), AppSettings.getRows(this), sCommonUtils.getDrawable(R.drawable.ic_row, this), null));
+        mData.add(new SettingsItems(getString(R.string.font_size), getString(R.string.font_size_summary, "" + sCommonUtils.getInt("font_size", 18, this)),
+                sCommonUtils.getDrawable(R.drawable.ic_format_size, this), null));
+        mData.add(new SettingsItems(getString(R.string.text_style), AppSettings.getFontStyle(this), sCommonUtils.getDrawable(R.drawable.ic_text_style, this), null));
         mData.add(new SettingsItems(getString(R.string.misc), null, null, null));
-        mData.add(new SettingsItems(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), sUtils.getDrawable(R.drawable.ic_backup, this), null));
-        mData.add(new SettingsItems(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), sUtils.getDrawable(R.drawable.ic_restore, this), null));
-        mData.add(new SettingsItems(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), sUtils.getDrawable(R.drawable.ic_clear, this), null));
-        mData.add(new SettingsItems(getString(R.string.donations), getString(R.string.donations_summary), sUtils.getDrawable(R.drawable.ic_donate, this), null));
-        mData.add(new SettingsItems(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), sUtils.getDrawable(R.drawable.ic_share, this), null));
-        mData.add(new SettingsItems(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), sUtils.getDrawable(R.drawable.ic_home, this), null));
-        mData.add(new SettingsItems(getString(R.string.translations), getString(R.string.translations_summary), sUtils.getDrawable(R.drawable.ic_translate, this), null));
-        mData.add(new SettingsItems(getString(R.string.rate_us), getString(R.string.rate_us_Summary), sUtils.getDrawable(R.drawable.ic_rate, this), "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"));
-        mData.add(new SettingsItems(getString(R.string.support), getString(R.string.support_summary), sUtils.getDrawable(R.drawable.ic_support, this), "https://t.me/smartpack_kmanager"));
-        mData.add(new SettingsItems(getString(R.string.credits), getString(R.string.credits_summary), sUtils.getDrawable(R.drawable.ic_credits, this), null));
-        mData.add(new SettingsItems(getString(R.string.faq), getString(R.string.faq_summary), sUtils.getDrawable(R.drawable.ic_faq, this), "https://sunilpaulmathew.github.io/sNotz/faq/"));
+        mData.add(new SettingsItems(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_backup, this), null));
+        mData.add(new SettingsItems(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_restore, this), null));
+        mData.add(new SettingsItems(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_clear, this), null));
+        mData.add(new SettingsItems(getString(R.string.donations), getString(R.string.donations_summary), sCommonUtils.getDrawable(R.drawable.ic_donate, this), null));
+        mData.add(new SettingsItems(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), sCommonUtils.getDrawable(R.drawable.ic_share, this), null));
+        mData.add(new SettingsItems(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), sCommonUtils.getDrawable(R.drawable.ic_home, this), null));
+        mData.add(new SettingsItems(getString(R.string.translations), getString(R.string.translations_summary), sCommonUtils.getDrawable(R.drawable.ic_translate, this), null));
+        mData.add(new SettingsItems(getString(R.string.rate_us), getString(R.string.rate_us_Summary), sCommonUtils.getDrawable(R.drawable.ic_rate, this), "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"));
+        mData.add(new SettingsItems(getString(R.string.support), getString(R.string.support_summary), sCommonUtils.getDrawable(R.drawable.ic_support, this), "https://t.me/smartpack_kmanager"));
+        mData.add(new SettingsItems(getString(R.string.credits), getString(R.string.credits_summary), sCommonUtils.getDrawable(R.drawable.ic_credits, this), null));
+        mData.add(new SettingsItems(getString(R.string.faq), getString(R.string.faq_summary), sCommonUtils.getDrawable(R.drawable.ic_faq, this), "https://sunilpaulmathew.github.io/sNotz/faq/"));
         return mData;
     }
 
@@ -362,7 +363,7 @@ public class SettingsActivity extends AppCompatActivity {
                     } catch (IOException ignored) {}
 
                     if (mJSONString == null) {
-                        sUtils.snackBar(mBack, getString(R.string.restore_error)).show();
+                        sCommonUtils.snackBar(mBack, getString(R.string.restore_error)).show();
                         return;
                     }
                     new MaterialAlertDialogBuilder(this)

@@ -46,8 +46,8 @@ import java.text.DateFormat;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.Utils.sPermissionUtils;
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -71,15 +71,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mContents.setText(this.data.get(position).getNote());
         holder.mContents.setTextColor(data.get(position).getColorText());
-        holder.mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sUtils.getInt("font_size", 18, holder.mContents.getContext()));
+        holder.mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sCommonUtils.getInt("font_size", 18, holder.mContents.getContext()));
         holder.mContents.setTypeface(null, AppSettings.getStyle(holder.mContents.getContext()));
         holder.mContents.setSingleLine(mExpandPosition != position);
         holder.mActionLayout.setVisibility(position == mPosition ? View.VISIBLE : View.GONE);
         holder.mExpand.setVisibility(Common.getSpanCount() > 1 ? View.GONE : View.VISIBLE);
-        holder.mExpand.setImageDrawable(sUtils.getDrawable(mExpandPosition != position ? R.drawable.ic_expand :
+        holder.mExpand.setImageDrawable(sCommonUtils.getDrawable(mExpandPosition != position ? R.drawable.ic_expand :
                 R.drawable.ic_collapse,holder.mExpand.getContext()));
         holder.mExpand.setOnClickListener(v -> setExpandStatus(position));
-        holder.mExpand.setColorFilter(sUtils.getInt("text_color", sUtils.getColor(R.color.color_white,
+        holder.mExpand.setColorFilter(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white,
                 holder.mExpand.getContext()), holder.mExpand.getContext()));
         holder.mExpand.setColorFilter(data.get(position).getColorText());
         holder.mRVCard.setOnLongClickListener(item -> {
@@ -117,7 +117,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 sNotzUtils.hideNote(this.data.get(position).getNoteID(),false, holder.mProgress, holder.mRVCard.getContext()).execute();
                             } else {
                                 sNotzUtils.hideNote(this.data.get(position).getNoteID(),true, holder.mProgress, holder.mRVCard.getContext()).execute();
-                                sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message)).show();
+                                sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.hidden_note_message)).show();
                             }
                             break;
                         case 3:
@@ -128,13 +128,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             new QRCodeUtils(this.data.get(position).getNote(), null, (Activity) holder.mRVCard.getContext()).generateQRCode().execute();
                             break;
                         case 5:
-                            if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, holder.mRVCard.getContext())) {
-                                sPermissionUtils.requestPermission(new String[] {
+                            if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, holder.mRVCard.getContext())) {
+                                Utils.requestPermission(new String[] {
                                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                                 }, (Activity) item.getContext());
                             } else {
                                 if (this.data.get(position).getImageString() != null) {
-                                    sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.image_excluded_warning)).show();
+                                    sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.image_excluded_warning)).show();
                                 }
                                 new EditTextInterface(null, null, (Activity) holder.mRVCard.getContext()) {
 
@@ -161,12 +161,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                                 } catch (IOException ignored) {
                                                 }
                                             } else {
-                                                sUtils.create(data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
+                                                sFileUtils.create(data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
                                             }
-                                            sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
+                                            sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
                                                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)).show();
                                         } else {
-                                            sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
+                                            sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
                                         }
                                     }
                                 }.show();
@@ -214,9 +214,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mQrCode.setColorFilter(data.get(position).getColorText());
         holder.mReminder.setColorFilter(data.get(position).getColorText());
         if (sNotzReminders.isReminderSet(data.get(position).getNoteID(), holder.mReminder.getContext())) {
-            holder.mReminder.setImageDrawable(sUtils.getDrawable(R.drawable.ic_notification_on, holder.mReminder.getContext()));
+            holder.mReminder.setImageDrawable(sCommonUtils.getDrawable(R.drawable.ic_notification_on, holder.mReminder.getContext()));
         } else {
-            holder.mReminder.setImageDrawable(sUtils.getDrawable(R.drawable.ic_notification, holder.mReminder.getContext()));
+            holder.mReminder.setImageDrawable(sCommonUtils.getDrawable(R.drawable.ic_notification, holder.mReminder.getContext()));
         }
         holder.mDelete.setColorFilter(data.get(position).getColorText());
         holder.mHidden.setThumbTintList(ColorStateList.valueOf(data.get(position).getColorText()));
@@ -231,13 +231,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 this.data.get(position).getImageString(), this.data.get(position).getColorBackground(), this.data.get(position).getColorText(),
                 this.data.get(position).isHidden(), holder.mProgress, v.getContext()));
         holder.mDownload.setOnClickListener(v -> {
-            if (Build.VERSION.SDK_INT < 29 && sPermissionUtils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, v.getContext())) {
-                sPermissionUtils.requestPermission(new String[] {
+            if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, v.getContext())) {
+                Utils.requestPermission(new String[] {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                 }, (Activity) v.getContext());
             } else {
                 if (this.data.get(position).getImageString() != null) {
-                    sUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.image_excluded_warning)).show();
+                    sCommonUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.image_excluded_warning)).show();
                 }
                 new EditTextInterface(null, null, (Activity) holder.mRVCard.getContext()) {
 
@@ -264,12 +264,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 } catch (IOException ignored) {
                                 }
                             } else {
-                                sUtils.create(data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
+                                sFileUtils.create(data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
                             }
-                            sUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.save_text_message,
+                            sCommonUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.save_text_message,
                                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)).show();
                         } else {
-                            sUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
+                            sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
                         }
                     }
                 }.show();
@@ -280,7 +280,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 sNotzUtils.hideNote(this.data.get(position).getNoteID(),false, holder.mProgress, v.getContext()).execute();
             } else {
                 sNotzUtils.hideNote(this.data.get(position).getNoteID(),true, holder.mProgress, v.getContext()).execute();
-                sUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.hidden_note_message)).show();
+                sCommonUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.hidden_note_message)).show();
             }
         });
         holder.mReminder.setOnClickListener(v -> sNotzReminders.launchReminderMenu(holder.mReminder, data.get(position).getNote(),

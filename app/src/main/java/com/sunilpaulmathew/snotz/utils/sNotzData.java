@@ -15,7 +15,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 17, 2020
@@ -24,16 +25,16 @@ public class sNotzData {
 
     public static List<sNotzItems> getData(Context context) {
         List<sNotzItems> mData = new ArrayList<>();
-        if (sUtils.exist(new File(context.getFilesDir(),"snotz"))) {
+        if (sFileUtils.exist(new File(context.getFilesDir(),"snotz"))) {
             for (sNotzItems items : getRawData(context)) {
                 if (Common.getSearchText() == null) {
-                    if (sUtils.getBoolean("hidden_note", false, context)) {
+                    if (sCommonUtils.getBoolean("hidden_note", false, context)) {
                         mData.add(items);
                     } else if (!items.isHidden()) {
                         mData.add(items);
                     }
                 } else if (Common.isTextMatched(items.getNote())) {
-                    if (sUtils.getBoolean("hidden_note", false, context)) {
+                    if (sCommonUtils.getBoolean("hidden_note", false, context)) {
                         mData.add(items);
                     } else if (!items.isHidden()) {
                         mData.add(items);
@@ -41,13 +42,13 @@ public class sNotzData {
                 }
             }
         }
-        if (sUtils.getInt("sort_notes", 2, context) == 2) {
+        if (sCommonUtils.getInt("sort_notes", 2, context) == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Collections.sort(mData, Comparator.comparingLong(sNotzItems::getTimeStamp));
             } else {
                 Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(String.valueOf(lhs.getTimeStamp()), String.valueOf(rhs.getTimeStamp())));
             }
-        } else if (sUtils.getInt("sort_notes", 2, context) == 1) {
+        } else if (sCommonUtils.getInt("sort_notes", 2, context) == 1) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Collections.sort(mData, Comparator.comparingLong(sNotzItems::getColorBackground));
             } else {
@@ -56,7 +57,7 @@ public class sNotzData {
         } else {
             Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(rhs.getNote(), lhs.getNote()));
         }
-        if (!sUtils.getBoolean("reverse_order", false, context)) {
+        if (!sCommonUtils.getBoolean("reverse_order", false, context)) {
             Collections.reverse(mData);
         }
         return mData;
@@ -65,8 +66,8 @@ public class sNotzData {
     public static List<sNotzItems> getRawData(Context context) {
         List<sNotzItems> mData = new ArrayList<>();
         String json = context.getFilesDir().getPath() + "/snotz";
-        if (sUtils.exist(new File(json))) {
-            JsonArray sNotz = Objects.requireNonNull(getJSONObject(sUtils.read(new File(json)))).getAsJsonArray("sNotz");
+        if (sFileUtils.exist(new File(json))) {
+            JsonArray sNotz = Objects.requireNonNull(getJSONObject(sFileUtils.read(new File(json)))).getAsJsonArray("sNotz");
             for (int i = 0; i < sNotz.size(); i++) {
                 mData.add(new sNotzItems(getNote(sNotz.get(i).getAsJsonObject()),
                         getDate(sNotz.get(i).getAsJsonObject()),
@@ -82,8 +83,8 @@ public class sNotzData {
     }
 
     public static boolean isNotesEmpty(Context context) {
-        return !sUtils.exist(new File(context.getFilesDir(),"snotz")) ||
-                (sUtils.exist(new File(context.getFilesDir(),"snotz")) &&
+        return !sFileUtils.exist(new File(context.getFilesDir(),"snotz")) ||
+                (sFileUtils.exist(new File(context.getFilesDir(),"snotz")) &&
                         getRawData(context).size() == 0);
     }
 
@@ -127,7 +128,7 @@ public class sNotzData {
             return object.get("colorBackground").getAsInt();
         } catch (Exception ignored) {
         }
-        return sUtils.getInt("accent_color", sUtils.getColor(R.color.color_teal, context), context);
+        return sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
     }
 
     public static int getTextColor(JsonObject object, Context context) {
@@ -135,7 +136,7 @@ public class sNotzData {
             return object.get("colorText").getAsInt();
         } catch (Exception ignored) {
         }
-        return sUtils.getInt("text_color", sUtils.getColor(R.color.color_white, context), context);
+        return sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, context), context);
     }
 
     public static int getNoteID(JsonObject object) {

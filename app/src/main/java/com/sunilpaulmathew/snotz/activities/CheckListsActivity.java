@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -33,7 +35,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
@@ -75,7 +78,7 @@ public class CheckListsActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.cancel, (dialogInterface, i) -> mRecyclerView.setAdapter(new CheckListsAdapter(CheckLists.getCheckLists(CheckListsActivity.this))))
                         .setCancelable(false)
                         .setPositiveButton(R.string.delete, (dialogInterface, i) -> {
-                            CheckLists.getCheckLists(CheckListsActivity.this).get(position).delete();
+                            sFileUtils.delete(CheckLists.getCheckLists(CheckListsActivity.this).get(position));
                             mRecyclerView.setAdapter(new CheckListsAdapter(CheckLists.getCheckLists(CheckListsActivity.this)));
                         }).show();
             }
@@ -86,7 +89,7 @@ public class CheckListsActivity extends AppCompatActivity {
                     View itemView = viewHolder.itemView;
 
                     Paint mPaint = new Paint();
-                    mPaint.setColor(sUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
+                    mPaint.setColor(sCommonUtils.getColor(R.color.color_red, viewHolder.itemView.getContext()));
                     if (dX > 0) {
                         canvas.drawRect((float) itemView.getLeft(), (float) itemView.getTop(), dX,
                                 (float) itemView.getBottom(), mPaint);
@@ -115,7 +118,7 @@ public class CheckListsActivity extends AppCompatActivity {
                         Intent restore = new Intent(Intent.ACTION_GET_CONTENT);
                         restore.setType("*/*");
                         restore.addCategory(Intent.CATEGORY_OPENABLE);
-                        startActivityForResult(restore, 0);
+                        importChecklist.launch(restore);
                         break;
                 }
                 return false;
@@ -132,7 +135,7 @@ public class CheckListsActivity extends AppCompatActivity {
             @Override
             public void positiveButtonLister(Editable s) {
                 if (s != null && !s.toString().trim().isEmpty()) {
-                    if (sUtils.exist(new File(getExternalFilesDir("checklists"), s.toString().trim()))) {
+                    if (sFileUtils.exist(new File(getExternalFilesDir("checklists"), s.toString().trim()))) {
                         new MaterialAlertDialogBuilder(CheckListsActivity.this)
                                 .setMessage(getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> createCheckList())
@@ -147,7 +150,7 @@ public class CheckListsActivity extends AppCompatActivity {
                         startActivity(createCheckList);
                     }
                 } else {
-                    sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
+                    sCommonUtils.snackBar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
                 }
             }
         }.show();
@@ -159,46 +162,47 @@ public class CheckListsActivity extends AppCompatActivity {
             @Override
             public void positiveButtonLister(Editable s) {
                 if (s != null && !s.toString().trim().isEmpty()) {
-                    if (sUtils.exist(new File(getExternalFilesDir("checklists"), s.toString().trim()))) {
+                    if (sFileUtils.exist(new File(getExternalFilesDir("checklists"), s.toString().trim()))) {
                         new MaterialAlertDialogBuilder(CheckListsActivity.this)
                                 .setMessage(getString(R.string.check_list_exist_warning))
                                 .setNegativeButton(getString(R.string.change_name), (dialogInterface, i) -> importCheckList())
-                                .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> sUtils.create(mJSONString, new File(
+                                .setPositiveButton(getString(R.string.replace), (dialogInterface, i) -> sFileUtils.create(mJSONString, new File(
                                         getExternalFilesDir("checklists"), s.toString().trim()))).show();
                     } else {
-                        sUtils.create(mJSONString, new File(getExternalFilesDir("checklists"), s.toString().trim()));
+                        sFileUtils.create(mJSONString, new File(getExternalFilesDir("checklists"), s.toString().trim()));
                         mRecyclerView.setAdapter(new CheckListsAdapter(CheckLists.getCheckLists(CheckListsActivity.this)));
                     }
                 } else {
-                    sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
+                    sCommonUtils.snackBar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
                 }
             }
         }.show();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    ActivityResultLauncher<Intent> importChecklist = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Intent data = result.getData();
+                    Uri uri = data.getData();
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(uri);
+                        BufferedInputStream bis = new BufferedInputStream(inputStream);
+                        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+                        for (int output = bis.read(); output != -1; output = bis.read()) {
+                            buf.write((byte) output);
+                        }
+                        mJSONString = buf.toString("UTF-8");
+                    } catch (IOException ignored) {}
 
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            Uri uri = data.getData();
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(uri);
-                BufferedInputStream bis = new BufferedInputStream(inputStream);
-                ByteArrayOutputStream buf = new ByteArrayOutputStream();
-                for (int result = bis.read(); result != -1; result = bis.read()) {
-                    buf.write((byte) result);
+                    if (mJSONString == null || !CheckLists.isValidCheckList(mJSONString)) {
+                        sCommonUtils.snackBar(findViewById(android.R.id.content), getString(R.string.restore_error)).show();
+                        return;
+                    }
+                    importCheckList();
                 }
-                mJSONString = buf.toString("UTF-8");
-            } catch (IOException ignored) {}
-
-            if (mJSONString == null || !CheckLists.isValidCheckList(mJSONString)) {
-                sUtils.snackBar(findViewById(android.R.id.content), getString(R.string.restore_error)).show();
-                return;
             }
-            importCheckList();
-        }
-    }
+    );
 
     @Override
     public void onResume() {

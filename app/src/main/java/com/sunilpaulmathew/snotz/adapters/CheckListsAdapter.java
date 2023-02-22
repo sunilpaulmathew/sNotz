@@ -23,7 +23,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.util.List;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
@@ -49,7 +49,7 @@ public class CheckListsAdapter extends RecyclerView.Adapter<CheckListsAdapter.Vi
 
         holder.mQRCode.setOnClickListener(v -> {
             Common.setNote(data.get(position).getName());
-            new QRCodeUtils(sUtils.read(data.get(position)), null, (Activity) v.getContext()).generateQRCode().execute();
+            new QRCodeUtils(sFileUtils.read(data.get(position)), null, (Activity) v.getContext()).generateQRCode().execute();
         });
 
         holder.mShare.setOnClickListener(v -> {

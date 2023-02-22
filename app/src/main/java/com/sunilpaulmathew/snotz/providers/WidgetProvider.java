@@ -16,7 +16,8 @@ import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import java.io.File;
 
-import in.sunilpaulmathew.sCommon.Utils.sUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 19, 2021
@@ -43,7 +44,7 @@ public class WidgetProvider extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            sUtils.remove("appwidget" + appWidgetId, context);
+            sCommonUtils.remove("appwidget" + appWidgetId, context);
         }
     }
 
@@ -53,10 +54,10 @@ public class WidgetProvider extends AppWidgetProvider {
         PendingIntent mPendingIntent;
 
         if (sNotzWidgets.getChecklistPath(appWidgetId, context) != null) {
-            if (sUtils.exist(new File(sNotzWidgets.getChecklistPath(appWidgetId, context)))) {
+            if (sFileUtils.exist(new File(sNotzWidgets.getChecklistPath(appWidgetId, context)))) {
                 mViews.setTextViewText(R.id.note, sNotzWidgets.getWidgetText(sNotzWidgets.getChecklistPath(appWidgetId, context)));
-                mViews.setInt(R.id.layout, "setBackgroundColor", sUtils.getColor(android.R.color.transparent, context));
-                mViews.setTextColor(R.id.note, sUtils.getInt("checklist_color", sUtils.getColor(R.color.color_black, context), context));
+                mViews.setInt(R.id.layout, "setBackgroundColor", sCommonUtils.getColor(android.R.color.transparent, context));
+                mViews.setTextColor(R.id.note, sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_black, context), context));
                 mIntent.putExtra(sNotzWidgets.getChecklistPath(), sNotzWidgets.getChecklistPath(appWidgetId, context));
                 mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, Build.VERSION.SDK_INT >=
                         android.os.Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
