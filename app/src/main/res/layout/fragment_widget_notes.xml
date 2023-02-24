@@ -147,5 +147,5 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
 
-    <include layout="@layout/recyclerview_layout" />
+    <include layout="@layout/layout_recyclerview" />
 </androidx.appcompat.widget.LinearLayoutCompat>
