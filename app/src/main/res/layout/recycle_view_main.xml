@@ -48,17 +48,33 @@
                     android:paddingEnd="15dp"
                     android:visibility="gone" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/date"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-15dp"
-                    android:singleLine="true"
-                    android:focusable="false"
-                    android:textStyle="bold"
-                    android:textSize="12sp"
-                    android:padding="5dp"
-                    android:gravity="end" />
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/lock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_lock"
+                            android:background="@null"
+                            android:visibility="gone"
+                            android:clickable="false" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:focusable="false"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:gravity="end" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <include layout="@layout/layout_note_actions" />
         </androidx.appcompat.widget.LinearLayoutCompat>

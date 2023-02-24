@@ -298,6 +298,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mDate.setText(DateFormat.getDateTimeInstance().format(this.data.get(position).getTimeStamp()));
         holder.mDate.setTextColor(data.get(position).getColorText());
         holder.mDate.setVisibility(position == mPosition ? View.GONE : View.VISIBLE);
+        holder.mLock.setColorFilter(data.get(position).getColorText());
+        holder.mLock.setVisibility(position != mPosition && this.data.get(position).isHidden() ? View.VISIBLE : View.GONE);
         // TODO: This should replaced.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.mProgress.setIndeterminateTintList(ColorStateList.valueOf(data.get(position).getColorBackground()));
@@ -334,7 +336,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final LinearLayoutCompat mActionLayout;
-        private final AppCompatImageButton mDelete, mDownload, mDuplicate, mExpand, mQrCode, mReminder, mShare;
+        private final AppCompatImageButton mDelete, mDownload, mDuplicate, mExpand, mLock, mQrCode, mReminder, mShare;
         private final MaterialTextView mContents, mDate;
         private final MaterialCardView mRVCard;
         private final ProgressBar mProgress;
@@ -346,6 +348,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             this.mDownload = view.findViewById(R.id.download);
             this.mDuplicate = view.findViewById(R.id.duplicate);
             this.mExpand = view.findViewById(R.id.expand);
+            this.mLock = view.findViewById(R.id.lock);
             this.mQrCode = view.findViewById(R.id.qr_code);
             this.mReminder = view.findViewById(R.id.reminder);
             this.mShare = view.findViewById(R.id.share);
