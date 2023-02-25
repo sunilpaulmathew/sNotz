@@ -3,7 +3,6 @@
     android:layout_height="20dp"
     android:layout_width="match_parent"
     style="?android:attr/progressBarStyleHorizontal"
-    android:progressBackgroundTint="@color/color_teal"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/color_black"
     android:layout_gravity="center"

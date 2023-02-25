@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.sunilpaulmathew.snotz.activities.WelcomeActivity;
 import com.sunilpaulmathew.snotz.fragments.sNotzFragment;
+import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
@@ -60,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
         Fragment sNotzFragment = new sNotzFragment();
         sNotzFragment.setArguments(bundle);
         return sNotzFragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Common.isReloading()) {
+            Common.isReloading(false);
+            recreate();
+        }
     }
 
 }

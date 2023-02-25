@@ -13,7 +13,6 @@ import android.text.Editable;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 
 import java.io.File;
@@ -178,43 +177,41 @@ public class AppSettings {
             @Override
             public void onItemSelected(int itemPosition) {
                 sCommonUtils.saveInt("span_count", itemPosition, activity);
-                Utils.restartApp(activity);
+                activity.recreate();
+                if (!Common.isReloading()) {
+                    Common.isReloading(true);
+                }
             }
         }.show();
     }
 
-    public static void setFontSize(int position, List<SettingsItems> items, SettingsAdapter adapter, Context context) {
-        new sSingleChoiceDialog(R.drawable.ic_format_size, context.getString(R.string.font_size),
-                getFontSizes(), getFontSizePosition(context), context) {
+    public static void setFontSize(Activity activity) {
+        new sSingleChoiceDialog(R.drawable.ic_format_size, activity.getString(R.string.font_size),
+                getFontSizes(), getFontSizePosition(activity), activity) {
 
             @Override
             public void onItemSelected(int itemPosition) {
-                sCommonUtils.saveInt("font_size", Integer.parseInt(getFontSizes()[itemPosition].replace("sp","")), context);
-                items.set(position, new SettingsItems(context.getString(R.string.font_size), context.getString(R.string.font_size_summary,
-                        "" + Integer.parseInt(getFontSizes()[itemPosition].replace("sp",""))),
-                        sCommonUtils.getDrawable(R.drawable.ic_format_size, context), null));
-                adapter.notifyItemChanged(position);
-                Utils.reloadUI(context);
+                sCommonUtils.saveInt("font_size", Integer.parseInt(getFontSizes()[itemPosition].replace("sp","")), activity);
+                activity.recreate();
+                Utils.reloadUI(activity);
             }
         }.show();
     }
 
-    public static void setFontStyle(int position, List<SettingsItems> items, SettingsAdapter adapter, Context context) {
-        new sSingleChoiceDialog(R.drawable.ic_text_style, context.getString(R.string.text_style),
+    public static void setFontStyle(Activity activity) {
+        new sSingleChoiceDialog(R.drawable.ic_text_style, activity.getString(R.string.text_style),
                 new String[] {
-                        context.getString(R.string.text_style_regular),
-                        context.getString(R.string.text_style_italics),
-                        context.getString(R.string.text_style_bold),
-                        context.getString(R.string.text_style_bold_italics)
-                }, getFontStylePosition(context), context) {
+                        activity.getString(R.string.text_style_regular),
+                        activity.getString(R.string.text_style_italics),
+                        activity.getString(R.string.text_style_bold),
+                        activity.getString(R.string.text_style_bold_italics)
+                }, getFontStylePosition(activity), activity) {
 
             @Override
             public void onItemSelected(int itemPosition) {
-                sCommonUtils.saveString("font_style", getFontStyle(itemPosition), context);
-                items.set(position, new SettingsItems(context.getString(R.string.text_style), getFontStyle(context),
-                        sCommonUtils.getDrawable(R.drawable.ic_text_style, context), null));
-                adapter.notifyItemChanged(position);
-                Utils.reloadUI(context);
+                sCommonUtils.saveString("font_style", getFontStyle(itemPosition), activity);
+                activity.recreate();
+                Utils.reloadUI(activity);
             }
         }.show();
     }

@@ -11,11 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
@@ -34,6 +36,12 @@ public class ImageViewActivity extends AppCompatActivity {
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         AppCompatImageButton mShare = findViewById(R.id.share_button);
         AppCompatImageView mImage = findViewById(R.id.image);
+        MaterialTextView mTitle = findViewById(R.id.title);
+
+        mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mSave.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mShare.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
         if (Common.getReadModeImage() != null) {
             mImage.setImageBitmap(Common.getReadModeImage());

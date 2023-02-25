@@ -15,6 +15,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.ThemeUtils.sThemeUtils;
@@ -32,7 +33,11 @@ public class ReadNoteActivity extends AppCompatActivity {
         AppCompatImageButton mBack = findViewById(R.id.back_button);
         AppCompatImageView mImage = findViewById(R.id.image);
         MaterialTextView mContents = findViewById(R.id.contents);
+        MaterialTextView mTitle = findViewById(R.id.title);
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
+
+        mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
         if (Common.getReadModeText() != null) {
             mContents.setText(Common.getReadModeText());

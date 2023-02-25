@@ -36,6 +36,8 @@
             android:exported="false" />
         <activity android:name=".activities.CreateNoteActivity"
             android:exported="false" />
+        <activity android:name=".activities.ColorCustomizationsActivity"
+            android:exported="false" />
         <activity android:name=".activities.ImageViewActivity"
             android:exported="false" />
         <activity

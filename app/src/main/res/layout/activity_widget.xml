@@ -15,7 +15,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/color_black"
-                    app:tabSelectedTextColor="@color/color_teal"
                     app:tabTextColor="@color/color_white"
                     android:layout_gravity="center"
                     android:textAlignment="center"
@@ -36,7 +35,6 @@
             android:layout_alignParentBottom="true"
             android:text="@string/cancel"
             android:background="@color/color_black"
-            android:textColor="@color/color_teal"
             android:textStyle="bold"
             android:textSize="18sp"
             android:padding="10dp" />

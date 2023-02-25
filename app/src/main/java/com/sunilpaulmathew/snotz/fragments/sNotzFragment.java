@@ -48,6 +48,7 @@ import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
@@ -64,10 +65,11 @@ import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
  */
 public class sNotzFragment extends Fragment {
 
-    private AppCompatImageButton mAddIcon, mMenu, mSearchButton, mSortButton;
+
+    private AppCompatEditText mSearchWord;
+    private AppCompatImageButton mMenu, mSearchButton, mSortButton;
     private MaterialCardView mAddNoteCard;
     private MaterialTextView mAppTitle;
-    private AppCompatEditText mSearchWord;
     private boolean mExit;
     private final Handler mHandler = new Handler();
     private static int mExtraNoteId = sNotzWidgets.getInvalidNoteId();
@@ -93,10 +95,17 @@ public class sNotzFragment extends Fragment {
         mSearchButton = mRootView.findViewById(R.id.search_button);
         mSortButton = mRootView.findViewById(R.id.sort_button);
         mMenu = mRootView.findViewById(R.id.settings_button);
-        mAddIcon = mRootView.findViewById(R.id.add_note_icon);
+        AppCompatImageButton mAddIcon = mRootView.findViewById(R.id.add_note_icon);
         mAddNoteCard = mRootView.findViewById(R.id.add_note_card);
         mSearchWord = mRootView.findViewById(R.id.search_word);
         ProgressBar mProgressBar = mRootView.findViewById(R.id.progress);
+
+        mAppTitle.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
+        mSearchWord.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
+        mSearchWord.setHintTextColor(sNotzColor.getAppAccentColor(requireActivity()));
+        mMenu.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
+        mSearchButton.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
+        mSortButton.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
 
         mSearchWord.setTextColor(Color.RED);
 
@@ -267,7 +276,7 @@ public class sNotzFragment extends Fragment {
             }
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mMenu);
             Menu menu = popupMenu.getMenu();
-            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.settings)).setIcon(R.drawable.ic_dots);
+            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.settings)).setIcon(R.drawable.ic_settings);
             menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.check_lists)).setIcon(R.drawable.ic_checklist);
             SubMenu qrCode = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.qr_code)).setIcon(R.drawable.ic_qr_code);
             qrCode.add(Menu.NONE, 3, Menu.NONE, getString(R.string.qr_code_scan));
@@ -434,8 +443,7 @@ public class sNotzFragment extends Fragment {
         super.onResume();
         if (Common.isReloading()) {
             Common.isReloading(false);
-            mAddIcon.setColorFilter(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
-            mAddNoteCard.setCardBackgroundColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
+            requireActivity().recreate();
         }
     }
 

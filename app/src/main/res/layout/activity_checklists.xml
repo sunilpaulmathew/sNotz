@@ -17,7 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_back"
-            android:tint="@color/color_teal"
             android:background="@color/color_black"
             android:layout_gravity="start|center" />
 
@@ -25,7 +24,6 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_teal"
             android:layout_gravity="start|center"
             android:text="@string/check_list_main_title"
             android:layout_marginStart="30dp"
@@ -41,7 +39,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:background="@color/color_black"
-            android:tint="@color/color_teal"
             app:srcCompat="@drawable/ic_add"
             android:layout_marginEnd="15dp" />
     </FrameLayout>

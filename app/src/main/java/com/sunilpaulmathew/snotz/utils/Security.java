@@ -57,19 +57,19 @@ public class Security {
         sFileUtils.create(pin, new File(context.getCacheDir(),"pin"));
     }
 
-    public static void setPIN(boolean verify, String title, SettingsAdapter adapter, Activity activity) {
+    public static void setPIN(boolean verify, String title, SettingsAdapter adapter, int position, Activity activity) {
         new AuthenticatorInterface(false, title, activity) {
 
             @Override
             public void positiveButtonLister(Editable authText) {
                 if (!verify) {
                     setPIN(authText.toString().trim(), activity);
-                    setPIN(true, activity.getString(R.string.pin_reenter), adapter, activity);
+                    setPIN(true, activity.getString(R.string.pin_reenter), adapter, position, activity);
                 } else if (authText.toString().trim().equals(getPIN(activity))) {
                     sCommonUtils.saveBoolean("use_pin", true, activity);
                     sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
                             activity.getString(R.string.activated))).show();
-                    adapter.notifyItemChanged(3);
+                    adapter.notifyItemChanged(position);
                 }
             }
         }.show();
@@ -85,11 +85,11 @@ public class Security {
                     if (login) {
                         // Launch MainActivity
                         launchMainActivity(activity);
-                    } else if (position == 3) {
+                    } else if (position == 4) {
                         removePIN(activity);
                         sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
                                 activity.getString(R.string.deactivated))).show();
-                    } else if (position == 4) {
+                    } else if (position == 5) {
                         sCommonUtils.saveBoolean("hidden_note", !sCommonUtils.getBoolean("hidden_note", false, activity), activity);
                         Utils.reloadUI(activity);
                         activity.finish();

@@ -29,6 +29,7 @@ import com.sunilpaulmathew.snotz.providers.WidgetProvider;
 import com.sunilpaulmathew.snotz.utils.CheckListItems;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,6 +63,9 @@ public class WidgetChecklistsFragment extends Fragment {
         mTitle = mRootView.findViewById(R.id.title);
         RecyclerView mRecyclerView = mRootView.findViewById(R.id.recycler_view);
         mRecyclerViewCheckList = mRootView.findViewById(R.id.recycler_view_checklist);
+
+        mTitle.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
+        mSave.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         WidgetChecklistsAdapter mRecycleViewAdapter = new WidgetChecklistsAdapter(CheckLists.getCheckLists(requireActivity()));

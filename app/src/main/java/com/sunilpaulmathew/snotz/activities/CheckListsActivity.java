@@ -22,12 +22,14 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListsAdapter;
 import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -53,7 +55,12 @@ public class CheckListsActivity extends AppCompatActivity {
 
         AppCompatImageButton mAdd = findViewById(R.id.add_button);
         AppCompatImageButton mBack = findViewById(R.id.back_button);
+        MaterialTextView mTitle = findViewById(R.id.title);
         mRecyclerView = findViewById(R.id.recycler_view);
+
+        mAdd.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

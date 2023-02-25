@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,7 +26,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.flask.colorpicker.ColorPickerView;
@@ -33,6 +33,8 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
@@ -58,7 +60,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     private int mSelectedColorBg, mSelectedColorTxt;
     private ProgressBar mProgress;
     private String mNote = null;
-    private SwitchCompat mHidden;
+    private SwitchMaterial mHidden;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,7 +77,14 @@ public class CreateNoteActivity extends AppCompatActivity {
         MaterialCardView mColorBackground = findViewById(R.id.color_background);
         MaterialCardView mColorText = findViewById(R.id.color_text);
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
+        MaterialTextView mTitle = findViewById(R.id.title);
         mHidden = findViewById(R.id.hidden);
+
+        mAdd.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mHidden.setThumbTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(this)));
+        mSave.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
         if (sCommonUtils.getBoolean("auto_save", false, this)) {
             mSave.setVisibility(View.GONE);

@@ -22,11 +22,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
@@ -340,7 +340,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         private final MaterialTextView mContents, mDate;
         private final MaterialCardView mRVCard;
         private final ProgressBar mProgress;
-        private final SwitchCompat mHidden;
+        private final SwitchMaterial mHidden;
 
         public ViewHolder(View view) {
             super(view);

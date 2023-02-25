@@ -18,6 +18,7 @@ import com.sunilpaulmathew.snotz.fragments.WidgetNotesFragment;
 import com.sunilpaulmathew.snotz.interfaces.AuthenticatorInterface;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.concurrent.Executor;
 
@@ -44,6 +45,10 @@ public class WidgetActivity extends AppCompatActivity {
         MaterialTextView mCancel = findViewById(R.id.cancel);
         TabLayout mTabLayout = findViewById(R.id.tab_Layout);
         ViewPager mViewPager = findViewById(R.id.view_pager);
+
+        mCancel.setTextColor(sNotzColor.getAppAccentColor(this));
+        mTabLayout.setSelectedTabIndicatorColor(sNotzColor.getAppAccentColor(this));
+        mTabLayout.setTabTextColors(sCommonUtils.getColor(R.color.color_white, this), sNotzColor.getAppAccentColor(this));
 
         sPagerAdapter adapter = new sPagerAdapter(getSupportFragmentManager());
         adapter.AddFragment(new WidgetNotesFragment(), getString(R.string.select_note));

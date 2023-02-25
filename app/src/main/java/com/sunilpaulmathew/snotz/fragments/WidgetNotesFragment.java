@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -68,9 +69,13 @@ public class WidgetNotesFragment extends Fragment {
         MaterialCardView mAddNewCard = mRootView.findViewById(R.id.add_new);
         MaterialCardView mColorBackground = mRootView.findViewById(R.id.color_background);
         MaterialCardView mColorText = mRootView.findViewById(R.id.color_text);
+        MaterialTextView mAddNewText = mRootView.findViewById(R.id.add_new_text);
         NestedScrollView mNestedScrollView = mRootView.findViewById(R.id.scroll_view);
         ProgressBar mProgress = mRootView.findViewById(R.id.progress);
         RecyclerView mRecyclerView = mRootView.findViewById(R.id.recycler_view);
+
+        mAddNewText.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
+        mSave.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         WidgetNotesAdapter mRecycleViewAdapter = new WidgetNotesAdapter(getData(requireActivity()));

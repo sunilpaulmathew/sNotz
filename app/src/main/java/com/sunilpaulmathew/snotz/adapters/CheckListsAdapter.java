@@ -18,6 +18,7 @@ import com.sunilpaulmathew.snotz.activities.CheckListActivity;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -68,6 +69,11 @@ public class CheckListsAdapter extends RecyclerView.Adapter<CheckListsAdapter.Vi
             CheckLists.setCheckListName(data.get(position).getName());
             CheckLists.backupCheckList((Activity) v.getContext());
         });
+
+        holder.mDownload.setColorFilter(sNotzColor.getAppAccentColor(holder.mDownload.getContext()));
+        holder.mQRCode.setColorFilter(sNotzColor.getAppAccentColor(holder.mQRCode.getContext()));
+        holder.mShare.setColorFilter(sNotzColor.getAppAccentColor(holder.mShare.getContext()));
+        holder.mTitle.setTextColor(sNotzColor.getAppAccentColor(holder.mTitle.getContext()));
     }
 
     @Override

@@ -19,9 +19,9 @@
             android:orientation="horizontal" >
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textColor="@color/color_teal"
                 android:text="@string/app_name"
                 android:layout_gravity="start"
                 android:textStyle="bold"
@@ -29,30 +29,30 @@
                 android:padding="15dp" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/ic_search"
-                android:tint="@color/color_teal"
                 android:layout_marginEnd="90dp"
                 android:layout_gravity="end"
                 android:background="@null"
                 android:padding="5dp" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/sort_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/ic_sort"
-                android:tint="@color/color_teal"
                 android:layout_marginEnd="45dp"
                 android:layout_gravity="end"
                 android:background="@null"
                 android:padding="5dp" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/settings_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/ic_dots"
-                android:tint="@color/color_teal"
                 android:layout_gravity="end"
                 android:background="@null"
                 android:padding="5dp" />
@@ -67,9 +67,9 @@
             android:padding="10dp" >
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_welcome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_teal"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -190,9 +190,9 @@
                 app:cardCornerRadius="15dp" >
 
                 <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/add_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tint="@color/color_teal"
                     app:srcCompat="@drawable/ic_add"
                     android:layout_margin="10dp"
                     android:background="@null"
@@ -211,7 +211,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_arrow"
-                android:tint="@color/color_teal"
                 android:layout_gravity="center"
                 android:background="@null"
                 android:rotation="180"
@@ -221,7 +220,6 @@
                 android:id="@+id/skip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_teal"
                 android:layout_marginStart="25dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="25dp"
@@ -235,7 +233,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_arrow"
-                android:tint="@color/color_teal"
                 android:layout_gravity="center"
                 android:background="@null"
                 android:padding="5dp" />
@@ -252,7 +249,6 @@
                 android:id="@+id/one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_teal"
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textSize="25sp"
@@ -263,7 +259,6 @@
                 android:id="@+id/two"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_teal"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 android:layout_gravity="center"
@@ -276,7 +271,6 @@
                 android:id="@+id/three"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_teal"
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textSize="25sp"

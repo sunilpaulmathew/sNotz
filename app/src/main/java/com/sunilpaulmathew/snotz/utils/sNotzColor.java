@@ -18,12 +18,28 @@ public class sNotzColor {
         return sCommonUtils.getInt("random_color", Integer.MIN_VALUE, context) != Integer.MIN_VALUE;
     }
 
+    public static int getAppAccentColor(Context context) {
+        return sCommonUtils.getInt("app_accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
+    }
+
     public static int getAccentColor(Context context) {
         int mRandomColor = sCommonUtils.getInt("random_color", Integer.MIN_VALUE, context);
         if (isRandomColorScheme(context)) {
             return getRandomColors().get(mRandomColor).getBackgroundColor();
         } else {
             return sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
+        }
+    }
+
+    public static int getDefaultColor(int position, Context context) {
+        if (position == 0) {
+            return sCommonUtils.getInt("app_accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
+        } else if (position == 1) {
+            return sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
+        } else if (position == 2) {
+            return sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, context), context);
+        } else {
+            return sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_white, context), context);
         }
     }
 

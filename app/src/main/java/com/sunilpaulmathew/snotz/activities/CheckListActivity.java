@@ -18,6 +18,7 @@ import com.sunilpaulmathew.snotz.utils.CheckListItems;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,6 +45,10 @@ public class CheckListActivity extends AppCompatActivity {
         AppCompatImageButton mBack = findViewById(R.id.back_button);
         MaterialTextView mTitle = findViewById(R.id.title);
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
+
+        mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mSave.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

@@ -23,7 +23,6 @@
             android:id="@+id/app_title"
             android:layout_height="50dp"
             android:layout_width="match_parent"
-            android:textColor="@color/color_teal"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="25sp"
@@ -139,13 +138,13 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/made_by"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:textStyle="bold"
                     android:gravity="center_horizontal"
                     android:text="@string/developed_by"
-                    android:textColor="@color/color_teal"
                     android:textIsSelectable="true"
                     android:textSize="18sp" />
 
@@ -166,7 +165,6 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/color_teal"
                         android:textStyle="bold|italic"
                         android:textSize="22sp"
                         android:text="&amp;" />
@@ -186,13 +184,13 @@
                     app:cardCornerRadius="10dp" >
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/change_logs_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:textStyle="bold"
                         android:gravity="center_horizontal"
                         android:text="@string/change_logs"
-                        android:textColor="@color/color_teal"
                         android:textIsSelectable="true"
                         android:textSize="18sp" />
 
@@ -218,7 +216,6 @@
         android:layout_alignParentBottom="true"
         android:text="@string/cancel"
         android:background="@color/color_black"
-        android:textColor="@color/color_teal"
         android:textStyle="bold"
         android:textSize="18sp"
         android:padding="10dp" />

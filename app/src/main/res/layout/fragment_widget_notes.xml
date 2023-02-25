@@ -18,9 +18,9 @@
             android:background="@color/color_black" >
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/add_new_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_teal"
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:text="@string/add_new"
@@ -34,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:layout_marginStart="10dp"
-                android:tint="@color/color_teal"
                 android:layout_marginEnd="10dp"
                 app:srcCompat="@drawable/ic_save"
                 android:background="@null"

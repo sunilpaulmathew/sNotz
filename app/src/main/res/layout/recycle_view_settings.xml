@@ -17,7 +17,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center"
-                    android:tint="@color/color_teal"
                     android:background="@null"
                     android:clickable="false" />
 
@@ -32,7 +31,6 @@
                             android:id="@+id/title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/color_teal"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -49,7 +47,6 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="end|center"
-                    android:tint="@color/color_teal"
                     android:layout_margin="5dp"
                     android:background="@null"
                     android:clickable="false"

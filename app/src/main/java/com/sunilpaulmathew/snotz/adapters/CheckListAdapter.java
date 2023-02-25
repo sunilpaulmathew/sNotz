@@ -1,5 +1,6 @@
 package com.sunilpaulmathew.snotz.adapters;
 
+import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,11 +10,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.widget.CompoundButtonCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.CheckListItems;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.List;
 import java.util.Objects;
@@ -46,6 +49,8 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.View
             this.data.get(position).isChecked(!this.data.get(position).isChecked());
             holder.mTitle.setPaintFlags(this.data.get(position).isChecked() ? Paint.STRIKE_THRU_TEXT_FLAG : Paint.LINEAR_TEXT_FLAG);
         });
+
+        CompoundButtonCompat.setButtonTintList(holder.mCheckBox, ColorStateList.valueOf(sNotzColor.getAppAccentColor(holder.mCheckBox.getContext())));
 
         manageData(holder.mTitle, position);
     }
