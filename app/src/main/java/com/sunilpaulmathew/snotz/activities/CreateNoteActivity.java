@@ -83,6 +83,10 @@ public class CreateNoteActivity extends AppCompatActivity {
         mAdd.setColorFilter(sNotzColor.getAppAccentColor(this));
         mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
         mHidden.setThumbTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(this)));
+        mProgress.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, this));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mProgress.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(this)));
+        }
         mSave.setColorFilter(sNotzColor.getAppAccentColor(this));
         mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 

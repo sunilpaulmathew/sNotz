@@ -37,16 +37,7 @@
                             android:background="@null" />
                 </FrameLayout>
 
-                <ProgressBar
-                    android:id="@+id/progress"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_gravity="center"
-                    android:indeterminate="true"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:visibility="gone" />
+                <include layout="@layout/progress_bar" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

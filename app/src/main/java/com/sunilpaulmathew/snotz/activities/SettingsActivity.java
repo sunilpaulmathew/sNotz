@@ -3,7 +3,9 @@ package com.sunilpaulmathew.snotz.activities;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.ProgressBar;
@@ -75,6 +77,10 @@ public class SettingsActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
         mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mProgress.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, this));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mProgress.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(this)));
+        }
         mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {

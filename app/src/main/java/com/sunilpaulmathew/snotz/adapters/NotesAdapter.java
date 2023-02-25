@@ -302,7 +302,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mLock.setVisibility(position != mPosition && this.data.get(position).isHidden() ? View.VISIBLE : View.GONE);
         // TODO: This should replaced.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            holder.mProgress.setIndeterminateTintList(ColorStateList.valueOf(data.get(position).getColorBackground()));
+            holder.mProgress.setIndeterminateTintList(ColorStateList.valueOf(data.get(position).getColorText()));
         }
     }
 

@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     style="?android:attr/progressBarStyleHorizontal"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/color_black"
     android:layout_gravity="center"
     android:indeterminate="true"
     android:paddingStart="15dp"

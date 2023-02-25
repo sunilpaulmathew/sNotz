@@ -3,6 +3,7 @@ package com.sunilpaulmathew.snotz.fragments;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -75,6 +76,10 @@ public class WidgetNotesFragment extends Fragment {
         RecyclerView mRecyclerView = mRootView.findViewById(R.id.recycler_view);
 
         mAddNewText.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
+        mProgress.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, requireActivity()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mProgress.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
+        }
         mSave.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -101,10 +102,14 @@ public class sNotzFragment extends Fragment {
         ProgressBar mProgressBar = mRootView.findViewById(R.id.progress);
 
         mAppTitle.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
+        mMenu.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
+        mProgressBar.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, requireActivity()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mProgressBar.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
+        }
+        mSearchButton.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
         mSearchWord.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
         mSearchWord.setHintTextColor(sNotzColor.getAppAccentColor(requireActivity()));
-        mMenu.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
-        mSearchButton.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
         mSortButton.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
 
         mSearchWord.setTextColor(Color.RED);
