@@ -8,9 +8,9 @@ import android.content.res.Configuration;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
@@ -23,9 +23,21 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
  */
 public class Utils {
 
+    /*
+     * Credits: https://2012atulsharma.medium.com/implementing-biometric-authentication-in-java-android-bf8aa2f4d762
+     */
     public static boolean isFingerprintAvailable(Context context) {
-        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
-            return FingerprintManagerCompat.from(context).hasEnrolledFingerprints();
+        BiometricManager biometricManager = BiometricManager.from(context);
+        switch (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK | BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                return true;
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+            case BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED:
+            case BiometricManager.BIOMETRIC_STATUS_UNKNOWN:
+            case BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED:
+                return false;
         }
         return false;
     }

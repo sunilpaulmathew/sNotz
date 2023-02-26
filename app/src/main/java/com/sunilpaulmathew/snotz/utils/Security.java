@@ -24,7 +24,7 @@ import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 public class Security {
 
     public static boolean isBiometricEnabled(Context context) {
-        return sCommonUtils.getBoolean("use_biometric", false, context);
+        return Utils.isFingerprintAvailable(context) && sCommonUtils.getBoolean("use_biometric", false, context);
     }
 
     public static boolean isHiddenNotesUnlocked(Context context) {
