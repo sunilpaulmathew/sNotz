@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -29,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -99,7 +99,7 @@ public class sNotzFragment extends Fragment {
         AppCompatImageButton mAddIcon = mRootView.findViewById(R.id.add_note_icon);
         mAddNoteCard = mRootView.findViewById(R.id.add_note_card);
         mSearchWord = mRootView.findViewById(R.id.search_word);
-        ProgressBar mProgressBar = mRootView.findViewById(R.id.progress);
+        ContentLoadingProgressBar mProgressBar = mRootView.findViewById(R.id.progress);
 
         mAppTitle.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
         mMenu.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
@@ -139,6 +139,8 @@ public class sNotzFragment extends Fragment {
                 int position = viewHolder.getAdapterPosition();
                 String[] sNotzContents = sNotzData.getData(requireActivity()).get(position).getNote().split("\\s+");
                 new MaterialAlertDialogBuilder(requireActivity())
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setTitle(R.string.warning)
                         .setMessage(getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
                                 sNotzData.getData(requireActivity()).get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                         .setCancelable(false)
@@ -360,7 +362,7 @@ public class sNotzFragment extends Fragment {
         return mRootView;
     }
 
-    private static sExecutor loadUI(ProgressBar progressBar, Activity activity) {
+    private static sExecutor loadUI(ContentLoadingProgressBar progressBar, Activity activity) {
         return new sExecutor() {
             private NotesAdapter mNotesAdapter;
             @Override

@@ -1,4 +1,4 @@
-<ProgressBar
+<androidx.core.widget.ContentLoadingProgressBar
     android:id="@+id/progress"
     android:layout_height="20dp"
     android:layout_width="match_parent"

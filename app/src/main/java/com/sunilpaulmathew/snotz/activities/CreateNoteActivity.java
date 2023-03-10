@@ -14,7 +14,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -26,6 +25,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.core.widget.NestedScrollView;
 
 import com.flask.colorpicker.ColorPickerView;
@@ -58,7 +58,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     private boolean mNoteSaved = false;
     private Bitmap mBitmap = null;
     private int mSelectedColorBg, mSelectedColorTxt;
-    private ProgressBar mProgress;
+    private ContentLoadingProgressBar mProgress;
     private String mNote = null;
     private SwitchMaterial mHidden;
 

@@ -16,12 +16,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -175,6 +175,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         case 6:
                             String[] sNotzContents = this.data.get(position).getNote().split("\\s+");
                             new MaterialAlertDialogBuilder(holder.mRVCard.getContext())
+                                    .setIcon(R.mipmap.ic_launcher)
+                                    .setTitle(R.string.warning)
                                     .setMessage(holder.mRVCard.getContext().getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
                                             this.data.get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                                     .setNegativeButton(R.string.cancel, (dialog, which) -> {
@@ -288,6 +290,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mDelete.setOnClickListener(v -> {
             String[] sNotzContents = this.data.get(position).getNote().split("\\s+");
             new MaterialAlertDialogBuilder(v.getContext())
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle(R.string.warning)
                     .setMessage(v.getContext().getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
                             this.data.get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
                     .setNegativeButton(R.string.cancel, (dialog, which) -> {
@@ -339,7 +343,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         private final AppCompatImageButton mDelete, mDownload, mDuplicate, mExpand, mLock, mQrCode, mReminder, mShare;
         private final MaterialTextView mContents, mDate;
         private final MaterialCardView mRVCard;
-        private final ProgressBar mProgress;
+        private final ContentLoadingProgressBar mProgress;
         private final SwitchMaterial mHidden;
 
         public ViewHolder(View view) {

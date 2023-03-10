@@ -12,12 +12,12 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -72,7 +72,7 @@ public class WidgetNotesFragment extends Fragment {
         MaterialCardView mColorText = mRootView.findViewById(R.id.color_text);
         MaterialTextView mAddNewText = mRootView.findViewById(R.id.add_new_text);
         NestedScrollView mNestedScrollView = mRootView.findViewById(R.id.scroll_view);
-        ProgressBar mProgress = mRootView.findViewById(R.id.progress);
+        ContentLoadingProgressBar mProgress = mRootView.findViewById(R.id.progress);
         RecyclerView mRecyclerView = mRootView.findViewById(R.id.recycler_view);
 
         mAddNewText.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
