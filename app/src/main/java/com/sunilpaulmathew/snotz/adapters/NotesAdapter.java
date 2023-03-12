@@ -194,6 +194,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             return true;
         });
         holder.mRVCard.setCardBackgroundColor(data.get(position).getColorBackground());
+        holder.mRVCard.setStrokeColor(data.get(position).getColorBackground());
         holder.mRVCard.setOnClickListener(v -> {
             if (Common.isWorking()) {
                 return;
