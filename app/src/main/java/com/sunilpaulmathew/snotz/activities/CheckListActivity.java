@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
@@ -100,7 +101,18 @@ public class CheckListActivity extends AppCompatActivity {
 
         mSave.setOnClickListener(v -> saveCheckList());
 
-        mBack.setOnClickListener(v -> finish());
+        mBack.setOnClickListener(v -> exit());
+    }
+
+    private void exit() {
+        new MaterialAlertDialogBuilder(this)
+                .setIcon(R.mipmap.ic_launcher)
+                .setTitle(R.string.app_name)
+                .setMessage(getString(R.string.discard_note))
+                .setCancelable(false)
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                })
+                .setPositiveButton(R.string.discard, (dialog, which) -> super.onBackPressed()).show();
     }
 
     private void saveCheckList() {
@@ -115,6 +127,11 @@ public class CheckListActivity extends AppCompatActivity {
         sFileUtils.create(mJSONObject.toString(), new File(getExternalFilesDir("checklists"), mCheckListName));
         Common.isReloading(true);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        exit();
     }
 
 }
