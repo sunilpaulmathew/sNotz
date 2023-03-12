@@ -42,11 +42,13 @@ public class CheckListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist);
 
+        AppCompatImageButton mAZ = findViewById(R.id.az_button);
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         AppCompatImageButton mBack = findViewById(R.id.back_button);
         MaterialTextView mTitle = findViewById(R.id.title);
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
 
+        mAZ.setColorFilter(sNotzColor.getAppAccentColor(this));
         mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
         mSave.setColorFilter(sNotzColor.getAppAccentColor(this));
         mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
@@ -102,6 +104,13 @@ public class CheckListActivity extends AppCompatActivity {
         mSave.setOnClickListener(v -> saveCheckList());
 
         mBack.setOnClickListener(v -> exit());
+
+        mAZ.setOnClickListener(v -> {
+            if (mData.size() > 1) {
+                Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(lhs.getTitle(), rhs.getTitle()));
+                mRecyclerView.setAdapter(new CheckListAdapter(mData));
+            }
+        });
     }
 
     private void exit() {
