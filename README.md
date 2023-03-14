@@ -2,7 +2,7 @@
 
 <p style="text-align: center"><img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/002.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/001.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/005.jpg" alt="" width="250" height="450" /></p>
 
-[![](https://img.shields.io/badge/sNotz-v0.29-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
+[![](https://img.shields.io/badge/sNotz-v0.30-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
 ![](https://img.shields.io/github/contributors/sunilpaulmathew/sNotz)
 
@@ -20,7 +20,7 @@ alt="Get it on IzzyOnDroid"
 height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.sunilpaulmathew.snotz)
 [<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
 alt="Get it on GitHub"
-height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.29/app-fdroid-release.apk)
+height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.30/app-fdroid-release.apk)
 
 ## Features
 * Easily create & manage simple notes.
@@ -73,7 +73,7 @@ A list of people who contributed to this project is available [here](Credits.md)
 
 ## License
 
-    Copyright (C) 2022-2023 sunilpaulmathew <sunil.kde@gmail.com>
+    Copyright (C) 2023-2024 sunilpaulmathew <sunil.kde@gmail.com>
 
     sNotz is a free softwares: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the

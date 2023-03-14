@@ -21,8 +21,8 @@ android {
         applicationId "com.sunilpaulmathew.snotz"
         minSdkVersion 17
         targetSdkVersion 33
-        versionCode 29
-        versionName "v0.29"
+        versionCode 30
+        versionName "v0.30"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
         testFunctionalTest = false
@@ -62,11 +62,9 @@ dependencies {
 
     def sCommon_Version = '970617f38a'
     implementation "com.github.sunilpaulmathew.sCommon:adapters:${sCommon_Version}"
-    implementation "com.github.sunilpaulmathew.sCommon:commonutils:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:credits:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:crashreporter:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:dialogs:${sCommon_Version}"
-    implementation "com.github.sunilpaulmathew.sCommon:fileutils:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:themeutils:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:translatorutils:${sCommon_Version}"
 

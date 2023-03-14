@@ -6,6 +6,15 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.30</h3>
+- Makes app accent color configurable.
+- Distinguished hidden notes with a lock icon.
+- sNotz now uses Material3 day-night theme.
+- Replaced depreciated onActivityResult with ActivityResultLauncher.
+- Improved checklists.
+- Updated Czech translations.
+- Miscellaneous changes.
+
 <h3 style="color: green">v0.29</h3>
 - Creating widgets now requires authentication (if set).
 - Fixed notifications on Android 13 and above.
