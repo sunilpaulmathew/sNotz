@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -31,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
@@ -154,22 +157,47 @@ public class QRCodeUtils {
 
     public void saveQRCode(Bitmap bitmap, String name) {
         try {
-            OutputStream imageOutStream;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                OutputStream imageOutStream;
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.MediaColumns.DISPLAY_NAME, name);
                 values.put(MediaStore.MediaColumns.MIME_TYPE, "image/png");
                 values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
                 Uri uri = mActivity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
                 imageOutStream = mActivity.getContentResolver().openOutputStream(uri);
+                appendTextOnBitmap(bitmap, mActivity).compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
+                imageOutStream.close();
             } else {
+                FileOutputStream imageOutStream;
                 File image = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), name);
                 imageOutStream = new FileOutputStream(image);
+                appendTextOnBitmap(bitmap, mActivity).compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
+                imageOutStream.close();
             }
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
-            imageOutStream.close();
         } catch(Exception ignored) {
         }
+    }
+
+    private static Bitmap appendTextOnBitmap(Bitmap bitmap, Activity activity) {
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(sCommonUtils.getColor(R.color.color_black, activity));
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize(15);
+        int horizontalSpacing = Objects.requireNonNull(bitmap).getWidth() / 2;
+        int verticalSpacing = Objects.requireNonNull(bitmap).getHeight() - 5;
+        String[] splitText = Common.getNote().split(" ");
+        String newTxt;
+        if (splitText.length >= 3) {
+            newTxt = splitText[0] + " " + splitText[1] + " " + splitText[2] + "...";
+        } else {
+            newTxt = Common.getNote();
+        }
+        if (newTxt.length() > 10) {
+            newTxt = newTxt.substring(0, 10) + "...";
+        }
+        canvas.drawText(newTxt, horizontalSpacing, verticalSpacing, paint);
+        return bitmap;
     }
 
 }
