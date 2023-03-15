@@ -64,7 +64,6 @@ dependencies {
     implementation "com.github.sunilpaulmathew.sCommon:adapters:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:credits:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:crashreporter:${sCommon_Version}"
-    implementation "com.github.sunilpaulmathew.sCommon:dialogs:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:themeutils:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:translatorutils:${sCommon_Version}"
 
