@@ -38,6 +38,7 @@ public class ColorCustomizationsAdapter extends RecyclerView.Adapter<ColorCustom
     public void onBindViewHolder(@NonNull ColorCustomizationsAdapter.ViewHolder holder, int position) {
         holder.mText.setText(this.mData.get(position).getTitle());
         holder.mCircle.setCardBackgroundColor(sNotzColor.getDefaultColor(position, holder.mCircle.getContext()));
+        holder.mCircle.setStrokeColor(sNotzColor.getDefaultColor(position, holder.mCircle.getContext()));
     }
 
     @Override

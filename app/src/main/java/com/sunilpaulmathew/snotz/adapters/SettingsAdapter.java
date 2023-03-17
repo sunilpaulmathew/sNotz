@@ -83,6 +83,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         if (position == 2) {
             holder.mCircle.setCardBackgroundColor(sCommonUtils.getInt("app_accent_color", sCommonUtils.getColor(R.color.color_teal,
                     holder.mCircle.getContext()), holder.mCircle.getContext()));
+            holder.mCircle.setStrokeColor(sCommonUtils.getInt("app_accent_color", sCommonUtils.getColor(R.color.color_teal,
+                    holder.mCircle.getContext()), holder.mCircle.getContext()));
         } else if (position == 4) {
             holder.mChecked.setImageDrawable(sCommonUtils.getDrawable(Security.isScreenLocked(holder.mChecked.getContext()) ?
                     R.drawable.ic_check_box_checked : R.drawable.ic_check_box_unchecked, holder.mChecked.getContext()));
@@ -92,8 +94,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         } else if (position == 7) {
             holder.mCircle.setCardBackgroundColor(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal,
                     holder.mCircle.getContext()), holder.mCircle.getContext()));
+            holder.mCircle.setStrokeColor(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal,
+                    holder.mCircle.getContext()), holder.mCircle.getContext()));
         } else if (position == 8) {
             holder.mCircle.setCardBackgroundColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white,
+                    holder.mCircle.getContext()), holder.mCircle.getContext()));
+            holder.mCircle.setStrokeColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white,
                     holder.mCircle.getContext()), holder.mCircle.getContext()));
         } else if (position == 9) {
             holder.mChecked.setImageDrawable(sCommonUtils.getDrawable(sNotzColor.isRandomColorScheme(holder.mChecked.getContext()) ?
@@ -108,6 +114,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                     holder.mChecked.getContext()));
         } else if (position == 12) {
             holder.mCircle.setCardBackgroundColor(sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_white,
+                    holder.mCircle.getContext()), holder.mCircle.getContext()));
+            holder.mCircle.setStrokeColor(sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_white,
                     holder.mCircle.getContext()), holder.mCircle.getContext()));
         }
         holder.mChecked.setColorFilter(sNotzColor.getAppAccentColor(holder.mChecked.getContext()));
