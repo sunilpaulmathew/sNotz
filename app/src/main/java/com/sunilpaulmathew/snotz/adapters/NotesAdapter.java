@@ -35,6 +35,7 @@ import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.dialogs.PermissionDialog;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
@@ -121,7 +122,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             }
                             break;
                         case 3:
-                            sNotzReminders.launchReminderMenu(holder.mReminder, data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && Utils.isPermissionDenied(Manifest.permission.POST_NOTIFICATIONS, item.getContext())) {
+                                new PermissionDialog(item.getContext()).show();
+                            } else {
+                                sNotzReminders.launchReminderMenu(holder.mReminder, data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
+                            }
                             break;
                         case 4:
                             Common.setNote(this.data.get(position).getNote());
@@ -286,8 +291,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 sCommonUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.hidden_note_message)).show();
             }
         });
-        holder.mReminder.setOnClickListener(v -> sNotzReminders.launchReminderMenu(holder.mReminder, data.get(position).getNote(),
-                data.get(position).getNoteID(), v.getContext()));
+        holder.mReminder.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && Utils.isPermissionDenied(Manifest.permission.POST_NOTIFICATIONS, v.getContext())) {
+                new PermissionDialog(v.getContext()).show();
+                return;
+            }
+            sNotzReminders.launchReminderMenu(holder.mReminder, data.get(position).getNote(),
+                    data.get(position).getNoteID(), v.getContext());
+        });
         holder.mDelete.setOnClickListener(v -> {
             String[] sNotzContents = this.data.get(position).getNote().split("\\s+");
             new MaterialAlertDialogBuilder(v.getContext())
