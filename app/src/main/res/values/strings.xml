@@ -95,7 +95,7 @@
     <string name="notes_in_row_summary">%s note</string>
     <string name="ok">OK</string>
     <string name="permission_denied_message">Permission denied for accessing device storage</string>
-    <string name="permission_notification_message">Inorder to work this feature on devices running android TIRAMISU or newer versions, it is necessary to have permission to post notifications. Do you want to request permission for sNotz?</string>
+    <string name="permission_notification_message">Inorder to work this feature on devices running android TIRAMISU or newer versions, it is necessary to have permission to post notifications granted by the user. If you like to have this feature working on sNotz, please go ahead with requesting (and granting) the permission by clicking the button provided below.</string>
     <string name="permission_request">Request Permission</string>
     <string name="pin_enter">Enter PIN</string>
     <string name="pin_reenter">Renter PIN</string>
