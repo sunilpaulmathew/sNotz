@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -74,7 +77,9 @@ public class WidgetFragment extends Fragment {
     private final List<CheckListItems> mData = new ArrayList<>();
     private LinearLayoutCompat mAddNewLayout;
     private MaterialTextView mAddNewText;
+    private RecyclerView mRecyclerView;
     private RecyclerView mRecyclerViewCheckList;
+    private WidgetAdapter mRecycleViewAdapter;
 
     @Nullable
     @Override
@@ -83,6 +88,7 @@ public class WidgetFragment extends Fragment {
 
         AppCompatEditText mContents = mRootView.findViewById(R.id.contents);
         AppCompatImageButton mAddIcon = mRootView.findViewById(R.id.add_note_icon);
+        AppCompatImageButton mSortButton = mRootView.findViewById(R.id.sort_button);
         mSave = mRootView.findViewById(R.id.save);
         ContentLoadingProgressBar mProgress = mRootView.findViewById(R.id.progress);
         LinearLayoutCompat mColorLayout = mRootView.findViewById(R.id.color_layout);
@@ -93,16 +99,17 @@ public class WidgetFragment extends Fragment {
         mAddNewText = mRootView.findViewById(R.id.add_new_title);
         MaterialTextView mTitle = mRootView.findViewById(R.id.title);
         NestedScrollView mNestedScrollView = mRootView.findViewById(R.id.scroll_view);
-        RecyclerView mRecyclerView = mRootView.findViewById(R.id.recycler_view);
+        mRecyclerView = mRootView.findViewById(R.id.recycler_view);
         mRecyclerViewCheckList = mRootView.findViewById(R.id.recycler_view_checklist);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
-        WidgetAdapter mRecycleViewAdapter = new WidgetAdapter(getData(requireActivity()));
+        mRecycleViewAdapter = new WidgetAdapter(getData(requireActivity()));
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
         mTitle.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
         mAddNewText.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
         mAddIcon.setColorFilter(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
+        mSortButton.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
         mAddNewCard.setCardBackgroundColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
         mProgress.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, requireActivity()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -230,6 +237,79 @@ public class WidgetFragment extends Fragment {
             }
         });
 
+        mSortButton.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(requireActivity(), mSortButton);
+            Menu menu = popupMenu.getMenu();
+            SubMenu show = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.show));
+            show.add(1, 5, Menu.NONE, getString(R.string.show_all)).setCheckable(true)
+                    .setChecked(sCommonUtils.getInt("show_all", 0, requireActivity()) == 0);
+            show.add(1, 6, Menu.NONE, getString(R.string.show_checklists)).setCheckable(true)
+                    .setChecked(sCommonUtils.getInt("show_all", 0, requireActivity()) == 1);
+            show.add(1, 7, Menu.NONE, getString(R.string.show_notes)).setCheckable(true)
+                    .setChecked(sCommonUtils.getInt("show_all", 0, requireActivity()) == 2);
+            show.setGroupCheckable(1, true, true);
+            SubMenu sort = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.sort_by));
+            sort.add(0, 1, Menu.NONE, getString(R.string.sort_by_date)).setCheckable(true)
+                    .setChecked(sCommonUtils.getInt("sort_notes", 2, requireActivity()) == 2);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                sort.add(0, 2, Menu.NONE, getString(R.string.note_color_background)).setCheckable(true)
+                        .setChecked(sCommonUtils.getInt("sort_notes", 2, requireActivity()) == 1);
+            }
+            sort.add(0, 3, Menu.NONE, getString(R.string.az_order)).setCheckable(true)
+                    .setChecked(sCommonUtils.getInt("sort_notes", 2, requireActivity()) == 0);
+            sort.setGroupCheckable(0, true, true);
+            menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.reverse_order)).setCheckable(true)
+                    .setChecked(sCommonUtils.getBoolean("reverse_order", false, requireActivity()));
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case 0:
+                        break;
+                    case 1:
+                        if (sCommonUtils.getInt("sort_notes", 2, requireActivity()) != 2) {
+                            sCommonUtils.saveInt("sort_notes", 2, requireActivity());
+                            loadUI(mProgress).execute();
+                        }
+                        break;
+                    case 2:
+                        if (sCommonUtils.getInt("sort_notes", 2, requireActivity()) != 1) {
+                            sCommonUtils.saveInt("sort_notes", 1, requireActivity());
+                            loadUI(mProgress).execute();
+                        }
+                        break;
+                    case 3:
+                        if (sCommonUtils.getInt("sort_notes", 2, requireActivity()) != 0) {
+                            sCommonUtils.saveInt("sort_notes", 0, requireActivity());
+                            loadUI(mProgress).execute();
+                        }
+                        break;
+                    case 4:
+                        sCommonUtils.saveBoolean("reverse_order", !sCommonUtils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
+                        loadUI(mProgress).execute();
+                        break;
+                    case 5:
+                        if (sCommonUtils.getInt("show_all", 0, requireActivity()) != 0) {
+                            sCommonUtils.saveInt("show_all", 0, requireActivity());
+                            loadUI(mProgress).execute();
+                        }
+                        break;
+                    case 6:
+                        if (sCommonUtils.getInt("show_all", 0, requireActivity()) != 1) {
+                            sCommonUtils.saveInt("show_all", 1, requireActivity());
+                            loadUI(mProgress).execute();
+                        }
+                        break;
+                    case 7:
+                        if (sCommonUtils.getInt("show_all", 0, requireActivity()) != 2) {
+                            sCommonUtils.saveInt("show_all", 2, requireActivity());
+                            loadUI(mProgress).execute();
+                        }
+                        break;
+                }
+                return false;
+            });
+            popupMenu.show();
+        });
+
         mSave.setOnClickListener(v ->
                 new sExecutor() {
                     @Override
@@ -335,6 +415,28 @@ public class WidgetFragment extends Fragment {
         });
 
         return mRootView;
+    }
+
+    private sExecutor loadUI(ContentLoadingProgressBar progressBar) {
+        return new sExecutor() {
+            @Override
+            public void onPreExecute() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void doInBackground() {
+                mRecycleViewAdapter = new WidgetAdapter(getData(requireActivity()));
+            }
+
+            @Override
+            public void onPostExecute() {
+                try {
+                    mRecyclerView.setAdapter(mRecycleViewAdapter);
+                } catch (NullPointerException ignored) {}
+                progressBar.setVisibility(View.GONE);
+            }
+        };
     }
 
     private void initializeCheckList() {

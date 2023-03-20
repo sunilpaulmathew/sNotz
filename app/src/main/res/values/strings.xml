@@ -130,6 +130,10 @@
     <string name="share_with">Share With</string>
     <string name="shared_by">Shared by sNotz %s</string>
     <string name="shared_by_message">Get sNotz %s, a simple, yet much useful application to manage notes, from PlayStore: https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz</string>
+    <string name="show">Show</string>
+    <string name="show_all">Notes &amp; Checklists</string>
+    <string name="show_checklists">Only Checklists</string>
+    <string name="show_notes">Only Notes</string>
     <string name="show_hidden_notes">Show Hidden Notes</string>
     <string name="show_hidden_notes_summary">Show notes that are set hidden from UI</string>
     <string name="single_click_note_message">Single click on a note to edit</string>

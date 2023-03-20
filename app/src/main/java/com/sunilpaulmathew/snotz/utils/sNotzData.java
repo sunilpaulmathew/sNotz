@@ -63,30 +63,34 @@ public class sNotzData {
 
     public static List<sNotzItems> getRawData(Context context) {
         List<sNotzItems> mData = new ArrayList<>();
-        String json = context.getFilesDir().getPath() + "/snotz";
-        if (sFileUtils.exist(new File(json))) {
-            JsonArray sNotz = Objects.requireNonNull(getJSONObject(sFileUtils.read(new File(json)))).getAsJsonArray("sNotz");
-            for (int i = 0; i < sNotz.size(); i++) {
-                mData.add(new sNotzItems(getNote(sNotz.get(i).getAsJsonObject()),
-                        getDate(sNotz.get(i).getAsJsonObject()),
-                        getImage(sNotz.get(i).getAsJsonObject()),
-                        isHidden(sNotz.get(i).getAsJsonObject()),
-                        getBackgroundColor(sNotz.get(i).getAsJsonObject(), context),
-                        getTextColor(sNotz.get(i).getAsJsonObject(), context),
-                        getNoteID(sNotz.get(i).getAsJsonObject()))
-                );
+        if (sCommonUtils.getInt("show_all", 0, context) != 1) {
+            String json = context.getFilesDir().getPath() + "/snotz";
+            if (sFileUtils.exist(new File(json))) {
+                JsonArray sNotz = Objects.requireNonNull(getJSONObject(sFileUtils.read(new File(json)))).getAsJsonArray("sNotz");
+                for (int i = 0; i < sNotz.size(); i++) {
+                    mData.add(new sNotzItems(getNote(sNotz.get(i).getAsJsonObject()),
+                            getDate(sNotz.get(i).getAsJsonObject()),
+                            getImage(sNotz.get(i).getAsJsonObject()),
+                            isHidden(sNotz.get(i).getAsJsonObject()),
+                            getBackgroundColor(sNotz.get(i).getAsJsonObject(), context),
+                            getTextColor(sNotz.get(i).getAsJsonObject(), context),
+                            getNoteID(sNotz.get(i).getAsJsonObject()))
+                    );
+                }
             }
         }
-        for (File checklists : Objects.requireNonNull(context.getExternalFilesDir("checklists").listFiles())) {
-            if (CheckLists.isValidCheckList(sFileUtils.read(checklists))) {
-                mData.add(new sNotzItems(checklists.getAbsolutePath(),
-                        checklists.lastModified(),
-                        null,
-                        false,
-                        sCommonUtils.getColor(R.color.color_black, context),
-                        sCommonUtils.getColor(R.color.color_white, context),
-                        -1)
-                );
+        if (sCommonUtils.getInt("show_all", 0, context) != 2) {
+            for (File checklists : Objects.requireNonNull(context.getExternalFilesDir("checklists").listFiles())) {
+                if (CheckLists.isValidCheckList(sFileUtils.read(checklists))) {
+                    mData.add(new sNotzItems(checklists.getAbsolutePath(),
+                            checklists.lastModified(),
+                            null,
+                            false,
+                            sCommonUtils.getColor(R.color.color_black, context),
+                            sCommonUtils.getColor(R.color.color_white, context),
+                            -1)
+                    );
+                }
             }
         }
         return mData;

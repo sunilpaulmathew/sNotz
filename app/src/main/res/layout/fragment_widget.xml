@@ -10,17 +10,33 @@
             android:orientation="vertical"
             android:gravity="center" >
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/title"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/widget_choose_message"
-                    android:background="@color/color_black"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:padding="5dp" />
+                    android:background="@color/colorBlack"
+                    android:padding="5dp" >
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/widget_choose_message"
+                            android:layout_marginStart="40dp"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="40dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="20sp" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/sort_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            app:srcCompat="@drawable/ic_sort"
+                            android:layout_marginEnd="10dp"
+                            android:background="@null" />
+                </FrameLayout>
 
                 <include layout="@layout/layout_recyclerview" />
         </androidx.appcompat.widget.LinearLayoutCompat>

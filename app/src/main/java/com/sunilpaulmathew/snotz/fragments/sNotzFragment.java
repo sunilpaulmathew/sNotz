@@ -260,6 +260,14 @@ public class sNotzFragment extends Fragment {
             }
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mSortButton);
             Menu menu = popupMenu.getMenu();
+            SubMenu show = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.show));
+            show.add(1, 5, Menu.NONE, getString(R.string.show_all)).setCheckable(true)
+                    .setChecked(sCommonUtils.getInt("show_all", 0, requireActivity()) == 0);
+            show.add(1, 6, Menu.NONE, getString(R.string.show_checklists)).setCheckable(true)
+                    .setChecked(sCommonUtils.getInt("show_all", 0, requireActivity()) == 1);
+            show.add(1, 7, Menu.NONE, getString(R.string.show_notes)).setCheckable(true)
+                    .setChecked(sCommonUtils.getInt("show_all", 0, requireActivity()) == 2);
+            show.setGroupCheckable(1, true, true);
             SubMenu sort = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.sort_by));
             sort.add(0, 1, Menu.NONE, getString(R.string.sort_by_date)).setCheckable(true)
                     .setChecked(sCommonUtils.getInt("sort_notes", 2, requireActivity()) == 2);
@@ -297,6 +305,24 @@ public class sNotzFragment extends Fragment {
                     case 4:
                         sCommonUtils.saveBoolean("reverse_order", !sCommonUtils.getBoolean("reverse_order", false, requireActivity()), requireActivity());
                         loadUI(mProgressBar, requireActivity()).execute();
+                        break;
+                    case 5:
+                        if (sCommonUtils.getInt("show_all", 0, requireActivity()) != 0) {
+                            sCommonUtils.saveInt("show_all", 0, requireActivity());
+                            loadUI(mProgressBar, requireActivity()).execute();
+                        }
+                        break;
+                    case 6:
+                        if (sCommonUtils.getInt("show_all", 0, requireActivity()) != 1) {
+                            sCommonUtils.saveInt("show_all", 1, requireActivity());
+                            loadUI(mProgressBar, requireActivity()).execute();
+                        }
+                        break;
+                    case 7:
+                        if (sCommonUtils.getInt("show_all", 0, requireActivity()) != 2) {
+                            sCommonUtils.saveInt("show_all", 2, requireActivity());
+                            loadUI(mProgressBar, requireActivity()).execute();
+                        }
                         break;
                 }
                 return false;
