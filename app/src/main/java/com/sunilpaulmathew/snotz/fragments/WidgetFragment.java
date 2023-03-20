@@ -307,7 +307,10 @@ public class WidgetFragment extends Fragment {
                             .setCancelable(false)
                             .setNegativeButton(R.string.cancel, (dialog, which) -> {
                             })
-                            .setPositiveButton(R.string.discard, (dialog, which) -> requireActivity().finish()).show();
+                            .setPositiveButton(R.string.discard, (dialog, which) -> {
+                                mAddNewLayout.setVisibility(View.GONE);
+                                mRecyclerViewCheckList.setVisibility(View.GONE);
+                            }).show();
                 } else if (mContents.getText() != null && !mContents.getText().toString().trim().isEmpty()) {
                     new MaterialAlertDialogBuilder(requireActivity())
                             .setIcon(R.mipmap.ic_launcher)
@@ -316,7 +319,15 @@ public class WidgetFragment extends Fragment {
                             .setCancelable(false)
                             .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                             })
-                            .setPositiveButton(R.string.discard, (dialogInterface, i) -> requireActivity().finish()).show();
+                            .setPositiveButton(R.string.discard, (dialogInterface, i) -> {
+                                mAddNewLayout.setVisibility(View.GONE);
+                                mNestedScrollView.setVisibility(View.GONE);
+                                mColorLayout.setVisibility(View.GONE);
+                            }).show();
+                } else if (mAddNewLayout.getVisibility() == View.VISIBLE && mColorLayout.getVisibility() == View.VISIBLE) {
+                    mAddNewLayout.setVisibility(View.GONE);
+                    mNestedScrollView.setVisibility(View.GONE);
+                    mColorLayout.setVisibility(View.GONE);
                 } else {
                     requireActivity().finish();
                 }
