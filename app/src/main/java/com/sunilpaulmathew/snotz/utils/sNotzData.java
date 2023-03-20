@@ -25,20 +25,18 @@ public class sNotzData {
 
     public static List<sNotzItems> getData(Context context) {
         List<sNotzItems> mData = new ArrayList<>();
-        if (sFileUtils.exist(new File(context.getFilesDir(),"snotz"))) {
-            for (sNotzItems items : getRawData(context)) {
-                if (Common.getSearchText() == null) {
-                    if (sCommonUtils.getBoolean("hidden_note", false, context)) {
-                        mData.add(items);
-                    } else if (!items.isHidden()) {
-                        mData.add(items);
-                    }
-                } else if (Common.isTextMatched(items.getNote())) {
-                    if (sCommonUtils.getBoolean("hidden_note", false, context)) {
-                        mData.add(items);
-                    } else if (!items.isHidden()) {
-                        mData.add(items);
-                    }
+        for (sNotzItems items : getRawData(context)) {
+            if (Common.getSearchText() == null) {
+                if (sCommonUtils.getBoolean("hidden_note", false, context)) {
+                    mData.add(items);
+                } else if (!items.isHidden()) {
+                    mData.add(items);
+                }
+            } else if (Common.isTextMatched(items.getNote())) {
+                if (sCommonUtils.getBoolean("hidden_note", false, context)) {
+                    mData.add(items);
+                } else if (!items.isHidden()) {
+                    mData.add(items);
                 }
             }
         }
@@ -76,6 +74,18 @@ public class sNotzData {
                         getBackgroundColor(sNotz.get(i).getAsJsonObject(), context),
                         getTextColor(sNotz.get(i).getAsJsonObject(), context),
                         getNoteID(sNotz.get(i).getAsJsonObject()))
+                );
+            }
+        }
+        for (File checklists : Objects.requireNonNull(context.getExternalFilesDir("checklists").listFiles())) {
+            if (CheckLists.isValidCheckList(sFileUtils.read(checklists))) {
+                mData.add(new sNotzItems(checklists.getAbsolutePath(),
+                        checklists.lastModified(),
+                        null,
+                        false,
+                        sCommonUtils.getColor(R.color.color_black, context),
+                        sCommonUtils.getColor(R.color.color_white, context),
+                        -1)
                 );
             }
         }

@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         if (extraCheckListPath != null) {
+            if (!sNotzWidgets.isWidget()) {
+                sNotzWidgets.isWidget(true);
+            }
             bundle.putString(sNotzWidgets.getChecklistPath(), extraCheckListPath);
         } else if (extraNoteId != sNotzWidgets.getInvalidNoteId()) {
             bundle.putInt(sNotzWidgets.getNoteID(), extraNoteId);

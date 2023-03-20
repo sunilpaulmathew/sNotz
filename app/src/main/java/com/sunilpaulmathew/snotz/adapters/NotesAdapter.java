@@ -2,14 +2,9 @@ package com.sunilpaulmathew.snotz.adapters;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -21,31 +16,33 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.FileProvider;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textview.MaterialTextView;
+import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.activities.CheckListActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
-import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
+import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.dialogs.DeleteChecklistDialog;
+import com.sunilpaulmathew.snotz.utils.dialogs.DeleteNoteDialog;
 import com.sunilpaulmathew.snotz.utils.dialogs.PermissionDialog;
+import com.sunilpaulmathew.snotz.utils.dialogs.SaveAsTextDialog;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.List;
-import java.util.Objects;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
@@ -70,11 +67,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mContents.setText(this.data.get(position).getNote());
+        if (this.data.get(position).isChecklist()) {
+            holder.mContents.setText(CheckLists.getChecklistData(this.data.get(position).getNote()));
+        } else {
+            holder.mContents.setText(this.data.get(position).getNote());
+        }
         holder.mContents.setTextColor(data.get(position).getColorText());
         holder.mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sCommonUtils.getInt("font_size", 18, holder.mContents.getContext()));
         holder.mContents.setTypeface(null, AppSettings.getStyle(holder.mContents.getContext()));
-        holder.mContents.setSingleLine(mExpandPosition != position);
+        holder.mContents.setMaxLines(mExpandPosition != position ? 1 : Integer.MAX_VALUE);
         holder.mActionLayout.setVisibility(position == mPosition ? View.VISIBLE : View.GONE);
         holder.mExpand.setVisibility(Common.getSpanCount() > 1 ? View.GONE : View.VISIBLE);
         holder.mExpand.setImageDrawable(sCommonUtils.getDrawable(mExpandPosition != position ? R.drawable.ic_expand :
@@ -91,13 +92,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 PopupMenu popupMenu = new PopupMenu(holder.mRVCard.getContext(), holder.mExpand);
                 Menu menu = popupMenu.getMenu();
                 menu.add(Menu.NONE, 0, Menu.NONE, holder.mRVCard.getContext().getString(R.string.share)).setIcon(R.drawable.ic_share);
-                menu.add(Menu.NONE, 1, Menu.NONE, holder.mRVCard.getContext().getString(R.string.duplicate)).setIcon(R.drawable.ic_duplicate);
-                menu.add(Menu.NONE, 2, Menu.NONE, holder.mRVCard.getContext().getString(R.string.hidden_note)).setIcon(R.drawable.ic_eye).setCheckable(true)
-                        .setChecked(this.data.get(position).isHidden());
-                if (sNotzReminders.isReminderSet(data.get(position).getNoteID(), holder.mReminder.getContext())) {
-                    menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.reminder_manage)).setIcon(R.drawable.ic_notification_on);
-                } else {
-                    menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.reminder_set)).setIcon(R.drawable.ic_notification);
+                if (!this.data.get(position).isChecklist()) {
+                    menu.add(Menu.NONE, 1, Menu.NONE, holder.mRVCard.getContext().getString(R.string.duplicate)).setIcon(R.drawable.ic_duplicate);
+                    menu.add(Menu.NONE, 2, Menu.NONE, holder.mRVCard.getContext().getString(R.string.hidden_note)).setIcon(R.drawable.ic_eye).setCheckable(true)
+                            .setChecked(this.data.get(position).isHidden());
+                    if (sNotzReminders.isReminderSet(data.get(position).getNoteID(), holder.mReminder.getContext())) {
+                        menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.reminder_manage)).setIcon(R.drawable.ic_notification_on);
+                    } else {
+                        menu.add(Menu.NONE, 3, Menu.NONE, holder.mRVCard.getContext().getString(R.string.reminder_set)).setIcon(R.drawable.ic_notification);
+                    }
                 }
                 menu.add(Menu.NONE, 4, Menu.NONE, holder.mRVCard.getContext().getString(R.string.qr_code_generate)).setIcon(R.drawable.ic_qr_code);
                 menu.add(Menu.NONE, 5, Menu.NONE, holder.mRVCard.getContext().getString(R.string.save_text)).setIcon(R.drawable.ic_save);
@@ -106,7 +109,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 popupMenu.setOnMenuItemClickListener(popupMenuItem -> {
                     switch (popupMenuItem.getItemId()) {
                         case 0:
-                            sNotzUtils.shareNote(this.data.get(position).getNote(), this.data.get(position).getImageString(), holder.mRVCard.getContext());
+                            if (this.data.get(position).isChecklist()) {
+                                Intent mIntent = new Intent();
+                                mIntent.setAction(Intent.ACTION_SEND);
+                                mIntent.putExtra(Intent.EXTRA_SUBJECT, new File(data.get(position).getNote()).getName() + "/" + holder.mRVCard.getContext().getString(R.string.shared_by, BuildConfig.VERSION_NAME));
+                                mIntent.putExtra(Intent.EXTRA_TEXT, holder.mRVCard.getContext().getString(R.string.shared_by_message, BuildConfig.VERSION_NAME));
+                                mIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(holder.mRVCard.getContext(),BuildConfig.APPLICATION_ID + ".provider", new File(data.get(position).getNote())));
+                                mIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                mIntent.setType("*/*");
+                                Intent shareIntent = Intent.createChooser(mIntent, holder.mRVCard.getContext().getString(R.string.share_with));
+                                holder.mRVCard.getContext().startActivity(shareIntent);
+                            } else {
+                                sNotzUtils.shareNote(this.data.get(position).getNote(), this.data.get(position).getImageString(), holder.mRVCard.getContext());
+                            }
                             break;
                         case 1:
                             sNotzUtils.addNote(new SpannableStringBuilder(this.data.get(position).getNote()),
@@ -123,14 +138,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             break;
                         case 3:
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && Utils.isPermissionDenied(Manifest.permission.POST_NOTIFICATIONS, item.getContext())) {
-                                new PermissionDialog(item.getContext()).show();
+                                new PermissionDialog(item.getContext());
                             } else {
                                 sNotzReminders.launchReminderMenu(holder.mReminder, data.get(position).getNote(), data.get(position).getNoteID(), item.getContext());
                             }
                             break;
                         case 4:
-                            Common.setNote(this.data.get(position).getNote());
-                            new QRCodeUtils(this.data.get(position).getNote(), null, (Activity) holder.mRVCard.getContext()).generateQRCode().execute();
+                            if (this.data.get(position).isChecklist()) {
+                                Common.setNote(new File(data.get(position).getNote()).getName());
+                                new QRCodeUtils(sFileUtils.read(new File(data.get(position).getNote())), null, (Activity) holder.mRVCard.getContext()).generateQRCode().execute();
+                            } else {
+                                Common.setNote(this.data.get(position).getNote());
+                                new QRCodeUtils(this.data.get(position).getNote(), null, (Activity) holder.mRVCard.getContext()).generateQRCode().execute();
+                            }
                             break;
                         case 5:
                             if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, holder.mRVCard.getContext())) {
@@ -138,56 +158,38 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                                 }, (Activity) item.getContext());
                             } else {
-                                if (this.data.get(position).getImageString() != null) {
-                                    sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.image_excluded_warning)).show();
-                                }
-                                new EditTextInterface(null, null, (Activity) holder.mRVCard.getContext()) {
-
-                                    @Override
-                                    public void positiveButtonLister(Editable s) {
-                                        if (s != null && !s.toString().trim().isEmpty()) {
-                                            String fileName = s.toString().trim();
-                                            if (!fileName.endsWith(".txt")) {
-                                                fileName += ".txt";
-                                            }
-                                            if (fileName.contains(" ")) {
-                                                fileName = fileName.replace(" ", "_");
-                                            }
-                                            if (Build.VERSION.SDK_INT >= 29) {
-                                                try {
-                                                    ContentValues values = new ContentValues();
-                                                    values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-                                                    values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
-                                                    values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-                                                    Uri uri = holder.mRVCard.getContext().getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
-                                                    OutputStream outputStream = holder.mRVCard.getContext().getContentResolver().openOutputStream(uri);
-                                                    outputStream.write(Objects.requireNonNull(data.get(position).getNote()).getBytes());
-                                                    outputStream.close();
-                                                } catch (IOException ignored) {
-                                                }
-                                            } else {
-                                                sFileUtils.create(data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
-                                            }
-                                            sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.save_text_message,
-                                                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)).show();
-                                        } else {
-                                            sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
-                                        }
+                                if (this.data.get(position).isChecklist()) {
+                                    CheckLists.setCheckListName(new File(data.get(position).getNote()).getName());
+                                    CheckLists.backupCheckList((Activity) holder.mRVCard.getContext());
+                                } else {
+                                    if (this.data.get(position).getImageString() != null) {
+                                        sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.image_excluded_warning)).show();
                                     }
-                                }.show();
+                                    new SaveAsTextDialog(this.data.get(position).getNote(), holder.mRVCard, holder.mRVCard.getContext());
+                                }
                             }
                             break;
                         case 6:
-                            String[] sNotzContents = this.data.get(position).getNote().split("\\s+");
-                            new MaterialAlertDialogBuilder(holder.mRVCard.getContext())
-                                    .setIcon(R.mipmap.ic_launcher)
-                                    .setTitle(R.string.warning)
-                                    .setMessage(holder.mRVCard.getContext().getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
-                                            this.data.get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
-                                    .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                                    })
-                                    .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(this.data.get(position).getNoteID(),
-                                            holder.mProgress, holder.mRVCard.getContext()).execute()).show();
+                            if (this.data.get(position).isChecklist()) {
+                                new DeleteChecklistDialog(new File(this.data.get(position).getNote()), holder.mRVCard.getContext()) {
+                                    @Override
+                                    public void negativeButtonLister() {
+                                    }
+                                };
+                            } else {
+                                new DeleteNoteDialog(this.data.get(position).getNote(), holder.mRVCard.getContext()) {
+
+                                    @Override
+                                    public void negativeButtonLister() {
+                                    }
+
+                                    @Override
+                                    public void positiveButtonLister() {
+                                        sNotzUtils.deleteNote(data.get(position).getNoteID(),
+                                            holder.mProgress, holder.mRVCard.getContext()).execute();
+                                    }
+                                };
+                            }
                             break;
                     }
                     return false;
@@ -202,6 +204,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mRVCard.setStrokeColor(data.get(position).getColorBackground());
         holder.mRVCard.setOnClickListener(v -> {
             if (Common.isWorking()) {
+                return;
+            }
+            if (this.data.get(position).isChecklist()) {
+                CheckLists.setCheckListName(new File(this.data.get(position).getNote()).getName());
+                Intent createCheckList = new Intent(v.getContext(), CheckListActivity.class);
+                v.getContext().startActivity(createCheckList);
                 return;
             }
             Common.setExternalNote(null);
@@ -230,11 +238,29 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mHidden.setThumbTintList(ColorStateList.valueOf(data.get(position).getColorText()));
         holder.mHidden.setChecked(this.data.get(position).isHidden());
         holder.mQrCode.setOnClickListener(v -> {
-            Common.setNote(this.data.get(position).getNote());
-            new QRCodeUtils(this.data.get(position).getNote(), null, (Activity) v.getContext()).generateQRCode().execute();
+            if (this.data.get(position).isChecklist()) {
+                Common.setNote(new File(data.get(position).getNote()).getName());
+                new QRCodeUtils(sFileUtils.read(new File(data.get(position).getNote())), null, (Activity) v.getContext()).generateQRCode().execute();
+            } else {
+                Common.setNote(this.data.get(position).getNote());
+                new QRCodeUtils(this.data.get(position).getNote(), null, (Activity) v.getContext()).generateQRCode().execute();
+            }
         });
-        holder.mShare.setOnClickListener(v -> sNotzUtils.shareNote(this.data.get(position).getNote(),
-                this.data.get(position).getImageString(), v.getContext()));
+        holder.mShare.setOnClickListener(v -> {
+            if (this.data.get(position).isChecklist()) {
+                Intent mIntent = new Intent();
+                mIntent.setAction(Intent.ACTION_SEND);
+                mIntent.putExtra(Intent.EXTRA_SUBJECT, new File(data.get(position).getNote()).getName() + "/" + v.getContext().getString(R.string.shared_by, BuildConfig.VERSION_NAME));
+                mIntent.putExtra(Intent.EXTRA_TEXT, v.getContext().getString(R.string.shared_by_message, BuildConfig.VERSION_NAME));
+                mIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(v.getContext(),BuildConfig.APPLICATION_ID + ".provider", new File(data.get(position).getNote())));
+                mIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                mIntent.setType("*/*");
+                Intent shareIntent = Intent.createChooser(mIntent, v.getContext().getString(R.string.share_with));
+                v.getContext().startActivity(shareIntent);
+            } else {
+                sNotzUtils.shareNote(this.data.get(position).getNote(), this.data.get(position).getImageString(), v.getContext());
+            }
+        });
         holder.mDuplicate.setOnClickListener(v -> sNotzUtils.addNote(new SpannableStringBuilder(this.data.get(position).getNote()),
                 this.data.get(position).getImageString(), this.data.get(position).getColorBackground(), this.data.get(position).getColorText(),
                 this.data.get(position).isHidden(), holder.mProgress, v.getContext()));
@@ -244,43 +270,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                 }, (Activity) v.getContext());
             } else {
-                if (this.data.get(position).getImageString() != null) {
-                    sCommonUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.image_excluded_warning)).show();
-                }
-                new EditTextInterface(null, null, (Activity) holder.mRVCard.getContext()) {
-
-                    @Override
-                    public void positiveButtonLister(Editable s) {
-                        if (s != null && !s.toString().trim().isEmpty()) {
-                            String fileName = s.toString().trim();
-                            if (!fileName.endsWith(".txt")) {
-                                fileName += ".txt";
-                            }
-                            if (fileName.contains(" ")) {
-                                fileName = fileName.replace(" ", "_");
-                            }
-                            if (Build.VERSION.SDK_INT >= 29) {
-                                try {
-                                    ContentValues values = new ContentValues();
-                                    values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-                                    values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
-                                    values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-                                    Uri uri = v.getContext().getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
-                                    OutputStream outputStream = v.getContext().getContentResolver().openOutputStream(uri);
-                                    outputStream.write(Objects.requireNonNull(data.get(position).getNote()).getBytes());
-                                    outputStream.close();
-                                } catch (IOException ignored) {
-                                }
-                            } else {
-                                sFileUtils.create(data.get(position).getNote(), new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
-                            }
-                            sCommonUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.save_text_message,
-                                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)).show();
-                        } else {
-                            sCommonUtils.snackBar(holder.mRVCard, holder.mRVCard.getContext().getString(R.string.text_empty)).show();
-                        }
+                if (this.data.get(position).isChecklist()) {
+                    CheckLists.setCheckListName(new File(data.get(position).getNote()).getName());
+                    CheckLists.backupCheckList((Activity) v.getContext());
+                } else {
+                    if (this.data.get(position).getImageString() != null) {
+                        sCommonUtils.snackBar(holder.mRVCard, v.getContext().getString(R.string.image_excluded_warning)).show();
                     }
-                }.show();
+                    new SaveAsTextDialog(this.data.get(position).getNote(), holder.mRVCard, v.getContext());
+                }
             }
         });
         holder.mHidden.setOnClickListener(v -> {
@@ -293,29 +291,43 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
         holder.mReminder.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && Utils.isPermissionDenied(Manifest.permission.POST_NOTIFICATIONS, v.getContext())) {
-                new PermissionDialog(v.getContext()).show();
+                new PermissionDialog(v.getContext());
                 return;
             }
             sNotzReminders.launchReminderMenu(holder.mReminder, data.get(position).getNote(),
                     data.get(position).getNoteID(), v.getContext());
         });
         holder.mDelete.setOnClickListener(v -> {
-            String[] sNotzContents = this.data.get(position).getNote().split("\\s+");
-            new MaterialAlertDialogBuilder(v.getContext())
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle(R.string.warning)
-                    .setMessage(v.getContext().getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
-                            this.data.get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
-                    .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                    })
-                    .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(this.data.get(position).getNoteID(),
-                            holder.mProgress, v.getContext()).execute()).show();
+            if (this.data.get(position).isChecklist()) {
+                new DeleteChecklistDialog(new File(this.data.get(position).getNote()), v.getContext()) {
+                    @Override
+                    public void negativeButtonLister() {
+                    }
+                };
+            } else {
+                new DeleteNoteDialog(this.data.get(position).getNote(), v.getContext()) {
+
+                    @Override
+                    public void negativeButtonLister() {
+                    }
+
+                    @Override
+                    public void positiveButtonLister() {
+                        sNotzUtils.deleteNote(data.get(position).getNoteID(),
+                                holder.mProgress, v.getContext()).execute();
+                    }
+                };
+            }
         });
         holder.mDate.setText(DateFormat.getDateTimeInstance().format(this.data.get(position).getTimeStamp()));
         holder.mDate.setTextColor(data.get(position).getColorText());
         holder.mDate.setVisibility(position == mPosition ? View.GONE : View.VISIBLE);
+        holder.mLock.setImageDrawable(sCommonUtils.getDrawable(data.get(position).isChecklist() ? R.drawable.ic_checklist : R.drawable.ic_lock_opened, holder.mLock.getContext()));
         holder.mLock.setColorFilter(data.get(position).getColorText());
-        holder.mLock.setVisibility(position != mPosition && this.data.get(position).isHidden() ? View.VISIBLE : View.GONE);
+        holder.mLock.setVisibility(position != mPosition && (this.data.get(position).isChecklist() || this.data.get(position).isHidden()) ? View.VISIBLE : View.GONE);
+        holder.mDuplicate.setVisibility(this.data.get(position).isChecklist() ? View.GONE : View.VISIBLE);
+        holder.mHidden.setVisibility(this.data.get(position).isChecklist() ? View.GONE : View.VISIBLE);
+        holder.mReminder.setVisibility(this.data.get(position).isChecklist() ? View.GONE : View.VISIBLE);
         // TODO: This should replaced.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.mProgress.setIndeterminateTintList(ColorStateList.valueOf(data.get(position).getColorText()));

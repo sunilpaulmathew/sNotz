@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     android:id="@+id/rv_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    app:cardUseCompatPadding="true"
     android:longClickable="true"
-    app:cardCornerRadius="5dp"
-    android:padding="10dp" >
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp"
+    android:padding="5dp" >
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -25,7 +24,6 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/content_hint"
                             android:layout_marginEnd="50dp"
-                            android:singleLine="true"
                             android:focusable="false"
                             android:padding="10dp" />
 
@@ -50,7 +48,6 @@
                             android:id="@+id/lock"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_lock_opened"
                             android:layout_gravity="center"
                             android:background="@null"
                             android:visibility="gone"

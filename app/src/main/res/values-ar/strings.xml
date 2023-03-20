@@ -80,23 +80,18 @@
     <string name="save_text">"حفظ كنص"</string>
     <string name="save_text_message">"يتم تصدير الملاحظة المحددة كـ%s"</string>
     <string name="az_order">"ترتيب A-Z"</string>
-    <string name="created_order">"تاريخ الإنشاء"</string>
     <string name="discard">"تجاهل"</string>
     <string name="discard_note">"تجاهل التغييرات التي تم إجراؤها على هذه الصفحة؟"</string>
     <string name="file_path_error">"فشل الحصول على مسار الملف من الملفات الخارجية"</string>
     <string name="note_editor">"محرر الملاحظات"</string>
     <string name="hide">"اخفاء"</string>
-    <string name="permission_denied_message">"تم رفض الإذن للوصول إلى تخزين الجهاز"</string>
     <string name="sort_by">"صنف حسب"</string>
-    <string name="backup">"نسخ احتياطي"</string>
     <string name="change_name">"تغيير الأسم"</string>
     <string name="check_list_backup_question">"النسخ الاحتياطي '%s' كـ؟"</string>
     <string name="check_list_create_question">"إنشاء قائمة تحقق جديدة باسم؟"</string>
-    <string name="check_list_main_title">"قوائم التحقق الخاصة بي"</string>
     <string name="check_list_name_empty_message">"يجب ألا يكون اسم القائمة فارغًا. إلغاء"</string>
     <string name="check_list_import_question">"استيراد القائمة المحددة كـ؟"</string>
     <string name="check_list_exist_warning">"توجد بالفعل قائمة بالاسم نفسه. هل تريد استبدالها؟"</string>
-    <string name="create">"أنشاء"</string>
     <string name="go_ahead">"إنطلق"</string>
     <string name="image_add">"أضافة صورة"</string>
     <string name="image_add_warning">"يرجى الملاحظة: إضافة ملاحظات تحتوي على صور قد تؤثر على أداء sNotz."</string>
@@ -105,7 +100,6 @@
     <string name="image_include_summary">"السماح بتضمين صورة مع الملاحظات"</string>
     <string name="image_remove">"إزالة الصورة"</string>
     <string name="image_replace">"استبدال الصورة"</string>
-    <string name="import_item">"استيراد"</string>
     <string name="pin_enter">"أدخل كلمة المرور PIN"</string>
     <string name="pin_reenter">"أعد ادخال PIN"</string>
     <string name="pin_mismatch_message">"كلمة المرور غير متطابق. حاول مرة اخرى"</string>
@@ -115,7 +109,6 @@
     <string name="reminder_message">"سوف يذكرك sNotz بهذه الملاحظة في %s"</string>
     <string name="reminder_set">"تعيين تذكير"</string>
     <string name="replace">"تبديل"</string>
-    <string name="try_again">"حاول مجدادا"</string>
     <string name="warning">"تحذير"</string>
     <string name="customize_note">"تخصيصات الملاحظة"</string>
     <string name="font_size">"حجم النص"</string>
@@ -136,8 +129,5 @@
     <string name="auto_save">"حفظ الملاحظات تلقائياً"</string>
     <string name="auto_save_summary">"حفظ الملاحظات تلقائياً عند الخروج من الصفحة"</string>
     <string name="backup_notes_warning">"يوجد بالفعل ملف نسخ احتياطي سابق بنفس الاسم. هل تريد استبدالها؟"</string>
-    <string name="select_checklist">"حدد قائمة"</string>
-    <string name="select_note">"حدد ملاحظة"</string>
     <string name="widget_loading_failed">"فشل تحميل النافذة المصغرة"</string>
-    <string name="add_new">"اضف جديد"</string>
 </resources>

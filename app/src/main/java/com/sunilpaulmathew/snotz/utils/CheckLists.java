@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -15,7 +14,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.activities.CheckListsActivity;
 import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
 
 import java.io.File;
@@ -23,8 +21,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -76,26 +72,16 @@ public class CheckLists implements Serializable {
         return mSavedData;
     }
 
-    public static List<File> getCheckLists(Context context) {
-        List<File> mCheckLists = new ArrayList<>();
-        for (File checklists : Objects.requireNonNull(context.getExternalFilesDir("checklists").listFiles())) {
-            if (CheckLists.isValidCheckList(sFileUtils.read(checklists))) {
-                mCheckLists.add(checklists);
-            }
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Collections.sort(mCheckLists, Comparator.comparingLong(File::lastModified));
-        }
-        Collections.reverse(mCheckLists);
-        return mCheckLists;
-    }
-
     public static String getCheckListName() {
         return mCheckListName;
     }
 
     static String getTitle(JsonObject object) {
         return object.get("title").getAsString();
+    }
+
+    public static String getChecklistData(String path) {
+        return  new File(path).getName() + "\n\n" + sNotzWidgets.getWidgetText(path);
     }
 
     public static void backupCheckList(Activity activity) {
@@ -153,8 +139,6 @@ public class CheckLists implements Serializable {
                                 .setNegativeButton(activity.getString(R.string.change_name), (dialogInterface, i) -> importCheckList(jsonString, scan, activity))
                                 .setPositiveButton(activity.getString(R.string.replace), (dialogInterface, i) -> {
                                     sFileUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), s.toString().trim()));
-                                    Intent checkListIntent = new Intent(activity, CheckListsActivity.class);
-                                    activity.startActivity(checkListIntent);
                                     if (scan) {
                                         activity.finish();
                                     }
@@ -162,8 +146,6 @@ public class CheckLists implements Serializable {
                         return;
                     }
                     sFileUtils.create(jsonString, new File(activity.getExternalFilesDir("checklists"), s.toString().trim()));
-                    Intent checkListIntent = new Intent(activity, CheckListsActivity.class);
-                    activity.startActivity(checkListIntent);
                     if (scan) {
                         activity.finish();
                     }

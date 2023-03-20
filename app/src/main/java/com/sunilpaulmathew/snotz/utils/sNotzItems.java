@@ -22,6 +22,10 @@ public class sNotzItems implements Serializable {
         this.mID = id;
     }
 
+    public boolean isChecklist() {
+        return mID == -1;
+    }
+
     public boolean isHidden() {
         return mHidden;
     }

@@ -388,7 +388,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             } else {
                 new MaterialAlertDialogBuilder(this)
                         .setIcon(R.mipmap.ic_launcher)
-                        .setTitle(R.string.app_name)
+                        .setTitle(R.string.warning)
                         .setMessage(getString(R.string.discard_note))
                         .setCancelable(false)
                         .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {

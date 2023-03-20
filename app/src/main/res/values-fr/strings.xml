@@ -80,25 +80,19 @@
     <string name="save_text">"Enregistrer en tant que texte"</string>
     <string name="save_text_message">"La note sélectionnée est exportée en tant que %s"</string>
     <string name="az_order">"Ordre de A à Z"</string>
-    <string name="created_order">"date créée"</string>
     <string name="discard">"Ne pas sauvegarder"</string>
     <string name="discard_note">"Ne pas sauvegarder les modifications apportées sur cette page ?"</string>
     <string name="file_path_error">"Impossible d'obtenir le chemin du fichier à partir du gestionnaire de fichiers externe"</string>
     <string name="note_editor">"Éditeur de notes"</string>
     <string name="choose_color_message">"Veuillez noter : le nouveau '%s' ne sera appliqué qu'aux nouvelles notes."</string>
     <string name="hide">"Masquer"</string>
-    <string name="permission_denied_message">"Autorisation refusée pour accéder au stockage de l'appareil"</string>
     <string name="sort_by">"Trier par"</string>
-    <string name="backup">"Sauvegarde"</string>
     <string name="change_name">"Changer de nom"</string>
-    <string name="check_lists">"Listes"</string>
     <string name="check_list_backup_question">"Sauvegarder '%s' en tant que ?"</string>
     <string name="check_list_create_question">"Créer une nouvelle liste en tant que ?"</string>
-    <string name="check_list_main_title">"Mes listes"</string>
     <string name="check_list_name_empty_message">"Le nom de la liste ne doit pas être vide. Abandon"</string>
     <string name="check_list_import_question">"Importer la liste sélectionnée en tant que ?"</string>
     <string name="check_list_exist_warning">"Une liste avec le même nom existe déjà. Voulez-vous le remplacer ?"</string>
-    <string name="create">"Créer"</string>
     <string name="go_ahead">"Vas-y"</string>
     <string name="image_add">"Ajouter une image"</string>
     <string name="image_add_warning">"Remarque : L'ajout de notes contenant des images peut affecter les performances de sNotz."</string>
@@ -107,7 +101,6 @@
     <string name="image_include_summary">"Autoriser l'inclusion d'une image dans les notes"</string>
     <string name="image_remove">"Supprimer l'image"</string>
     <string name="image_replace">"Remplacer l'image"</string>
-    <string name="import_item">"Importer"</string>
     <string name="pin_enter">"Entrer le code PIN"</string>
     <string name="pin_reenter">"Entrer de nouveau le code PIN"</string>
     <string name="pin_mismatch_message">"Le code PIN ne correspond pas. Veuillez réessayer"</string>
@@ -117,7 +110,6 @@
     <string name="reminder_message">"sNotz vous rappellera cette note à %s"</string>
     <string name="reminder_set">"Définir un rappel"</string>
     <string name="replace">"Remplacer"</string>
-    <string name="try_again">"Réessayer"</string>
     <string name="warning">"Avertissement"</string>
     <string name="customize_note">"Personnalisations des notes"</string>
     <string name="font_size">"Taille de police"</string>
@@ -138,10 +130,7 @@
     <string name="auto_save">"Enregistrer automatiquement les notes"</string>
     <string name="auto_save_summary">"Enregistrer automatiquement les notes en quittant la page"</string>
     <string name="backup_notes_warning">"Un autre fichier de sauvegarde possédant le même nom existe déjà.  Voulez-vous le remplacer ?"</string>
-    <string name="select_checklist">"Sélectionner la liste"</string>
-    <string name="select_note">"Sélectionner la note"</string>
     <string name="widget_loading_failed">"Échec du chargement du widget"</string>
-    <string name="add_new">"Ajouter un nouveau"</string>
     <string name="notes_in_row">"Notes à la suite"</string>
     <string name="notes_in_row_default">"Défaut"</string>
     <string name="notes_in_row_summary">"Note %s"</string>
@@ -151,6 +140,5 @@
     <string name="qr_code_generate">"Générer un QR code"</string>
     <string name="qr_code_generate_error_message">"Échec de la génération du code QR"</string>
     <string name="qr_code_read">"Lire depuis l'image"</string>
-    <string name="qr_code_save_hint">"Enregistrer l'image QR comme ?"</string>
     <string name="qr_code_scan">"Scanner le QR Code"</string>
 </resources>

@@ -17,9 +17,9 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListAdapter;
 import com.sunilpaulmathew.snotz.utils.CheckListItems;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
-import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
+import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
@@ -116,7 +115,7 @@ public class CheckListActivity extends AppCompatActivity {
     private void exit() {
         new MaterialAlertDialogBuilder(this)
                 .setIcon(R.mipmap.ic_launcher)
-                .setTitle(R.string.app_name)
+                .setTitle(R.string.warning)
                 .setMessage(getString(R.string.discard_note))
                 .setCancelable(false)
                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
@@ -126,15 +125,15 @@ public class CheckListActivity extends AppCompatActivity {
 
     private void saveCheckList() {
         if (CheckLists.getChecklists(mData).size() == 0) return;
-        String mCheckListName = CheckLists.getCheckListName();
-        if (mCheckListName.isEmpty()) {
-            sCommonUtils.snackBar(findViewById(android.R.id.content), getString(R.string.check_list_name_empty_message)).show();
-            return;
-        }
         JsonObject mJSONObject = new JsonObject();
         mJSONObject.add("checklist", CheckLists.getChecklists(mData));
-        sFileUtils.create(mJSONObject.toString(), new File(getExternalFilesDir("checklists"), mCheckListName));
-        Common.isReloading(true);
+        sFileUtils.create(mJSONObject.toString(), new File(getExternalFilesDir("checklists"), CheckLists.getCheckListName()));
+
+        if (sNotzWidgets.isWidget()) {
+            sNotzWidgets.isWidget(false);
+        }
+
+        Utils.reloadUI(this);
         finish();
     }
 

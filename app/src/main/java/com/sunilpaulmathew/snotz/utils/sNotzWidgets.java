@@ -1,8 +1,12 @@
 package com.sunilpaulmathew.snotz.utils;
 
+import android.app.Activity;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
+import android.content.Intent;
 
 import com.google.gson.JsonObject;
+import com.sunilpaulmathew.snotz.providers.WidgetProvider;
 
 import java.io.File;
 import java.util.Objects;
@@ -15,7 +19,12 @@ import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
  */
 public class sNotzWidgets {
 
+    private static boolean mWidget = false;
     private static final String mNOTE_ID = "noteId", mCHECKLIST_PATH = "checklistPath";
+
+    public static boolean isWidget() {
+        return mWidget;
+    }
 
     public static int getInvalidNoteId() {
         return Integer.MIN_VALUE;
@@ -51,6 +60,19 @@ public class sNotzWidgets {
             sb.append(CheckLists.isDone(object) ? "\u2611  " : "\u2610  ").append(CheckLists.getTitle(object)).append("\n");
         }
         return sb.toString();
+    }
+
+    public static void create(int mAppWidgetId, Activity activity) {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(activity);
+        WidgetProvider.update(appWidgetManager, mAppWidgetId, activity);
+        Intent resultValue = new Intent();
+        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+        activity.setResult(Activity.RESULT_OK, resultValue);
+        activity.finish();
+    }
+
+    public static void isWidget(boolean b) {
+        mWidget = b;
     }
 
 }

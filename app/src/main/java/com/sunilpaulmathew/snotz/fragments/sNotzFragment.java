@@ -35,12 +35,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.AboutActivity;
 import com.sunilpaulmathew.snotz.activities.CheckListActivity;
-import com.sunilpaulmathew.snotz.activities.CheckListsActivity;
 import com.sunilpaulmathew.snotz.activities.CreateNoteActivity;
 import com.sunilpaulmathew.snotz.activities.QRCodeScannerActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
@@ -49,6 +47,9 @@ import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.dialogs.CreateChecklistDialog;
+import com.sunilpaulmathew.snotz.utils.dialogs.DeleteChecklistDialog;
+import com.sunilpaulmathew.snotz.utils.dialogs.DeleteNoteDialog;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzItems;
@@ -59,6 +60,7 @@ import java.io.File;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
+import in.sunilpaulmathew.sCommon.Dialog.sSingleItemDialog;
 import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
@@ -66,9 +68,9 @@ import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
  */
 public class sNotzFragment extends Fragment {
 
-
     private AppCompatEditText mSearchWord;
     private AppCompatImageButton mMenu, mSearchButton, mSortButton;
+    private ContentLoadingProgressBar mProgressBar;
     private MaterialCardView mAddNoteCard;
     private MaterialTextView mAppTitle;
     private boolean mExit;
@@ -99,7 +101,7 @@ public class sNotzFragment extends Fragment {
         AppCompatImageButton mAddIcon = mRootView.findViewById(R.id.add_note_icon);
         mAddNoteCard = mRootView.findViewById(R.id.add_note_card);
         mSearchWord = mRootView.findViewById(R.id.search_word);
-        ContentLoadingProgressBar mProgressBar = mRootView.findViewById(R.id.progress);
+        mProgressBar = mRootView.findViewById(R.id.progress);
 
         mAppTitle.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
         mMenu.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
@@ -137,16 +139,27 @@ public class sNotzFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-                String[] sNotzContents = sNotzData.getData(requireActivity()).get(position).getNote().split("\\s+");
-                new MaterialAlertDialogBuilder(requireActivity())
-                        .setIcon(R.mipmap.ic_launcher)
-                        .setTitle(R.string.warning)
-                        .setMessage(getString(R.string.delete_sure_question, sNotzContents.length <= 2 ?
-                                sNotzData.getData(requireActivity()).get(position).getNote() : sNotzContents[0] + " " + sNotzContents[1] + " " + sNotzContents[2] + "..."))
-                        .setCancelable(false)
-                        .setNegativeButton(R.string.cancel, (dialog, which) -> loadUI(mProgressBar, requireActivity()).execute())
-                        .setPositiveButton(R.string.delete, (dialog, which) -> sNotzUtils.deleteNote(sNotzData.getData(requireActivity()).get(position).getNoteID(),
-                                mProgressBar, requireActivity()).execute()).show();
+                if (sNotzData.getData(requireActivity()).get(position).isChecklist()) {
+                    new DeleteChecklistDialog(new File(sNotzData.getData(requireActivity()).get(position).getNote()), requireActivity()) {
+                        @Override
+                        public void negativeButtonLister() {
+                            loadUI(mProgressBar, requireActivity()).execute();
+                        }
+                    };
+                } else {
+                    new DeleteNoteDialog(sNotzData.getData(requireActivity()).get(position).getNote(), requireActivity()) {
+                        @Override
+                        public void negativeButtonLister() {
+                            loadUI(mProgressBar, requireActivity()).execute();
+                        }
+
+                        @Override
+                        public void positiveButtonLister() {
+                            sNotzUtils.deleteNote(sNotzData.getData(requireActivity()).get(position).getNoteID(),
+                                    mProgressBar, requireActivity()).execute();
+                        }
+                    };
+                }
             }
 
             @Override
@@ -190,16 +203,30 @@ public class sNotzFragment extends Fragment {
             if (Common.isWorking()) {
                 return;
             }
-            Common.setExternalNote(null);
-            Common.setNote(null);
-            Common.setImageString(null);
-            Common.isHiddenNote(false);
-            Common.setID(-1);
-            Common.setBackgroundColor(Integer.MIN_VALUE);
-            Common.setTextColor(Integer.MIN_VALUE);
+            new sSingleItemDialog(-1, null,
+                    new String[] {
+                            getString(R.string.note),
+                            getString(R.string.check_list)
+                    }, requireActivity()) {
 
-            Intent createNote = new Intent(requireActivity(), CreateNoteActivity.class);
-            startActivity(createNote);
+                @Override
+                public void onItemSelected(int itemPosition) {
+                    if (itemPosition == 0) {
+                        Common.setExternalNote(null);
+                        Common.setNote(null);
+                        Common.setImageString(null);
+                        Common.isHiddenNote(false);
+                        Common.setID(-1);
+                        Common.setBackgroundColor(Integer.MIN_VALUE);
+                        Common.setTextColor(Integer.MIN_VALUE);
+
+                        Intent createNote = new Intent(requireActivity(), CreateNoteActivity.class);
+                        startActivity(createNote);
+                    } else {
+                        new CreateChecklistDialog(requireActivity());
+                    }
+                }
+            }.show();
         });
 
         mSearchButton.setOnClickListener(v -> {
@@ -284,11 +311,10 @@ public class sNotzFragment extends Fragment {
             PopupMenu popupMenu = new PopupMenu(requireActivity(), mMenu);
             Menu menu = popupMenu.getMenu();
             menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.settings)).setIcon(R.drawable.ic_settings);
-            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.check_lists)).setIcon(R.drawable.ic_checklist);
             SubMenu qrCode = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, getString(R.string.qr_code)).setIcon(R.drawable.ic_qr_code);
-            qrCode.add(Menu.NONE, 3, Menu.NONE, getString(R.string.qr_code_scan));
-            qrCode.add(Menu.NONE, 4, Menu.NONE, getString(R.string.qr_code_read));
-            menu.add(Menu.NONE, 5, Menu.NONE, getString(R.string.about)).setIcon(R.drawable.ic_info);
+            qrCode.add(Menu.NONE, 2, Menu.NONE, getString(R.string.qr_code_scan));
+            qrCode.add(Menu.NONE, 3, Menu.NONE, getString(R.string.qr_code_read));
+            menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.about)).setIcon(R.drawable.ic_info);
             popupMenu.setForceShowIcon(true);
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
@@ -299,10 +325,6 @@ public class sNotzFragment extends Fragment {
                         startActivity(settings);
                         break;
                     case 2:
-                        Intent checkLists = new Intent(requireActivity(), CheckListsActivity.class);
-                        startActivity(checkLists);
-                        break;
-                    case 3:
                         if (Utils.isPermissionDenied(Manifest.permission.CAMERA, requireActivity())) {
                             Utils.requestPermission(new String[] {
                                     Manifest.permission.CAMERA
@@ -312,7 +334,7 @@ public class sNotzFragment extends Fragment {
                             startActivity(scanner);
                         }
                         break;
-                    case 4:
+                    case 3:
                         if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, requireActivity())) {
                             Utils.requestPermission(new String[] {
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -324,7 +346,7 @@ public class sNotzFragment extends Fragment {
                             } catch (ActivityNotFoundException ignored) {}
                         }
                         break;
-                    case 5:
+                    case 4:
                         Intent aboutsNotz = new Intent(requireActivity(), AboutActivity.class);
                         startActivity(aboutsNotz);
                         break;
@@ -391,7 +413,8 @@ public class sNotzFragment extends Fragment {
                     mExternalNote = null;
                     Intent createNote = new Intent(activity, CreateNoteActivity.class);
                     activity.startActivity(createNote);
-                } else if (mExtraCheckListPath != null && sFileUtils.exist(new File(mExtraCheckListPath))) {
+                } else if (mExtraCheckListPath != null && sFileUtils.exist(new File(mExtraCheckListPath))
+                        && sNotzWidgets.isWidget()) {
                     CheckLists.setCheckListName(new File(mExtraCheckListPath).getName());
                     // It should be set null right after finishing the job as we are calling this method for other tasks as well
                     mExtraCheckListPath = null;

@@ -80,25 +80,19 @@
     <string name="save_text">"Metin Olarak Kaydet"</string>
     <string name="save_text_message">"Seçilen not %s olarak dışa aktarılır"</string>
     <string name="az_order">"A'dan Z'ye Sipariş"</string>
-    <string name="created_order">"tarih oluşturuldu"</string>
     <string name="discard">"atmak"</string>
     <string name="discard_note">"Bu sayfada yapılan değişiklikler silinsin mi?"</string>
     <string name="file_path_error">"Harici Dosya Yöneticisinden dosya yolu alınamadı"</string>
     <string name="note_editor">"Not Düzenleyici"</string>
     <string name="choose_color_message">"Lütfen Dikkat: Yeni '%s' sadece yeni notlara uygulanacaktır."</string>
     <string name="hide">"Saklamak"</string>
-    <string name="permission_denied_message">"Cihaz deposuna erişim izni reddedildi"</string>
     <string name="sort_by">"Göre sırala"</string>
-    <string name="backup">"Destek olmak"</string>
     <string name="change_name">"İsmini değiştir"</string>
-    <string name="check_lists">"kontrol listeleri"</string>
     <string name="check_list_backup_question">"'%s' olarak yedeklensin mi?"</string>
     <string name="check_list_create_question">"olarak yeni kontrol listesi oluştur?"</string>
-    <string name="check_list_main_title">"Kontrol Listelerim"</string>
     <string name="check_list_name_empty_message">"Kontrol Listesi adı boş bırakılmamalıdır. iptal"</string>
     <string name="check_list_import_question">"Seçilen kontrol listesi olarak içe aktarılsın mı?"</string>
     <string name="check_list_exist_warning">"Aynı ada sahip bir kontrol listesi zaten var. Değiştirmek istiyor musun?"</string>
-    <string name="create">"Oluşturmak"</string>
     <string name="go_ahead">"Devam etmek"</string>
     <string name="image_add">"Resim eklemek"</string>
     <string name="image_add_warning">"Lütfen Dikkat: Resim içeren notlar eklemek sNotz'un performansını etkileyebilir."</string>
@@ -107,7 +101,6 @@
     <string name="image_include_summary">"Not içeren bir resmin eklenmesine izin ver"</string>
     <string name="image_remove">"Resmi Kaldır"</string>
     <string name="image_replace">"Resmi Değiştir"</string>
-    <string name="import_item">"İçe aktarmak"</string>
     <string name="pin_enter">"PIN girin"</string>
     <string name="pin_reenter">"Kiracı PIN'i"</string>
     <string name="pin_mismatch_message">"PIN eşleşmiyor. Lütfen tekrar deneyin"</string>
@@ -117,7 +110,6 @@
     <string name="reminder_message">"sNotz size bu notu %s saatinde hatırlatacak"</string>
     <string name="reminder_set">"Hatırlatıcıyı Kur"</string>
     <string name="replace">"Yer değiştirmek"</string>
-    <string name="try_again">"Tekrar deneyin"</string>
     <string name="warning">"Uyarı"</string>
     <string name="customize_note">"Not Özelleştirmeleri"</string>
     <string name="font_size">"Yazı Boyutu"</string>
@@ -138,8 +130,5 @@
     <string name="auto_save">"Notları Otomatik Kaydet"</string>
     <string name="auto_save_summary">"Çıkan sayfada notları otomatik olarak kaydet"</string>
     <string name="backup_notes_warning">"Aynı ada sahip önceki bir yedekleme dosyası zaten var. Değiştirmek istiyor musun?"</string>
-    <string name="select_checklist">"Kontrol Listesini Seçin"</string>
-    <string name="select_note">"Not Seç"</string>
     <string name="widget_loading_failed">"Widget yüklenemedi"</string>
-    <string name="add_new">"Yeni ekle"</string>
 </resources>

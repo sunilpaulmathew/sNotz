@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">sNotz</string>
 
     <string name="about">About</string>
-    <string name="add_new">Add New</string>
     <string name="add_text_hint">Add text here…</string>
     <string name="app_name_summary" translatable="false">An open-source, privacy-friendly, and completely offline application to manage notes</string>
     <string name="activated">activated</string>
@@ -16,7 +15,6 @@
     <string name="biometric_lock">Biometric Lock</string>
     <string name="biometric_lock_status">Biometric authentication is %s</string>
     <string name="biometric_lock_summary">Use biometric authentication to secure sNotz</string>
-    <string name="backup">Backup</string>
     <string name="backup_checklist_message">Selected checklist is backed up as \'%s\'</string>
     <string name="backup_notes">Backup Notes</string>
     <string name="backup_notes_hint">Backup Notes As?</string>
@@ -26,10 +24,9 @@
     <string name="backup_snotz">As sNotz Backup</string>
     <string name="bottom_fab_click_message">Click bottom \'Plus\' icon to create a note</string>
     <string name="change_name">Change Name</string>
-    <string name="check_lists">Checklists</string>
+    <string name="check_list">Checklist</string>
     <string name="check_list_backup_question">Backup \'%s\' as?</string>
     <string name="check_list_create_question">Create new checklist as?</string>
-    <string name="check_list_main_title">My Checklists</string>
     <string name="check_list_name_empty_message">Checklist name shouldn\'t be empty. Aborting</string>
     <string name="check_list_import_question">Import selected checklist as?</string>
     <string name="check_list_exist_warning">A checklist with same name already exists. Do you want to replace it?</string>
@@ -45,8 +42,6 @@
     <string name="color_accent_summary">Choose default Accent Color of sNotz</string>
     <string name="color_select_dialog">Choose default %s of the notes</string>
     <string name="content_hint">Add content here…</string>
-    <string name="create">Create</string>
-    <string name="created_order">Date Created</string>
     <string name="customize_colors">Customize Colors</string>
     <string name="customize_note">Note Customizations</string>
     <string name="deactivated">deactivated</string>
@@ -76,13 +71,13 @@
     <string name="image_include_summary">Allow including an image with notes</string>
     <string name="image_remove">Remove Image</string>
     <string name="image_replace">Replace Image</string>
-    <string name="import_item">Import</string>
     <string name="invite_friends">Invite Friends</string>
     <string name="invite_friends_Summary">Invite your friends to try sNotz</string>
     <string name="long_click_note_message">Long click a note for advanced options, such as \'share\', \'hide\' &amp; \'delete\'</string>
     <string name="misc">Miscellaneous</string>
     <string name="modify">Modify</string>
     <string name="more_apps">More Apps</string>
+    <string name="note">Note</string>
     <string name="note_color_background">Background Color</string>
     <string name="note_color_text">Text Color</string>
     <string name="note_color_random">Random Colors</string>
@@ -94,7 +89,6 @@
     <string name="notes_in_row_default">Default</string>
     <string name="notes_in_row_summary">%s note</string>
     <string name="ok">OK</string>
-    <string name="permission_denied_message">Permission denied for accessing device storage</string>
     <string name="permission_notification_message">Inorder to work this feature on devices running android TIRAMISU or newer versions, it is necessary to have permission to post notifications granted by the user. If you like to have this feature working on sNotz, please go ahead with requesting (and granting) the permission by clicking the button provided below.</string>
     <string name="permission_request">Request Permission</string>
     <string name="pin_enter">Enter PIN</string>
@@ -109,7 +103,6 @@
     <string name="qr_code_generate">Generate QR Code</string>
     <string name="qr_code_generate_error_message">Failed to generate QR Code</string>
     <string name="qr_code_read">Read from Image</string>
-    <string name="qr_code_save_hint">Save QR Image as?</string>
     <string name="qr_code_scan">Scan QR Code</string>
     <string name="rate_us">Rate Us</string>
     <string name="rate_us_Summary">Rate or/and Review sNotz in PlayStore</string>
@@ -132,8 +125,6 @@
     <string name="save_text_message">The selected note is exported as %s</string>
     <string name="search_hint">Search…</string>
     <string name="security">Security</string>
-    <string name="select_checklist">Select Checklist</string>
-    <string name="select_note">Select Note</string>
     <string name="settings">Settings</string>
     <string name="share">Share</string>
     <string name="share_with">Share With</string>
@@ -164,13 +155,13 @@
     <string name="text_style_bold_italics">Bold &amp; Italics</string>
     <string name="text_style_italics">Italics</string>
     <string name="text_style_regular">Regular</string>
-    <string name="try_again">Try Again</string>
     <string name="warning">Warning</string>
     <string name="welcome_note">Welcome Note</string>
     <string name="welcome_note_screen_one">Welcome to sNotz, an open-source, privacy- friendly, and completely offline application to manage your notes.</string>
     <string name="welcome_note_screen_two">sNotz will let you create, customize, and manage simple notes &amp; checklists.</string>
     <string name="welcome_note_screen_three">sNotz supports creating notes in your favourite color and font size/style. Please be sure to checkout the \"Settings\" page for more info.</string>
     <string name="welcome_note_summary">Show welcome note again</string>
+    <string name="widget_choose_message">Choose a Note or Checklist</string>
     <string name="widget_loading_failed">Widget loading failed</string>
     <string name="yes">Yes</string>
 </resources>

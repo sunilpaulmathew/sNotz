@@ -16,11 +16,9 @@ import com.sunilpaulmathew.snotz.utils.Utils;
  */
 public class PermissionDialog {
 
-    private final MaterialAlertDialogBuilder mDialogBuilder;
-
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     public PermissionDialog(Context context) {
-        mDialogBuilder = new MaterialAlertDialogBuilder(context)
+        new MaterialAlertDialogBuilder(context)
                 .setIcon(R.mipmap.ic_launcher)
                 .setTitle(R.string.warning)
                 .setMessage(context.getString(R.string.permission_notification_message))
@@ -29,11 +27,7 @@ public class PermissionDialog {
                 })
                 .setPositiveButton(R.string.permission_request, (dialogInterface, i) -> Utils.requestPermission(new String[] {
                         Manifest.permission.POST_NOTIFICATIONS
-                }, (Activity) context));
-    }
-
-    public void show() {
-        mDialogBuilder.show();
+                }, (Activity) context)).show();
     }
 
 }
