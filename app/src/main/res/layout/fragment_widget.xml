@@ -141,7 +141,6 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_weight="0.8"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_white"
                     android:orientation="vertical"
                     android:layout_width="0dp" >
 
@@ -162,14 +161,13 @@
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:layout_gravity="end|center"
-                            android:layout_margin="1dp"
+                            android:layout_margin="2dp"
                             app:cardCornerRadius="5dp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_weight="0.8"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_white"
                     android:orientation="vertical"
                     android:layout_width="0dp" >
 
@@ -190,7 +188,7 @@
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:layout_gravity="end|center"
-                            android:layout_margin="1dp"
+                            android:layout_margin="2dp"
                             app:cardCornerRadius="5dp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
