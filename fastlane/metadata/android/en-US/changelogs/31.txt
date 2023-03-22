@@ -1,0 +1,5 @@
+* sNotz now lists notes and checklists together.
+* App now request notification permission on Android 13 & above..
+* Largely improved widget selection page.
+* App UI is now much more modern.
+* Miscellaneous changes.

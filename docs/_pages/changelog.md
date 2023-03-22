@@ -6,6 +6,13 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.31</h3>
+- sNotz now lists notes and checklists together.
+- App now request notification permission on Android 13 & above..
+- Largely improved selection page.
+- App UI is now much more modern.
+- Miscellaneous changes.
+
 <h3 style="color: green">v0.30</h3>
 - Makes app accent color configurable.
 - Distinguished hidden notes with a lock icon.

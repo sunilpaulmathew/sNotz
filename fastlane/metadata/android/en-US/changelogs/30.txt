@@ -1,7 +1,0 @@
-* Makes app accent color configurable.
-* Distinguished hidden notes with a lock icon.
-* sNotz now uses Material3 day-night theme.
-* Replaced depreciated onActivityResult with ActivityResultLauncher.
-* Improved checklists.
-* Updated Czech translations.
-* Miscellaneous changes.
