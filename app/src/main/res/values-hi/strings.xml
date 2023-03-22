@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"आपके नोट्स का बैकअप हो गया है: %s"</string>
     <string name="backup_notes_summary">"नोट्स 'sdcard' में बैकअप करें"</string>
     <string name="bottom_fab_click_message">"नोट बनाने के लिए नीचे 'प्लस' आइकन पर क्लिक करें"</string>
-    <string name="change_logs">"परिवर्तन-लॉग्स"</string>
     <string name="clear_notes">"नोट्स क्लियर करें"</string>
     <string name="clear_notes_message">"कृप्या ध्यान दें। सभी नोट्स डिलीट हो जाएंगे।"</string>
     <string name="clear_notes_summary">"sNotz से सभी नोट डिलीट करें"</string>

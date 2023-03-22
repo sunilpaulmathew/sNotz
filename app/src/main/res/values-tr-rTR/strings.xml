@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Notlarınız '%s' olarak yedeklendi"</string>
     <string name="backup_notes_summary">"Notlarınızı 'sdcard'a yedekleyin"</string>
     <string name="bottom_fab_click_message">"Bir not oluşturmak için alttaki 'Artı' simgesine tıklayın"</string>
-    <string name="change_logs">"Değişiklik günlükleri"</string>
     <string name="clear_notes">"Notları Temizle"</string>
     <string name="clear_notes_message">"Lütfen aklınızda bulundurun. Tüm notlar silinecek"</string>
     <string name="clear_notes_summary">"Tüm notları sNotz'dan sil"</string>

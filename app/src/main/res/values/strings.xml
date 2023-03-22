@@ -32,7 +32,6 @@
     <string name="check_list_exist_warning">A checklist with same name already exists. Do you want to replace it?</string>
     <string name="check_list_widget_color">Checklist Widget Color</string>
     <string name="check_list_widget_color_summary">Choose default color for Checklist Widgets</string>
-    <string name="change_logs">Change-logs</string>
     <string name="clear_notes">Clear Notes</string>
     <string name="clear_notes_message">Please note. All the notes will be deleted</string>
     <string name="clear_notes_summary">Delete all the notes from sNotz</string>

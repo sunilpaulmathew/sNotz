@@ -14,7 +14,6 @@
     <string name="backup_notes_message">Catatan Anda dicadangkan sebagai \'%s\'!</string>
     <string name="backup_notes_summary">Cadangkan catatan Anda ke \'sdcard\'</string>
     <string name="bottom_fab_click_message">Klik bawah \'Plus\' ikon untuk membuat catatan!</string>
-    <string name="change_logs">Log-Perubahan</string>
     <string name="clear_notes">Hapus Catatan</string>
     <string name="clear_notes_message">Tolong dicatat. Semua catatan akan dihapus!</string>
     <string name="clear_notes_summary">Hapus semua catatan dari sNotz</string>

@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Twoje notatki są zapisane w '%s'"</string>
     <string name="backup_notes_summary">"Zapisz kopię zapasową notatek do 'sdcard'"</string>
     <string name="bottom_fab_click_message">"Wciśnij ikonę 'Plus' na dole, aby stworzyć notatkę"</string>
-    <string name="change_logs">"Lista zmian"</string>
     <string name="clear_notes">"Wyczyść notatki"</string>
     <string name="clear_notes_message">"Uważaj. Wszystkie notatki zostaną usunięte"</string>
     <string name="clear_notes_summary">"Usuń wszystkie notatki z sNotz"</string>

@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Jegyzeteid biztonsági mentése elkészült: %s"</string>
     <string name="backup_notes_summary">"Biztonsági mentés készítése az 'sdcard'-ra"</string>
     <string name="bottom_fab_click_message">"Új Jegyzet készítéséhez kattints az alul található 'Plusz' ikonra"</string>
-    <string name="change_logs">"Változás-lista"</string>
     <string name="clear_notes">"Jegyzetek törlése"</string>
     <string name="clear_notes_message">"Minden Jegyzet törlésre kerül."</string>
     <string name="clear_notes_summary">"Összes Jegyzet törlése az sNotz-ból"</string>

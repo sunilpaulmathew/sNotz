@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Dine notater er sikkerhetskopiert som '%s'"</string>
     <string name="backup_notes_summary">"Sikkerhetskopier dine notater til 'sd-kort'"</string>
     <string name="bottom_fab_click_message">"Trykk 'Pluss'-ikon nederst for å opprette et notat"</string>
-    <string name="change_logs">"Endringslogger"</string>
     <string name="clear_notes">"Fjern notater"</string>
     <string name="clear_notes_message">"Merk. Alle notatene blir slettet"</string>
     <string name="clear_notes_summary">"Slett alle notatene fra sNotz"</string>

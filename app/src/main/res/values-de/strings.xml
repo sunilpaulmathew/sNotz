@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Deine Notizen sind unter '%s' gesichert"</string>
     <string name="backup_notes_summary">"Notizen unter 'sdcard' sichern"</string>
     <string name="bottom_fab_click_message">"'+'-Symbol zum Erstellen einer Notiz anwählen"</string>
-    <string name="change_logs">"Change-log"</string>
     <string name="clear_notes">"Notizen löschen"</string>
     <string name="clear_notes_message">"Achtung: alle Notizen werden gelöscht"</string>
     <string name="clear_notes_summary">"Alle Notizen aus sNotz löschen"</string>

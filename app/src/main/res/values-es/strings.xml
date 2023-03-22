@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Tus notas están respaldadas como '%s'"</string>
     <string name="backup_notes_summary">"Respalda tus notas en una 'tarjeta sd'"</string>
     <string name="bottom_fab_click_message">"Haga clic en el icono 'Más' para crear una nota."</string>
-    <string name="change_logs">"Registro de cambios"</string>
     <string name="clear_notes">"Borrar notas"</string>
     <string name="clear_notes_message">"Advertencia: todas las notas serán eliminadas"</string>
     <string name="clear_notes_summary">"Elimina todas las notas de sNotz"</string>

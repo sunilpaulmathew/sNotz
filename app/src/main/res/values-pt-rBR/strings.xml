@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"O backup das notas foi criado em '%s'"</string>
     <string name="backup_notes_summary">"Fazer backup das notas no cartão SD"</string>
     <string name="bottom_fab_click_message">"Clique no + para criar uma nota"</string>
-    <string name="change_logs">"Changelogs"</string>
     <string name="clear_notes">"Limpar notas"</string>
     <string name="clear_notes_message">"Atenção. Todas as suas notas serão deletadas"</string>
     <string name="clear_notes_summary">"Deletar todas as notas"</string>

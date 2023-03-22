@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"আপনার নোটগুলি '%s' হিসাবে ব্যাক আপ করা হয়েছে"</string>
     <string name="backup_notes_summary">"আপনার নোটগুলিকে 'sdcard'-এ ব্যাকআপ করুন"</string>
     <string name="bottom_fab_click_message">"একটি নোট তৈরি করতে নীচের 'প্লাস' আইকনে ক্লিক করুন"</string>
-    <string name="change_logs">"পরিবর্তন-লগ"</string>
     <string name="clear_notes">"ক্লিয়ার নোট"</string>
     <string name="clear_notes_message">"দয়া করে নোট করুন। সব নোট মুছে ফেলা হবে"</string>
     <string name="clear_notes_summary">"sNotz থেকে সমস্ত নোট মুছুন"</string>

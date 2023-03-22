@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"تم نسخ الملاحظات احتياطيًا كـ \"%s\""</string>
     <string name="backup_notes_summary">"قم بعمل نسخة احتياطية من ملاحظاتك في \"sdcard\""</string>
     <string name="bottom_fab_click_message">"انقر فوق رمز 'زائد' لإنشاء ملاحظة"</string>
-    <string name="change_logs">"سجل التغيرات"</string>
     <string name="clear_notes">"حذف الملاحظات"</string>
     <string name="clear_notes_message">"يرجى الملاحظة. سيتم حذف جميع الملاحظات"</string>
     <string name="clear_notes_summary">"احذف جميع الملاحظات من sNotz"</string>

@@ -1,222 +1,198 @@
-<RelativeLayout
+<androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_gravity="center" >
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:gravity="center" >
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_gravity="center" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/app_title"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:padding="5dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/app_name_summary"
+        android:textIsSelectable="true"
+        android:textStyle="bold|italic"
+        android:textSize="18sp"
+        android:padding="8dp" />
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_marginBottom="50sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="15dp"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_gravity="center" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/app_title"
-            android:layout_height="50dp"
-            android:layout_width="match_parent"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:padding="5dp" />
-
-        <com.google.android.material.textview.MaterialTextView
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/app_name_summary"
-            android:textIsSelectable="true"
-            android:textStyle="bold|italic"
-            android:textSize="18sp"
-            android:padding="8dp" />
+            android:orientation="vertical"
+            android:gravity="center_vertical" >
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="50sp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_vertical" >
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:cardCornerRadius="5dp" >
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="horizontal" >
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:id="@+id/source_code"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:padding="10dp" >
-
-                            <androidx.appcompat.widget.AppCompatImageButton
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:background="@null"
-                                android:clickable="false"
-                                app:srcCompat="@drawable/ic_code" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:gravity="center_horizontal"
-                                android:text="@string/source_code" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:id="@+id/play_store"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:padding="10dp" >
-
-                            <androidx.appcompat.widget.AppCompatImageButton
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:background="@null"
-                                android:clickable="false"
-                                app:srcCompat="@drawable/ic_playstore" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:gravity="center_horizontal"
-                                android:text="@string/more_apps" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:id="@+id/report_issue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:padding="10dp" >
-
-                            <androidx.appcompat.widget.AppCompatImageButton
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:background="@null"
-                                android:clickable="false"
-                                app:srcCompat="@drawable/ic_bug" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:gravity="center_horizontal"
-                                android:text="@string/report_issue" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/made_by"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:textStyle="bold"
-                    android:gravity="center_horizontal"
-                    android:text="@string/developed_by"
-                    android:textIsSelectable="true"
-                    android:textSize="18sp" />
+                android:layout_margin="5dp"
+                app:cardCornerRadius="5dp" >
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="15dp"
-                    android:gravity="center">
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="125dp"
-                        android:layout_height="125dp"
-                        android:layout_marginEnd="25dp"
-                        android:src="@drawable/ic_aswathy"
-                        android:layout_gravity="center" />
-
-                    <com.google.android.material.textview.MaterialTextView
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/source_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold|italic"
-                        android:textSize="22sp"
-                        android:text="&amp;" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/sunil"
-                        android:layout_width="125dp"
-                        android:layout_height="125dp"
-                        android:layout_marginStart="25dp"
-                        android:src="@drawable/ic_sunil"
-                        android:layout_gravity="center" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp" >
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/change_logs_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
                         android:gravity="center_horizontal"
-                        android:text="@string/change_logs"
-                        android:textIsSelectable="true"
-                        android:textSize="18sp" />
+                        android:padding="10dp" >
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/change_logs"
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_code" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/source_code" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/play_store"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:padding="16dp"
-                        android:gravity="start"
-                        android:textIsSelectable="true"
-                        android:textSize="15sp" />
-                </com.google.android.material.card.MaterialCardView>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.core.widget.NestedScrollView>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="10dp" >
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/cancel_button"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:text="@string/cancel"
-        android:background="@color/color_black"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:padding="10dp" />
-</RelativeLayout>
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_playstore" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/more_apps" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/report_issue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="10dp" >
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_bug" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/report_issue" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/made_by"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:text="@string/developed_by"
+                android:textIsSelectable="true"
+                android:textSize="18sp" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/ic_aswathy"
+                    android:layout_gravity="center" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold|italic"
+                    android:textSize="22sp"
+                    android:text="&amp;" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/sunil"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_marginStart="25dp"
+                    android:src="@drawable/ic_sunil"
+                    android:layout_gravity="center" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cancel_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                app:cardCornerRadius="15dp" >
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/cancel_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_black"
+                    android:text="@string/cancel"
+                    android:layout_margin="10dp"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

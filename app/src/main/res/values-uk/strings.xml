@@ -13,7 +13,6 @@
     <string name="backup_notes_message">Ваші нотатки резервно копіюються як \'%s\'!</string>
     <string name="backup_notes_summary">Резервне копіювання ваших нотаток в \'sdcard\'</string>
     <string name="bottom_fab_click_message">Клацніть на \'Плюс\', щоб створити нотаток!</string>
-    <string name="change_logs">Зміни</string>
     <string name="clear_notes">Очистити нотатки</string>
     <string name="clear_notes_message">Будь ласка, зверніть увагу. Усі нотатки будуть видалені!</string>
     <string name="clear_notes_summary">Видалити усі нотатки з sNotz</string>

@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"Vaše poznámky jsou zálohovány jako '%s'"</string>
     <string name="backup_notes_summary">"Zálohování poznámek na 'sdcard'"</string>
     <string name="bottom_fab_click_message">"Kliknutím na spodní ikonu \"Přidat\" vytvoříte poznámku."</string>
-    <string name="change_logs">"Protokoly změn"</string>
     <string name="clear_notes">"Vyčistit Poznámky"</string>
     <string name="clear_notes_message">"Upozornění. Všechny poznámky budou smazány"</string>
     <string name="clear_notes_summary">"Smazat všechny poznámky z sNotz"</string>

@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"ማስታወሻዎች እርስዎ እንደ '%s' ምትኬ ተቀምጠዋል!"</string>
     <string name="backup_notes_summary">"ማስታወሻዎችዎን ወደ 'sdcard' ያስቀምጡ"</string>
     <string name="bottom_fab_click_message">"ማስታወሻ ለመፍጠር ታችኛው ‘ፕላስ’ አዶን ጠቅ ያድርጉ!"</string>
-    <string name="change_logs">"ለውጥ-ምዝግብ ማስታወሻዎች"</string>
     <string name="clear_notes">"ማስታወሻዎችን አጽዳ"</string>
     <string name="clear_notes_message">"ማስታወሻ ያዝ. ሁሉም ማስታወሻዎች ይሰረዛሉ!"</string>
     <string name="clear_notes_summary">"ሁሉንም ማስታወሻዎች ከ sNotz ይሰርዙ"</string>

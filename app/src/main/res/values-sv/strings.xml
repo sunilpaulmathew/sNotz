@@ -14,7 +14,6 @@
     <string name="backup_notes_message">"En backup av dina antecningar som '%s'"</string>
     <string name="backup_notes_summary">"Gör en backup av dina anteckningar på 'sdkortet'"</string>
     <string name="bottom_fab_click_message">"Tryck på 'Plus' ikonen för att göra en ny anteckning"</string>
-    <string name="change_logs">"Ändringslogg"</string>
     <string name="clear_notes">"Radera anteckningar"</string>
     <string name="clear_notes_message">"Alla anteckningar kommer att raderas"</string>
     <string name="clear_notes_summary">"Radera alla anteckningar från sNots"</string>
