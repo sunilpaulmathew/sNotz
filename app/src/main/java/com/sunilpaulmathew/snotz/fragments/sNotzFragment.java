@@ -198,6 +198,7 @@ public class sNotzFragment extends Fragment {
 
         mAddIcon.setColorFilter(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
         mAddNoteCard.setCardBackgroundColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
+        mAddNoteCard.setStrokeColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
 
         mAddNoteCard.setOnClickListener(v -> {
             if (Common.isWorking()) {

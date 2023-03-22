@@ -111,6 +111,7 @@ public class WidgetFragment extends Fragment {
         mAddIcon.setColorFilter(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()));
         mSortButton.setColorFilter(sNotzColor.getAppAccentColor(requireActivity()));
         mAddNewCard.setCardBackgroundColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
+        mAddNewCard.setStrokeColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()));
         mProgress.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, requireActivity()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mProgress.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));

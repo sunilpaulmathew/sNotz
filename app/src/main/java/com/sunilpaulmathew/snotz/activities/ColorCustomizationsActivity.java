@@ -16,6 +16,7 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.ColorCustomizationsAdapter;
 import com.sunilpaulmathew.snotz.utils.CheckListItems;
 import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.ArrayList;
@@ -40,14 +41,10 @@ public class ColorCustomizationsActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
         mStartCard.setCardBackgroundColor(sNotzColor.getAppAccentColor(this));
+        mStartCard.setStrokeColor(sNotzColor.getAppAccentColor(this));
         mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
-        mStartCard.setOnClickListener(v -> {
-            if (!sCommonUtils.getBoolean("color_customized", false, this)) {
-                sCommonUtils.saveBoolean("color_customized", true, this);
-            }
-            finish();
-        });
+        mStartCard.setOnClickListener(v -> Security.launchMainActivity(this));
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> ColorPickerDialogBuilder
                 .with(this)
@@ -92,10 +89,7 @@ public class ColorCustomizationsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!sCommonUtils.getBoolean("color_customized", false, this)) {
-            sCommonUtils.saveBoolean("color_customized", true, this);
-        }
-        super.onBackPressed();
+        Security.launchMainActivity(this);
     }
 
 }

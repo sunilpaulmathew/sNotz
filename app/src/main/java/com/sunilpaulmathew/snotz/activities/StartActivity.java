@@ -2,6 +2,7 @@ package com.sunilpaulmathew.snotz.activities;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -76,12 +77,19 @@ public class StartActivity extends AppCompatActivity {
 
         Utils.showBiometricPrompt(this);
 
-        if (Utils.isFingerprintAvailable(this) && sCommonUtils.getBoolean("use_biometric", false, this)) {
-            mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
-        } else if (Security.isPINEnabled(this)) {
-            Security.authenticate(true, null, -1, this);
+        if (!sCommonUtils.getBoolean("color_customized", false, this)) {
+            sCommonUtils.saveBoolean("color_customized", true, this);
+            Intent colorCustomizations = new Intent(this, ColorCustomizationsActivity.class);
+            startActivity(colorCustomizations);
+            finish();
         } else {
-            Security.launchMainActivity(this);
+            if (Utils.isFingerprintAvailable(this) && sCommonUtils.getBoolean("use_biometric", false, this)) {
+                mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
+            } else if (Security.isPINEnabled(this)) {
+                Security.authenticate(true, null, -1, this);
+            } else {
+                Security.launchMainActivity(this);
+            }
         }
     }
 

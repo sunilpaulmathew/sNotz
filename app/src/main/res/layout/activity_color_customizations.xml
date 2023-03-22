@@ -46,7 +46,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_white"
+                android:textColor="@color/color_black"
                 android:layout_gravity="center"
                 android:text="@string/start"
                 android:textAllCaps="true"
@@ -59,7 +59,7 @@
             <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tint="@color/color_white"
+                android:tint="@color/color_black"
                 app:srcCompat="@drawable/ic_back"
                 android:layout_gravity="center"
                 android:background="@null"

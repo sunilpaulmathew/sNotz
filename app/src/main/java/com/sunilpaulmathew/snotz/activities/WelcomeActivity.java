@@ -1,6 +1,5 @@
 package com.sunilpaulmathew.snotz.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -49,6 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
         MaterialTextView mNoteLongClickMessage = findViewById(R.id.longclick_note_message);
         MaterialTextView mDate = findViewById(R.id.date);
 
+        mNote.setTextColor(sNotzColor.getTextColor(this));
         mOne.setTextColor(sCommonUtils.getColor(R.color.color_orange, this));
         mTwo.setTextColor(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, this), this));
         mThree.setTextColor(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, this), this));
@@ -63,11 +63,11 @@ public class WelcomeActivity extends AppCompatActivity {
         mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
         mWelcomeLayout.setBackgroundColor(sNotzColor.getAppAccentColor(this));
 
-        mSkip.setOnClickListener(v -> exit());
+        mSkip.setOnClickListener(v -> finish());
         mArrowFront.setOnClickListener(v -> {
             if (mNoteLongClick.getVisibility() == View.VISIBLE &&
                     mNoteLongClickMessage.getVisibility() == View.VISIBLE) {
-                exit();
+                finish();
             } else if (mNoteClick.getVisibility() == View.VISIBLE &&
                     mNoteClickMessage.getVisibility() == View.VISIBLE) {
                 mNoteClick.setVisibility(View.GONE);
@@ -120,16 +120,6 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
         mDate.setText(DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
-    }
-
-    private void exit() {
-        if (!sCommonUtils.getBoolean("color_customized", false, this)) {
-            Intent colorCustomizations = new Intent(this, ColorCustomizationsActivity.class);
-            startActivity(colorCustomizations);
-            finish();
-        } else {
-            finish();
-        }
     }
 
 }
