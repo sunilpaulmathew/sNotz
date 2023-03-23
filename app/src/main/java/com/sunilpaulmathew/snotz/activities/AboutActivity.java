@@ -31,13 +31,11 @@ public class AboutActivity extends AppCompatActivity {
         MaterialTextView mMadeBy = findViewById(R.id.made_by);
         AppCompatImageView mSunil = findViewById(R.id.sunil);
         MaterialCardView mCancelCard = findViewById(R.id.cancel_card);
-        MaterialTextView mCancel = findViewById(R.id.cancel_button);
         LinearLayoutCompat mSourceCode = findViewById(R.id.source_code);
         LinearLayoutCompat mMoreApps = findViewById(R.id.play_store);
         LinearLayoutCompat mReportIssue = findViewById(R.id.report_issue);
 
         mAppName.setTextColor(sNotzColor.getAppAccentColor(this));
-        mCancel.setTextColor(sNotzColor.getTextColor(this));
         mCancelCard.setCardBackgroundColor(sNotzColor.getAppAccentColor(this));
         mCancelCard.setStrokeColor(sNotzColor.getAppAccentColor(this));
         mMadeBy.setTextColor(sNotzColor.getAppAccentColor(this));

@@ -182,10 +182,8 @@
                 app:cardCornerRadius="15dp" >
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/cancel_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_black"
                     android:text="@string/cancel"
                     android:layout_margin="10dp"
                     android:clickable="false"
