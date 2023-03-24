@@ -36,8 +36,6 @@ public class AboutActivity extends AppCompatActivity {
         LinearLayoutCompat mReportIssue = findViewById(R.id.report_issue);
 
         mAppName.setTextColor(sNotzColor.getAppAccentColor(this));
-        mCancelCard.setCardBackgroundColor(sNotzColor.getAppAccentColor(this));
-        mCancelCard.setStrokeColor(sNotzColor.getAppAccentColor(this));
         mMadeBy.setTextColor(sNotzColor.getAppAccentColor(this));
 
         mSourceCode.setOnClickListener(v -> sCommonUtils.launchUrl("https://github.com/sunilpaulmathew/sNotz/", this));
