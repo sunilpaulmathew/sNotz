@@ -442,6 +442,7 @@ public class sNotzUtils {
                 Gson gson = new Gson();
                 String json = gson.toJson(mJSONObject);
                 sFileUtils.create(json, new File(context.getFilesDir(),"snotz"));
+                Utils.updateWidgets(context);
             }
 
             @Override

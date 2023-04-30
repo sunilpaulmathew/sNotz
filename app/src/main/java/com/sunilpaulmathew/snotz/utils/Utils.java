@@ -1,6 +1,8 @@
 package com.sunilpaulmathew.snotz.utils;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
+import com.sunilpaulmathew.snotz.providers.WidgetProvider;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
@@ -96,6 +99,13 @@ public class Utils {
         if (textView.requestFocus()) {
             imm.showSoftInput(textView, InputMethodManager.SHOW_IMPLICIT);
         }
+    }
+
+    public static void updateWidgets(Context context) {
+        int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(
+                context, WidgetProvider.class));
+        WidgetProvider mWidgetProvider = new WidgetProvider();
+        mWidgetProvider.onUpdate(context, AppWidgetManager.getInstance(context), ids);
     }
 
     public static void useBiometric(Activity activity) {
