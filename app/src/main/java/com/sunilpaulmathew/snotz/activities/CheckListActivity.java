@@ -133,6 +133,7 @@ public class CheckListActivity extends AppCompatActivity {
             sNotzWidgets.isWidget(false);
         }
 
+        Utils.updateWidgets(this);
         Utils.reloadUI(this);
         finish();
     }
