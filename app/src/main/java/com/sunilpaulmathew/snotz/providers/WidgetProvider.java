@@ -49,14 +49,14 @@ public class WidgetProvider extends AppWidgetProvider {
     }
 
     public static void update(AppWidgetManager appWidgetManager, int appWidgetId, Context context) {
-        RemoteViews mViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+        RemoteViews mViews;
         Intent mIntent = new Intent(context, StartActivity.class);
         PendingIntent mPendingIntent;
 
         if (sNotzWidgets.getChecklistPath(appWidgetId, context) != null) {
             if (sFileUtils.exist(new File(sNotzWidgets.getChecklistPath(appWidgetId, context)))) {
+                mViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_checklists);
                 mViews.setTextViewText(R.id.note, sNotzWidgets.getWidgetText(sNotzWidgets.getChecklistPath(appWidgetId, context)));
-                mViews.setInt(R.id.layout, "setBackgroundColor", sCommonUtils.getColor(android.R.color.transparent, context));
                 mViews.setTextColor(R.id.note, sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_black, context), context));
                 mIntent.putExtra(sNotzWidgets.getChecklistPath(), sNotzWidgets.getChecklistPath(appWidgetId, context));
                 mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, Build.VERSION.SDK_INT >=
@@ -67,6 +67,7 @@ public class WidgetProvider extends AppWidgetProvider {
                 for (sNotzItems items : sNotzData.getRawData(context)) {
                     int noteId = items.getNoteID();
                     if (noteId == sNotzWidgets.getNoteID(appWidgetId, context)) {
+                        mViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_notes);
                         mViews.setTextViewText(R.id.note, items.getNote());
                         mViews.setTextColor(R.id.note, items.getColorText());
                         mViews.setInt(R.id.layout, "setBackgroundColor", items.getColorBackground());

@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/color_red"
     android:layout_gravity="center"
     android:gravity="center" >
 
@@ -14,10 +13,9 @@
             android:contentDescription="@string/app_name"
             android:text="@string/widget_loading_failed"
             android:shadowColor="@color/color_black"
-            android:textColor="@color/color_white"
             android:textStyle="bold|italic"
             android:layout_margin="8dp"
-            android:shadowRadius="1"
+            android:shadowRadius="2"
             android:textSize="20sp"
             android:padding="5dp" />
 </LinearLayout>
