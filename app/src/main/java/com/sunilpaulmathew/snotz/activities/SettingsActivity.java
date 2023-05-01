@@ -218,6 +218,7 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             sCommonUtils.saveInt("checklist_color", selectedColor, this);
+                            Utils.updateWidgets(this);
                             mRecycleViewAdapter.notifyItemChanged(position);
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
