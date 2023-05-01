@@ -13,9 +13,11 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/app_name"
             android:text="@string/widget_loading_failed"
+            android:shadowColor="@color/color_black"
             android:textColor="@color/color_white"
             android:textStyle="bold|italic"
             android:layout_margin="8dp"
+            android:shadowRadius="1"
             android:textSize="20sp"
             android:padding="5dp" />
 </LinearLayout>
