@@ -60,7 +60,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     playImplementation 'com.android.billingclient:billing:5.2.0'
 
-    def sCommon_Version = '2d827ce148'
+    def sCommon_Version = 'aa1019da38'
     implementation "com.github.sunilpaulmathew.sCommon:adapters:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:credits:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:crashreporter:${sCommon_Version}"
@@ -68,7 +68,7 @@ dependencies {
     implementation "com.github.sunilpaulmathew.sCommon:translatorutils:${sCommon_Version}"
 
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
-    implementation "com.google.android.material:material:1.8.0"
+    implementation "com.google.android.material:material:1.9.0"
     implementation "com.google.code.gson:gson:2.9.0"
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
 }
