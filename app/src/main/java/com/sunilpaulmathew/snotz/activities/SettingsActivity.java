@@ -30,6 +30,7 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Billing;
+import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Encryption;
 import com.sunilpaulmathew.snotz.utils.Security;
@@ -233,6 +234,9 @@ public class SettingsActivity extends AppCompatActivity {
                 if (sNotzData.isNotesEmpty(this)) {
                     sCommonUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
                 } else {
+                    if (!CheckLists.isNoChecklists(this)) {
+                        sCommonUtils.toast(getString(R.string.check_list_independent_message), this).show();
+                    }
                     AppSettings.showBackupOptions(this);
                 }
             } else if (position == 18) {
@@ -251,7 +255,8 @@ public class SettingsActivity extends AppCompatActivity {
                     new MaterialAlertDialogBuilder(this)
                             .setIcon(R.mipmap.ic_launcher)
                             .setTitle(R.string.warning)
-                            .setMessage(getString(R.string.clear_notes_message))
+                            .setMessage(getString(R.string.clear_notes_message) + (!CheckLists.isNoChecklists(this) ? "\n\n" + getString(
+                                    R.string.check_list_independent_message) : ""))
                             .setNegativeButton(R.string.cancel, (dialog, which) -> {
                             })
                             .setPositiveButton(R.string.delete, (dialog, which) -> {

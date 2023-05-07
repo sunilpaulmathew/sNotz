@@ -34,6 +34,15 @@ public class CheckLists implements Serializable {
 
     private static String mCheckListName;
 
+    public static boolean isNoChecklists(Context context) {
+        for (File checklists : Objects.requireNonNull(context.getExternalFilesDir("checklists").listFiles())) {
+            if (CheckLists.isValidCheckList(sFileUtils.read(checklists))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     static boolean isDone(JsonObject object) {
         return object.get("done").getAsBoolean();
     }
