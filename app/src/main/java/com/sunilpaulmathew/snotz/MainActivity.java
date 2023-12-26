@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.sunilpaulmathew.snotz.activities.WelcomeActivity;
 import com.sunilpaulmathew.snotz.fragments.sNotzFragment;
 import com.sunilpaulmathew.snotz.utils.Common;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Record crashes
         sCrashReporter crashReporter = new sCrashReporter(this);
-        crashReporter.setAccentColor(sCommonUtils.getColor(R.color.color_teal, this));
+        crashReporter.setAccentColor(sNotzColor.getAppAccentColor(this));
         crashReporter.setTitleSize(25);
         crashReporter.initialize();
 
