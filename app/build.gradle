@@ -19,7 +19,6 @@ android {
 
     defaultConfig {
         applicationId "com.sunilpaulmathew.snotz"
-        minSdk 19
         targetSdk 34
         versionCode 31
         versionName "v0.31"
@@ -47,9 +46,11 @@ android {
     flavorDimensions.add("release")
     productFlavors {
         play {
+            minSdk 21
             dimension "release"
         }
         fdroid {
+            minSdk 19
             dimension "release"
         }
     }
