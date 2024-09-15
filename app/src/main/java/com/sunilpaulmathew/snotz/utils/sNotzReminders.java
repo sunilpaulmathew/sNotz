@@ -7,7 +7,9 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 
@@ -115,7 +117,17 @@ public class sNotzReminders {
         }
 
         mIntent.putExtra("id", mNotificationID);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !mAlarmManager.canScheduleExactAlarms()) {
+            Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+            intent.setData(Uri.parse("package:" + context.getPackageName()));
+            context.startActivity(intent);
+            return;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !mAlarmManager.canScheduleExactAlarms()) {
+            Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+            context.startActivity(intent);
+            return;
+        } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
         } else {
             mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
