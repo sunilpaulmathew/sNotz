@@ -25,6 +25,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.BillingAdapter;
 import com.sunilpaulmathew.snotz.utils.BillingItems;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,12 @@ public class BillingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_billing);
 
         AppCompatImageButton mBack = findViewById(R.id.back_button);
+        MaterialTextView mTitle = findViewById(R.id.title);
         MaterialTextView mCancel = findViewById(R.id.cancel_button);
+
+        mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
+        mCancel.setTextColor(sNotzColor.getAppAccentColor(this));
 
         mData.add(new BillingItems(getString(R.string.donation_app), sCommonUtils.getDrawable(R.drawable.ic_donation_app, this)));
         mData.add(new BillingItems(getString(R.string.support_coffee), sCommonUtils.getDrawable(R.drawable.ic_coffee, this)));

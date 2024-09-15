@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.BillingItems;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.ViewHold
     public void onBindViewHolder(@NonNull BillingAdapter.ViewHolder holder, int position) {
         try {
             holder.mTitle.setText(this.data.get(position).getTitle());
+            holder.mTitle.setTextColor(sNotzColor.getAppAccentColor(holder.mTitle.getContext()));
             holder.mIcon.setImageDrawable(this.data.get(position).getIcon());
         } catch (NullPointerException ignored) {}
     }
