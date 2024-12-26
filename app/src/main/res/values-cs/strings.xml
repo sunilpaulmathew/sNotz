@@ -89,7 +89,6 @@
     <string name="change_name">"Změnit Jméno"</string>
     <string name="check_list_backup_question">"Zálohovat '%s' jako?"</string>
     <string name="check_list_create_question">"Vytvořit nový seznam jako?"</string>
-    <string name="check_list_name_empty_message">"Jméno seznamu by nemělo být prázdné. Přerušuji"</string>
     <string name="check_list_import_question">"Importovat vybraný seznam jako?"</string>
     <string name="check_list_exist_warning">"Seznam se stejným jménem již existuje. Chcete jej nahradit?"</string>
     <string name="go_ahead">"Pokračovat"</string>
@@ -153,4 +152,19 @@
     <string name="duplicate">"Duplikovat"</string>
     <string name="modify">"Upravit"</string>
     <string name="reminder_invalid_message">"%s je již předáno. Přerušování…"</string>
+    <string name="check_list">"Seznam"</string>
+    <string name="color_accent">"Barva Prostředí"</string>
+    <string name="color_accent_summary">"Vyberte si výchozí Barvu Prostředí sNotz"</string>
+    <string name="customize_colors">"Přizpůsobit Barvy"</string>
+    <string name="note">"Poznámka"</string>
+    <string name="permission_notification_message">"Aby fungovala tato funkce na zařízeních s Androided TIRAMISU nebo novějším, je nutné mít oprávnění od uživatele zasílat oznámení. Pokud chcete, aby tato funkce v sNotz fungovala, pokračujte v požádání (a udělení) o oprávnění kliknutím na níže uvedené tlačítko."</string>
+    <string name="permission_request">"Požádat o Oprávnění"</string>
+    <string name="reminder_manage">"Spravovat Upomínky"</string>
+    <string name="reminder_set">"Nastavit Upomínku"</string>
+    <string name="show">"Ukázat"</string>
+    <string name="show_all">"Poznámky &amp; Seznamy"</string>
+    <string name="show_checklists">"Pouze Seznamy"</string>
+    <string name="show_notes">"Pouze Poznámky"</string>
+    <string name="start">"Start"</string>
+    <string name="widget_choose_message">"Vyberte Poznámku nebo Seznam"</string>
 </resources>

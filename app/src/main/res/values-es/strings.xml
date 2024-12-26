@@ -89,7 +89,6 @@
     <string name="change_name">"Cambiar nombre"</string>
     <string name="check_list_backup_question">"¿Respaldar '%s' como?"</string>
     <string name="check_list_create_question">"¿Crear una nueva lista de chequeo como?"</string>
-    <string name="check_list_name_empty_message">"El nombre de la lista de chequeo no puede estar vacío. Abortando."</string>
     <string name="check_list_import_question">"¿Importar la lista de chequeo seleccionada como?"</string>
     <string name="check_list_exist_warning">"Ya existe una lista de chequeo con el mismo nombre. ¿Deseas reemplazarla?"</string>
     <string name="go_ahead">"Adelante"</string>
@@ -107,7 +106,6 @@
     <string name="pin_protection_status">"La protección del PIN es %s"</string>
     <string name="pin_protection_message">"Utiliza un PIN de 4 dígitos para asegurar sNotz"</string>
     <string name="reminder_message">"sNotz te recordará esta nota en %s"</string>
-    <string name="reminder_set">"Establecer un recordatorio"</string>
     <string name="replace">"Reemplazar"</string>
     <string name="warning">"Advertencia"</string>
     <string name="customize_note">"Personalizaciones de notas"</string>
@@ -150,4 +148,23 @@
     <string name="restore_backup_message">"Tus notas fueron eliminadas recientemente. ¿Quieres restaurarlas desde la última copia de seguridad automática?
 
         Advertencia: La copia de seguridad automática se eliminará permanentemente después de cancelar este mensaje."</string>
+    <string name="backup_checklist_message">"La lista de chequeo selccionada ha sido respaldada como '%s'"</string>
+    <string name="duplicate">"Duplicar"</string>
+    <string name="modify">"Modificar"</string>
+    <string name="reminder_invalid_message">"%s ya está aprobada. Cancelando…"</string>
+    <string name="check_list">"Lista de chequeo"</string>
+    <string name="color_accent">"Color de realce"</string>
+    <string name="color_accent_summary">"Escoge el color de realce predeterminado de sNotz"</string>
+    <string name="customize_colors">"Personalizar colores"</string>
+    <string name="note">"Noya"</string>
+    <string name="permission_notification_message">"Para que esta función funcione en dispositivos con android TIRAMISU o versiones más recientes, es necesario que el usuario conceda permiso para publicar notificaciones. Si deseas que esta función funcione en sNotz, solicita (y concede) el permiso haciendo clic en el botón que aparece a continuación."</string>
+    <string name="permission_request">"Solicitar autorización"</string>
+    <string name="reminder_manage">"Configurar recordatorio"</string>
+    <string name="reminder_set">"Establecer recordatorio"</string>
+    <string name="show">"Mostrar"</string>
+    <string name="show_all">"Notas y listas de chequeo"</string>
+    <string name="show_checklists">"Solamente listas de chequeo"</string>
+    <string name="show_notes">"Solamente notas"</string>
+    <string name="start">"Comenzar"</string>
+    <string name="widget_choose_message">"Elige una nota o una lista de chequeo"</string>
 </resources>
