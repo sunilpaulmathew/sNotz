@@ -1,77 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:padding="16dp">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/donations"
+            android:layout_gravity="center"
+            style="@style/AppTheme.Title"
+            android:gravity="center" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_black"
-            android:padding="10dp"
-            android:orientation="vertical" >
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="end|center_vertical">
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/back_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="start"
-                    android:src="@drawable/ic_back"
-                    android:background="@color/color_black"
-                    android:tint="@color/color_teal"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/support_development"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:padding="10dp" />
-            </FrameLayout>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_white"
-                android:text="@string/support_development_summary"
-                android:linksClickable="true"
-                android:gravity="center"
-                android:padding="15dp" />
-        </LinearLayout>
+            android:text="@string/support_development_summary"
+            android:linksClickable="true"
+            android:gravity="center"
+            android:padding="15dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <com.google.android.material.textview.MaterialTextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/cancel_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:gravity="center"
-        android:layout_gravity="bottom|center"
-        android:textStyle="bold"
-        android:background="@color/color_black"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        app:icon="@drawable/ic_cancel"
         android:text="@string/cancel"
-        android:textColor="@color/color_teal"
-        android:textSize="18sp" />
-</com.google.android.material.card.MaterialCardView>
+        android:layout_margin="10dp"
+        android:textSize="18sp"
+        app:iconGravity="end"/>
+</RelativeLayout>

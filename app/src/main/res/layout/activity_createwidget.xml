@@ -1,134 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_black">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
-                android:background="@color/color_black"
-                app:srcCompat="@drawable/ic_back" />
+            android:layout_height="wrap_content" >
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="150dp"
-                android:gravity="start|center"
-                android:padding="5dp"
                 android:text="@string/app_name"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                style="@style/AppTheme.Title"
+                android:gravity="start" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
                 android:orientation="horizontal"
                 android:layout_marginEnd="10dp"
-                android:layout_gravity="end">
+                android:gravity="center" >
 
                 <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/reading_mode"
+                    android:id="@+id/checklist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    app:srcCompat="@drawable/ic_reading_mode"
-                    android:tint="@color/color_white"
+                    app:srcCompat="@drawable/ic_checklist"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:background="@null"
                     android:gravity="center" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/hidden"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/hide" />
-
                 <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/save_button"
+                    android:id="@+id/save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     app:srcCompat="@drawable/ic_save"
-                    android:textColor="@color/color_white"
                     android:background="@null"
+                    android:visibility="gone"
                     android:gravity="center" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </FrameLayout>
 
         <include layout="@layout/progress_bar" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_checklist"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:visibility="gone" />
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="80dp"
-            android:scrollbars="vertical">
+            android:layout_marginBottom="84dp"
+            android:scrollbars="vertical" >
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/add_text_hint"
+                android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
+                android:textCursorDrawable="@drawable/ic_cursor"
+                android:textColorHighlight="@color/color_red"
+                android:cursorVisible="true"
+                android:gravity="top|start"
                 android:background="@null"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:background="@null"
-                    android:visibility="gone" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/contents"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:cursorVisible="true"
-                    android:gravity="top|start"
-                    android:hint="@string/add_text_hint"
-                    android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
-                    android:padding="10dp"
-                    android:textColorHighlight="@color/color_red"
-                    android:textCursorDrawable="@drawable/ic_cursor" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:padding="10dp" />
         </androidx.core.widget.NestedScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/color_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_black"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:baselineAligned="false"
+        android:weightSum="1"
         android:padding="5dp" >
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_weight="0.8"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_width="0dp" >
@@ -154,18 +122,8 @@
                 app:cardCornerRadius="5dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/add"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            app:srcCompat="@drawable/ic_add"
-            android:layout_weight="0.2"
-            android:background="@null"
-            android:visibility="gone" />
-
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_weight="0.8"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_width="0dp" >

@@ -13,7 +13,6 @@ public class Billing {
     public static void showDonationMenu(Activity activity) {
         Intent donations = new Intent(activity, BillingActivity.class);
         activity.startActivity(donations);
-        activity.finish();
     }
 
 }

@@ -74,9 +74,9 @@ android {
 dependencies {
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    playImplementation 'com.android.billingclient:billing:7.0.0'
+    playImplementation 'com.android.billingclient:billing:7.1.1'
 
-    def sCommon_Version = 'a9b3f02f41'
+    def sCommon_Version = 'efc9dce669'
     implementation "com.github.sunilpaulmathew.sCommon:adapters:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:credits:${sCommon_Version}"
     implementation "com.github.sunilpaulmathew.sCommon:crashreporter:${sCommon_Version}"

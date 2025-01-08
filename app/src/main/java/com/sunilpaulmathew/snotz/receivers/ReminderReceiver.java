@@ -16,8 +16,11 @@ import androidx.core.app.NotificationCompat;
 
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.StartActivity;
+import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.sNotzReminders;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
+
+import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
@@ -28,7 +31,7 @@ public class ReminderReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Bundle bundle = intent.getExtras();
-        String mNote = bundle.getString("note");
+        String mNote = Objects.requireNonNull(bundle).getString("note");
         int mNoteID = bundle.getInt("id");
 
         Uri mAlarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
@@ -36,7 +39,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         int mNotificationID = sNotzReminders.getNotificationID(context);
 
         Intent mIntent = new Intent(context, StartActivity.class);
-        mIntent.putExtra(sNotzWidgets.getNoteID(), mNoteID);
+        mIntent.putExtra("noteId", mNoteID);
         mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent mPendingIntent = PendingIntent.getActivity(context, mNotificationID, mIntent, android.os.Build.VERSION.SDK_INT >=
@@ -49,7 +52,7 @@ public class ReminderReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "channel");
         Notification mNotification = mBuilder.setContentTitle(context.getString(R.string.app_name))
-                .setContentText(mNote)
+                .setContentText(CheckLists.isValidCheckList(mNote) ? sNotzWidgets.getWidgetText(mNote) : mNote)
                 .setAutoCancel(true)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setOnlyAlertOnce(true)

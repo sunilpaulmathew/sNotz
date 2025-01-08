@@ -12,7 +12,6 @@ import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.interfaces.AuthenticatorInterface;
 
 import java.io.File;
-import java.util.concurrent.Executors;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
@@ -67,8 +66,7 @@ public class Security {
                     setPIN(true, activity.getString(R.string.pin_reenter), adapter, position, activity);
                 } else if (authText.toString().trim().equals(getPIN(activity))) {
                     sCommonUtils.saveBoolean("use_pin", true, activity);
-                    sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
-                            activity.getString(R.string.activated))).show();
+                    sCommonUtils.toast(activity.getString(R.string.pin_protection_status, activity.getString(R.string.activated)), activity).show();
                     adapter.notifyItemChanged(position);
                 }
             }
@@ -87,15 +85,14 @@ public class Security {
                         launchMainActivity(activity);
                     } else if (position == 4) {
                         removePIN(activity);
-                        sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.pin_protection_status,
-                                activity.getString(R.string.deactivated))).show();
+                        sCommonUtils.toast(activity.getString(R.string.pin_protection_status, activity.getString(R.string.deactivated)), activity).show();
                     } else if (position == 5) {
                         sCommonUtils.saveBoolean("hidden_note", !sCommonUtils.getBoolean("hidden_note", false, activity), activity);
-                        Utils.reloadUI(activity);
+                        AppSettings.setReloadIntent(activity.getIntent(), activity);
                         activity.finish();
                     } else {
                         sFileUtils.delete(new File(activity.getFilesDir(),"snotz"));
-                        Utils.reloadUI(activity);
+                        AppSettings.setReloadIntent(activity.getIntent(), activity);
                         activity.finish();
                     }
                     if (adapter != null) {
@@ -107,55 +104,54 @@ public class Security {
     }
 
     public static void launchMainActivity(Activity activity) {
-        int extraNoteId = activity.getIntent().getIntExtra(sNotzWidgets.getNoteID(), sNotzWidgets.getInvalidNoteId());
-        String extraCheckListPath = activity.getIntent().getStringExtra(sNotzWidgets.getChecklistPath());
-        String externalNote = activity.getIntent().getStringExtra(sNotzUtils.getExternalNote());
+        int extraNoteId = activity.getIntent().getIntExtra("noteId", Integer.MIN_VALUE);
+        String externalNote = activity.getIntent().getStringExtra("externalNote");
 
         Intent mainActivity = new Intent(activity, MainActivity.class);
-        if (extraCheckListPath != null) {
-            mainActivity.putExtra(sNotzWidgets.getChecklistPath(), extraCheckListPath);
-        } else if (extraNoteId != sNotzWidgets.getInvalidNoteId()) {
-            mainActivity.putExtra(sNotzWidgets.getNoteID(), extraNoteId);
+        if (extraNoteId != Integer.MIN_VALUE) {
+            mainActivity.putExtra("noteId", extraNoteId);
         } else if (externalNote != null) {
-            mainActivity.putExtra(sNotzUtils.getExternalNote(), externalNote);
+            mainActivity.putExtra("externalNote", externalNote);
         }
 
-        // Manage auto-backup
-        File sNotz = new File(activity.getFilesDir(),"snotz");
-        File sNotzAutoBackup = new File(activity.getExternalFilesDir("autoBackup"),"autoBackup");
+        if (sCommonUtils.getBoolean("auto_backup", true, activity)) {
+            // Manage auto-backup
+            File sNotz = new File(activity.getFilesDir(),"snotz");
+            File sNotzAutoBackup = new File(activity.getExternalFilesDir("autoBackup"),"autoBackup");
 
-        if (sNotz.exists() && sNotzData.getRawData(activity).size() > 0 && sNotz.length() != sNotzAutoBackup.length()) {
-            Executors.newSingleThreadExecutor().execute(() -> sFileUtils.copy(sNotz, sNotzAutoBackup));
-        } else if ((!sNotz.exists() || sNotzData.getRawData(activity).size() == 0) && sNotzAutoBackup.exists()) {
-            new MaterialAlertDialogBuilder(activity)
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle(R.string.app_name)
-                    .setMessage(activity.getString(R.string.restore_backup_message))
-                    .setCancelable(false)
-                    .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                        sFileUtils.delete(sNotzAutoBackup);
-                        activity.startActivity(mainActivity);
-                        activity.finish();
-                    })
-                    .setPositiveButton(R.string.restore, (dialog, which) ->
-                            new sExecutor() {
-                                @Override
-                                public void onPreExecute() {
-                                }
+            if (sNotz.exists() && !sNotzData.getRawData(activity).isEmpty() && sNotz.length() != sNotzAutoBackup.length()) {
+                AppSettings.backupData(sNotz, sNotzAutoBackup, activity);
+            } else if ((!sNotz.exists() || sNotzData.getRawData(activity).isEmpty()) && sNotzAutoBackup.exists()) {
+                new MaterialAlertDialogBuilder(activity)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setTitle(R.string.app_name)
+                        .setMessage(activity.getString(R.string.restore_backup_message))
+                        .setCancelable(false)
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                            sFileUtils.delete(sNotzAutoBackup);
+                            activity.startActivity(mainActivity);
+                            activity.finish();
+                        })
+                        .setPositiveButton(R.string.restore, (dialog, which) ->
+                                new sExecutor() {
+                                    @Override
+                                    public void onPreExecute() {
+                                    }
 
-                                @Override
-                                public void doInBackground() {
-                                    sFileUtils.copy(sNotzAutoBackup, sNotz);
-                                }
+                                    @Override
+                                    public void doInBackground() {
+                                        sFileUtils.copy(sNotzAutoBackup, sNotz);
+                                    }
 
-                                @Override
-                                public void onPostExecute() {
-                                    activity.startActivity(mainActivity);
-                                    activity.finish();
-                                }
-                            }.execute()
-                    ).show();
-            return;
+                                    @Override
+                                    public void onPostExecute() {
+                                        activity.startActivity(mainActivity);
+                                        activity.finish();
+                                    }
+                                }.execute()
+                        ).show();
+                return;
+            }
         }
 
         activity.startActivity(mainActivity);

@@ -13,61 +13,95 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:background="@color/color_black" >
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/search_word"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|start"
-                android:layout_marginStart="100dp"
-                android:hint="@string/search_hint"
-                android:layout_marginEnd="25dp"
-                android:textStyle="italic"
-                android:gravity="center"
-                android:visibility="gone" />
+            android:layout_gravity="center" >
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/app_title"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|start"
+                android:layout_height="wrap_content"
                 android:text="@string/app_name"
-                android:padding="15dp"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                style="@style/AppTheme.Title"
+                android:gravity="start"/>
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/search_button"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_search"
-                android:layout_marginEnd="90dp"
-                android:padding="5dp"
-                android:background="@null"
-                android:layout_gravity="end|center" />
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="end" >
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/sort_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_sort"
-                android:layout_marginEnd="45dp"
-                android:padding="5dp"
-                android:background="@null"
-                android:layout_gravity="end|center" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/search_button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="?attr/materialIconButtonFilledTonalStyle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:icon="@drawable/ic_search" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/settings_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_dots"
-                android:padding="5dp"
-                android:background="@null"
-                android:layout_gravity="end|center" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sort_button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    style="?attr/materialIconButtonFilledTonalStyle"
+                    app:layout_constraintStart_toEndOf="@id/search_button"
+                    app:layout_constraintEnd_toStartOf="@id/qrcode_button"
+                    app:layout_constraintTop_toTopOf="@id/search_button"
+                    app:icon="@drawable/ic_sort" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/qrcode_button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    style="?attr/materialIconButtonFilledTonalStyle"
+                    app:layout_constraintStart_toEndOf="@id/sort_button"
+                    app:layout_constraintTop_toTopOf="@id/search_button"
+                    app:layout_constraintEnd_toStartOf="@id/info_button"
+                    app:icon="@drawable/ic_qr_code" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/info_button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/qrcode_button"
+                    app:layout_constraintEnd_toStartOf="@id/settings_button"
+                    app:layout_constraintTop_toTopOf="@id/search_button"
+                    style="?attr/materialIconButtonFilledTonalStyle"
+                    app:icon="@drawable/ic_info" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/settings_button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/search_button"
+                    style="?attr/materialIconButtonFilledTonalStyle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:icon="@drawable/ic_settings" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/search_card"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:strokeColor="?attr/colorPrimary"
+            app:cardCornerRadius="45dp"
+            android:layout_margin="5dp" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_word"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:drawableStart="@drawable/ic_search"
+                android:layout_gravity="center"
+                android:gravity="start|center"
+                android:layout_margin="10dp"
+                android:background="@null"
+                android:visibility="gone" />
+        </com.google.android.material.card.MaterialCardView>
 
         <include layout="@layout/progress_bar" />
 

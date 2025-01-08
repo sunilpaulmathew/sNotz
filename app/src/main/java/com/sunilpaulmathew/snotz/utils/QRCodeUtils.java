@@ -5,8 +5,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -61,7 +59,6 @@ public class QRCodeUtils {
 
             @Override
             public void onPreExecute() {
-                Common.isWorking(true);
             }
 
             @Override
@@ -80,13 +77,13 @@ public class QRCodeUtils {
 
             @Override
             public void onPostExecute() {
-                Common.isWorking(false);
                 if (mBitmap != null) {
-                    Common.setReadModeImage(mBitmap);
                     Intent imageView = new Intent(mActivity, ImageViewActivity.class);
+                    imageView.putExtra(ImageViewActivity.IMAGE_INTENT, mBitmap);
+                    imageView.putExtra(ImageViewActivity.SHARE_SAVE_INTENT, true);
                     mActivity.startActivity(imageView);
                 } else {
-                    sCommonUtils.snackBar(mActivity.findViewById(android.R.id.content), mActivity.getString(R.string.qr_code_generate_error_message)).show();
+                    sCommonUtils.toast(mActivity.getString(R.string.qr_code_generate_error_message), mActivity).show();
                 }
             }
         };
@@ -120,7 +117,6 @@ public class QRCodeUtils {
 
             @Override
             public void onPreExecute() {
-                Common.isWorking(true);
                 if (sFileUtils.exist(mImageFile)) {
                     sFileUtils.delete(mImageFile);
                 }
@@ -133,7 +129,6 @@ public class QRCodeUtils {
 
             @Override
             public void onPostExecute() {
-                Common.isWorking(false);
                 if (sFileUtils.exist(mImageFile)) {
                     Intent share_QRCode = new Intent();
                     share_QRCode.setAction(Intent.ACTION_SEND);
@@ -149,7 +144,7 @@ public class QRCodeUtils {
                     Intent shareIntent = Intent.createChooser(share_QRCode, mActivity.getString(R.string.share_with));
                     mActivity.startActivity(shareIntent);
                 } else {
-                    sCommonUtils.snackBar(mActivity.findViewById(android.R.id.content), mActivity.getString(R.string.qr_code_generate_error_message)).show();
+                    sCommonUtils.toast(mActivity.getString(R.string.qr_code_generate_error_message), mActivity).show();
                 }
             }
         };
@@ -164,40 +159,18 @@ public class QRCodeUtils {
                 values.put(MediaStore.MediaColumns.MIME_TYPE, "image/png");
                 values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
                 Uri uri = mActivity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
-                imageOutStream = mActivity.getContentResolver().openOutputStream(uri);
-                appendTextOnBitmap(bitmap, mActivity).compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
+                imageOutStream = mActivity.getContentResolver().openOutputStream(Objects.requireNonNull(uri));
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, Objects.requireNonNull(imageOutStream));
                 imageOutStream.close();
             } else {
                 FileOutputStream imageOutStream;
                 File image = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), name);
                 imageOutStream = new FileOutputStream(image);
-                appendTextOnBitmap(bitmap, mActivity).compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
                 imageOutStream.close();
             }
         } catch(Exception ignored) {
         }
-    }
-
-    private static Bitmap appendTextOnBitmap(Bitmap bitmap, Activity activity) {
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(sCommonUtils.getColor(R.color.color_black, activity));
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(15);
-        int horizontalSpacing = Objects.requireNonNull(bitmap).getWidth() / 2;
-        int verticalSpacing = Objects.requireNonNull(bitmap).getHeight() - 5;
-        String[] splitText = Common.getNote().split(" ");
-        String newTxt;
-        if (splitText.length >= 3) {
-            newTxt = splitText[0] + " " + splitText[1] + " " + splitText[2] + "...";
-        } else {
-            newTxt = Common.getNote();
-        }
-        if (newTxt.length() > 10) {
-            newTxt = newTxt.substring(0, 10) + "...";
-        }
-        canvas.drawText(newTxt, horizontalSpacing, verticalSpacing, paint);
-        return bitmap;
     }
 
 }

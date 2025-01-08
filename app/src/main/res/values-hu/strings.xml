@@ -89,17 +89,9 @@
     <string name="change_name">"Név módosítása"</string>
     <string name="check_list_backup_question">"'%s' biztonsági mentés neve?"</string>
     <string name="check_list_create_question">"Új ellenőrző lista neve?"</string>
-    <string name="check_list_name_empty_message">"Az ellenőrző lista neve mező nem lehet üres. Megszakítás"</string>
     <string name="check_list_import_question">"A kiválasztott ellenőrző listák importálása?"</string>
     <string name="check_list_exist_warning">"Ezzel a névvel már létezik egy ellenőrző lista. Szeretnéd erre lecserélni?"</string>
     <string name="go_ahead">"Folytatás"</string>
-    <string name="image_add">"Kép hozzáadása"</string>
-    <string name="image_add_warning">"Megjegyzés: Képek hozzáadása a Jegyezetekhez hatással lehet az sNotz működési teljesítményére."</string>
-    <string name="image_excluded_warning">"Megjegyzés: A képek kihagyásra kerülnek."</string>
-    <string name="image_include">"Képek engedélyezése"</string>
-    <string name="image_include_summary">"Kép beszúrásának engedélyezése a Jegyzetbe"</string>
-    <string name="image_remove">"Kép eltávolítása"</string>
-    <string name="image_replace">"Kép cseréje"</string>
     <string name="pin_enter">"PIN megadása"</string>
     <string name="pin_reenter">"PIN ismételt megadása"</string>
     <string name="pin_mismatch_message">"Nem egyező PIN. Próbáld újra"</string>

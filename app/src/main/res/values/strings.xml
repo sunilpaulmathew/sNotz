@@ -17,6 +17,8 @@
     <string name="biometric_lock_summary">Use biometric authentication to secure sNotz</string>
     <string name="backup_checklist_message">Selected checklist is backed up as \'%s\'</string>
     <string name="backup_notes">Backup Notes</string>
+    <string name="backup_notes_auto">Enable Auto Backup</string>
+    <string name="backup_notes_auto_summary">Occasionally backup app data into a second location (recommended)</string>
     <string name="backup_notes_hint">Backup Notes As?</string>
     <string name="backup_notes_message">Your notes are backed up as \'%s\'</string>
     <string name="backup_notes_summary">Backup your notes into \'sdcard\'</string>
@@ -27,11 +29,9 @@
     <string name="check_list">Checklist</string>
     <string name="check_list_backup_question">Backup \'%s\' as?</string>
     <string name="check_list_create_question">Create new checklist as?</string>
-    <string name="check_list_name_empty_message">Checklist name shouldn\'t be empty. Aborting</string>
     <string name="check_list_import_question">Import selected checklist as?</string>
     <string name="check_list_exist_warning">A checklist with same name already exists. Do you want to replace it?</string>
     <string name="check_list_widget_color">Checklist Widget Color</string>
-    <string name="check_list_independent_message">Important: This process won\'t affect checklists as they are stored independently</string>
     <string name="check_list_widget_color_summary">Choose default color for Checklist Widgets</string>
     <string name="clear_notes">Clear Notes</string>
     <string name="clear_notes_message">Please note. All the notes will be deleted</string>
@@ -64,13 +64,6 @@
     <string name="hide">Hide</string>
     <string name="hidden_note">Hidden Note</string>
     <string name="hidden_note_message">Visit \'Settings\' page to change the visibility of hidden notes</string>
-    <string name="image_add">Add Image</string>
-    <string name="image_add_warning">Please Note: Adding notes containing images might affects the performance of sNotz.</string>
-    <string name="image_excluded_warning">Please Note: Images will be excluded.</string>
-    <string name="image_include">Allow Images</string>
-    <string name="image_include_summary">Allow including an image with notes</string>
-    <string name="image_remove">Remove Image</string>
-    <string name="image_replace">Replace Image</string>
     <string name="invite_friends">Invite Friends</string>
     <string name="invite_friends_Summary">Invite your friends to try sNotz</string>
     <string name="long_click_note_message">Long click a note for advanced options, such as \'share\', \'hide\' &amp; \'delete\'</string>
@@ -88,9 +81,11 @@
     <string name="notes_in_row">Notes in a Row</string>
     <string name="notes_in_row_default">Default</string>
     <string name="notes_in_row_summary">%s note</string>
+    <string name="notification_accepted_message">I\'m in</string>
+    <string name="notification_request_summary">Please Note: To work this feature on your device, sNotz requires permission to post notifications granted by you.</string>
+    <string name="notification_request_title">Get notified about your notes!</string>
+    <string name="notification_request_denied_toast">Permission denied to post notifications from sNotz.</string>
     <string name="ok">OK</string>
-    <string name="permission_notification_message">Inorder to work this feature on devices running android TIRAMISU or newer versions, it is necessary to have permission to post notifications granted by the user. If you like to have this feature working on sNotz, please go ahead with requesting (and granting) the permission by clicking the button provided below.</string>
-    <string name="permission_request">Request Permission</string>
     <string name="pin_enter">Enter PIN</string>
     <string name="pin_reenter">Renter PIN</string>
     <string name="pin_mismatch_message">PIN doesn\'t match. Please try again</string>
@@ -103,6 +98,7 @@
     <string name="qr_code_generate">Generate QR Code</string>
     <string name="qr_code_generate_error_message">Failed to generate QR Code</string>
     <string name="qr_code_read">Read from Image</string>
+    <string name="qr_code_save_hint">Save this QR code as?</string>
     <string name="qr_code_scan">Scan QR Code</string>
     <string name="rate_us">Rate Us</string>
     <string name="rate_us_Summary">Rate or/and Review sNotz in PlayStore</string>
@@ -145,7 +141,7 @@
     <string name="support">Support</string>
     <string name="support_acknowledged">Donation Acknowledged \u2665</string>
     <string name="support_development">Support Development</string>
-    <string name="support_development_summary">If you like to appreciate the efforts of the developer to provide this tool entirely free, please consider sending a small donation by clicking one among the below-provided options.</string>
+    <string name="support_development_summary">If you like to appreciate the efforts of developer to provide this tool entirely free, please consider sending a small donation by clicking one among the below-provided options.</string>
     <string name="support_dinner">Buy me a Dinner</string>
     <string name="support_meal">Buy me a Meal</string>
     <string name="support_coffee">Buy me a Coffee</string>

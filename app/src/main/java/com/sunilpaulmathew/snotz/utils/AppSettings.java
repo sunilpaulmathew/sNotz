@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
@@ -21,6 +22,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Executors;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.CommonUtils.sSerializableItems;
@@ -163,6 +165,24 @@ public class AppSettings {
         };
     }
 
+    public static void backupData(File backupFrom, File backupTo, Context context) {
+        if (backupFrom.exists() && !sNotzData.getRawData(context).isEmpty() && backupFrom.length() != backupTo.length()) {
+            Executors.newSingleThreadExecutor().execute(() -> sFileUtils.copy(backupFrom, backupTo));
+        }
+    }
+
+    public static void setRecreateIntent(Intent intent, Activity activity) {
+        intent.putExtra("recreate", true);
+        activity.setResult(Activity.RESULT_OK, intent);
+        activity.finish();
+    }
+
+    public static void setReloadIntent(Intent intent, Activity activity) {
+        intent.putExtra("reload", true);
+        activity.setResult(Activity.RESULT_OK, intent);
+        activity.finish();
+    }
+
     public static void setRows(Activity activity) {
         new sSingleChoiceDialog(R.drawable.ic_row, activity.getString(R.string.notes_in_row),
                 new String[] {
@@ -177,10 +197,7 @@ public class AppSettings {
             @Override
             public void onItemSelected(int itemPosition) {
                 sCommonUtils.saveInt("span_count", itemPosition, activity);
-                activity.recreate();
-                if (!Common.isReloading()) {
-                    Common.isReloading(true);
-                }
+                setRecreateIntent(activity.getIntent(), activity);
             }
         }.show();
     }
@@ -193,7 +210,7 @@ public class AppSettings {
             public void onItemSelected(int itemPosition) {
                 sCommonUtils.saveInt("font_size", Integer.parseInt(getFontSizes()[itemPosition].replace("sp","")), activity);
                 activity.recreate();
-                Utils.reloadUI(activity);
+                setReloadIntent(activity.getIntent(), activity);
             }
         }.show();
     }
@@ -211,7 +228,7 @@ public class AppSettings {
             public void onItemSelected(int itemPosition) {
                 sCommonUtils.saveString("font_style", getFontStyle(itemPosition), activity);
                 activity.recreate();
-                Utils.reloadUI(activity);
+                setReloadIntent(activity.getIntent(), activity);
             }
         }.show();
     }
@@ -228,9 +245,6 @@ public class AppSettings {
                 if (itemPosition == 0) {
                     saveDialog(Encryption.encrypt(Objects.requireNonNull(sFileUtils.read(new File(activity.getFilesDir(),"snotz")))), activity);
                 } else {
-                    if (sCommonUtils.getBoolean("allow_images", false, activity)) {
-                        sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.image_excluded_warning)).show();
-                    }
                     saveDialog(sNotzUtils.sNotzToText(activity), activity);
                 }
             }
@@ -266,7 +280,7 @@ public class AppSettings {
                         save(sNotz, fileName, activity);
                     }
                 } else {
-                    sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.text_empty)).show();
+                    sCommonUtils.toast(activity.getString(R.string.text_empty), activity).show();
                 }
             }
         }.show();
@@ -280,15 +294,15 @@ public class AppSettings {
                 values.put(MediaStore.MediaColumns.MIME_TYPE, "*/*");
                 values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
                 Uri uri = activity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
-                OutputStream outputStream = activity.getContentResolver().openOutputStream(uri);
-                outputStream.write(sNotz.getBytes());
+                OutputStream outputStream = activity.getContentResolver().openOutputStream(Objects.requireNonNull(uri));
+                Objects.requireNonNull(outputStream).write(sNotz.getBytes());
                 outputStream.close();
             } catch (IOException ignored) {
             }
         } else {
             sFileUtils.create(sNotz, new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text));
         }
-        sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text)).show();
+        sCommonUtils.toast(activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text), activity).show();
     }
 
 }

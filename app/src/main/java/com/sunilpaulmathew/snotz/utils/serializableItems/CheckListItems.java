@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.utils;
+package com.sunilpaulmathew.snotz.utils.serializableItems;
 
 import java.io.Serializable;
 
@@ -8,15 +8,20 @@ import java.io.Serializable;
 public class CheckListItems implements Serializable {
 
     private String mTitle;
-    private boolean mChecked;
+    private boolean mChecked, mModified;
 
-    public CheckListItems(String title, boolean checked) {
+    public CheckListItems(String title, boolean checked, boolean modified) {
         this.mTitle = title;
         this.mChecked = checked;
+        this.mModified = modified;
     }
 
     public boolean isChecked() {
         return mChecked;
+    }
+
+    public boolean isModified() {
+        return mModified;
     }
 
     public String getTitle() {
@@ -25,6 +30,10 @@ public class CheckListItems implements Serializable {
 
     public void isChecked(boolean b) {
         mChecked = b;
+    }
+
+    public void isModified(boolean b) {
+        mModified = b;
     }
 
     public void setTitle(String title) {

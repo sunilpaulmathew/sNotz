@@ -9,10 +9,6 @@ import androidx.fragment.app.Fragment;
 
 import com.sunilpaulmathew.snotz.activities.WelcomeActivity;
 import com.sunilpaulmathew.snotz.fragments.sNotzFragment;
-import com.sunilpaulmathew.snotz.utils.Common;
-import com.sunilpaulmathew.snotz.utils.sNotzColor;
-import com.sunilpaulmathew.snotz.utils.sNotzUtils;
-import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.CrashReporter.sCrashReporter;
@@ -30,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Record crashes
         sCrashReporter crashReporter = new sCrashReporter(this);
-        crashReporter.setAccentColor(sNotzColor.getAppAccentColor(this));
+        crashReporter.setAccentColor(Integer.MIN_VALUE);
         crashReporter.setTitleSize(25);
         crashReporter.initialize();
 
@@ -46,34 +42,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Fragment getMainFragment() {
-        int extraNoteId = getIntent().getIntExtra(sNotzWidgets.getNoteID(), sNotzWidgets.getInvalidNoteId());
-        String extraCheckListPath = getIntent().getStringExtra(sNotzWidgets.getChecklistPath());
-        String externalNote = getIntent().getStringExtra(sNotzUtils.getExternalNote());
+        int extraNoteId = getIntent().getIntExtra("noteId", Integer.MIN_VALUE);
+        String externalNote = getIntent().getStringExtra("externalNote");
 
         Bundle bundle = new Bundle();
-        if (extraCheckListPath != null) {
-            if (!sNotzWidgets.isWidget()) {
-                sNotzWidgets.isWidget(true);
-            }
-            bundle.putString(sNotzWidgets.getChecklistPath(), extraCheckListPath);
-        } else if (extraNoteId != sNotzWidgets.getInvalidNoteId()) {
-            bundle.putInt(sNotzWidgets.getNoteID(), extraNoteId);
+        if (extraNoteId != Integer.MIN_VALUE) {
+            bundle.putInt("noteId", extraNoteId);
         } else if (externalNote != null) {
-            bundle.putString(sNotzUtils.getExternalNote(), externalNote);
+            bundle.putString("externalNote", externalNote);
         }
 
         Fragment sNotzFragment = new sNotzFragment();
         sNotzFragment.setArguments(bundle);
         return sNotzFragment;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (Common.isReloading()) {
-            Common.isReloading(false);
-            recreate();
-        }
     }
 
 }

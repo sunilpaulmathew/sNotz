@@ -16,6 +16,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
@@ -31,7 +32,7 @@ public class SharedNotePickerActivity extends AppCompatActivity {
 
         ProgressBar mProgressBar = findViewById(R.id.progress);
 
-        if (getIntent().getAction().equals(Intent.ACTION_SEND)) {
+        if (Objects.equals(getIntent().getAction(), Intent.ACTION_SEND)) {
             // Handle notes shared by Other Apps
             Parcelable parcelable = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
             if (parcelable != null) {

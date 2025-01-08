@@ -92,13 +92,6 @@
     <string name="check_list_import_question">"Zaimportować wybraną listę kontrolną jako?"</string>
     <string name="check_list_exist_warning">"Lista kontrolna o tej samej nazwie już istnieje. Czy chcesz ją zamienić?"</string>
     <string name="go_ahead">"Dalej"</string>
-    <string name="image_add">"Dodaj obraz"</string>
-    <string name="image_add_warning">"Uwaga: Dodawanie notatek zawierających obrazy może mieć wpływ na działanie aplikacji sNotz."</string>
-    <string name="image_excluded_warning">"Uwaga: obrazy zostaną pominięte."</string>
-    <string name="image_include">"Zezwól na obrazy"</string>
-    <string name="image_include_summary">"Zezwól na dołączenie obrazu do notatek"</string>
-    <string name="image_remove">"Usuń obraz"</string>
-    <string name="image_replace">"Zamień obraz"</string>
     <string name="pin_enter">"Wprowadź PIN"</string>
     <string name="pin_reenter">"Wprowadź PIN ponownie"</string>
     <string name="pin_mismatch_message">"PIN nie zgadza się. Spróbuj ponownie"</string>
@@ -157,8 +150,6 @@
     <string name="color_accent_summary">"Wybierz domyślny kolor wiodący sNotz"</string>
     <string name="customize_colors">"Dostosowywanie kolorów"</string>
     <string name="note">"Notatka"</string>
-    <string name="permission_notification_message">"Aby funkcja działała na urządzeniach z systemem Android TIRAMISU lub nowszym, konieczne jest posiadanie uprawnień do wysyłania powiadomień przyznanych przez użytkownika. Jeśli chcesz, aby ta funkcja działała w sNotz, poproś o pozwolenie (i udziel mu go), klikając przycisk podany poniżej."</string>
-    <string name="permission_request">"Prośba o pozwolenie"</string>
     <string name="reminder_manage">"Zarządzanie przypomnieniami"</string>
     <string name="reminder_set">"Ustaw przypomnienie"</string>
     <string name="show">"Pokaż"</string>

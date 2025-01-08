@@ -89,17 +89,9 @@
     <string name="change_name">"İsmini değiştir"</string>
     <string name="check_list_backup_question">"'%s' olarak yedeklensin mi?"</string>
     <string name="check_list_create_question">"olarak yeni kontrol listesi oluştur?"</string>
-    <string name="check_list_name_empty_message">"Kontrol Listesi adı boş bırakılmamalıdır. iptal"</string>
     <string name="check_list_import_question">"Seçilen kontrol listesi olarak içe aktarılsın mı?"</string>
     <string name="check_list_exist_warning">"Aynı ada sahip bir kontrol listesi zaten var. Değiştirmek istiyor musun?"</string>
     <string name="go_ahead">"Devam etmek"</string>
-    <string name="image_add">"Resim eklemek"</string>
-    <string name="image_add_warning">"Lütfen Dikkat: Resim içeren notlar eklemek sNotz'un performansını etkileyebilir."</string>
-    <string name="image_excluded_warning">"Lütfen Dikkat: Resimler hariç tutulacaktır."</string>
-    <string name="image_include">"Resimlere İzin Ver"</string>
-    <string name="image_include_summary">"Not içeren bir resmin eklenmesine izin ver"</string>
-    <string name="image_remove">"Resmi Kaldır"</string>
-    <string name="image_replace">"Resmi Değiştir"</string>
     <string name="pin_enter">"PIN girin"</string>
     <string name="pin_reenter">"Kiracı PIN'i"</string>
     <string name="pin_mismatch_message">"PIN eşleşmiyor. Lütfen tekrar deneyin"</string>

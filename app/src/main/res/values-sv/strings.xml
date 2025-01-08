@@ -89,17 +89,9 @@
     <string name="change_name">"Ändra namn"</string>
     <string name="check_list_backup_question">"Gör en backup av '%s' som?"</string>
     <string name="check_list_create_question">"Skapa en ny checklista som?"</string>
-    <string name="check_list_name_empty_message">"Namn på checklistan saknas. Avbryter"</string>
     <string name="check_list_import_question">"Importera vald checklista som?"</string>
     <string name="check_list_exist_warning">"En checklista med samma namn existerar redan. Vill du byta ut den?"</string>
     <string name="go_ahead">"Fortsätt"</string>
-    <string name="image_add">"Lägg till bild"</string>
-    <string name="image_add_warning">"Notera: Att skapa anteckningar med bilder kan påverka sNotz prestanda."</string>
-    <string name="image_excluded_warning">"Notera: Bilder kommer att utelämnas."</string>
-    <string name="image_include">"Tillåt bilder"</string>
-    <string name="image_include_summary">"Tillåtelse att inkludera bild med anteckning"</string>
-    <string name="image_remove">"Radera bild"</string>
-    <string name="image_replace">"Byt ut bild"</string>
     <string name="pin_enter">"Ge PIN kod"</string>
     <string name="pin_reenter">"Ge PIN kod pånytt"</string>
     <string name="pin_mismatch_message">"PIN koden matchar inte. Försök på nytt"</string>

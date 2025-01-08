@@ -89,17 +89,9 @@
     <string name="change_name">"Изменить название"</string>
     <string name="check_list_backup_question">"Резервное копирование как '%s' ?"</string>
     <string name="check_list_create_question">"Создать новый список как?"</string>
-    <string name="check_list_name_empty_message">"Имя списка не должно быть пустым. Отмена"</string>
     <string name="check_list_import_question">"Импортировать выбранный список как?"</string>
     <string name="check_list_exist_warning">"Список с таким же названием уже существует. Вы хотите заменить его?"</string>
     <string name="go_ahead">"Вперёд"</string>
-    <string name="image_add">"Добавить изображение"</string>
-    <string name="image_add_warning">"Пожалуйста, обратите внимание: Добавление заметок, содержащих изображения, может повлиять на производительность sNotz."</string>
-    <string name="image_excluded_warning">"Пожалуйста, обратите внимание: Изображения будут исключены."</string>
-    <string name="image_include">"Разрешить изображение"</string>
-    <string name="image_include_summary">"Разрешить включение изображения с примечаниями"</string>
-    <string name="image_remove">"Удалить изображение"</string>
-    <string name="image_replace">"Переместить изображение"</string>
     <string name="pin_enter">"Ввод ПИН"</string>
     <string name="pin_reenter">"Повторить ПИН"</string>
     <string name="pin_mismatch_message">"ПИН-код не совпадает. Пожалуйста, попробуйте снова"</string>

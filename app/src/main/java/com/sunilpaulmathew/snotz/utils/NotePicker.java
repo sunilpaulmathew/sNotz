@@ -2,20 +2,19 @@ package com.sunilpaulmathew.snotz.utils;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.Editable;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.StartActivity;
-import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
 
 import java.io.File;
 
-import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
 import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
@@ -54,11 +53,9 @@ public class NotePicker {
                         .setPositiveButton(mActivity.getString(R.string.yes), (dialogInterface, i) ->
                                 restoreNote().execute())
                         .show();
-            } else if (CheckLists.isValidCheckList(mNote)) {
-                importCheckList();
             } else {
                 Intent mIntent = new Intent(mActivity, StartActivity.class);
-                mIntent.putExtra(sNotzUtils.getExternalNote(), mNote);
+                mIntent.putExtra("externalNote", mNote);
                 mActivity.startActivity(mIntent);
                 mActivity.finish();
             }
@@ -87,30 +84,14 @@ public class NotePicker {
                 JsonArray mJSONArray = new JsonArray();
                 if (sFileUtils.exist(new File(mActivity.getFilesDir(),"snotz"))) {
                     for (sNotzItems items : sNotzData.getRawData(mActivity)) {
-                        JsonObject note = new JsonObject();
-                        note.addProperty("note", items.getNote());
-                        note.addProperty("date", items.getTimeStamp());
-                        note.addProperty("image", items.getImageString());
-                        note.addProperty("hidden", items.isHidden());
-                        note.addProperty("colorBackground", items.getColorBackground());
-                        note.addProperty("colorText", items.getColorText());
-                        note.addProperty("noteID", items.getNoteID());
-                        mJSONArray.add(note);
+                        mJSONArray.add(sNotzUtils.getNote(Integer.MIN_VALUE, items));
                     }
                     i = sNotzUtils.generateNoteID(mActivity);
                 }
 
                 for (sNotzItems items : sNotzUtils.getNotesFromBackup(mNewNote, mActivity)) {
-                    JsonObject note = new JsonObject();
-                    note.addProperty("note", items.getNote());
-                    note.addProperty("date", items.getTimeStamp());
-                    note.addProperty("image", items.getImageString());
-                    note.addProperty("hidden", items.isHidden());
-                    note.addProperty("colorBackground", items.getColorBackground());
-                    note.addProperty("colorText", items.getColorText());
-                    note.addProperty("noteID", i);
+                    mJSONArray.add(sNotzUtils.getNote(i, items));
                     i++;
-                    mJSONArray.add(note);
                 }
                 mJSONObject.add("sNotz", mJSONArray);
                 sFileUtils.create(mJSONObject.toString(), new File(mActivity.getFilesDir(),"snotz"));
@@ -119,40 +100,12 @@ public class NotePicker {
             @Override
             public void onPostExecute() {
                 mProgressBar.setVisibility(View.GONE);
-                Utils.restartApp(mActivity);
+                Intent intent = new Intent(mActivity, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                mActivity.startActivity(intent);
+                mActivity.finish();
             }
         };
-    }
-    private void importCheckList() {
-        new EditTextInterface(null, mActivity.getString(R.string.check_list_import_question), mActivity) {
-
-            @Override
-            public void positiveButtonLister(Editable s) {
-                if (s != null && !s.toString().trim().isEmpty()) {
-                    if (sFileUtils.exist(new File(mActivity.getExternalFilesDir("checklists"), s.toString().trim()))) {
-                        new MaterialAlertDialogBuilder(mActivity)
-                                .setMessage(mActivity.getString(R.string.check_list_exist_warning))
-                                .setNegativeButton(mActivity.getString(R.string.change_name), (dialogInterface, i) -> importCheckList())
-                                .setPositiveButton(mActivity.getString(R.string.replace), (dialogInterface, i) ->
-                                        launchCheckList(mActivity.getExternalFilesDir("checklists") + "/" + s.toString().trim()))
-                                .show();
-                    } else {
-                        launchCheckList(mActivity.getExternalFilesDir("checklists") + "/" + s.toString().trim());
-                        mActivity.finish();
-                    }
-                } else {
-                    sCommonUtils.toast(mActivity.getString(R.string.check_list_name_empty_message), mActivity).show();
-                }
-            }
-        }.show();
-    }
-
-    private void launchCheckList(String path) {
-        sFileUtils.create(mNote, new File(path));
-        Intent mIntent = new Intent(mActivity, StartActivity.class);
-        mIntent.putExtra(sNotzWidgets.getChecklistPath(), path);
-        mActivity.startActivity(mIntent);
-        mActivity.finish();
     }
 
 }

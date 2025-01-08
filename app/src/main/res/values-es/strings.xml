@@ -92,13 +92,6 @@
     <string name="check_list_import_question">"¿Importar la lista de chequeo seleccionada como?"</string>
     <string name="check_list_exist_warning">"Ya existe una lista de chequeo con el mismo nombre. ¿Deseas reemplazarla?"</string>
     <string name="go_ahead">"Adelante"</string>
-    <string name="image_add">"Adjuntar imagen"</string>
-    <string name="image_add_warning">"Advertencia: Añadir notas que contengan imágenes puede afectar al rendimiento de sNotz."</string>
-    <string name="image_excluded_warning">"Advertencia: Se excluirán las imágenes"</string>
-    <string name="image_include">"Permitir imágenes"</string>
-    <string name="image_include_summary">"Permitir incluir una imagen en las notas"</string>
-    <string name="image_remove">"Eliminar imagen"</string>
-    <string name="image_replace">"Reemplazar la imagen"</string>
     <string name="pin_enter">"Ingresa el PIN"</string>
     <string name="pin_reenter">"Ingresa nuevamente el PIN"</string>
     <string name="pin_mismatch_message">"El PIN no coincide. Por favor, inténtalo de nuevo"</string>
@@ -157,8 +150,6 @@
     <string name="color_accent_summary">"Escoge el color de realce predeterminado de sNotz"</string>
     <string name="customize_colors">"Personalizar colores"</string>
     <string name="note">"Noya"</string>
-    <string name="permission_notification_message">"Para que esta función funcione en dispositivos con android TIRAMISU o versiones más recientes, es necesario que el usuario conceda permiso para publicar notificaciones. Si deseas que esta función funcione en sNotz, solicita (y concede) el permiso haciendo clic en el botón que aparece a continuación."</string>
-    <string name="permission_request">"Solicitar autorización"</string>
     <string name="reminder_manage">"Configurar recordatorio"</string>
     <string name="reminder_set">"Establecer recordatorio"</string>
     <string name="show">"Mostrar"</string>

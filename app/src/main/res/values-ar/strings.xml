@@ -88,17 +88,9 @@
     <string name="change_name">"تغيير الأسم"</string>
     <string name="check_list_backup_question">"النسخ الاحتياطي '%s' كـ؟"</string>
     <string name="check_list_create_question">"إنشاء قائمة تحقق جديدة باسم؟"</string>
-    <string name="check_list_name_empty_message">"يجب ألا يكون اسم القائمة فارغًا. إلغاء"</string>
     <string name="check_list_import_question">"استيراد القائمة المحددة كـ؟"</string>
     <string name="check_list_exist_warning">"توجد بالفعل قائمة بالاسم نفسه. هل تريد استبدالها؟"</string>
     <string name="go_ahead">"إنطلق"</string>
-    <string name="image_add">"أضافة صورة"</string>
-    <string name="image_add_warning">"يرجى الملاحظة: إضافة ملاحظات تحتوي على صور قد تؤثر على أداء sNotz."</string>
-    <string name="image_excluded_warning">"يرجى الملاحظة: سيتم استبعاد الصور."</string>
-    <string name="image_include">"سماح الصور"</string>
-    <string name="image_include_summary">"السماح بتضمين صورة مع الملاحظات"</string>
-    <string name="image_remove">"إزالة الصورة"</string>
-    <string name="image_replace">"استبدال الصورة"</string>
     <string name="pin_enter">"أدخل كلمة المرور PIN"</string>
     <string name="pin_reenter">"أعد ادخال PIN"</string>
     <string name="pin_mismatch_message">"كلمة المرور غير متطابق. حاول مرة اخرى"</string>

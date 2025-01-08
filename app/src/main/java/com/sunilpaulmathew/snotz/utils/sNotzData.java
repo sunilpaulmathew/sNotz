@@ -7,13 +7,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
@@ -23,20 +24,30 @@ import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
  */
 public class sNotzData {
 
-    public static List<sNotzItems> getData(Context context) {
-        List<sNotzItems> mData = new ArrayList<>();
+    public static List<sNotzItems> getData(Context context, String searchText) {
+        List<sNotzItems> mData = new CopyOnWriteArrayList<>();
         for (sNotzItems items : getRawData(context)) {
-            if (Common.getSearchText() == null) {
-                if (sCommonUtils.getBoolean("hidden_note", false, context)) {
-                    mData.add(items);
-                } else if (!items.isHidden()) {
-                    mData.add(items);
-                }
-            } else if (Common.isTextMatched(items.getNote())) {
-                if (sCommonUtils.getBoolean("hidden_note", false, context)) {
-                    mData.add(items);
-                } else if (!items.isHidden()) {
-                    mData.add(items);
+            boolean isVisible;
+            if (sCommonUtils.getInt("show_all", 0, context) == 2) {
+                isVisible = !items.isChecklist();
+            } else if (sCommonUtils.getInt("show_all", 0, context) == 1) {
+                isVisible = items.isChecklist();
+            } else {
+                isVisible = true;
+            }
+            if (isVisible) {
+                if (searchText == null) {
+                    if (sCommonUtils.getBoolean("hidden_note", false, context)) {
+                        mData.add(items);
+                    } else if (!items.isHidden()) {
+                        mData.add(items);
+                    }
+                } else if (Common.isTextMatched(items.getNote(), searchText)) {
+                    if (sCommonUtils.getBoolean("hidden_note", false, context)) {
+                        mData.add(items);
+                    } else if (!items.isHidden()) {
+                        mData.add(items);
+                    }
                 }
             }
         }
@@ -62,35 +73,20 @@ public class sNotzData {
     }
 
     public static List<sNotzItems> getRawData(Context context) {
-        List<sNotzItems> mData = new ArrayList<>();
-        if (sCommonUtils.getInt("show_all", 0, context) != 1) {
-            String json = context.getFilesDir().getPath() + "/snotz";
-            if (sFileUtils.exist(new File(json))) {
-                JsonArray sNotz = Objects.requireNonNull(getJSONObject(sFileUtils.read(new File(json)))).getAsJsonArray("sNotz");
-                for (int i = 0; i < sNotz.size(); i++) {
-                    mData.add(new sNotzItems(getNote(sNotz.get(i).getAsJsonObject()),
-                            getDate(sNotz.get(i).getAsJsonObject()),
-                            getImage(sNotz.get(i).getAsJsonObject()),
-                            isHidden(sNotz.get(i).getAsJsonObject()),
-                            getBackgroundColor(sNotz.get(i).getAsJsonObject(), context),
-                            getTextColor(sNotz.get(i).getAsJsonObject(), context),
-                            getNoteID(sNotz.get(i).getAsJsonObject()))
-                    );
-                }
-            }
-        }
-        if (sCommonUtils.getInt("show_all", 0, context) != 2) {
-            for (File checklists : Objects.requireNonNull(context.getExternalFilesDir("checklists").listFiles())) {
-                if (CheckLists.isValidCheckList(sFileUtils.read(checklists))) {
-                    mData.add(new sNotzItems(checklists.getAbsolutePath(),
-                            checklists.lastModified(),
-                            null,
-                            false,
-                            sCommonUtils.getColor(R.color.color_black, context),
-                            sCommonUtils.getColor(R.color.color_white, context),
-                            -1)
-                    );
-                }
+        List<sNotzItems> mData = new CopyOnWriteArrayList<>();
+        String json = context.getFilesDir().getPath() + "/snotz";
+        if (sFileUtils.exist(new File(json))) {
+            JsonArray sNotz = Objects.requireNonNull(getJSONObject(sFileUtils.read(new File(json)))).getAsJsonArray("sNotz");
+            for (int i = 0; i < sNotz.size(); i++) {
+                mData.add(new sNotzItems(
+                                getNote(sNotz.get(i).getAsJsonObject()),
+                                getDate(sNotz.get(i).getAsJsonObject()),
+                                isHidden(sNotz.get(i).getAsJsonObject()),
+                                getBackgroundColor(sNotz.get(i).getAsJsonObject(), context),
+                                getTextColor(sNotz.get(i).getAsJsonObject(), context),
+                                getNoteID(sNotz.get(i).getAsJsonObject())
+                        )
+                );
             }
         }
         return mData;
@@ -99,7 +95,7 @@ public class sNotzData {
     public static boolean isNotesEmpty(Context context) {
         return !sFileUtils.exist(new File(context.getFilesDir(),"snotz")) ||
                 (sFileUtils.exist(new File(context.getFilesDir(),"snotz")) &&
-                        getRawData(context).size() == 0);
+                        getRawData(context).isEmpty());
     }
 
     public static JsonObject getJSONObject(String string) {
@@ -119,14 +115,6 @@ public class sNotzData {
         } catch (Exception ignored) {
         }
         return System.currentTimeMillis();
-    }
-
-    public static String getImage(JsonObject object) {
-        try {
-            return object.get("image").getAsString();
-        } catch (Exception ignored) {
-        }
-        return null;
     }
 
     public static boolean isHidden(JsonObject object) {

@@ -16,12 +16,13 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/app_title"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_gravity="center"
+        style="@style/AppTheme.Title"
         android:gravity="center"
-        android:textSize="25sp"
-        android:padding="5dp" />
+        android:padding="5dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
@@ -58,77 +59,38 @@
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" >
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/source_code"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:padding="10dp" >
+                        android:layout_width="wrap_content"
+                        style="?attr/materialIconButtonFilledTonalStyle"
+                        app:backgroundTint="@android:color/transparent"
+                        android:text="@string/source_code"
+                        app:icon="@drawable/ic_code"
+                        android:padding="10dp"
+                        app:iconGravity="top" />
 
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@null"
-                            android:clickable="false"
-                            app:srcCompat="@drawable/ic_code" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_horizontal"
-                            android:text="@string/source_code" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/play_store"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:padding="10dp" >
+                        android:layout_width="wrap_content"
+                        style="?attr/materialIconButtonFilledTonalStyle"
+                        app:backgroundTint="@android:color/transparent"
+                        app:icon="@drawable/ic_playstore"
+                        android:text="@string/more_apps"
+                        android:padding="10dp"
+                        app:iconGravity="top" />
 
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@null"
-                            android:clickable="false"
-                            app:srcCompat="@drawable/ic_playstore" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_horizontal"
-                            android:text="@string/more_apps" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/report_issue"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:padding="10dp" >
-
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@null"
-                            android:clickable="false"
-                            app:srcCompat="@drawable/ic_bug" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_horizontal"
-                            android:text="@string/report_issue" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                        android:layout_width="wrap_content"
+                        style="?attr/materialIconButtonFilledTonalStyle"
+                        app:backgroundTint="@android:color/transparent"
+                        android:text="@string/report_issue"
+                        app:icon="@drawable/ic_bug"
+                        android:padding="10dp"
+                        app:iconGravity="top" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </com.google.android.material.card.MaterialCardView>
 
@@ -173,24 +135,16 @@
                     android:layout_gravity="center" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cancel_card"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="15dp"
-                app:cardCornerRadius="15dp" >
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cancel"
-                    android:layout_margin="10dp"
-                    android:clickable="false"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="18sp" />
-            </com.google.android.material.card.MaterialCardView>
+                app:icon="@drawable/ic_cancel"
+                android:text="@string/cancel"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                app:iconGravity="end"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -89,17 +89,9 @@
     <string name="change_name">"নাম পরিবর্তন কর"</string>
     <string name="check_list_backup_question">"ব্যাকআপ '%s' হিসেবে?"</string>
     <string name="check_list_create_question">"নতুন চেকলিস্ট হিসেবে তৈরি করবেন?"</string>
-    <string name="check_list_name_empty_message">"চেক তালিকার নাম খালি হওয়া উচিত নয়। গর্ভপাত"</string>
     <string name="check_list_import_question">"নির্বাচিত চেকলিস্ট হিসাবে আমদানি করবেন?"</string>
     <string name="check_list_exist_warning">"একই নামের একটি চেকলিস্ট ইতিমধ্যেই বিদ্যমান৷ তুমি কি এটা প্রতিস্থাপন করতে চাও?"</string>
     <string name="go_ahead">"এগিয়ে যান"</string>
-    <string name="image_add">"ছবি যোগ কর"</string>
-    <string name="image_add_warning">"অনুগ্রহ করে মনে রাখবেন: ছবি সম্বলিত নোট যোগ করা sNotz-এর কর্মক্ষমতা প্রভাবিত করতে পারে।"</string>
-    <string name="image_excluded_warning">"অনুগ্রহ করে নোট করুন: ছবি বাদ দেওয়া হবে।"</string>
-    <string name="image_include">"ছবি অনুমতি দিন"</string>
-    <string name="image_include_summary">"নোট সহ একটি ছবি অন্তর্ভুক্ত করার অনুমতি দিন"</string>
-    <string name="image_remove">"ছবি সরান"</string>
-    <string name="image_replace">"ছবি প্রতিস্থাপন করুন"</string>
     <string name="pin_enter">"পিন লিখুন"</string>
     <string name="pin_reenter">"ভাড়ার পিন"</string>
     <string name="pin_mismatch_message">"পিন মেলে না। অনুগ্রহপূর্বক আবার চেষ্টা করুন"</string>

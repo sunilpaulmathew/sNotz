@@ -3,9 +3,7 @@ package com.sunilpaulmathew.snotz.activities;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 
@@ -14,10 +12,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,14 +27,13 @@ import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
-import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.Encryption;
 import com.sunilpaulmathew.snotz.utils.Security;
-import com.sunilpaulmathew.snotz.utils.SettingsItems;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
+import com.sunilpaulmathew.snotz.utils.serializableItems.SettingsItems;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -46,6 +41,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
@@ -59,9 +55,8 @@ import in.sunilpaulmathew.sCommon.TranslatorUtils.sTranslatorUtils;
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    private AppCompatImageButton mBack;
     private BiometricPrompt mBiometricPrompt;
-    private ContentLoadingProgressBar mProgress;
+    private boolean mClearNote = false, mHidden = false;
     private String mJSONString = null;
 
     @Override
@@ -69,19 +64,12 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        mBack = findViewById(R.id.back_button);
         MaterialTextView mTitle = findViewById(R.id.title);
-        mProgress = findViewById(R.id.progress);
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         SettingsAdapter mRecycleViewAdapter = new SettingsAdapter(getData());
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
-        mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
-        mProgress.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, this));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mProgress.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(this)));
-        }
         mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
@@ -100,19 +88,14 @@ public class SettingsActivity extends AppCompatActivity {
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
-                        .initialColor(sCommonUtils.getInt("app_accent_color", sCommonUtils.getColor(R.color.color_teal, this), this))
+                        .initialColor(sNotzColor.getAppAccentColor(this))
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             sCommonUtils.saveInt("app_accent_color", selectedColor, this);
-                            mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
-                            mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
-                            mRecycleViewAdapter.notifyItemRangeChanged(0, getData().size());
-                            if (!Common.isReloading()) {
-                                Common.isReloading(true);
-                            }
+                            AppSettings.setRecreateIntent(getIntent(), this);
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
@@ -128,56 +111,53 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             } else if (position == 5) {
                 if (sCommonUtils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
-                    Common.isHiddenNote(true);
+                    mHidden = true;
                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                 } else if (Security.isPINEnabled(this)) {
                     Security.authenticate(false, mRecycleViewAdapter, position,this);
                 } else {
                     sCommonUtils.saveBoolean("hidden_note", !sCommonUtils.getBoolean("hidden_note", false, this), this);
                     mRecycleViewAdapter.notifyItemChanged(position);
-                    Utils.reloadUI( this);
+                    AppSettings.setReloadIntent(getIntent(),this);
                 }
             } else if (position == 7) {
                 if (sNotzColor.isRandomColorScheme(this)) {
-                    sCommonUtils.snackBar(mRecyclerView, getString(R.string.note_color_random_message)).show();
+                    sCommonUtils.toast(getString(R.string.note_color_random_message), this).show();
                     return;
                 }
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
-                        .initialColor(sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, this), this))
+                        .initialColor(sCommonUtils.getInt("accent_color", sNotzColor.getAccentColor(this), this))
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             sCommonUtils.saveInt("accent_color", selectedColor, this);
-                            sCommonUtils.snackBar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_background))).show();
-                            Utils.reloadUI(this);
-                            mRecycleViewAdapter.notifyItemChanged(position);
-                            Common.isReloading(true);
+                            sCommonUtils.toast(getString(R.string.choose_color_message, getString(R.string.note_color_background)), this).show();
+                            AppSettings.setReloadIntent(getIntent(),this);
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
             } else if (position == 8) {
                 if (sNotzColor.isRandomColorScheme(this)) {
-                    sCommonUtils.snackBar(mRecyclerView, getString(R.string.note_color_random_message)).show();
+                    sCommonUtils.toast(getString(R.string.note_color_random_message), this).show();
                     return;
                 }
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
-                        .initialColor(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, this), this))
+                        .initialColor(sCommonUtils.getInt("text_color", sNotzColor.getTextColor(this), this))
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })
                         .setPositiveButton(R.string.ok, (dialog, selectedColor, allColors) -> {
                             sCommonUtils.saveInt("text_color", selectedColor, this);
-                            sCommonUtils.snackBar(mRecyclerView, getString(R.string.choose_color_message, getString(R.string.note_color_text))).show();
-                            Utils.reloadUI(this);
+                            sCommonUtils.toast(getString(R.string.choose_color_message, getString(R.string.note_color_text)), this).show();
+                            AppSettings.setReloadIntent(getIntent(),this);
                             mRecycleViewAdapter.notifyItemChanged(position);
-                            Common.isReloading(true);
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
@@ -189,30 +169,14 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 mRecycleViewAdapter.notifyItemRangeChanged(7, 3);
             } else if (position == 10) {
-                if (sCommonUtils.getBoolean("allow_images", false, this)) {
-                    sCommonUtils.saveBoolean("allow_images", false, this);
-                    mRecycleViewAdapter.notifyItemChanged(position);
-                } else {
-                    new MaterialAlertDialogBuilder(this)
-                            .setIcon(R.mipmap.ic_launcher)
-                            .setTitle(R.string.warning)
-                            .setMessage(getString(R.string.image_add_warning))
-                            .setCancelable(false)
-                            .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                            })
-                            .setPositiveButton(R.string.go_ahead, (dialogInterface, i) -> {
-                                sCommonUtils.saveBoolean("allow_images", true, this);
-                                mRecycleViewAdapter.notifyItemChanged(position);
-                            }).show();
-                }
-            } else if (position == 11) {
                 sCommonUtils.saveBoolean("auto_save", !sCommonUtils.getBoolean("auto_save", false, this), this);
                 mRecycleViewAdapter.notifyItemChanged(position);
-            } else if (position == 12) {
+            } else if (position == 11) {
                 ColorPickerDialogBuilder
                         .with(this)
                         .setTitle(R.string.choose_color)
-                        .initialColor(sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_white, this), this))
+                        .initialColor(sCommonUtils.getInt("checklist_color", sNotzColor.getMaterial3Colors(
+                                0, sCommonUtils.getColor(R.color.color_teal, this), this), this))
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
@@ -224,19 +188,24 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         }).build().show();
-            } else if (position == 13) {
+            } else if (position == 12) {
                 AppSettings.setRows(this);
-            } else if (position == 14) {
+            } else if (position == 13) {
                 AppSettings.setFontSize(this);
-            } else if (position == 15) {
+            } else if (position == 14) {
                 AppSettings.setFontStyle(this);
+            } else if (position == 16) {
+                if (sCommonUtils.getBoolean("auto_backup", true, this)) {
+                    sCommonUtils.saveBoolean("auto_backup", false, this);
+                } else {
+                    sCommonUtils.saveBoolean("auto_backup", true, this);
+                    AppSettings.backupData(new File(getFilesDir(),"snotz"), new File(getExternalFilesDir("autoBackup"),"autoBackup"), this);
+                }
+                mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 17) {
                 if (sNotzData.isNotesEmpty(this)) {
-                    sCommonUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
+                    sCommonUtils.toast(getString(R.string.note_list_empty), this).show();
                 } else {
-                    if (!CheckLists.isNoChecklists(this)) {
-                        sCommonUtils.toast(getString(R.string.check_list_independent_message), this).show();
-                    }
                     AppSettings.showBackupOptions(this);
                 }
             } else if (position == 18) {
@@ -246,29 +215,28 @@ public class SettingsActivity extends AppCompatActivity {
                     restore.setType("text/plain");
                     restoreNotes.launch(restore);
                 } catch (ActivityNotFoundException e) {
-                    sCommonUtils.snackBar(mRecyclerView, e.getMessage()).show();
+                    sCommonUtils.toast(e.getMessage(), this).show();
                 }
             } else if (position == 19) {
                 if (sNotzData.isNotesEmpty(this)) {
-                    sCommonUtils.snackBar(mRecyclerView, getString(R.string.note_list_empty)).show();
+                    sCommonUtils.toast(getString(R.string.note_list_empty), this).show();
                 } else {
                     new MaterialAlertDialogBuilder(this)
                             .setIcon(R.mipmap.ic_launcher)
                             .setTitle(R.string.warning)
-                            .setMessage(getString(R.string.clear_notes_message) + (!CheckLists.isNoChecklists(this) ? "\n\n" + getString(
-                                    R.string.check_list_independent_message) : ""))
+                            .setMessage(getString(R.string.clear_notes_message))
                             .setNegativeButton(R.string.cancel, (dialog, which) -> {
                             })
                             .setPositiveButton(R.string.delete, (dialog, which) -> {
                                 if (sCommonUtils.getBoolean("use_biometric", false, this) && Utils.isFingerprintAvailable(this)) {
-                                    Common.isClearingNotes(true);
+                                    mClearNote = true;
                                     mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
                                 } else if (Security.isPINEnabled(this)) {
                                     Security.authenticate(false, mRecycleViewAdapter, position,this);
                                 } else {
                                     sFileUtils.delete(new File(getFilesDir(),"snotz"));
                                     mRecycleViewAdapter.notifyItemChanged(position);
-                                    Utils.reloadUI(this);
+                                    AppSettings.setReloadIntent(getIntent(),this);
                                     finish();
                                 }
                             }).show();
@@ -299,29 +267,27 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        mBack.setOnClickListener(v -> onBackPressed());
-
         Executor executor = ContextCompat.getMainExecutor(this);
         mBiometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                sCommonUtils.snackBar(mBack, getString(R.string.authentication_error, errString)).show();
+                sCommonUtils.toast(getString(R.string.authentication_error, errString), SettingsActivity.this).show();
                 mRecycleViewAdapter.notifyItemRangeChanged(4, 2);
             }
 
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                if (Common.isHiddenNote()) {
+                if (mHidden) {
                     sCommonUtils.saveBoolean("hidden_note", !sCommonUtils.getBoolean("hidden_note", false, SettingsActivity.this), SettingsActivity.this);
-                    Common.isHiddenNote(false);
-                    Utils.reloadUI(SettingsActivity.this);
+                    mHidden = false;
+                    AppSettings.setReloadIntent(getIntent(),SettingsActivity.this);
                     mRecycleViewAdapter.notifyItemChanged(5);
-                } else if (Common.isClearingNotes()) {
-                    Common.isClearingNotes(false);
+                } else if (mClearNote) {
+                    mClearNote = false;
                     sFileUtils.delete(new File(getFilesDir(),"snotz"));
-                    Utils.reloadUI(SettingsActivity.this);
+                    AppSettings.setReloadIntent(getIntent(),SettingsActivity.this);
                     mRecycleViewAdapter.notifyItemChanged(19);
                 } else {
                     Utils.useBiometric(SettingsActivity.this);
@@ -332,12 +298,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                sCommonUtils.snackBar(mBack, getString(R.string.authentication_failed)).show();
+                sCommonUtils.toast(getString(R.string.authentication_failed), SettingsActivity.this).show();
                 mRecycleViewAdapter.notifyItemRangeChanged(4, 2);
             }
         });
-
-        Utils.showBiometricPrompt(this);
     }
 
     private ArrayList<SettingsItems> getData() {
@@ -356,7 +320,6 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.note_color_background), getString(R.string.color_select_dialog, getString(R.string.note_color_background)), sCommonUtils.getDrawable(R.drawable.ic_color, this), null));
         mData.add(new SettingsItems(getString(R.string.note_color_text), getString(R.string.color_select_dialog, getString(R.string.note_color_text)), sCommonUtils.getDrawable(R.drawable.ic_text_color, this), null));
         mData.add(new SettingsItems(getString(R.string.note_color_random), getString(R.string.note_color_random_summary), sCommonUtils.getDrawable(R.drawable.ic_colorize, this), null));
-        mData.add(new SettingsItems(getString(R.string.image_include), getString(R.string.image_include_summary), sCommonUtils.getDrawable(R.drawable.ic_image, this), null));
         mData.add(new SettingsItems(getString(R.string.auto_save), getString(R.string.auto_save_summary), sCommonUtils.getDrawable(R.drawable.ic_save, this), null));
         mData.add(new SettingsItems(getString(R.string.check_list_widget_color), getString(R.string.check_list_widget_color_summary), sCommonUtils.getDrawable(R.drawable.ic_checklist, this), null));
         mData.add(new SettingsItems(getString(R.string.notes_in_row), AppSettings.getRows(this), sCommonUtils.getDrawable(R.drawable.ic_row, this), null));
@@ -364,10 +327,11 @@ public class SettingsActivity extends AppCompatActivity {
                 sCommonUtils.getDrawable(R.drawable.ic_format_size, this), null));
         mData.add(new SettingsItems(getString(R.string.text_style), AppSettings.getFontStyle(this), sCommonUtils.getDrawable(R.drawable.ic_text_style, this), null));
         mData.add(new SettingsItems(getString(R.string.misc), null, null, null));
+        mData.add(new SettingsItems(getString(R.string.backup_notes_auto), getString(R.string.backup_notes_auto_summary), sCommonUtils.getDrawable(R.drawable.ic_backup_auto, this), null));
         mData.add(new SettingsItems(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_backup, this), null));
         mData.add(new SettingsItems(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_restore, this), null));
         mData.add(new SettingsItems(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_clear, this), null));
-        mData.add(new SettingsItems(getString(R.string.donations), getString(R.string.donations_summary), sCommonUtils.getDrawable(R.drawable.ic_donate, this), null));
+        mData.add(new SettingsItems(getString(R.string.support_development), getString(R.string.donations_summary), sCommonUtils.getDrawable(R.drawable.ic_donate, this), null));
         mData.add(new SettingsItems(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), sCommonUtils.getDrawable(R.drawable.ic_share, this), null));
         mData.add(new SettingsItems(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), sCommonUtils.getDrawable(R.drawable.ic_home, this), null));
         mData.add(new SettingsItems(getString(R.string.translations), getString(R.string.translations_summary), sCommonUtils.getDrawable(R.drawable.ic_translate, this), null));
@@ -378,32 +342,35 @@ public class SettingsActivity extends AppCompatActivity {
         return mData;
     }
 
-    ActivityResultLauncher<Intent> restoreNotes = registerForActivityResult(
+    private final ActivityResultLauncher<Intent> restoreNotes = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    Intent data = result.getData();
-                    Uri uri = data.getData();
+                    Intent intent = result.getData();
+                    Uri uri = intent.getData();
                     try {
-                        InputStream inputStream = getContentResolver().openInputStream(uri);
+                        InputStream inputStream = getContentResolver().openInputStream(Objects.requireNonNull(uri));
                         BufferedInputStream bis = new BufferedInputStream(inputStream);
                         ByteArrayOutputStream buf = new ByteArrayOutputStream();
                         for (int jsonResult = bis.read(); jsonResult != -1; jsonResult = bis.read()) {
                             buf.write((byte) jsonResult);
                         }
-                        try {
-                            if (sNotzUtils.validBackup(Encryption.decrypt(buf.toString("UTF-8")))) {
-                                mJSONString = Encryption.decrypt(buf.toString("UTF-8"));
-                            } else if (sNotzUtils.validBackup(buf.toString("UTF-8"))) {
-                                mJSONString = buf.toString("UTF-8");
-                            }
-                        } catch (IllegalArgumentException ignored) {}
-                    } catch (IOException ignored) {}
-
-                    if (mJSONString == null) {
-                        sCommonUtils.snackBar(mBack, getString(R.string.restore_error)).show();
-                        return;
+                        if (sNotzUtils.validBackup(Encryption.decrypt(buf.toString("UTF-8")))) {
+                            mJSONString = Encryption.decrypt(buf.toString("UTF-8"));
+                        } else if (sNotzUtils.validBackup(buf.toString("UTF-8"))) {
+                            mJSONString = buf.toString("UTF-8");
+                        } else if (CheckLists.isValidCheckList(buf.toString("UTF-8"))) {
+                            intent.putExtra("checkList", buf.toString("UTF-8"));
+                            setResult(Activity.RESULT_OK, intent);
+                            finish();
+                        } else {
+                            sCommonUtils.toast(getString(R.string.restore_error), this).show();
+                            return;
+                        }
+                    } catch (IOException ignored) {
+                        sCommonUtils.toast(getString(R.string.restore_error), this).show();
                     }
+
                     new MaterialAlertDialogBuilder(this)
                             .setIcon(R.mipmap.ic_launcher)
                             .setTitle(R.string.app_name)
@@ -411,7 +378,8 @@ public class SettingsActivity extends AppCompatActivity {
                             .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                             })
                             .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                                sNotzUtils.restoreNotes(mJSONString, mProgress,this).execute();
+                                intent.putExtra("dataBase", mJSONString);
+                                setResult(Activity.RESULT_OK, intent);
                                 finish();
                             }).show();
                 }

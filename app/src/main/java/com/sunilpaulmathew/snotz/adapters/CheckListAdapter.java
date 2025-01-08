@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.CheckListItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.List;
@@ -41,12 +41,15 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull CheckListAdapter.ViewHolder holder, int position) {
+        holder.setIsRecyclable(data.size() < 25);
         holder.mCheckBox.setChecked(this.data.get(position).isChecked());
         holder.mTitle.setText(this.data.get(position).getTitle());
+        holder.mTitle.setTextColor(sNotzColor.getAppAccentColor(holder.mTitle.getContext()));
         holder.mTitle.setPaintFlags(this.data.get(position).isChecked() ? Paint.STRIKE_THRU_TEXT_FLAG : Paint.LINEAR_TEXT_FLAG);
 
         holder.mCheckBox.setOnClickListener(v -> {
             this.data.get(position).isChecked(!this.data.get(position).isChecked());
+            this.data.get(position).isModified(true);
             holder.mTitle.setPaintFlags(this.data.get(position).isChecked() ? Paint.STRIKE_THRU_TEXT_FLAG : Paint.LINEAR_TEXT_FLAG);
         });
 
@@ -74,13 +77,14 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.View
                     if (s.toString().endsWith("\n")) {
                         editText.setText(newText);
                         if (position == data.size() - 1) {
-                            data.add(data.size(), new CheckListItems(null, false));
+                            data.add(data.size(), new CheckListItems(null, false, false));
+                            editText.setSelection(Objects.requireNonNull(editText.getText()).length());
                         }
                     } else if (s.toString().contains("\n")) {
                         editText.setText(newText);
                     }
                     data.get(position).setTitle(newText);
-                    editText.setSelection(Objects.requireNonNull(editText.getText()).length());
+                    data.get(position).isModified(true);
                 } else if (s != null && s.toString().equals("\n")) {
                     editText.setText(null);
                 } else {

@@ -65,11 +65,9 @@ public class StartActivity extends AppCompatActivity {
                 mAuthenticationStatus.setTextColor(Color.RED);
                 mAuthenticationStatus.setText(getString(R.string.authentication_failed));
                 mAuthenticationStatus.setVisibility(View.VISIBLE);
-                sCommonUtils.snackBar(mAuthenticationStatus, getString(R.string.authentication_failed)).show();
+                sCommonUtils.toast(getString(R.string.authentication_failed), StartActivity.this).show();
             }
         });
-
-        Utils.showBiometricPrompt(this);
 
         if (!sCommonUtils.getBoolean("color_customized", false, this)) {
             sCommonUtils.saveBoolean("color_customized", true, this);

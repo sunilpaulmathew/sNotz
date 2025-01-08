@@ -89,17 +89,9 @@
     <string name="change_name">"Cambia Nome"</string>
     <string name="check_list_backup_question">"Nome Backup di '%s'?"</string>
     <string name="check_list_create_question">"Nome della nuova checklist?"</string>
-    <string name="check_list_name_empty_message">"Il nome della Checklist non deve essere vuoto. Operazione interrotta"</string>
     <string name="check_list_import_question">"Come vuoi importare la checklist selezionata?"</string>
     <string name="check_list_exist_warning">"Una checklist con lo stesso nome esiste già. Vuoi rimpiazzarla?"</string>
     <string name="go_ahead">"Vai Avanti"</string>
-    <string name="image_add">"Aggiungi Immagine"</string>
-    <string name="image_add_warning">"Attenzione: Aggiungere note contenenti immagini potrebbe influenzare le prestazioni di sNotz."</string>
-    <string name="image_excluded_warning">"Attenzione: Le immagini saranno escluse."</string>
-    <string name="image_include">"Consenti Immagini"</string>
-    <string name="image_include_summary">"Consenti di includere un'immagine nelle note"</string>
-    <string name="image_remove">"Rimuovi Immagine"</string>
-    <string name="image_replace">"Sostituisci Immagine"</string>
     <string name="pin_enter">"Inserisci il PIN"</string>
     <string name="pin_reenter">"Reinserisci il PIN"</string>
     <string name="pin_mismatch_message">"Il PIN non corrisponde. Per favore prova di nuovo"</string>

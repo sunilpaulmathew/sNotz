@@ -57,9 +57,7 @@ public class WidgetActivity extends AppCompatActivity {
             }
         });
 
-        Utils.showBiometricPrompt(this);
-
-        if (sCommonUtils.getBoolean("use_biometric", false, this)) {
+        if (Utils.isFingerprintAvailable(this) && sCommonUtils.getBoolean("use_biometric", false, this)) {
             mBiometricPrompt.authenticate(Utils.showBiometricPrompt(this));
         } else if (Security.isPINEnabled(this)) {
             new AuthenticatorInterface(true, getString(R.string.authenticate), this) {

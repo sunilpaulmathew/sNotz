@@ -1,6 +1,7 @@
 package com.sunilpaulmathew.snotz.activities;
 
 import android.Manifest;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,11 +15,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.interfaces.EditTextInterface;
-import com.sunilpaulmathew.snotz.utils.Common;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
-import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
@@ -27,35 +26,37 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
  */
 public class ImageViewActivity extends AppCompatActivity {
 
+    public static final String SHARE_SAVE_INTENT = "share_save", IMAGE_INTENT = "image";
+    private static Bitmap mBitmap;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imageview);
 
-        AppCompatImageButton mBack = findViewById(R.id.back_button);
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         AppCompatImageButton mShare = findViewById(R.id.share_button);
         AppCompatImageView mImage = findViewById(R.id.image);
         MaterialTextView mTitle = findViewById(R.id.title);
 
-        mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
+        mBitmap = getIntent().getParcelableExtra(IMAGE_INTENT);
+        boolean mSaveAndShare = getIntent().getBooleanExtra(SHARE_SAVE_INTENT, false);
+
         mSave.setColorFilter(sNotzColor.getAppAccentColor(this));
         mShare.setColorFilter(sNotzColor.getAppAccentColor(this));
         mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
-        if (Common.getReadModeImage() != null) {
-            mImage.setImageBitmap(Common.getReadModeImage());
-            mSave.setVisibility(View.VISIBLE);
-            mShare.setVisibility(View.VISIBLE);
-        } else if (Common.getImageString() != null) {
-            mImage.setImageBitmap(sNotzUtils.stringToBitmap(Common.getImageString()));
+        if (mBitmap != null) {
+            mImage.setImageBitmap(mBitmap);
+            if (mSaveAndShare) {
+                mSave.setVisibility(View.VISIBLE);
+                mShare.setVisibility(View.VISIBLE);
+            }
         }
-
-        mBack.setOnClickListener(v -> onBackPressed());
 
         mSave.setOnClickListener(v -> saveDialog());
 
-        mShare.setOnClickListener(v -> new QRCodeUtils(Common.getNote(), null, this).shareQRCode(Common.getReadModeImage()).execute());
+        mShare.setOnClickListener(v -> new QRCodeUtils(null, null, this).shareQRCode(mBitmap).execute());
     }
 
     private void saveDialog() {
@@ -65,7 +66,7 @@ public class ImageViewActivity extends AppCompatActivity {
             }, this);
             return;
         }
-        new EditTextInterface("sNotz", getString(R.string.backup_notes_hint), this) {
+        new EditTextInterface("sNotz", getString(R.string.qr_code_save_hint), this) {
 
             @Override
             public void positiveButtonLister(Editable s) {
@@ -77,21 +78,13 @@ public class ImageViewActivity extends AppCompatActivity {
                     if (fileName.contains(" ")) {
                         fileName = fileName.replace(" ", "_");
                     }
-                    new QRCodeUtils(null, null, ImageViewActivity.this).saveQRCode(Common.getReadModeImage(), fileName);
-                    onBackPressed();
+                    new QRCodeUtils(null, null, ImageViewActivity.this).saveQRCode(mBitmap, fileName);
+                    finish();
                 } else {
-                    sCommonUtils.snackBar(findViewById(android.R.id.content), getString(R.string.text_empty)).show();
+                    sCommonUtils.toast(getString(R.string.text_empty), ImageViewActivity.this).show();
                 }
             }
         }.show();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (!Common.isWorking()) {
-            Common.setNote(null);
-            Common.setReadModeImage(null);
-            finish();
-        }
-    }
 }

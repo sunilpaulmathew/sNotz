@@ -20,6 +20,7 @@ import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
@@ -48,13 +49,10 @@ public class BillingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing);
 
-        AppCompatImageButton mBack = findViewById(R.id.back_button);
+        MaterialButton mCancel = findViewById(R.id.cancel_button);
         MaterialTextView mTitle = findViewById(R.id.title);
-        MaterialTextView mCancel = findViewById(R.id.cancel_button);
 
-        mBack.setColorFilter(sNotzColor.getAppAccentColor(this));
         mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
-        mCancel.setTextColor(sNotzColor.getAppAccentColor(this));
 
         mData.add(new BillingItems(getString(R.string.donation_app), sCommonUtils.getDrawable(R.drawable.ic_donation_app, this)));
         mData.add(new BillingItems(getString(R.string.support_coffee), sCommonUtils.getDrawable(R.drawable.ic_coffee, this)));
@@ -79,8 +77,7 @@ public class BillingActivity extends AppCompatActivity {
             }
         });
 
-        mBack.setOnClickListener(v -> super.onBackPressed());
-        mCancel.setOnClickListener(v -> super.onBackPressed());
+        mCancel.setOnClickListener(v -> finish());
 
         mBillingClient = BillingClient.newBuilder(BillingActivity.this).enablePendingPurchases().setListener((billingResult, list) -> {
             if (list != null && billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {

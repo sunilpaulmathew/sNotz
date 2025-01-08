@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.utils;
+package com.sunilpaulmathew.snotz.utils.serializableItems;
 
 import java.io.Serializable;
 

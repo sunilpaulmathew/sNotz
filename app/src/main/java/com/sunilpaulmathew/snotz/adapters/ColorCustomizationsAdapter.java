@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.CheckListItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.ArrayList;

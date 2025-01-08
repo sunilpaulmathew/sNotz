@@ -89,17 +89,9 @@
     <string name="change_name">"Changer de nom"</string>
     <string name="check_list_backup_question">"Sauvegarder '%s' en tant que ?"</string>
     <string name="check_list_create_question">"Créer une nouvelle liste en tant que ?"</string>
-    <string name="check_list_name_empty_message">"Le nom de la liste ne doit pas être vide. Abandon"</string>
     <string name="check_list_import_question">"Importer la liste sélectionnée en tant que ?"</string>
     <string name="check_list_exist_warning">"Une liste avec le même nom existe déjà. Voulez-vous le remplacer ?"</string>
     <string name="go_ahead">"Vas-y"</string>
-    <string name="image_add">"Ajouter une image"</string>
-    <string name="image_add_warning">"Remarque : L'ajout de notes contenant des images peut affecter les performances de sNotz."</string>
-    <string name="image_excluded_warning">"Veuillez noter : les images seront exclues."</string>
-    <string name="image_include">"Autoriser les images"</string>
-    <string name="image_include_summary">"Autoriser l'inclusion d'une image dans les notes"</string>
-    <string name="image_remove">"Supprimer l'image"</string>
-    <string name="image_replace">"Remplacer l'image"</string>
     <string name="pin_enter">"Entrer le code PIN"</string>
     <string name="pin_reenter">"Entrer de nouveau le code PIN"</string>
     <string name="pin_mismatch_message">"Le code PIN ne correspond pas. Veuillez réessayer"</string>

@@ -92,13 +92,6 @@
     <string name="check_list_import_question">"Importovat vybraný seznam jako?"</string>
     <string name="check_list_exist_warning">"Seznam se stejným jménem již existuje. Chcete jej nahradit?"</string>
     <string name="go_ahead">"Pokračovat"</string>
-    <string name="image_add">"Přidat Obrázek"</string>
-    <string name="image_add_warning">"Upozornění: Přidání poznámek s obrázky může ovlivnit výkon sNotz."</string>
-    <string name="image_excluded_warning">"Upozornění: Obrázky budou vyřazeny."</string>
-    <string name="image_include">"Povolit Obrázky"</string>
-    <string name="image_include_summary">"Povolit vložení obrázku s poznámkami"</string>
-    <string name="image_remove">"Odstranit Obrázek"</string>
-    <string name="image_replace">"Nahradit Obrázek"</string>
     <string name="pin_enter">"Zadejte PIN"</string>
     <string name="pin_reenter">"Opakujte PIN"</string>
     <string name="pin_mismatch_message">"PIN se neshoduje. Zkusite to znovu."</string>
@@ -157,8 +150,6 @@
     <string name="color_accent_summary">"Vyberte si výchozí Barvu Prostředí sNotz"</string>
     <string name="customize_colors">"Přizpůsobit Barvy"</string>
     <string name="note">"Poznámka"</string>
-    <string name="permission_notification_message">"Aby fungovala tato funkce na zařízeních s Androided TIRAMISU nebo novějším, je nutné mít oprávnění od uživatele zasílat oznámení. Pokud chcete, aby tato funkce v sNotz fungovala, pokračujte v požádání (a udělení) o oprávnění kliknutím na níže uvedené tlačítko."</string>
-    <string name="permission_request">"Požádat o Oprávnění"</string>
     <string name="reminder_manage">"Spravovat Upomínky"</string>
     <string name="reminder_set">"Nastavit Upomínku"</string>
     <string name="show">"Ukázat"</string>

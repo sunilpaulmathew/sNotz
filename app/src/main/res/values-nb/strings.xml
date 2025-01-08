@@ -92,13 +92,6 @@
     <string name="check_list_import_question">"Importere valgte sjekkliste som?"</string>
     <string name="check_list_exist_warning">"En sjekkliste med samme navn finnes allerede. Vil du erstatte den?"</string>
     <string name="go_ahead">"Gå videre"</string>
-    <string name="image_add">"Legg til bilde"</string>
-    <string name="image_add_warning">"Merk: Å legge til notater som inneholder bilder kan påvirke ytelsen til sNotz."</string>
-    <string name="image_excluded_warning">"Merk: Bilder blir ekskludert."</string>
-    <string name="image_include">"Tillat bilder"</string>
-    <string name="image_include_summary">"Tillat å inkludere bilde i notater"</string>
-    <string name="image_remove">"Fjern bilde"</string>
-    <string name="image_replace">"Erstatt bilde"</string>
     <string name="pin_enter">"Angi PIN"</string>
     <string name="pin_reenter">"Angi PIN igjen"</string>
     <string name="pin_mismatch_message">"PIN stemmer ikke overens. Prøv igjen"</string>
@@ -157,8 +150,6 @@
     <string name="color_accent_summary">"Velg standard aksentfarge for sNotz"</string>
     <string name="customize_colors">"Tilpass farger"</string>
     <string name="note">"Notat"</string>
-    <string name="permission_notification_message"/>
-    <string name="permission_request">"Be om tillatelse"</string>
     <string name="reminder_manage">"Håndter påminnelse"</string>
     <string name="reminder_set">"Sett påminnelse"</string>
     <string name="show">"Vis"</string>

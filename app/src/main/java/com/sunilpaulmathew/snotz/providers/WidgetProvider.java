@@ -10,14 +10,12 @@ import android.widget.RemoteViews;
 
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.StartActivity;
+import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
-import com.sunilpaulmathew.snotz.utils.sNotzItems;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
-
-import java.io.File;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
-import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 19, 2021
@@ -49,45 +47,32 @@ public class WidgetProvider extends AppWidgetProvider {
     }
 
     public static void update(AppWidgetManager appWidgetManager, int appWidgetId, Context context) {
-        RemoteViews mViews;
-        Intent mIntent = new Intent(context, StartActivity.class);
-        PendingIntent mPendingIntent;
+        for (sNotzItems items : sNotzData.getRawData(context)) {
+            int noteId = items.getNoteID();
+            if (noteId == sNotzWidgets.getNoteID(appWidgetId, context)) {
+                RemoteViews mViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_notes);
+                if (items.isChecklist()) {
+                    mViews.setTextViewText(R.id.note, sNotzWidgets.getWidgetText(items.getNote()));
+                    mViews.setTextColor(R.id.note, sCommonUtils.getInt("checklist_color", sNotzColor.getMaterial3Colors(
+                            0, sCommonUtils.getColor(R.color.color_teal, context), context), context));
+                    mViews.setInt(R.id.layout, "setBackgroundColor", android.R.color.transparent);
+                } else {
+                    mViews.setTextViewText(R.id.note, items.getNote());
+                    mViews.setTextColor(R.id.note, items.getColorText());
+                    mViews.setInt(R.id.layout, "setBackgroundColor", items.getColorBackground());
+                }
 
-        if (sNotzWidgets.getChecklistPath(appWidgetId, context) != null) {
-            if (sFileUtils.exist(new File(sNotzWidgets.getChecklistPath(appWidgetId, context)))) {
-                mViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_checklists);
-                mViews.setTextViewText(R.id.note, sNotzWidgets.getWidgetText(sNotzWidgets.getChecklistPath(appWidgetId, context)));
-                mViews.setTextColor(R.id.note, sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_black, context), context));
-                mIntent.putExtra(sNotzWidgets.getChecklistPath(), sNotzWidgets.getChecklistPath(appWidgetId, context));
-                mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, Build.VERSION.SDK_INT >=
+                Intent mIntent = new Intent(context, StartActivity.class);
+                mIntent.putExtra("noteId", noteId);
+                /*
+                 * It shouldn't be set to PendingIntent.FLAG_CANCEL_CURRENT as we need to update our widgets occasionally
+                 * (once in every 30 min as per https://github.com/sunilpaulmathew/sNotz/blob/1eb52b17b275fc87ea58e371bc4c2f26409a82e7/app/src/main/res/xml/widget_provider.xml#L9)
+                 * Probably, use PendingIntent.FLAG_UPDATE_CURRENT?
+                 */
+                PendingIntent mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, Build.VERSION.SDK_INT >=
                         android.os.Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
                 mViews.setOnClickPendingIntent(R.id.layout, mPendingIntent);
                 appWidgetManager.updateAppWidget(appWidgetId, mViews);
-            } else if (sNotzWidgets.getNoteID(appWidgetId, context) != -1) {
-                for (sNotzItems items : sNotzData.getRawData(context)) {
-                    int noteId = items.getNoteID();
-                    if (noteId == sNotzWidgets.getNoteID(appWidgetId, context)) {
-                        mViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_notes);
-                        mViews.setTextViewText(R.id.note, items.getNote());
-                        mViews.setTextColor(R.id.note, items.getColorText());
-                        mViews.setInt(R.id.layout, "setBackgroundColor", items.getColorBackground());
-                        /* Only passing the id here, we can pass the whole sNotzItems as Serializable
-                         * but it will fail if the item is too big (>= 1MB in size)
-                         * We can retrieve the item back later by its ID
-                         */
-                        // TODO: Use a better persistence technique so that the Common class is not necessary (it is memory hungry and unreliable)
-                        mIntent.putExtra(sNotzWidgets.getNoteID(), noteId);
-                        /*
-                         * It shouldn't be set to PendingIntent.FLAG_CANCEL_CURRENT as we need to update our widgets occasionally
-                         * (once in every 30 min as per https://github.com/sunilpaulmathew/sNotz/blob/1eb52b17b275fc87ea58e371bc4c2f26409a82e7/app/src/main/res/xml/widget_provider.xml#L9)
-                         * Probably, use PendingIntent.FLAG_UPDATE_CURRENT?
-                         */
-                        mPendingIntent = PendingIntent.getActivity(context, appWidgetId, mIntent, Build.VERSION.SDK_INT >=
-                                android.os.Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
-                        mViews.setOnClickPendingIntent(R.id.layout, mPendingIntent);
-                        appWidgetManager.updateAppWidget(appWidgetId, mViews);
-                    }
-                }
             }
         }
     }

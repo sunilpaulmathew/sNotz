@@ -1,4 +1,6 @@
-package com.sunilpaulmathew.snotz.utils;
+package com.sunilpaulmathew.snotz.utils.serializableItems;
+
+import com.sunilpaulmathew.snotz.utils.CheckLists;
 
 import java.io.Serializable;
 
@@ -10,12 +12,11 @@ public class sNotzItems implements Serializable {
     private final boolean mHidden;
     private final int mColorBackground, mColorText, mID;
     private final long mTimeStamp;
-    private final String mImageString, mNote;
+    private final String mNote;
 
-    public sNotzItems(String note, long timeStamp, String imageString, boolean hidden, int colorBackground, int colorText, int id) {
+    public sNotzItems(String note, long timeStamp, boolean hidden, int colorBackground, int colorText, int id) {
         this.mNote = note;
         this.mTimeStamp = timeStamp;
-        this.mImageString = imageString;
         this.mHidden = hidden;
         this.mColorBackground = colorBackground;
         this.mColorText = colorText;
@@ -23,7 +24,7 @@ public class sNotzItems implements Serializable {
     }
 
     public boolean isChecklist() {
-        return mID == -1;
+        return CheckLists.isValidCheckList(mNote);
     }
 
     public boolean isHidden() {
@@ -40,10 +41,6 @@ public class sNotzItems implements Serializable {
 
     public int getNoteID() {
         return mID;
-    }
-
-    public String getImageString() {
-        return mImageString;
     }
 
     public String getNote() {

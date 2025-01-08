@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.view.inputmethod.InputMethodManager;
@@ -14,9 +13,7 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
 
-import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
 import com.sunilpaulmathew.snotz.providers.WidgetProvider;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
@@ -56,7 +53,7 @@ public class Utils {
                 .build();
     }
 
-    public static boolean isSmallScreenSize(Activity activity) {
+    public static boolean isSmallScreenSize(int spanCount, Activity activity) {
         int ratio;
         int dpi = activity.getResources().getDisplayMetrics().densityDpi;
         if (sCommonUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE) {
@@ -64,7 +61,7 @@ public class Utils {
         } else {
             ratio = dpi / 250;
         }
-        return Common.getSpanCount() > ratio;
+        return spanCount > ratio;
     }
 
     public static int getSpanCount(Activity activity) {
@@ -77,21 +74,8 @@ public class Utils {
         }
     }
 
-    public static void reloadUI(Context context) {
-        try {
-            Common.getRecyclerView().setAdapter(new NotesAdapter(sNotzData.getData(context)));
-        } catch (NullPointerException ignored) {}
-    }
-
     public static void requestPermission(String[] permissions, Activity activity) {
         ActivityCompat.requestPermissions(activity, permissions, 0);
-    }
-
-    public static void restartApp(Activity activity) {
-        Intent intent = new Intent(activity, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        activity.startActivity(intent);
-        activity.finish();
     }
 
     public static void toggleKeyboard(AppCompatEditText textView, Context context) {
@@ -108,15 +92,13 @@ public class Utils {
         mWidgetProvider.onUpdate(context, AppWidgetManager.getInstance(context), ids);
     }
 
-    public static void useBiometric(Activity activity) {
-        if (sCommonUtils.getBoolean("use_biometric", false, activity)) {
-            sCommonUtils.saveBoolean("use_biometric", false, activity);
-            sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.biometric_lock_status,
-                    activity.getString(R.string.deactivated))).show();
+    public static void useBiometric(Context context) {
+        if (sCommonUtils.getBoolean("use_biometric", false, context)) {
+            sCommonUtils.saveBoolean("use_biometric", false, context);
+            sCommonUtils.toast(context.getString(R.string.biometric_lock_status, context.getString(R.string.deactivated)), context).show();
         } else {
-            sCommonUtils.saveBoolean("use_biometric", true, activity);
-            sCommonUtils.snackBar(activity.findViewById(android.R.id.content), activity.getString(R.string.biometric_lock_status,
-                    activity.getString(R.string.activated))).show();
+            sCommonUtils.saveBoolean("use_biometric", true, context);
+            sCommonUtils.toast(context.getString(R.string.biometric_lock_status, context.getString(R.string.activated)), context).show();
         }
     }
 

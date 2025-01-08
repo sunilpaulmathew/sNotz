@@ -89,17 +89,9 @@
     <string name="change_name">"नाम बदलें"</string>
     <string name="check_list_backup_question">"'%s' को किस नाम से बैकअप करें?"</string>
     <string name="check_list_create_question">"नई चेकलिस्ट के रूप में बनाएं?"</string>
-    <string name="check_list_name_empty_message">"चेकलिस्ट का नाम खाली नहीं हो सकता। प्रक्रिया रद्द की जा रही है…"</string>
     <string name="check_list_import_question">"चयनित चेकलिस्ट को किस नाम से इम्पोर्ट किया जाए?"</string>
     <string name="check_list_exist_warning">"इसी नाम से एक चेकलिस्ट पहले ही मौजूद है। क्या आप उसे इससे बदलना चाहते हैं?"</string>
     <string name="go_ahead">"आगे बढ़ें"</string>
-    <string name="image_add">"चित्र जोड़ें"</string>
-    <string name="image_add_warning">"कृप्या ध्यान दें: चित्र वाले नोट जोड़ने से sNotz की पर्फोर्मेंस प्रभावित हो सकती है।"</string>
-    <string name="image_excluded_warning">"कृपया ध्यान दें: चित्रों को शामिल नहीं किया जाएगा।"</string>
-    <string name="image_include">"चित्र जोड़ने का विकल्प"</string>
-    <string name="image_include_summary">"नोट्स में चित्र जोड़ने का विकल्प दिखाएं"</string>
-    <string name="image_remove">"चित्र हटाएं"</string>
-    <string name="image_replace">"चित्र को बदलें"</string>
     <string name="pin_enter">"पिन दर्ज करें"</string>
     <string name="pin_reenter">"पिन दोबारा डालें"</string>
     <string name="pin_mismatch_message">"पिन मेल नहीं खाती है। कृपया फिर से प्रयास करें"</string>

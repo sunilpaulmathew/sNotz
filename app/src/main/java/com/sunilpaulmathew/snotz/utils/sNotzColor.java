@@ -1,8 +1,11 @@
 package com.sunilpaulmathew.snotz.utils;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 
+import com.google.android.material.color.DynamicColors;
 import com.sunilpaulmathew.snotz.R;
+import com.sunilpaulmathew.snotz.utils.serializableItems.RandomColorItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,41 +22,63 @@ public class sNotzColor {
     }
 
     public static int getAppAccentColor(Context context) {
-        return sCommonUtils.getInt("app_accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
+        return sCommonUtils.getInt("app_accent_color", getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, context), context), context);
     }
 
     public static int getAccentColor(Context context) {
         int mRandomColor = sCommonUtils.getInt("random_color", Integer.MIN_VALUE, context);
         if (isRandomColorScheme(context)) {
-            return getRandomColors().get(mRandomColor).getBackgroundColor();
+            return getRandomColors(context).get(mRandomColor).getBackgroundColor();
         } else {
-            return sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
+            return sCommonUtils.getInt("accent_color", getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, context), context), context);
         }
     }
 
     public static int getDefaultColor(int position, Context context) {
         if (position == 0) {
-            return sCommonUtils.getInt("app_accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
+            return sCommonUtils.getInt("app_accent_color", getAppAccentColor(context), context);
         } else if (position == 1) {
-            return sCommonUtils.getInt("accent_color", sCommonUtils.getColor(R.color.color_teal, context), context);
+            return sCommonUtils.getInt("accent_color", getAccentColor(context), context);
         } else if (position == 2) {
-            return sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, context), context);
+            return sCommonUtils.getInt("text_color", getTextColor(context), context);
         } else {
-            return sCommonUtils.getInt("checklist_color", sCommonUtils.getColor(R.color.color_white, context), context);
+            return sCommonUtils.getInt("checklist_color", sNotzColor.getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, context), context), context);
         }
+    }
+
+    /*
+    index values: 0 - colorPrimary; 1 - colorOnPrimary; 2 - colorSecondary; 3 - colorAccent
+     */
+    public static int getMaterial3Colors(int index, int defaultColor, Context context) {
+        int material3Color = defaultColor;
+        if (DynamicColors.isDynamicColorAvailable()) {
+            Context dynamicClrCtx = DynamicColors.wrapContextIfAvailable(context, R.style.Theme_Material3_DynamicColors_DayNight);
+            TypedArray ta = dynamicClrCtx.obtainStyledAttributes(new int[] {
+                    R.attr.colorPrimary,
+                    R.attr.colorOnPrimary,
+                    R.attr.colorSecondary,
+                    R.attr.colorAccent
+            });
+            material3Color = ta.getColor(index, defaultColor);
+            ta.recycle();
+        }
+        return material3Color;
     }
 
     public static int getTextColor(Context context) {
         int mRandomColor = sCommonUtils.getInt("random_color", Integer.MIN_VALUE, context);
         if (isRandomColorScheme(context)) {
-            return getRandomColors().get(mRandomColor).getTextColor();
+            return getRandomColors(context).get(mRandomColor).getTextColor();
         } else {
-            return sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white, context), context);
+            return sCommonUtils.getInt("text_color", getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, context), context), context);
         }
     }
 
-    private static List<RandomColorItems> getRandomColors() {
+    private static List<RandomColorItems> getRandomColors(Context context) {
         List<RandomColorItems> mRandomColors = new ArrayList<>();
+        if (DynamicColors.isDynamicColorAvailable()) {
+            mRandomColors.add(new RandomColorItems(getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, context), context), getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, context), context)));
+        }
         mRandomColors.add(new RandomColorItems(-14803290,-3020033));
         mRandomColors.add(new RandomColorItems(-5350593,-10223826));
         mRandomColors.add(new RandomColorItems(-14244198,-1));
@@ -70,7 +95,7 @@ public class sNotzColor {
     public static void updateRandomColorCode(Context context) {
         int mRandomColor = sCommonUtils.getInt("random_color", Integer.MIN_VALUE, context);
         if (isRandomColorScheme(context)) {
-            if (mRandomColor == getRandomColors().size() - 1) {
+            if (mRandomColor == getRandomColors(context).size() - 1) {
                 sCommonUtils.saveInt("random_color", 0, context);
             } else {
                 sCommonUtils.saveInt("random_color", mRandomColor + 1, context);

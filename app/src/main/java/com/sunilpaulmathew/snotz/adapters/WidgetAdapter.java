@@ -13,9 +13,8 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
-import com.sunilpaulmathew.snotz.utils.CheckLists;
-import com.sunilpaulmathew.snotz.utils.Common;
-import com.sunilpaulmathew.snotz.utils.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
 
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class WidgetAdapter extends RecyclerView.Adapter<WidgetAdapter.ViewHolder
         holder.mCard.setStrokeColor(this.data.get(position).getColorBackground());
         holder.mCard.setCardBackgroundColor(this.data.get(position).getColorBackground());
         if (this.data.get(position).isChecklist()) {
-            holder.mTitle.setText(CheckLists.getChecklistData(this.data.get(position).getNote()));
+            holder.mTitle.setText(sNotzWidgets.getWidgetText(this.data.get(position).getNote()));
         } else {
             holder.mTitle.setText(this.data.get(position).getNote());
         }
@@ -60,9 +59,6 @@ public class WidgetAdapter extends RecyclerView.Adapter<WidgetAdapter.ViewHolder
     }
 
     private void setExpandStatus(int position) {
-        if (Common.isWorking() || Common.getSpanCount() > 1) {
-            return;
-        }
         if (mExpandPosition != position) {
             notifyItemChanged(mExpandPosition);
             mExpandPosition = position;
