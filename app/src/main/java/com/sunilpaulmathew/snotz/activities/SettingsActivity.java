@@ -262,7 +262,7 @@ public class SettingsActivity extends AppCompatActivity {
                         sCommonUtils.getDrawable(R.mipmap.ic_launcher, this),
                         sCommonUtils.getDrawable(R.drawable.ic_back, this),
                         sNotzColor.getAppAccentColor(this),
-                        25, getString(R.string.app_name), "2023-2024, sunilpaulmathew",
+                        25, getString(R.string.app_name), getString(R.string.copyright_text),
                         BuildConfig.VERSION_NAME).launchCredits(this);
             }
         });
@@ -306,7 +306,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private ArrayList<SettingsItems> getData() {
         ArrayList<SettingsItems> mData = new ArrayList<>();
-        mData.add(new SettingsItems(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", "Copyright: © 2023-2024, sunilpaulmathew", sCommonUtils.getDrawable(R.drawable.ic_info, this), null));
+        mData.add(new SettingsItems(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")", getString(R.string.copyright, getString(R.string.copyright_text)), sCommonUtils.getDrawable(R.drawable.ic_info, this), null));
         mData.add(new SettingsItems(getString(R.string.app_theme), sThemeUtils.getAppTheme(this), sCommonUtils.getDrawable(R.drawable.ic_theme, this), null));
         mData.add(new SettingsItems(getString(R.string.color_accent), getString(R.string.color_accent_summary), sCommonUtils.getDrawable(R.drawable.ic_rgb, this), null));
         mData.add(new SettingsItems(getString(R.string.security), null, null, null));

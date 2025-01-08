@@ -12,9 +12,9 @@ sNotz is an open-source, privacy-friendly, and completely offline application, w
 
 <hr>
 
-<h3 style="color: green">Q2: Who is sNotz for?</h3>
+<h3 style="color: green">Q2: To whom sNotz made for?</h3>
 
-sNotz is for made everyone who loves simplicity, privacy, and security.
+sNotz is made for everyone who loves simplicity, privacy, and security.
 
 <hr>
 
@@ -32,7 +32,7 @@ Single clicking on an individual note allows the user to "Edit" a note where as 
 
 <h3 style="color: green">Q5: Can I backup/restore my notes?</h3>
 
-sNotz offers a simple backup and restore feature. Both features shall be found in the Settings page.
+sNotz offers a simple backup and restore mechanism. Both shall be found in the Settings page.
 
 <hr>
 
@@ -54,15 +54,15 @@ All the notes and checklists are saved locally on user's device. Moreover, the d
 
 <hr>
 
-<h3 style="color: green">Q9: I am still worried about the privacy of my notes?</h3>
+<h3 style="color: green">Q9: I am still worried about the safety and privacy of my notes?</h3>
 
 You are invited to inspect the source code of sNotz.
 
 <hr>
 
-<h3 style="color: green">Q10: Where exactly my notes/checklists are stogreen?</h3>
+<h3 style="color: green">Q10: Where exactly my notes & checklists stored?</h3>
 
-All the notes are stogreen locally in "json" format within the files directory (/data/data/com.sunilpaulmathew.snotz/files/) of sNotz. Each checklists are however saved as a separate file in the external files directory (/sdcard/Android/com.sunilpaulmathew.snotz/files/checklists/).
+All the notes & checklists are stored locally in "json" format within the files directory (/data/data/com.sunilpaulmathew.snotz/files/) of sNotz.
 
 <hr>
 

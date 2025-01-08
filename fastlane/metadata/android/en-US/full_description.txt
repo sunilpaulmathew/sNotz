@@ -2,17 +2,15 @@
 
 <b>Features</b>
 
-- Easily create & manage simple notes.
-- Secure notes with biometric/PIN authentications.
+- Easily create & manage simple notes & checklists.
+- Secure notes & checklists with biometric/PIN authentications.
 - Use custom colors (background and text) for individual notes.
-- Optionally include an image (not recommended for the sake of UI response) with each note.
-- Sort notes alphabetically, or by date or background color.
-- Creating secret notes that are hidden from the main UI by default.
-- Create, import, and share checklists.
-- Swipe (left or right) to delete notes/checklists.
-- Create beautiful home screen widgets of notes and checklists.
+- Sort notes & checklists alphabetically, or by date or background color.
+- Creating secret notes & checklists that are hidden from the main UI by default.
+- Swipe (left or right) to delete a note or checklist.
+- Create beautiful home screen widgets of notes & checklists.
 - Create reminders (for individual notes).
-- Export and easily share notes via third-party apps.
+- Export and easily share notes or checklists via third-party apps.
 - No cloud storage or login requirements. sNotz works completely offline.
 - Offers a simple backup/restore functionality for those who want to get old notes on a new device.
 

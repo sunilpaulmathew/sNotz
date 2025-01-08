@@ -42,6 +42,7 @@
     <string name="color_accent_summary">Choose default Accent Color of sNotz</string>
     <string name="color_select_dialog">Choose default %s of the notes</string>
     <string name="content_hint">Add content here…</string>
+    <string name="copyright_text">2025–2026 sunilpaulmathew</string>
     <string name="customize_colors">Customize Colors</string>
     <string name="customize_note">Note Customizations</string>
     <string name="deactivated">deactivated</string>

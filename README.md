@@ -1,12 +1,12 @@
-# sNotz
+# sNotz - Notes & Checklists
 
-<p style="text-align: center"><img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/002.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/001.jpg" alt="" width="250" height="450" /> <img src="https://raw.githubusercontent.com/sunilpaulmathew/sNotz/master/fastlane/metadata/android/en-US/images/phoneScreenshots/005.jpg" alt="" width="250" height="450" /></p>
+<p style="text-align: center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/001.png?raw=true" alt="" width="250" height="450" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/002.png?raw=true" alt="" width="250" height="450" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/003.png?raw=true" alt="" width="250" height="450" /></p>
 
-[![](https://img.shields.io/badge/sNotz-v0.31-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
+[![](https://img.shields.io/badge/sNotz-v0.32-green)](https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz)
 ![](https://img.shields.io/github/languages/top/sunilpaulmathew/sNotz)
 ![](https://img.shields.io/github/contributors/sunilpaulmathew/sNotz)
 
-### sNotz is an open-source, privacy-friendly, secure, and completely offline application, which will let you create, customize, and manage simple notes on your android device.
+### sNotz is an open-source, privacy-friendly, secure, and completely offline application, which will let you create, customize, and manage simple notes and checklists on your android device.
 
 ## Download
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
@@ -20,20 +20,18 @@ alt="Get it on IzzyOnDroid"
 height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.sunilpaulmathew.snotz)
 [<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
 alt="Get it on GitHub"
-height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.31/app-fdroid-release.apk)
+height="80">](https://github.com/sunilpaulmathew/sNotz/releases/download/v0.32/app-fdroid-release.apk)
 
 ## Features
-* Easily create & manage simple notes.
-* Secure notes with biometric/PIN authentications.
+* Easily create & manage simple notes & checklists.
+* Secure notes & checklists with biometric/PIN authentications.
 * Use custom colors (background and text) for individual notes.
-* Optionally include an image (not recommended for the sake of UI response) with each note.
-* Sort notes alphabetically, or by date or background color.
+* Sort notes & checklists alphabetically, or by date or background color.
 * Creating secret notes that are hidden from the main UI by default.
-* Create, import, and share checklists.
-* Swipe (left or right) to delete notes/checklists.
-* Create beautiful home screen widgets of notes and checklists.
-* Create reminders (for individual notes).
-* Export and easily share notes via third-party apps.
+* Swipe (left or right) to delete note or checklist.
+* Create beautiful home screen widgets of notes & checklists.
+* Create reminders for individual notes & checklists.
+* Export and easily share notes or checklists via third-party apps.
 * No cloud storage or login requirements. sNotz works completely offline.
 * Offers a simple backup/restore functionality for those who want to get old notes on a new device.
 
@@ -73,7 +71,7 @@ A list of people who contributed to this project is available [here](Credits.md)
 
 ## License
 
-    Copyright (C) 2023-2024 sunilpaulmathew <sunil.kde@gmail.com>
+    Copyright (C) 2025-2026 sunilpaulmathew <sunil.kde@gmail.com>
 
     sNotz is a free softwares: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the

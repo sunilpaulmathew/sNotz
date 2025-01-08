@@ -6,6 +6,13 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.32</h3>
+- Modern app UI.
+- Seamless integration of notes and checklists.
+* Fixed bugs and improved coding style.
+- Updated translations.
+- Miscellaneous changes.
+
 <h3 style="color: green">v0.31</h3>
 - sNotz now lists notes and checklists together.
 - App now request notification permission on Android 13 & above.
