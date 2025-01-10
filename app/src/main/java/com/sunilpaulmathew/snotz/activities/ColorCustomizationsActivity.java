@@ -9,12 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.ColorCustomizationsAdapter;
+import com.sunilpaulmathew.snotz.colorpicker.ColorPickerDialog;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
@@ -44,11 +43,10 @@ public class ColorCustomizationsActivity extends AppCompatActivity {
 
         mStartButton.setOnClickListener(v -> Security.launchMainActivity(this));
 
-        mRecycleViewAdapter.setOnItemClickListener((position, v) -> ColorPickerDialogBuilder
+        mRecycleViewAdapter.setOnItemClickListener((position, v) -> ColorPickerDialog
                 .with(this)
                 .setTitle(R.string.choose_color)
                 .initialColor(sNotzColor.getDefaultColor(position, this))
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(selectedColor -> {
                 })

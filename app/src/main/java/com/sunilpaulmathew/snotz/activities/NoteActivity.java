@@ -27,8 +27,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -37,6 +35,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListAdapter;
+import com.sunilpaulmathew.snotz.colorpicker.ColorPickerDialog;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -150,7 +149,9 @@ public class NoteActivity extends AppCompatActivity {
                 isNoteModified = true;
             }
             mContents.setText(mNote);
-        } else {
+        }
+
+        if (mNote == null || isChecklist) {
             mReadingMode.setVisibility(View.GONE);
         }
 
@@ -238,11 +239,10 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
 
-        mColorBackground.setOnClickListener(v -> ColorPickerDialogBuilder
+        mColorBackground.setOnClickListener(v -> ColorPickerDialog
                 .with(this)
                 .setTitle(R.string.choose_color)
                 .initialColor(mSelectedColorBg)
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(selectedColor -> {
                 })
@@ -256,11 +256,10 @@ public class NoteActivity extends AppCompatActivity {
                 }).build().show()
         );
 
-        mColorText.setOnClickListener(v -> ColorPickerDialogBuilder
+        mColorText.setOnClickListener(v -> ColorPickerDialog
                 .with(this)
                 .setTitle(R.string.choose_color)
                 .initialColor(mSelectedColorTxt)
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(selectedColor -> {
                 })

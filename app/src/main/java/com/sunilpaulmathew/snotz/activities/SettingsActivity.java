@@ -17,13 +17,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
+import com.sunilpaulmathew.snotz.colorpicker.ColorPickerDialog;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
@@ -85,11 +84,10 @@ public class SettingsActivity extends AppCompatActivity {
             } else if (position == 1) {
                 sThemeUtils.setAppTheme(this);
             } else if (position == 2) {
-                ColorPickerDialogBuilder
+                ColorPickerDialog
                         .with(this)
                         .setTitle(R.string.choose_color)
                         .initialColor(sNotzColor.getAppAccentColor(this))
-                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })
@@ -125,11 +123,10 @@ public class SettingsActivity extends AppCompatActivity {
                     sCommonUtils.toast(getString(R.string.note_color_random_message), this).show();
                     return;
                 }
-                ColorPickerDialogBuilder
+                ColorPickerDialog
                         .with(this)
                         .setTitle(R.string.choose_color)
                         .initialColor(sCommonUtils.getInt("accent_color", sNotzColor.getAccentColor(this), this))
-                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })
@@ -145,11 +142,10 @@ public class SettingsActivity extends AppCompatActivity {
                     sCommonUtils.toast(getString(R.string.note_color_random_message), this).show();
                     return;
                 }
-                ColorPickerDialogBuilder
+                ColorPickerDialog
                         .with(this)
                         .setTitle(R.string.choose_color)
                         .initialColor(sCommonUtils.getInt("text_color", sNotzColor.getTextColor(this), this))
-                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })
@@ -172,12 +168,11 @@ public class SettingsActivity extends AppCompatActivity {
                 sCommonUtils.saveBoolean("auto_save", !sCommonUtils.getBoolean("auto_save", false, this), this);
                 mRecycleViewAdapter.notifyItemChanged(position);
             } else if (position == 11) {
-                ColorPickerDialogBuilder
+                ColorPickerDialog
                         .with(this)
                         .setTitle(R.string.choose_color)
                         .initialColor(sCommonUtils.getInt("checklist_color", sNotzColor.getMaterial3Colors(
                                 0, sCommonUtils.getColor(R.color.color_teal, this), this), this))
-                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(selectedColor -> {
                         })

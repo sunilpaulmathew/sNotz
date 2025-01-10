@@ -1,0 +1,7 @@
+<resources>
+	<dimen name="default_slider_height">36dp</dimen>
+	<dimen name="default_slider_margin">24dp</dimen>
+	<dimen name="default_slider_bar_height">4dp</dimen>
+	<dimen name="default_slider_handler_radius">10dp</dimen>
+	<dimen name="default_margin_top">20dp</dimen>
+</resources>

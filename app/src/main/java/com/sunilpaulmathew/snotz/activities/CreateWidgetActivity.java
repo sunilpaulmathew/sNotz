@@ -22,12 +22,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListAdapter;
+import com.sunilpaulmathew.snotz.colorpicker.ColorPickerDialog;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -94,11 +93,10 @@ public class CreateWidgetActivity extends AppCompatActivity {
         mRecyclerViewCheckList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerViewCheckList.setAdapter(new CheckListAdapter(mData));
 
-        mColorBackground.setOnClickListener(v -> ColorPickerDialogBuilder
+        mColorBackground.setOnClickListener(v -> ColorPickerDialog
                 .with(this)
                 .setTitle(R.string.choose_color)
                 .initialColor(mSelectedColorBg)
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(selectedColor -> {
                 })
@@ -110,11 +108,10 @@ public class CreateWidgetActivity extends AppCompatActivity {
                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
                 }).build().show());
 
-        mColorText.setOnClickListener(v -> ColorPickerDialogBuilder
+        mColorText.setOnClickListener(v -> ColorPickerDialog
                 .with(this)
                 .setTitle(R.string.choose_color)
                 .initialColor(mSelectedColorTxt)
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(selectedColor -> {
                 })
