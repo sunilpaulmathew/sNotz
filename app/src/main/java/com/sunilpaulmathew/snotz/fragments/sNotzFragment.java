@@ -545,7 +545,6 @@ public class sNotzFragment extends Fragment {
                         public void onPostExecute() {
                             if (toDelete) {
                                 mNotesAdapter.notifyItemRemoved(position);
-                                mNotesAdapter.reset();
                             } else if (isUpdate) {
                                 if (item.isHidden() && !sCommonUtils.getBoolean("hidden_note", false, requireActivity())) {
                                     mNotesAdapter.notifyItemRemoved(position);
