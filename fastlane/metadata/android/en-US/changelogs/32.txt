@@ -1,5 +1,0 @@
-* Modern app UI.
-* Seamless integration of notes and checklists.
-* Fixed bugs and improved coding style.
-* Updated translations.
-* Miscellaneous changes.

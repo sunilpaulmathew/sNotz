@@ -6,6 +6,11 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.33</h3>
+- Updated color picker.
+- Fixed minor layout issues.
+- Miscellaneous changes..
+
 <h3 style="color: green">v0.32</h3>
 - Modern app UI.
 - Seamless integration of notes and checklists.

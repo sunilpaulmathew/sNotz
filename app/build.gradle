@@ -29,8 +29,8 @@ android {
     defaultConfig {
         applicationId "com.sunilpaulmathew.snotz"
         targetSdk 34
-        versionCode 32
-        versionName "v0.32"
+        versionCode 33
+        versionName "v0.33"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
         testFunctionalTest = false
