@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.colorpicker.views;
+package in.sunilpaulmathew.colorpicker.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,16 +16,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.colorpicker.utils.PaintBuilder;
-import com.sunilpaulmathew.snotz.colorpicker.interfaces.ColorWheelRenderer;
-import com.sunilpaulmathew.snotz.colorpicker.interfaces.OnColorSelectedListener;
-import com.sunilpaulmathew.snotz.colorpicker.renderer.FlowerColorWheelRenderer;
-import com.sunilpaulmathew.snotz.colorpicker.utils.ColorCircle;
-import com.sunilpaulmathew.snotz.colorpicker.utils.ColorCircleDrawable;
-import com.sunilpaulmathew.snotz.colorpicker.utils.ColorPickerUtils;
 
 import java.util.ArrayList;
+
+import in.sunilpaulmathew.colorpicker.R;
+import in.sunilpaulmathew.colorpicker.interfaces.ColorWheelRenderer;
+import in.sunilpaulmathew.colorpicker.interfaces.OnColorSelectedListener;
+import in.sunilpaulmathew.colorpicker.renderer.FlowerColorWheelRenderer;
+import in.sunilpaulmathew.colorpicker.utils.ColorCircle;
+import in.sunilpaulmathew.colorpicker.utils.ColorCircleDrawable;
+import in.sunilpaulmathew.colorpicker.utils.ColorPickerUtils;
+import in.sunilpaulmathew.colorpicker.utils.PaintBuilder;
 
 public class ColorPickerView extends View {
 
@@ -98,9 +99,9 @@ public class ColorPickerView extends View {
 		super.onLayout(changed, left, top, right, bottom);
 
 		if (alphaSliderViewId != 0)
-			setAlphaSlider((AlphaSlider) getRootView().findViewById(alphaSliderViewId));
+			setAlphaSlider(getRootView().findViewById(alphaSliderViewId));
 		if (lightnessSliderViewId != 0)
-			setLightnessSlider((LightnessSlider) getRootView().findViewById(lightnessSliderViewId));
+			setLightnessSlider(getRootView().findViewById(lightnessSliderViewId));
 
 		updateColorWheel();
 		currentColorCircle = findNearestByColor(initialColor);

@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.colorpicker;
+package in.sunilpaulmathew.colorpicker;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.colorpicker.interfaces.ColorPickerClickListener;
-import com.sunilpaulmathew.snotz.colorpicker.interfaces.OnColorSelectedListener;
-import com.sunilpaulmathew.snotz.colorpicker.views.AlphaSlider;
-import com.sunilpaulmathew.snotz.colorpicker.views.ColorPickerView;
-import com.sunilpaulmathew.snotz.colorpicker.views.LightnessSlider;
+
+import in.sunilpaulmathew.colorpicker.interfaces.ColorPickerClickListener;
+import in.sunilpaulmathew.colorpicker.interfaces.OnColorSelectedListener;
+import in.sunilpaulmathew.colorpicker.views.AlphaSlider;
+import in.sunilpaulmathew.colorpicker.views.ColorPickerView;
+import in.sunilpaulmathew.colorpicker.views.LightnessSlider;
 
 public class ColorPickerDialog {
 

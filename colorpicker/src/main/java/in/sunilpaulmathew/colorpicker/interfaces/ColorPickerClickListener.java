@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.colorpicker.interfaces;
+package in.sunilpaulmathew.colorpicker.interfaces;
 
 import android.content.DialogInterface;
 

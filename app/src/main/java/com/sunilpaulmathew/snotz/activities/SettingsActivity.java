@@ -22,7 +22,6 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
-import com.sunilpaulmathew.snotz.colorpicker.ColorPickerDialog;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
@@ -43,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
+import in.sunilpaulmathew.colorpicker.ColorPickerDialog;
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 import in.sunilpaulmathew.sCommon.Credits.sCreditsUtils;
 import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;

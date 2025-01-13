@@ -13,17 +13,17 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="Divider" >
-        <item name="android:background">?android:attr/listDivider</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">2dp</item>
-    </style>
-
     <style name="AppTheme.Title" parent="AppTheme">
         <item name="android:textSize">35sp</item>
         <item name="android:gravity">start|center</item>
         <item name="android:layout_gravity">start|center</item>
         <item name="android:layout_marginStart">15dp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Divider" >
+        <item name="android:background">?android:attr/listDivider</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
     </style>
 </resources>

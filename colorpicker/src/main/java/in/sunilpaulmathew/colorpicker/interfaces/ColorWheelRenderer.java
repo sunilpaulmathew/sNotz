@@ -1,8 +1,8 @@
-package com.sunilpaulmathew.snotz.colorpicker.interfaces;
+package in.sunilpaulmathew.colorpicker.interfaces;
 
 import android.graphics.Canvas;
 
-import com.sunilpaulmathew.snotz.colorpicker.utils.ColorCircle;
+import in.sunilpaulmathew.colorpicker.utils.ColorCircle;
 
 import java.util.List;
 

@@ -1,0 +1,29 @@
+[versions]
+adapters = "efc9dce669"
+agp = "8.3.2"
+billing = "7.1.1"
+biometric = "1.1.0"
+common = "fcb1b0c0ef"
+gson = "2.10.1"
+material = "1.12.0"
+multidex = "2.0.1"
+zxing = "1.9.8"
+
+[libraries]
+adapters = { module = "com.github.sunilpaulmathew.sCommon:adapters", version.ref = "adapters" }
+billing = { module = "com.android.billingclient:billing", version.ref = "billing" }
+biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
+crashreporter = { module = "com.github.sunilpaulmathew.sCommon:crashreporter", version.ref = "common" }
+credits = { module = "com.github.sunilpaulmathew.sCommon:credits", version.ref = "common" }
+fileutils = { module = "com.github.sunilpaulmathew.sCommon:fileutils", version.ref = "common" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+permissionutils = { module = "com.github.sunilpaulmathew.sCommon:permissionutils", version.ref = "common" }
+themeutils = { module = "com.github.sunilpaulmathew.sCommon:themeutils", version.ref = "common" }
+translatorutils = { module = "com.github.sunilpaulmathew.sCommon:translatorutils", version.ref = "common" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+zxing = { module = "me.dm7.barcodescanner:zxing", version.ref = "zxing" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }

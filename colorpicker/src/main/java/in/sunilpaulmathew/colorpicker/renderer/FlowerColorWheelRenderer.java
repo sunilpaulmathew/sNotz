@@ -1,12 +1,12 @@
-package com.sunilpaulmathew.snotz.colorpicker.renderer;
+package in.sunilpaulmathew.colorpicker.renderer;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.sunilpaulmathew.snotz.colorpicker.interfaces.ColorWheelRenderer;
-import com.sunilpaulmathew.snotz.colorpicker.utils.ColorCircle;
-import com.sunilpaulmathew.snotz.colorpicker.utils.PaintBuilder;
+import in.sunilpaulmathew.colorpicker.interfaces.ColorWheelRenderer;
+import in.sunilpaulmathew.colorpicker.utils.ColorCircle;
+import in.sunilpaulmathew.colorpicker.utils.PaintBuilder;
 
 import java.util.ArrayList;
 import java.util.List;

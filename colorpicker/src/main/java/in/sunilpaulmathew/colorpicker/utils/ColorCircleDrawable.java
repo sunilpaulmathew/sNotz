@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.colorpicker.utils;
+package in.sunilpaulmathew.colorpicker.utils;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

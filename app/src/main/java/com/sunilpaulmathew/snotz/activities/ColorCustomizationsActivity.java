@@ -13,13 +13,13 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.ColorCustomizationsAdapter;
-import com.sunilpaulmathew.snotz.colorpicker.ColorPickerDialog;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
 
 import java.util.ArrayList;
 
+import in.sunilpaulmathew.colorpicker.ColorPickerDialog;
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
 /*

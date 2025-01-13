@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.colorpicker.views;
+package in.sunilpaulmathew.colorpicker.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,8 +7,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 
-import com.sunilpaulmathew.snotz.colorpicker.utils.PaintBuilder;
-import com.sunilpaulmathew.snotz.colorpicker.utils.ColorPickerUtils;
+import in.sunilpaulmathew.colorpicker.utils.PaintBuilder;
+import in.sunilpaulmathew.colorpicker.utils.ColorPickerUtils;
 
 public class LightnessSlider extends AbsCustomSlider {
 	private int color;

@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.colorpicker.interfaces;
+package in.sunilpaulmathew.colorpicker.interfaces;
 
 public interface OnValueChangedListener {
 	void onValueChanged(float value);

@@ -1,4 +1,4 @@
-package com.sunilpaulmathew.snotz.colorpicker.views;
+package in.sunilpaulmathew.colorpicker.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,8 +12,8 @@ import android.view.View;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 
-import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.colorpicker.interfaces.OnValueChangedListener;
+import in.sunilpaulmathew.colorpicker.R;
+import in.sunilpaulmathew.colorpicker.interfaces.OnValueChangedListener;
 
 public abstract class AbsCustomSlider extends View {
 	protected Bitmap bitmap;

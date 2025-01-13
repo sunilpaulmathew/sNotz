@@ -26,7 +26,6 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.CheckListAdapter;
-import com.sunilpaulmathew.snotz.colorpicker.ColorPickerDialog;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Utils;
@@ -38,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import in.sunilpaulmathew.colorpicker.ColorPickerDialog;
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
 /*
