@@ -11,7 +11,6 @@ zxing = "1.9.8"
 adapters = { module = "com.github.sunilpaulmathew.sCommon:adapters", version.ref = "common" }
 biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 crashreporter = { module = "com.github.sunilpaulmathew.sCommon:crashreporter", version.ref = "common" }
-credits = { module = "com.github.sunilpaulmathew.sCommon:credits", version.ref = "common" }
 fileutils = { module = "com.github.sunilpaulmathew.sCommon:fileutils", version.ref = "common" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 permissionutils = { module = "com.github.sunilpaulmathew.sCommon:permissionutils", version.ref = "common" }

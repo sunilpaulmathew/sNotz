@@ -43,7 +43,6 @@ import java.util.concurrent.Executor;
 
 import in.sunilpaulmathew.colorpicker.ColorPickerDialog;
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
-import in.sunilpaulmathew.sCommon.Credits.sCreditsUtils;
 import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 import in.sunilpaulmathew.sCommon.ThemeUtils.sThemeUtils;
 import in.sunilpaulmathew.sCommon.TranslatorUtils.sTranslatorUtils;
@@ -249,13 +248,6 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
             } else if (position == 22) {
                 new sTranslatorUtils(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();
-            } else if (position == 25) {
-                new sCreditsUtils(AppSettings.getCredits(),
-                        sCommonUtils.getDrawable(R.mipmap.ic_launcher, this),
-                        sCommonUtils.getDrawable(R.drawable.ic_back, this),
-                        sNotzColor.getAppAccentColor(this),
-                        25, getString(R.string.app_name), getString(R.string.copyright_text),
-                        BuildConfig.VERSION_NAME).launchCredits(this);
             }
         });
 
@@ -328,7 +320,7 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.translations), getString(R.string.translations_summary), sCommonUtils.getDrawable(R.drawable.ic_translate, this), null));
         mData.add(new SettingsItems(getString(R.string.rate_us), getString(R.string.rate_us_Summary), sCommonUtils.getDrawable(R.drawable.ic_rate, this), "https://play.google.com/store/apps/details?id=com.sunilpaulmathew.snotz"));
         mData.add(new SettingsItems(getString(R.string.support), getString(R.string.support_summary), sCommonUtils.getDrawable(R.drawable.ic_support, this), "https://t.me/smartpack_kmanager"));
-        mData.add(new SettingsItems(getString(R.string.credits), getString(R.string.credits_summary), sCommonUtils.getDrawable(R.drawable.ic_credits, this), null));
+        mData.add(new SettingsItems(getString(R.string.credits), getString(R.string.credits_summary), sCommonUtils.getDrawable(R.drawable.ic_credits, this), "https://github.com/sunilpaulmathew/sNotz/blob/master/Credits.md"));
         mData.add(new SettingsItems(getString(R.string.faq), getString(R.string.faq_summary), sCommonUtils.getDrawable(R.drawable.ic_faq, this), "https://sunilpaulmathew.github.io/sNotz/faq/"));
         return mData;
     }

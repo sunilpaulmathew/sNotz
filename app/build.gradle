@@ -79,7 +79,6 @@ dependencies {
     implementation libs.multidex
 
     implementation libs.adapters
-    implementation libs.credits
     implementation libs.crashreporter
     implementation libs.fileutils
     implementation libs.permissionutils
