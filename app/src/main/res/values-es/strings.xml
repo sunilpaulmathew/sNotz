@@ -146,7 +146,7 @@
     <string name="widget_choose_message">"Elige una nota o una lista de chequeo"</string>
     <string name="backup_notes_auto">"Habilitar respaldo automático"</string>
     <string name="backup_notes_auto_summary">"Realizar ocasionalmente un respaldo de los datos de la aplicación en una segunda ubicación (recomendado)."</string>
-    <string name="copyright_text">"2025–2026 sunilpaulmathew"</string>
+    <string name="copyright_text">"2020–2025 sunilpaulmathew"</string>
     <string name="notification_accepted_message">"Estoy en ello"</string>
     <string name="notification_request_summary">"Nota: Para que esta función funcione en tu dispositivo, sNotz necesita que le concedas permiso para publicar notificaciones."</string>
     <string name="notification_request_title">"¡Recibe notificaciones sobre tus notas!"</string>
