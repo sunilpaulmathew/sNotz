@@ -1,3 +1,0 @@
-* Updated color picker.
-* Fixed minor layout issues.
-* Miscellaneous changes.
