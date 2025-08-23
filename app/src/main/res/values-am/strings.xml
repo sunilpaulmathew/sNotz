@@ -6,7 +6,6 @@
     <string name="authenticate">"ያረጋግጡ"</string>
     <string name="authentication_error">"የማረጋገጫ ስህተት%s"</string>
     <string name="authentication_failed">"ማረጋገጥ አልተሳካም"</string>
-    <string name="billing_client_disconnected">"ከ Google Play ክፍያ መጠየቂያ ደንበኛ ጋር መገናኘት አልተሳካም!"</string>
     <string name="biometric_lock">"ባዮሜትሪክ ቁልፍ"</string>
     <string name="biometric_lock_status">"የባዮሜትሪክ ማረጋገጫ%s ነው!"</string>
     <string name="biometric_lock_summary">"SNotz ን ደህንነቱ የተጠበቀ ለማድረግ የባዮሜትሪክ ማረጋገጫውን ይጠቀሙ"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"ሰርዝ"</string>
     <string name="delete_sure_question">"%s ይጋራ?"</string>
     <string name="developed_by">"በ ♥ በ የተሰራ"</string>
-    <string name="donations">"ልገሳዎች"</string>
-    <string name="donation_app">"የልገሳ መተግበሪያን ይግዙ"</string>
-    <string name="donations_summary">"ልማቱን በልገሳ ይደግፉ"</string>
     <string name="faq">"በየጥ"</string>
     <string name="faq_summary">"በተደጋጋሚ የሚጠየቁ ጥያቄዎችን ያንብቡ"</string>
     <string name="hidden_note">"የተደበቀ ማስታወሻ"</string>
@@ -61,15 +57,6 @@
     <string name="skip">"ዝለል"</string>
     <string name="source_code">"ምንጭ ኮድ"</string>
     <string name="support">"ድጋፍ"</string>
-    <string name="support_acknowledged">"ልገሳ እውቅና ሰጠ ♥"</string>
-    <string name="support_development">"የልማት ድጋፍ"</string>
-    <string name="support_dinner">"እራት ግዛኝ"</string>
-    <string name="support_meal">"ምግብ ይግዙልኝ"</string>
-    <string name="support_coffee">"ቡና ግዛኝ"</string>
-    <string name="support_already_received_message">"\"ከዚህ በፊት ከዚህ በፊት ከዚህ ንጥል ጋር ልማቱን ደግፈዋል!\""</string>
-    <string name="support_received_message">"ስለድጋፋችሁ በጣም አመሰግናለሁ ♥
-        ፕሮጀክቶቼን የበለጠ ንቁ ሆነው ለመቀጠል ብዙ ያነሳሳኛል! \""</string>
-    <string name="support_retry_message">"እባክዎ እንደገና ለመግዛት ይሞክሩ!"</string>
     <string name="support_summary">"የቴሌግራም ድጋፍ ቡድንን ይጎብኙ"</string>
     <string name="text_empty">"\"ጽሑፍ ባዶ መሆን የለበትም ፡፡ ማስወረድ!\""</string>
     <string name="welcome_note">"የእንኳን ደህና መጣችሁ ማስታወሻ"</string>
@@ -87,11 +74,6 @@
     <string name="check_list_create_question">" አዲስ  ቼክሊስት ይፈጠር?"</string>
     <string name="check_list_import_question">" የተመረጠው ቼክሊስት ይገልበጥ?"</string>
     <string name="go_ahead">" ወደፊት ቀጥል"</string>
-    <string name="image_add">" ምስል ጨምር"</string>
-    <string name="image_excluded_warning">" አስተውል! ስዕሎች አይካተቱም"</string>
-    <string name="image_include">"ምስሎችን ፍቀድ"</string>
-    <string name="image_remove">"ምስል አጥፋ"</string>
-    <string name="image_replace">"ምስል ተካ"</string>
     <string name="pin_enter">"የይለፍ ቃል አስገባ"</string>
     <string name="pin_reenter">"የይለፍ ቃል እንደገና አስገባ"</string>
     <string name="replace">" ተካ"</string>

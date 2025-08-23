@@ -6,7 +6,6 @@
     <string name="authenticate">"authentifizieren"</string>
     <string name="authentication_error">"Authentisierungsfehler %s"</string>
     <string name="authentication_failed">"Authentifizierung fehlgeschlagen"</string>
-    <string name="billing_client_disconnected">"Kann nicht mit Google Play Bezahldienst verbinden"</string>
     <string name="biometric_lock">"Biometrische Sperre"</string>
     <string name="biometric_lock_status">"Biometrische Authentifizierung ist %s"</string>
     <string name="biometric_lock_summary">"Nutze biometrische Authentifizierung um sNotz abzusichern"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"Löschen"</string>
     <string name="delete_sure_question">"Lösche %s?"</string>
     <string name="developed_by">"Entwickelt mit \u2665 von"</string>
-    <string name="donations">"Spenden"</string>
-    <string name="donation_app">"Kaufe Spendenapp"</string>
-    <string name="donations_summary">"Unterstütze die Entwicklung mit einer Spende"</string>
     <string name="faq">"FAQ"</string>
     <string name="faq_summary">"Häufig gestellte Fragen lesen"</string>
     <string name="hidden_note">"versteckte Notiz"</string>
@@ -60,15 +56,6 @@
     <string name="skip">"Überspringe"</string>
     <string name="source_code">"Quellcode"</string>
     <string name="support">"Support"</string>
-    <string name="support_acknowledged">"Spende bestätigt \u2665"</string>
-    <string name="support_development">"Unterstütze die Entwicklung"</string>
-    <string name="support_development_summary">"Du möchtest den Entwickler unterstützen, der dir dieses Tool vollständig kostenlos zur Verfügung stellt? Er freut sich über eine kleine Spende durch Auswahl einer der untenstehenden Optionen."</string>
-    <string name="support_dinner">"Kauf mir ein Abendessen"</string>
-    <string name="support_meal">"Kauf mir was zu Essen"</string>
-    <string name="support_coffee">"Kauf mir einen Kaffee"</string>
-    <string name="support_already_received_message">"Danke, du hast den Entwickler schon mit dieser Option unterstützt."</string>
-    <string name="support_received_message">"Vielen Dank für deine Unterstützung \u2665. Das gibt mir Motivation meine Projekte noch aktiver zu verfolgen!"</string>
-    <string name="support_retry_message">"Bitte versuche den Einkauf nochmal"</string>
     <string name="support_summary">"Besuche Telegram-Support-Gruppe"</string>
     <string name="text_empty">"Der Text sollte nicht leer sein - Abbruch !"</string>
     <string name="welcome_note">"Willkommensnotiz"</string>

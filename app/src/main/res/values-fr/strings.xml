@@ -6,7 +6,6 @@
     <string name="authenticate">"Authentifier"</string>
     <string name="authentication_error">"Erreur d’authentification : %s"</string>
     <string name="authentication_failed">"L'authentification a échoué"</string>
-    <string name="billing_client_disconnected">"Échec de la connexion au client de facturation Google Play Billing"</string>
     <string name="biometric_lock">"Serrure biométrique"</string>
     <string name="biometric_lock_status">"L’authentification biométrique est %s"</string>
     <string name="biometric_lock_summary">"Utiliser l'authentification biométrique pour sécuriser sNotz"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"Supprimer"</string>
     <string name="delete_sure_question">"Supprimer %s ?"</string>
     <string name="developed_by">"Réalisé avec \u2665 par"</string>
-    <string name="donations">"Donations"</string>
-    <string name="donation_app">"Acheter l'appli de donation"</string>
-    <string name="donations_summary">"Soutenez le développement avec un don"</string>
     <string name="faq">"FAQ"</string>
     <string name="faq_summary">"Lire les questions fréquemment posées (FAQ)"</string>
     <string name="hidden_note">"Note masquée"</string>
@@ -60,16 +56,6 @@
     <string name="skip">"PASSER"</string>
     <string name="source_code">"Code source"</string>
     <string name="support">"Soutien"</string>
-    <string name="support_acknowledged">"Don reconnu \u2665"</string>
-    <string name="support_development">"Soutenir le développement"</string>
-    <string name="support_development_summary">"Si vous apprécier les efforts du développeur pour fournir cet outil entièrement gratuit, veuillez envisager d'envoyer un petit don en cliquant sur l'une des options ci-dessous."</string>
-    <string name="support_dinner">"Offrez-moi un dîner"</string>
-    <string name="support_meal">"Offrez-moi un repas"</string>
-    <string name="support_coffee">"Offrez-moi un café"</string>
-    <string name="support_already_received_message">"Vous avez déjà aidé le développement avec ce choix précédemment !"</string>
-    <string name="support_received_message">"Merci beaucoup pour votre soutien \u2665
-        Cela me motivera beaucoup à continuer activement mes projets."</string>
-    <string name="support_retry_message">"Veuillez réessayer d'acheter"</string>
     <string name="support_summary">"Visitez le groupe de support Telegram"</string>
     <string name="text_empty">"Le texte ne doit pas être vide. Abandon"</string>
     <string name="welcome_note">"Note de bienvenue"</string>

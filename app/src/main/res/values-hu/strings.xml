@@ -6,7 +6,6 @@
     <string name="authenticate">"Azonosítás"</string>
     <string name="authentication_error">"Hibás azonosítás: %s"</string>
     <string name="authentication_failed">"Sikertelen azonosítás"</string>
-    <string name="billing_client_disconnected">"Nem tudott csatlakozni a megadott Google Play Billing klienssel"</string>
     <string name="biometric_lock">"Biometrikus zár"</string>
     <string name="biometric_lock_status">"Biometrikus azonosítás állapota: %s"</string>
     <string name="biometric_lock_summary">"Az sNotz védelméhez használj biometrikus azonosítást"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"Törlés"</string>
     <string name="delete_sure_question">"%s törlése?"</string>
     <string name="developed_by">"\u2665-el készítette"</string>
-    <string name="donations">"Adakozás"</string>
-    <string name="donation_app">"Adomány alkalmazás vásárlása"</string>
-    <string name="donations_summary">"Támogasd a fejlesztést egy adománnyal"</string>
     <string name="faq">"GYIK"</string>
     <string name="faq_summary">"Gyakran előforduló kérdések"</string>
     <string name="hidden_note">"Rejtett Jegyzet"</string>
@@ -60,16 +56,6 @@
     <string name="skip">"KIHAGYÁS"</string>
     <string name="source_code">"Forrás kód"</string>
     <string name="support">"Támogatás"</string>
-    <string name="support_acknowledged">"Adomány elfogadva \u2665"</string>
-    <string name="support_development">"Fejlesztés támogatása"</string>
-    <string name="support_development_summary">"Amennyiben értékelni szeretnéd a fejlesztő munkáját amiért elkészítette és teljesen ingyen elérhetővé tette ezt a programot, ezt egy kis összegű adomány felajánlásával megteheted az alábbi opciók valamelyikére kattintva."</string>
-    <string name="support_dinner">"Hívj meg egy vacsorára"</string>
-    <string name="support_meal">"Hívj meg egy étkezésre"</string>
-    <string name="support_coffee">"Hívj meg egy kávéra"</string>
-    <string name="support_already_received_message">"Ezzel az opcióval már korábban támogattad a fejlesztést."</string>
-    <string name="support_received_message">"Nagyon szépen köszönöm a támogatásod \u2665
-        Ez motivál hogy még aktívabban folytassam a projektjeimet."</string>
-    <string name="support_retry_message">"Kérlek próbáld ujra a vásárlást"</string>
     <string name="support_summary">"Látogasd meg a Telegram támogató csoportot"</string>
     <string name="text_empty">"A szöveg mező nem lehet üres. Megszakítás."</string>
     <string name="welcome_note">"Üdvözlő üzenet"</string>

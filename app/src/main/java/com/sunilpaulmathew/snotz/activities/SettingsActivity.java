@@ -23,7 +23,6 @@ import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
-import com.sunilpaulmathew.snotz.utils.Billing;
 import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Encryption;
 import com.sunilpaulmathew.snotz.utils.Security;
@@ -237,8 +236,6 @@ public class SettingsActivity extends AppCompatActivity {
                             }).show();
                 }
             } else if (position == 20) {
-                Billing.showDonationMenu(this);
-            } else if (position == 21) {
                 Intent share_app = new Intent();
                 share_app.setAction(Intent.ACTION_SEND);
                 share_app.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
@@ -246,13 +243,13 @@ public class SettingsActivity extends AppCompatActivity {
                 share_app.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(share_app, getString(R.string.share_with));
                 startActivity(shareIntent);
-            } else if (position == 22) {
+            } else if (position == 21) {
                 Intent welcome = new Intent(this, WelcomeActivity.class);
                 startActivity(welcome);
                 finish();
-            } else if (position == 23) {
+            } else if (position == 22) {
                 new sTranslatorUtils(getString(R.string.app_name), "https://poeditor.com/join/project?hash=LOg2GmFfbV", this).show();
-            } else if (position == 26) {
+            } else if (position == 25) {
                 new sCreditsUtils(AppSettings.getCredits(),
                         sCommonUtils.getDrawable(R.mipmap.ic_launcher, this),
                         sCommonUtils.getDrawable(R.drawable.ic_back, this),
@@ -326,7 +323,6 @@ public class SettingsActivity extends AppCompatActivity {
         mData.add(new SettingsItems(getString(R.string.backup_notes), getString(R.string.backup_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_backup, this), null));
         mData.add(new SettingsItems(getString(R.string.restore_notes), getString(R.string.restore_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_restore, this), null));
         mData.add(new SettingsItems(getString(R.string.clear_notes), getString(R.string.clear_notes_summary), sCommonUtils.getDrawable(R.drawable.ic_clear, this), null));
-        mData.add(new SettingsItems(getString(R.string.support_development), getString(R.string.donations_summary), sCommonUtils.getDrawable(R.drawable.ic_donate, this), null));
         mData.add(new SettingsItems(getString(R.string.invite_friends), getString(R.string.invite_friends_Summary), sCommonUtils.getDrawable(R.drawable.ic_share, this), null));
         mData.add(new SettingsItems(getString(R.string.welcome_note), getString(R.string.welcome_note_summary), sCommonUtils.getDrawable(R.drawable.ic_home, this), null));
         mData.add(new SettingsItems(getString(R.string.translations), getString(R.string.translations_summary), sCommonUtils.getDrawable(R.drawable.ic_translate, this), null));

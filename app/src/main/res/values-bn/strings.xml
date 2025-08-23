@@ -6,7 +6,6 @@
     <string name="authenticate">"প্রমাণীকরণ"</string>
     <string name="authentication_error">"প্রমাণীকরণ ত্রুটি: %s"</string>
     <string name="authentication_failed">"প্রমাণীকরণ ব্যর্থ হয়েছে"</string>
-    <string name="billing_client_disconnected">"Google Play বিলিং ক্লায়েন্টের সাথে সংযোগ করতে ব্যর্থ হয়েছে৷"</string>
     <string name="biometric_lock">"বায়োমেট্রিক লক"</string>
     <string name="biometric_lock_status">"বায়োমেট্রিক প্রমাণীকরণ হল %s"</string>
     <string name="biometric_lock_summary">"sNotz সুরক্ষিত করতে বায়োমেট্রিক প্রমাণীকরণ ব্যবহার করুন"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"মুছে ফেলা"</string>
     <string name="delete_sure_question">"%s মুছবেন?"</string>
     <string name="developed_by">"দ্বারা \u2665 দিয়ে তৈরি"</string>
-    <string name="donations">"দান"</string>
-    <string name="donation_app">"অনুদান অ্যাপ কিনুন"</string>
-    <string name="donations_summary">"একটি অনুদান দিয়ে উন্নয়ন সমর্থন"</string>
     <string name="faq">"FAQ"</string>
     <string name="faq_summary">"প্রায়শই জিজ্ঞাসিত প্রশ্ন পড়ুন"</string>
     <string name="hidden_note">"লুকানো নোট"</string>
@@ -60,16 +56,6 @@
     <string name="skip">"এড়িয়ে যান"</string>
     <string name="source_code">"সোর্স কোড"</string>
     <string name="support">"সমর্থন"</string>
-    <string name="support_acknowledged">"অনুদান স্বীকৃত \u2665"</string>
-    <string name="support_development">"সাপোর্ট ডেভেলপমেন্ট"</string>
-    <string name="support_development_summary">"আপনি যদি এই টুলটি সম্পূর্ণ বিনামূল্যে প্রদান করার জন্য ডেভেলপারের প্রচেষ্টার প্রশংসা করতে চান, তাহলে অনুগ্রহ করে নীচের দেওয়া বিকল্পগুলির মধ্যে একটিতে ক্লিক করে একটি ছোট অনুদান পাঠানোর কথা বিবেচনা করুন।"</string>
-    <string name="support_dinner">"আমার জন্য একটি ডিনার কিনুন"</string>
-    <string name="support_meal">"আমাকে একটা খাবার কিনে দাও"</string>
-    <string name="support_coffee">"আমাকে একটা কফি কিনে দাও"</string>
-    <string name="support_already_received_message">"আপনি আগে থেকেই এই আইটেমটি দিয়ে উন্নয়ন সমর্থন করেছেন৷"</string>
-    <string name="support_received_message">"আপনার সমর্থনের জন্য আপনাকে অনেক ধন্যবাদ \u2665
-        এটা আমার প্রজেক্টগুলোকে আরো সক্রিয়ভাবে চালিয়ে যেতে আমাকে অনেক অনুপ্রাণিত করবে।"</string>
-    <string name="support_retry_message">"আবার ক্রয় করার চেষ্টা করুন"</string>
     <string name="support_summary">"টেলিগ্রাম সাপোর্ট গ্রুপে যান"</string>
     <string name="text_empty">"পাঠ্য খালি হওয়া উচিত নয়। গর্ভপাত"</string>
     <string name="welcome_note">"স্বাগত নোট"</string>

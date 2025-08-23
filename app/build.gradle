@@ -24,11 +24,11 @@ android {
     }
 
     namespace 'com.sunilpaulmathew.snotz'
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.sunilpaulmathew.snotz"
-        targetSdk 34
+        targetSdk 35
         versionCode 33
         versionName "v0.33"
         multiDexEnabled = true
@@ -77,7 +77,6 @@ dependencies {
     api(project(":colorpicker"))
     implementation libs.biometric
     implementation libs.multidex
-    playImplementation libs.billing
 
     implementation libs.adapters
     implementation libs.credits

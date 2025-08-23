@@ -6,7 +6,6 @@
     <string name="authenticate">"Ověření pravosti"</string>
     <string name="authentication_error">"Chyba ověření: %s"</string>
     <string name="authentication_failed">"Ověření se nezdařilo"</string>
-    <string name="billing_client_disconnected">"Nepodařilo se připojit k účtujícímu klientovi Google Play"</string>
     <string name="biometric_lock">"Biometrický zámek"</string>
     <string name="biometric_lock_status">"Biometrické ověřování je %s"</string>
     <string name="biometric_lock_summary">"Použití biometrického ověřování k zabezpečení sNotz"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"Smazat"</string>
     <string name="delete_sure_question">"Smazat %s?"</string>
     <string name="developed_by">"Vyrobeno s \u2665 od"</string>
-    <string name="donations">"Dary"</string>
-    <string name="donation_app">"Koupit dárcovskou aplikaci"</string>
-    <string name="donations_summary">"Podpořte vývoj darem"</string>
     <string name="faq">"Často Kladené Dotazy"</string>
     <string name="faq_summary">"Přečtěte si často kladené otázky"</string>
     <string name="hidden_note">"Skrytá Poznámka"</string>
@@ -60,16 +56,6 @@
     <string name="skip">"PŘESKOČIT"</string>
     <string name="source_code">"Zdrojový Kód"</string>
     <string name="support">"Podpora"</string>
-    <string name="support_acknowledged">"Potvrzení o daru \u2665"</string>
-    <string name="support_development">"Podpora Vývoje"</string>
-    <string name="support_development_summary">"Pokud byste chtěli ocenit snahu vývojáře poskytovat tento nástroj zcela zdarma, prosím, zvažte poslání malého daru kliknutím na jednu z uvedených možností."</string>
-    <string name="support_dinner">"Kup mi Večeři"</string>
-    <string name="support_meal">"Kup mi Jídlo"</string>
-    <string name="support_coffee">"Kup mi Kávu"</string>
-    <string name="support_already_received_message">"S touto možností jste již vývoj podpořili."</string>
-    <string name="support_received_message">"Moc děkuji za vaši podporu \u2665
-        Bude mě to hodně motivovat k tomu, abych ve svých projektech pokračoval."</string>
-    <string name="support_retry_message">"Zkuste prosím nákup zopakovat"</string>
     <string name="support_summary">"Navštivte skupinu Telegram podpora"</string>
     <string name="text_empty">"Text by neměl být prázdný. Přerušuji"</string>
     <string name="welcome_note">"Uvítací Poznámka"</string>

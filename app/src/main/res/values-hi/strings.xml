@@ -6,7 +6,6 @@
     <string name="authenticate">"प्रमाणित करें"</string>
     <string name="authentication_error">"प्रमाणीकरण त्रुटि: %s"</string>
     <string name="authentication_failed">"प्रमाणीकरण विफल हुआ"</string>
-    <string name="billing_client_disconnected">"Google Play बिलिंग क्लाइंट से संपर्क में विफल"</string>
     <string name="biometric_lock">"बायोमेट्रिक लॉक"</string>
     <string name="biometric_lock_status">"बायोमेट्रिक प्रमाणीकरण %s हुआ"</string>
     <string name="biometric_lock_summary">"बॉयोमेट्रिक प्रमाणीकरण से sNotz को सुरक्षित करें"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"डिलीट करें"</string>
     <string name="delete_sure_question">"डिलीट %s?"</string>
     <string name="developed_by">"सप्रेम प्रस्तुतकर्ता \u2665"</string>
-    <string name="donations">"दान भेंट"</string>
-    <string name="donation_app">"दान भेंट हेतु ऐप खरीदें"</string>
-    <string name="donations_summary">"दान भेंट से ऐप डेवलपमेंट का समर्थन करें"</string>
     <string name="faq">"तथ्य एवं प्रश्न"</string>
     <string name="faq_summary">"अक्सर पूछे जाने वाले प्रश्न पढ़ें"</string>
     <string name="hidden_note">"छिपा नोट"</string>
@@ -60,16 +56,6 @@
     <string name="skip">"इसे छोडें"</string>
     <string name="source_code">"Source Code"</string>
     <string name="support">"ऐप डेवलपमेंट में योगदान करें"</string>
-    <string name="support_acknowledged">"दान भेंट स्वीकार की जाती है \u2665"</string>
-    <string name="support_development">"ऐप विकास में योगदान दें"</string>
-    <string name="support_development_summary">"यदि आप इस ऐप को पूरी तरह से मुफ्त प्रदान करने के लिए डेवलपर के प्रयासों की सराहना करना चाहते हैं, तो कृप्या नीचे दिए गए विकल्पों में से एक पर क्लिक करके एक छोटी-सी दान भेंट भेजने पर विचार करें।"</string>
-    <string name="support_dinner">"मुझे डिनर भेंट करें"</string>
-    <string name="support_meal">"मुझे एक वक्त का भोजन भेंट करें"</string>
-    <string name="support_coffee">"मुझे एक कॉफी भेंट करें"</string>
-    <string name="support_already_received_message">"आप पहले ही इस विकल्प से ऐप विकास का समर्थन कर चुके हैं ।"</string>
-    <string name="support_received_message">"आपके समर्थन के लिए बहुत-बहुत धन्यवाद \u2665
-        यह मुझे अपनी परियोजनाओं को और अधिक सक्रियता से जारी रखने के लिए बहुत प्रेरित करेगा।"</string>
-    <string name="support_retry_message">"कृप्या फिर से खरीदने की कोशिश करें"</string>
     <string name="support_summary">"टेलीग्राम सहायता समूह पर जाएं"</string>
     <string name="text_empty">"टेक्स्ट खाली नहीं होना चाहिए। प्रक्रिया रद्द की जा रही है…"</string>
     <string name="welcome_note">"वेल्कम नोट"</string>

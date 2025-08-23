@@ -6,7 +6,6 @@
     <string name="authenticate">"kimlik doğrulama"</string>
     <string name="authentication_error">"Kimlik Doğrulama Hatası: %s"</string>
     <string name="authentication_failed">"Kimlik doğrulama başarısız oldu"</string>
-    <string name="billing_client_disconnected">"Google Play Faturalandırma istemcisiyle bağlantı kurulamadı"</string>
     <string name="biometric_lock">"Biyometrik Kilit"</string>
     <string name="biometric_lock_status">"Biyometrik kimlik doğrulama: %s"</string>
     <string name="biometric_lock_summary">"sNotz'u güvenceye almak için biyometrik kimlik doğrulamayı kullanın"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"Sil"</string>
     <string name="delete_sure_question">"%s silinsin mi?"</string>
     <string name="developed_by">"Tarafından yapılan \u2665"</string>
-    <string name="donations">"Bağışlar"</string>
-    <string name="donation_app">"Bağış Uygulaması Satın Alın"</string>
-    <string name="donations_summary">"Gelişimi bağışla destekleyin"</string>
     <string name="faq">"SSS"</string>
     <string name="faq_summary">"Sık sorulan soruları okuyun"</string>
     <string name="hidden_note">"Gizli Not"</string>
@@ -60,16 +56,6 @@
     <string name="skip">"ATLAMAK"</string>
     <string name="source_code">"Kaynak kodu"</string>
     <string name="support">"Destek"</string>
-    <string name="support_acknowledged">"Bağış Kabul Edildi \u2665"</string>
-    <string name="support_development">"Geliştirmeyi Destekleyin"</string>
-    <string name="support_development_summary">"Geliştiricinin bu aracı tamamen ücretsiz sağlama çabalarını takdir etmek isterseniz, lütfen aşağıda verilen seçeneklerden birine tıklayarak küçük bir bağış göndermeyi düşünün."</string>
-    <string name="support_dinner">"bana bir akşam yemeği ısmarla"</string>
-    <string name="support_meal">"bana yemek ısmarla"</string>
-    <string name="support_coffee">"bana bir kahve al"</string>
-    <string name="support_already_received_message">"Daha önce bu öğeyle geliştirmeyi zaten desteklediniz."</string>
-    <string name="support_received_message">"Desteğiniz için çok teşekkür ederiz \u2665
-        Projelerime daha aktif devam etmem için beni çok motive edecek."</string>
-    <string name="support_retry_message">"Lütfen tekrar satın almayı deneyin"</string>
     <string name="support_summary">"Telegram destek grubunu ziyaret edin"</string>
     <string name="text_empty">"Metin boş olmamalıdır. iptal"</string>
     <string name="welcome_note">"Karşılama notu"</string>

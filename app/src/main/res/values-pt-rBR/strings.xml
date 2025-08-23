@@ -6,7 +6,6 @@
     <string name="authenticate">"Autenticar"</string>
     <string name="authentication_error">"Erro na autenticação: %s"</string>
     <string name="authentication_failed">"Autenticação falhou"</string>
-    <string name="billing_client_disconnected">"Falha ao conectar com Google Play Billing"</string>
     <string name="biometric_lock">"Bloqueio biométrico"</string>
     <string name="biometric_lock_status">"Autenticação biométrica está %s"</string>
     <string name="biometric_lock_summary">"Use autenticação biométrica para proteger suas notas"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"Deletar"</string>
     <string name="delete_sure_question">"Deletar %s?"</string>
     <string name="developed_by">"Feito com \u2665 por"</string>
-    <string name="donations">"Doações"</string>
-    <string name="donation_app">"Comprar o app de doação"</string>
-    <string name="donations_summary">"Ajuda no desenvolvimento com uma doação"</string>
     <string name="faq">"Perguntas frequentes"</string>
     <string name="faq_summary">"Ler as perguntas frequentes"</string>
     <string name="hidden_note">"Nota escondida"</string>
@@ -60,16 +56,6 @@
     <string name="skip">"PULAR"</string>
     <string name="source_code">"Código fonte"</string>
     <string name="support">"Suporte"</string>
-    <string name="support_acknowledged">"Doação reconhecida \u2665"</string>
-    <string name="support_development">"Apoiar o desenvolvimento"</string>
-    <string name="support_development_summary">"Se você desfruta dos esforços do desenvolvedor ao fornecer esta ferramenta inteiramente de graça, por favor, considere enviar uma pequena doação clicando em uma das opções abaixo."</string>
-    <string name="support_dinner">"Comprar um jantar"</string>
-    <string name="support_meal">"Comprar uma refeição"</string>
-    <string name="support_coffee">"Comprar um café"</string>
-    <string name="support_already_received_message">"Você já apoiou o desenvolvimento com este item."</string>
-    <string name="support_received_message">"Muito obrigado pelo seu apoio \u2665
-        Isso me motivará muito a continuar meus projetos mais ativos."</string>
-    <string name="support_retry_message">"Por favor, tente comprar novamente"</string>
     <string name="support_summary">"Visitar o grupo de suporte do Telegram"</string>
     <string name="text_empty">"Texto não deveria estar vazio. Abortando"</string>
     <string name="welcome_note">"Nota de Boas-vindas"</string>

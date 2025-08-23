@@ -23,8 +23,6 @@
     <string name="delete">Видалити</string>
     <string name="delete_sure_question">Видалити %s?</string>
     <string name="developed_by">Зроблено з \u2665 від</string>
-    <string name="donations">Пожертви</string>
-    <string name="donation_app">Купити додаток для пожертв</string>
     <string name="faq">Чаво</string>
     <string name="faq_summary">Читайте поширені запитання</string>
     <string name="hidden_note">Прихована примітка</string>

@@ -6,7 +6,6 @@
     <string name="authenticate">"Autentiser"</string>
     <string name="authentication_error">"Autentiseringsfeil: %s"</string>
     <string name="authentication_failed">"Autentisering feilet"</string>
-    <string name="billing_client_disconnected">"Feilet i å koble til Google Play Billing client"</string>
     <string name="biometric_lock">"Biometrisk lås"</string>
     <string name="biometric_lock_status">"Biometrisk autentisering er %s"</string>
     <string name="biometric_lock_summary">"Bruk biometrisk autentisering til å sikre sNotz"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"Slett"</string>
     <string name="delete_sure_question">"Slette %s?"</string>
     <string name="developed_by">"Lagd med \u2665 av"</string>
-    <string name="donations">"Donasjoner"</string>
-    <string name="donation_app">"Kjøp donasjons-app"</string>
-    <string name="donations_summary">"Støtt utviklingen med en donasjon"</string>
     <string name="faq">"Ofte stilte spørsmål"</string>
     <string name="faq_summary">"Les ofte stilte spørsmål"</string>
     <string name="hidden_note">"Skjult notat"</string>
@@ -60,16 +56,6 @@
     <string name="skip">"Hopp over"</string>
     <string name="source_code">"Kildekode"</string>
     <string name="support">"Support"</string>
-    <string name="support_acknowledged">"Donasjoner verdsatt \u2665"</string>
-    <string name="support_development">"Støtt utvikling"</string>
-    <string name="support_development_summary">"Hvis du vil verdsette utviklerens innsats for å tilby dette verktøyet helt gratis, kan du vurdere å sende en liten donasjon ved å trykke på et av alternativene nedenfor."</string>
-    <string name="support_dinner">"Kjøp en middag til meg"</string>
-    <string name="support_meal">"Kjøp et måltid til meg"</string>
-    <string name="support_coffee">"Kjøp en kaffe til meg"</string>
-    <string name="support_already_received_message">"Du har allerede støttet utviklingen med dette før."</string>
-    <string name="support_received_message">"Takk for din støtte \u2665
-        Det vil motivere meg mye til å fortsette prosjektene mine mer aktivt."</string>
-    <string name="support_retry_message">"Prøv å kjøpe igjen"</string>
     <string name="support_summary">"Besøk Telegram support-gruppe"</string>
     <string name="text_empty">"Tekst skal ikke være tom. Avbryter"</string>
     <string name="welcome_note">"Velkomstnote"</string>

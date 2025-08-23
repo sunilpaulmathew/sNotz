@@ -1,17 +1,14 @@
 [versions]
-adapters = "efc9dce669"
-agp = "8.3.2"
-billing = "7.1.1"
+agp = "8.12.1"
 biometric = "1.1.0"
 common = "fcb1b0c0ef"
-gson = "2.10.1"
+gson = "2.13.1"
 material = "1.12.0"
 multidex = "2.0.1"
 zxing = "1.9.8"
 
 [libraries]
-adapters = { module = "com.github.sunilpaulmathew.sCommon:adapters", version.ref = "adapters" }
-billing = { module = "com.android.billingclient:billing", version.ref = "billing" }
+adapters = { module = "com.github.sunilpaulmathew.sCommon:adapters", version.ref = "common" }
 biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 crashreporter = { module = "com.github.sunilpaulmathew.sCommon:crashreporter", version.ref = "common" }
 credits = { module = "com.github.sunilpaulmathew.sCommon:credits", version.ref = "common" }

@@ -6,7 +6,6 @@
     <string name="authenticate">"Аутентифицировать"</string>
     <string name="authentication_error">"Ошибка аутентификации: %s"</string>
     <string name="authentication_failed">"Ошибка аутентификации"</string>
-    <string name="billing_client_disconnected">"Ошибка соединения с платежным сервисом Goole Play"</string>
     <string name="biometric_lock">"Биометрическая аутентификация"</string>
     <string name="biometric_lock_status">"Биометрическая аутентификация %s!"</string>
     <string name="biometric_lock_summary">"Используйте биометрическую аутентификацию для защиты sNotz"</string>
@@ -24,9 +23,6 @@
     <string name="delete">"Удалить"</string>
     <string name="delete_sure_question">"Удалить %s?"</string>
     <string name="developed_by">"Сделано с \u2665 от"</string>
-    <string name="donations">"Пожертвования"</string>
-    <string name="donation_app">"Купить приложение для пожертвований"</string>
-    <string name="donations_summary">"Поддержите разработчика…"</string>
     <string name="faq">"Чаво"</string>
     <string name="faq_summary">"Прочтите часто задаваемые вопросы"</string>
     <string name="hidden_note">"Скрытая заметка"</string>
@@ -60,16 +56,6 @@
     <string name="skip">"ПРОПУСТИТЬ"</string>
     <string name="source_code">"Исходный код"</string>
     <string name="support">"Группа поддержки"</string>
-    <string name="support_acknowledged">"Пожертвование Подтверждено \u2665"</string>
-    <string name="support_development">"Поддержка разработчиков"</string>
-    <string name="support_development_summary">"Если вы хотите оценить усилия разработчика по предоставлению этого инструмента совершенно бесплатно, пожалуйста, рассмотрите возможность отправки небольшого пожертвования, нажав на один из предложенных ниже вариантов."</string>
-    <string name="support_dinner">"Угости меня ужином"</string>
-    <string name="support_meal">"Угости меня едой"</string>
-    <string name="support_coffee">"Угости меня кофе"</string>
-    <string name="support_already_received_message">"Вы уже поддержали разработчиков этим предметом ранее."</string>
-    <string name="support_received_message">"Большое вам спасибо за вашу поддержку \u2665
-        Это будет мотивировать меня продолжать мои проекты более активно."</string>
-    <string name="support_retry_message">"Пожалуйста, повторите покупку"</string>
     <string name="support_summary">"Посетить группу поддержки в Telegram"</string>
     <string name="text_empty">"Текст не должен быть пустым. Неудача!"</string>
     <string name="welcome_note">"Приветственная записка"</string>
