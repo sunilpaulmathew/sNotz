@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.material.textview.MaterialTextView;
@@ -19,13 +18,13 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 08, 2025
  */
-public class NotificationRequestActivity extends AppCompatActivity {
+public class NotificationRequestActivity extends BaseActivity {
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification_request);
+        setContentView(R.layout.activity_notification_request, R.id.layout_main);
 
         AppCompatImageView mIcon = findViewById(R.id.icon);
         MaterialTextView mAccept = findViewById(R.id.accept);

@@ -11,7 +11,7 @@ import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.StartActivity;
-import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzEntry;
 
 import java.io.File;
 
@@ -83,13 +83,13 @@ public class NotePicker {
                 JsonObject mJSONObject = new JsonObject();
                 JsonArray mJSONArray = new JsonArray();
                 if (sFileUtils.exist(new File(mActivity.getFilesDir(),"snotz"))) {
-                    for (sNotzItems items : sNotzData.getRawData(mActivity)) {
+                    for (sNotzEntry items : sNotzData.getRawData(mActivity)) {
                         mJSONArray.add(sNotzUtils.getNote(Integer.MIN_VALUE, items));
                     }
                     i = sNotzUtils.generateNoteID(mActivity);
                 }
 
-                for (sNotzItems items : sNotzUtils.getNotesFromBackup(mNewNote, mActivity)) {
+                for (sNotzEntry items : sNotzUtils.getNotesFromBackup(mNewNote, mActivity)) {
                     mJSONArray.add(sNotzUtils.getNote(i, items));
                     i++;
                 }

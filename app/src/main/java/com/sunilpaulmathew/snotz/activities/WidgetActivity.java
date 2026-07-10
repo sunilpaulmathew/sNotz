@@ -5,7 +5,6 @@ import android.text.Editable;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
@@ -22,7 +21,7 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 21, 2021
  */
-public class WidgetActivity extends AppCompatActivity {
+public class WidgetActivity extends BaseActivity {
 
     public WidgetActivity() {
         super();
@@ -32,7 +31,7 @@ public class WidgetActivity extends AppCompatActivity {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setResult(RESULT_CANCELED);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main, R.id.fragment_container);
 
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 

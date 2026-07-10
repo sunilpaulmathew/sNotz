@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 
 import com.google.android.material.color.DynamicColors;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.serializableItems.RandomColorItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.RandomColorEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,21 +74,21 @@ public class sNotzColor {
         }
     }
 
-    private static List<RandomColorItems> getRandomColors(Context context) {
-        List<RandomColorItems> mRandomColors = new ArrayList<>();
+    private static List<RandomColorEntry> getRandomColors(Context context) {
+        List<RandomColorEntry> mRandomColors = new ArrayList<>();
         if (DynamicColors.isDynamicColorAvailable()) {
-            mRandomColors.add(new RandomColorItems(getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, context), context), getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, context), context)));
+            mRandomColors.add(new RandomColorEntry(getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, context), context), getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, context), context)));
         }
-        mRandomColors.add(new RandomColorItems(-14803290,-3020033));
-        mRandomColors.add(new RandomColorItems(-5350593,-10223826));
-        mRandomColors.add(new RandomColorItems(-14244198,-1));
-        mRandomColors.add(new RandomColorItems(-9629786,-32768));
-        mRandomColors.add(new RandomColorItems(-5855714,-16760833));
-        mRandomColors.add(new RandomColorItems(-5898240,-16711745));
-        mRandomColors.add(new RandomColorItems(-689408,-16776971));
-        mRandomColors.add(new RandomColorItems(-4194816,-16645630));
-        mRandomColors.add(new RandomColorItems(-8388353,-12517632));
-        mRandomColors.add(new RandomColorItems(-5855578,-655360));
+        mRandomColors.add(new RandomColorEntry(-14803290,-3020033));
+        mRandomColors.add(new RandomColorEntry(-5350593,-10223826));
+        mRandomColors.add(new RandomColorEntry(-14244198,-1));
+        mRandomColors.add(new RandomColorEntry(-9629786,-32768));
+        mRandomColors.add(new RandomColorEntry(-5855714,-16760833));
+        mRandomColors.add(new RandomColorEntry(-5898240,-16711745));
+        mRandomColors.add(new RandomColorEntry(-689408,-16776971));
+        mRandomColors.add(new RandomColorEntry(-4194816,-16645630));
+        mRandomColors.add(new RandomColorEntry(-8388353,-12517632));
+        mRandomColors.add(new RandomColorEntry(-5855578,-655360));
         return mRandomColors;
     }
 

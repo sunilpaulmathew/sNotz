@@ -5,7 +5,6 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.material.button.MaterialButton;
@@ -19,13 +18,13 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 17, 2020
  */
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_about, R.id.layout_main);
 
         AppCompatImageView mSunil = findViewById(R.id.sunil);
         MaterialButton mCancelButton = findViewById(R.id.cancel_button);

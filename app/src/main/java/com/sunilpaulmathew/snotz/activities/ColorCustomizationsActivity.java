@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +14,7 @@ import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.ColorCustomizationsAdapter;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
-import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListsEntry;
 
 import java.util.ArrayList;
 
@@ -25,12 +24,12 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on February 25, 2023
  */
-public class ColorCustomizationsActivity extends AppCompatActivity {
+public class ColorCustomizationsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_color_customizations);
+        setContentView(R.layout.activity_color_customizations, R.id.layout_main);
 
         MaterialButton mStartButton = findViewById(R.id.start);
         MaterialTextView mTitle = findViewById(R.id.title);
@@ -66,12 +65,12 @@ public class ColorCustomizationsActivity extends AppCompatActivity {
         });
     }
 
-    private ArrayList<CheckListItems> getData() {
-        ArrayList<CheckListItems> mData = new ArrayList<>();
-        mData.add(new CheckListItems(getString(R.string.color_accent), false, false));
-        mData.add(new CheckListItems(getString(R.string.note_color_background), false, false));
-        mData.add(new CheckListItems(getString(R.string.note_color_text), false, false));
-        mData.add(new CheckListItems(getString(R.string.check_list_widget_color), false, false));
+    private ArrayList<CheckListsEntry> getData() {
+        ArrayList<CheckListsEntry> mData = new ArrayList<>();
+        mData.add(new CheckListsEntry(getString(R.string.color_accent), false, false));
+        mData.add(new CheckListsEntry(getString(R.string.note_color_background), false, false));
+        mData.add(new CheckListsEntry(getString(R.string.note_color_text), false, false));
+        mData.add(new CheckListsEntry(getString(R.string.check_list_widget_color), false, false));
         return mData;
     }
 

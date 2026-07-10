@@ -4,10 +4,10 @@ plugins {
 
 android {
     namespace 'in.sunilpaulmathew.colorpicker'
-    compileSdk 34
+    compileSdk 37
 
     defaultConfig {
-        minSdk 19
+        minSdk 23
         consumerProguardFiles("proguard-rules.pro")
     }
 }

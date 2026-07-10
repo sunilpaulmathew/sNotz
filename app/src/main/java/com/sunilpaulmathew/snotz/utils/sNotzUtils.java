@@ -14,7 +14,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.BuildConfig;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzEntry;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,11 +30,11 @@ import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
  */
 public class sNotzUtils {
 
-    public static List<sNotzItems> getNotesFromBackup(String backupData, Context context) {
-        List<sNotzItems> mRestoreData = new ArrayList<>();
+    public static List<sNotzEntry> getNotesFromBackup(String backupData, Context context) {
+        List<sNotzEntry> mRestoreData = new ArrayList<>();
         JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(backupData)).getAsJsonArray("sNotz");
         for (int i = 0; i < sNotz.size(); i++) {
-            mRestoreData.add(new sNotzItems(sNotzData.getNote(sNotz.get(i).getAsJsonObject()),
+            mRestoreData.add(new sNotzEntry(sNotzData.getNote(sNotz.get(i).getAsJsonObject()),
                     sNotzData.getDate(sNotz.get(i).getAsJsonObject()),
                     sNotzData.isHidden(sNotz.get(i).getAsJsonObject()),
                     sNotzData.getBackgroundColor(sNotz.get(i).getAsJsonObject(), context),
@@ -73,7 +73,7 @@ public class sNotzUtils {
 
     public static int generateNoteID(Context context) {
         int noteID = 0;
-        for (sNotzItems items : sNotzData.getRawData(context)) {
+        for (sNotzEntry items : sNotzData.getRawData(context)) {
             if (items.getNoteID() >= noteID) {
                 noteID = items.getNoteID() + 1;
             }
@@ -112,7 +112,7 @@ public class sNotzUtils {
         return note;
     }
 
-    public static JsonObject getNote(int id, sNotzItems items) {
+    public static JsonObject getNote(int id, sNotzEntry items) {
         JsonObject note = new JsonObject();
         note.addProperty("note", items.getNote());
         note.addProperty("date", items.getTimeStamp());
@@ -123,10 +123,10 @@ public class sNotzUtils {
         return note;
     }
 
-    public static void updateDataBase(List<sNotzItems> data, Context context) {
+    public static void updateDataBase(List<sNotzEntry> data, Context context) {
         JsonObject mJSONObject = new JsonObject();
         JsonArray mJSONArray = new JsonArray();
-        for (sNotzItems items : data) {
+        for (sNotzEntry items : data) {
             mJSONArray.add(getNote(items.getNote(), items.getColorBackground(), items.getColorText(), items.getNoteID(), items.getTimeStamp(), items.isHidden()));
         }
         mJSONObject.add("sNotz", mJSONArray);

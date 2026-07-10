@@ -17,18 +17,17 @@ android {
     }
 
     dependenciesInfo {
-        // Disables dependency metadata when building APKs.
         includeInApk = false
-        // Disables dependency metadata when building Android App Bundles.
         includeInBundle = false
     }
 
     namespace 'com.sunilpaulmathew.snotz'
-    compileSdk 36
+    compileSdk 37
 
     defaultConfig {
         applicationId "com.sunilpaulmathew.snotz"
-        targetSdk 35
+        minSdk 23
+        targetSdk 37
         versionCode 34
         versionName "v0.34"
         multiDexEnabled = true
@@ -59,12 +58,8 @@ android {
     flavorDimensions.add("release")
     productFlavors {
         play {
-            minSdk 21
-            dimension "release"
         }
         fdroid {
-            minSdk 19
-            dimension "release"
         }
     }
     lint {

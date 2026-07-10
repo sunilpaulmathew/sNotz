@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 
@@ -24,7 +23,7 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 07, 2021
  */
-public class ImageViewActivity extends AppCompatActivity {
+public class ImageViewActivity extends BaseActivity {
 
     public static final String SHARE_SAVE_INTENT = "share_save", IMAGE_INTENT = "image";
     private static Bitmap mBitmap;
@@ -32,7 +31,7 @@ public class ImageViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_imageview);
+        setContentView(R.layout.activity_imageview, R.id.layout_main);
 
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         AppCompatImageButton mShare = findViewById(R.id.share_button);

@@ -12,7 +12,6 @@ import android.view.View;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -31,7 +30,7 @@ import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
-import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListsEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,19 +42,19 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on December 27, 2024
  */
-public class CreateWidgetActivity extends AppCompatActivity {
+public class CreateWidgetActivity extends BaseActivity {
 
     private AppCompatEditText mContents;
     private AppCompatImageButton mSave;
     private boolean mChecklist = false;
     private static int mSelectedColorBg, mSelectedColorTxt;
-    private final List<CheckListItems> mData = new ArrayList<>();
+    private final List<CheckListsEntry> mData = new ArrayList<>();
     private RecyclerView mRecyclerViewCheckList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_createwidget);
+        setContentView(R.layout.activity_createwidget, R.id.layout_main);
 
         mContents = findViewById(R.id.contents);
         AppCompatImageButton mChecklistSwitch = findViewById(R.id.checklist);
@@ -71,9 +70,7 @@ public class CreateWidgetActivity extends AppCompatActivity {
         mTitle.setTextColor(sNotzColor.getAppAccentColor(this));
 
         mProgress.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, this));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mProgress.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(this)));
-        }
+        mProgress.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(this)));
         mSave.setColorFilter(sNotzColor.getAppAccentColor(this));
         mColorBackground.setCardBackgroundColor(sNotzColor.getAccentColor(this));
         mNestedScrollView.setBackgroundColor(sNotzColor.getAccentColor(this));
@@ -158,7 +155,7 @@ public class CreateWidgetActivity extends AppCompatActivity {
             } else {
                 mChecklist = true;
                 mRecyclerViewCheckList.setVisibility(View.VISIBLE);
-                mData.add(new CheckListItems("", false, false));
+                mData.add(new CheckListsEntry("", false, false));
                 mChecklistSwitch.setImageDrawable(sCommonUtils.getDrawable(R.drawable.ic_note, this));
                 if (!sCommonUtils.getBoolean("auto_save", false, CreateWidgetActivity.this)) {
                     mSave.setVisibility(View.VISIBLE);

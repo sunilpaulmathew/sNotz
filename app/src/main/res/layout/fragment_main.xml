@@ -111,22 +111,17 @@
             android:layout_height="match_parent" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/add_note_card"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_note_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.Material3.CardView.Outlined"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:text="@string/add_new"
         android:layout_margin="50dp"
-        app:cardCornerRadius="15dp" >
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/add_note_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_add"
-            android:layout_margin="10dp"
-            android:background="@null"
-            android:clickable="false" />
-    </com.google.android.material.card.MaterialCardView>
+        app:icon="@drawable/ic_add"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:iconSize="24sp" />
 </RelativeLayout>

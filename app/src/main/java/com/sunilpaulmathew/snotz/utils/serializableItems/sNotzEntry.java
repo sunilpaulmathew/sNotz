@@ -7,14 +7,14 @@ import java.io.Serializable;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
  */
-public class sNotzItems implements Serializable {
+public class sNotzEntry implements Serializable {
 
     private final boolean mHidden;
     private final int mColorBackground, mColorText, mID;
     private final long mTimeStamp;
     private final String mNote;
 
-    public sNotzItems(String note, long timeStamp, boolean hidden, int colorBackground, int colorText, int id) {
+    public sNotzEntry(String note, long timeStamp, boolean hidden, int colorBackground, int colorText, int id) {
         this.mNote = note;
         this.mTimeStamp = timeStamp;
         this.mHidden = hidden;

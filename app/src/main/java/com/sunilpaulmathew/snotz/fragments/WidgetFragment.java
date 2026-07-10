@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.activities.CreateWidgetActivity;
 import com.sunilpaulmathew.snotz.adapters.WidgetAdapter;
@@ -32,7 +30,7 @@ import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
-import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,24 +55,22 @@ public class WidgetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mRootView = inflater.inflate(R.layout.fragment_widget, container, false);
 
-        AppCompatImageButton mAddIcon = mRootView.findViewById(R.id.add_note_icon);
         ContentLoadingProgressBar mProgress = mRootView.findViewById(R.id.progress);
+        MaterialButton mAddIcon = mRootView.findViewById(R.id.add_note_icon);
         MaterialButton mSortButton = mRootView.findViewById(R.id.sort_button);
-        MaterialCardView mAddNewCard = mRootView.findViewById(R.id.add_new_card);
         mRecyclerView = mRootView.findViewById(R.id.recycler_view);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         mRecycleViewAdapter = new WidgetAdapter(getData(requireActivity()));
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
-        mAddIcon.setColorFilter(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()) : sNotzColor.getAccentColor(requireActivity()));
-        mSortButton.setIconTint(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
-        mAddNewCard.setCardBackgroundColor(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()) : sNotzColor.getTextColor(requireActivity()));
-        mAddNewCard.setStrokeColor(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()) : sNotzColor.getTextColor(requireActivity()));
+        mAddIcon.setIconTint(ColorStateList.valueOf(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()) : sNotzColor.getAccentColor(requireActivity())));
+        mAddIcon.setTextColor(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()) : sNotzColor.getAccentColor(requireActivity()));
+        mAddIcon.setBackgroundColor(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()) : sNotzColor.getTextColor(requireActivity()));
+        mAddIcon.setStrokeColor(ColorStateList.valueOf(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()) : sNotzColor.getTextColor(requireActivity())));
         mProgress.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, requireActivity()));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mProgress.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
-        }
+        mProgress.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
+        mSortButton.setIconTint(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
             sCommonUtils.saveString("appwidget" + mAppWidgetId, String.valueOf(getData(requireActivity()).get(position).getNoteID()), requireActivity());
@@ -91,7 +87,7 @@ public class WidgetFragment extends Fragment {
             requireActivity().finish();
         }
 
-        mAddNewCard.setOnClickListener(v -> {
+        mAddIcon.setOnClickListener(v -> {
             Intent createNewIntent = new Intent(requireActivity(), CreateWidgetActivity.class);
             createWidget.launch(createNewIntent);
         });
@@ -186,6 +182,7 @@ public class WidgetFragment extends Fragment {
 
             @Override
             public void onPostExecute() {
+                if (!isAdded()) return;
                 try {
                     mRecyclerView.setAdapter(mRecycleViewAdapter);
                 } catch (NullPointerException ignored) {}
@@ -194,9 +191,9 @@ public class WidgetFragment extends Fragment {
         };
     }
 
-    private static List<sNotzItems> getData(Activity activity) {
-        List<sNotzItems> mData = new ArrayList<>();
-        for (sNotzItems item : sNotzData.getData(activity, null)) {
+    private static List<sNotzEntry> getData(Activity activity) {
+        List<sNotzEntry> mData = new ArrayList<>();
+        for (sNotzEntry item : sNotzData.getData(activity, null)) {
             if (!item.isHidden()) {
                 mData.add(item);
             }
@@ -221,7 +218,7 @@ public class WidgetFragment extends Fragment {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     new sExecutor() {
                         private int colorBackground, colorText, id;
-                        private List<sNotzItems> data;
+                        private List<sNotzEntry> data;
                         private String note;
                         @Override
                         public void onPreExecute() {
@@ -235,7 +232,7 @@ public class WidgetFragment extends Fragment {
 
                         @Override
                         public void doInBackground() {
-                            data.add(new sNotzItems(note, System.currentTimeMillis(), false, colorBackground, colorText, id));
+                            data.add(new sNotzEntry(note, System.currentTimeMillis(), false, colorBackground, colorText, id));
                             sNotzUtils.updateDataBase(data, requireActivity());
                             if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
                                 sCommonUtils.saveString("appwidget" + mAppWidgetId, String.valueOf(id), requireActivity());

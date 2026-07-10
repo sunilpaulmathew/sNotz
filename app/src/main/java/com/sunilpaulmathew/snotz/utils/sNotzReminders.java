@@ -17,7 +17,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.receivers.ReminderReceiver;
-import com.sunilpaulmathew.snotz.utils.serializableItems.ReminderItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.ReminderEntry;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 public class sNotzReminders {
 
     public static boolean isReminderSet(int noteID, Context context) {
-        for (ReminderItems items : getRawData(context)) {
+        for (ReminderEntry items : getRawData(context)) {
             if (items.getNoteID() == noteID && items.getTime() > System.currentTimeMillis()) {
                 return true;
             }
@@ -59,13 +59,13 @@ public class sNotzReminders {
         return object.get("notificationID").getAsInt();
     }
 
-    private static List<ReminderItems> getRawData(Context context) {
-        List<ReminderItems> mData = new ArrayList<>();
+    private static List<ReminderEntry> getRawData(Context context) {
+        List<ReminderEntry> mData = new ArrayList<>();
         if (sFileUtils.exist(getReminders(context))) {
             JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(sFileUtils.read(getReminders(
                     context)))).getAsJsonArray("sNotz");
             for (int i = 0; i < sNotz.size(); i++) {
-                mData.add(new ReminderItems(getNoteID(sNotz.get(i).getAsJsonObject()),
+                mData.add(new ReminderEntry(getNoteID(sNotz.get(i).getAsJsonObject()),
                         getNotificationID(sNotz.get(i).getAsJsonObject()),
                         getTime(sNotz.get(i).getAsJsonObject()))
                 );
@@ -87,7 +87,7 @@ public class sNotzReminders {
 
         int mNotificationID = Integer.MIN_VALUE;
         if (modify) {
-            for (ReminderItems items : getRawData(context)) {
+            for (ReminderEntry items : getRawData(context)) {
                 if (items.getNoteID() == noteID) {
                     mNotificationID = items.getNotificationID();
                 }

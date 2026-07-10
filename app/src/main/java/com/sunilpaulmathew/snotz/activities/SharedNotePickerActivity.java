@@ -21,14 +21,14 @@ import java.util.Objects;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
  */
-public class SharedNotePickerActivity extends AppCompatActivity {
+public class SharedNotePickerActivity extends BaseActivity {
 
     private String mNote = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.progress_bar);
+        setContentView(R.layout.progress_bar, R.id.progress);
 
         ProgressBar mProgressBar = findViewById(R.id.progress);
 

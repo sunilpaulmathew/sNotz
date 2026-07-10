@@ -15,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
+import com.sunilpaulmathew.snotz.utils.AppSettings;
+import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListsEntry;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.List;
@@ -26,9 +27,9 @@ import java.util.Objects;
  */
 public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.ViewHolder> {
 
-    private final List<CheckListItems> data;
+    private final List<CheckListsEntry> data;
 
-    public CheckListAdapter(List<CheckListItems> data) {
+    public CheckListAdapter(List<CheckListsEntry> data) {
         this.data = data;
     }
 
@@ -41,21 +42,25 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull CheckListAdapter.ViewHolder holder, int position) {
+        CheckListsEntry checkListsEntry = this.data.get(position);
         holder.setIsRecyclable(data.size() < 25);
-        holder.mCheckBox.setChecked(this.data.get(position).isChecked());
-        holder.mTitle.setText(this.data.get(position).getTitle());
+        holder.mCheckBox.setChecked(checkListsEntry.isChecked());
+        holder.mTitle.setText(checkListsEntry.getTitle());
         holder.mTitle.setTextColor(sNotzColor.getAppAccentColor(holder.mTitle.getContext()));
-        holder.mTitle.setPaintFlags(this.data.get(position).isChecked() ? Paint.STRIKE_THRU_TEXT_FLAG : Paint.LINEAR_TEXT_FLAG);
+        holder.mTitle.setPaintFlags(checkListsEntry.isChecked() ? Paint.STRIKE_THRU_TEXT_FLAG : Paint.LINEAR_TEXT_FLAG);
 
         holder.mCheckBox.setOnClickListener(v -> {
-            this.data.get(position).isChecked(!this.data.get(position).isChecked());
-            this.data.get(position).isModified(true);
-            holder.mTitle.setPaintFlags(this.data.get(position).isChecked() ? Paint.STRIKE_THRU_TEXT_FLAG : Paint.LINEAR_TEXT_FLAG);
+            CheckListsEntry currentCheckListsEntry = this.data.get(holder.getBindingAdapterPosition());
+            currentCheckListsEntry.isChecked(!currentCheckListsEntry.isChecked());
+            currentCheckListsEntry.isModified(true);
+            holder.mTitle.setPaintFlags(currentCheckListsEntry.isChecked() ? Paint.STRIKE_THRU_TEXT_FLAG : Paint.LINEAR_TEXT_FLAG);
         });
 
         CompoundButtonCompat.setButtonTintList(holder.mCheckBox, ColorStateList.valueOf(sNotzColor.getAppAccentColor(holder.mCheckBox.getContext())));
 
         manageData(holder.mTitle, position);
+
+        AppSettings.setSlideInAnimation(holder.mTitle, position);
     }
 
     private void manageData(AppCompatEditText editText, int position) {
@@ -77,7 +82,7 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.View
                     if (s.toString().endsWith("\n")) {
                         editText.setText(newText);
                         if (position == data.size() - 1) {
-                            data.add(data.size(), new CheckListItems(null, false, false));
+                            data.add(data.size(), new CheckListsEntry(null, false, false));
                             editText.setSelection(Objects.requireNonNull(editText.getText()).length());
                         }
                     } else if (s.toString().contains("\n")) {

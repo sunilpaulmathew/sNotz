@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.TypedValue;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.textview.MaterialTextView;
@@ -17,14 +16,14 @@ import in.sunilpaulmathew.sCommon.ThemeUtils.sThemeUtils;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2021
  */
-public class ReadNoteActivity extends AppCompatActivity {
+public class ReadNoteActivity extends BaseActivity {
 
     public static final String NOTE_INTENT = "note";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_readnote);
+        setContentView(R.layout.activity_readnote, R.id.scroll_view);
 
         MaterialTextView mContents = findViewById(R.id.contents);
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);

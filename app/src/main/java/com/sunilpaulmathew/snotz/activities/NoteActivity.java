@@ -17,7 +17,6 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -41,7 +40,7 @@ import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
-import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListsEntry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,12 +54,12 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 13, 2020
  */
-public class NoteActivity extends AppCompatActivity {
+public class NoteActivity extends BaseActivity {
 
     private AppCompatEditText mContents;
     private boolean isChecklist = false, isNoteModified = false;
     private int mSelectedColorBg, mSelectedColorTxt;
-    private final List<CheckListItems> mData = new ArrayList<>();
+    private final List<CheckListsEntry> mData = new ArrayList<>();
     public static final String COLOR_BG_INTENT = "bg_color";
     public static final String COLOR_TXT_INTENT = "txt_color";
     public static final String HIDDEN_INTENT = "hidden";
@@ -73,7 +72,7 @@ public class NoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note);
+        setContentView(R.layout.activity_note, R.id.layout_main);
 
         AppCompatImageButton mChecklist = findViewById(R.id.checklist);
         AppCompatImageButton mAZ = findViewById(R.id.az_button);
@@ -168,7 +167,7 @@ public class NoteActivity extends AppCompatActivity {
             try {
                 for (int i = 0; i < Objects.requireNonNull(CheckLists.getChecklists(mNote)).size(); i++) {
                     JsonObject object = Objects.requireNonNull(CheckLists.getChecklists(mNote)).get(i).getAsJsonObject();
-                    mData.add(new CheckListItems(object.get("title").getAsString(), object.get("done").getAsBoolean(), false));
+                    mData.add(new CheckListsEntry(object.get("title").getAsString(), object.get("done").getAsBoolean(), false));
                 }
             } catch (NullPointerException ignored) {
             }
@@ -188,16 +187,16 @@ public class NoteActivity extends AppCompatActivity {
 
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                if (viewHolder.getAdapterPosition() < target.getAdapterPosition()) {
-                    for (int i = viewHolder.getAdapterPosition(); i < target.getAdapterPosition(); i++) {
+                if (viewHolder.getBindingAdapterPosition() < target.getBindingAdapterPosition()) {
+                    for (int i = viewHolder.getBindingAdapterPosition(); i < target.getBindingAdapterPosition(); i++) {
                         Collections.swap(mData, i, i + 1);
                     }
                 } else {
-                    for (int i = viewHolder.getAdapterPosition(); i > target.getAdapterPosition(); i--) {
+                    for (int i = viewHolder.getBindingAdapterPosition(); i > target.getBindingAdapterPosition(); i--) {
                         Collections.swap(mData, i, i - 1);
                     }
                 }
-                Objects.requireNonNull(recyclerView.getAdapter()).notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                Objects.requireNonNull(recyclerView.getAdapter()).notifyItemMoved(viewHolder.getBindingAdapterPosition(), target.getBindingAdapterPosition());
                 return true;
             }
 
@@ -226,7 +225,7 @@ public class NoteActivity extends AppCompatActivity {
                 mContents.setVisibility(View.GONE);
                 mColorLayout.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
-                mData.add(new CheckListItems("", false, false));
+                mData.add(new CheckListsEntry("", false, false));
                 mChecklist.setImageDrawable(sCommonUtils.getDrawable(R.drawable.ic_note, this));
                 if (!sCommonUtils.getBoolean("auto_save", false, this)) {
                     mSave.setVisibility(View.VISIBLE);
@@ -397,7 +396,7 @@ public class NoteActivity extends AppCompatActivity {
                         mModified = !CheckLists.getChecklistString(mData).isEmpty();
                         delete = false;
                     } else {
-                        for (CheckListItems items : mData) {
+                        for (CheckListsEntry items : mData) {
                             if (items.isModified()) {
                                 mModified = true;
                             }

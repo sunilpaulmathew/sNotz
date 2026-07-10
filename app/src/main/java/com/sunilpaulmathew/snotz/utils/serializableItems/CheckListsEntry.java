@@ -5,12 +5,12 @@ import java.io.Serializable;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
  */
-public class CheckListItems implements Serializable {
+public class CheckListsEntry implements Serializable {
 
     private String mTitle;
     private boolean mChecked, mModified;
 
-    public CheckListItems(String title, boolean checked, boolean modified) {
+    public CheckListsEntry(String title, boolean checked, boolean modified) {
         this.mTitle = title;
         this.mChecked = checked;
         this.mModified = modified;

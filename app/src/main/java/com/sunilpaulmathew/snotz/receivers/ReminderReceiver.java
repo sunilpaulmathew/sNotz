@@ -42,8 +42,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         mIntent.putExtra("noteId", mNoteID);
         mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        PendingIntent mPendingIntent = PendingIntent.getActivity(context, mNotificationID, mIntent, android.os.Build.VERSION.SDK_INT >=
-                android.os.Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, mNotificationID, mIntent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationChannel mNotificationChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {

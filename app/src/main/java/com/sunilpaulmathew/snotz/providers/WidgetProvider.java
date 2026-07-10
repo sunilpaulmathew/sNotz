@@ -13,7 +13,7 @@ import com.sunilpaulmathew.snotz.activities.StartActivity;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
-import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzEntry;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 
@@ -47,7 +47,7 @@ public class WidgetProvider extends AppWidgetProvider {
     }
 
     public static void update(AppWidgetManager appWidgetManager, int appWidgetId, Context context) {
-        for (sNotzItems items : sNotzData.getRawData(context)) {
+        for (sNotzEntry items : sNotzData.getRawData(context)) {
             int noteId = items.getNoteID();
             if (noteId == sNotzWidgets.getNoteID(appWidgetId, context)) {
                 RemoteViews mViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_notes);

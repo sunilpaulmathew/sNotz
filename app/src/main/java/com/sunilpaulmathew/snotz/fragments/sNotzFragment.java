@@ -27,7 +27,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
@@ -36,8 +35,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
@@ -46,7 +43,6 @@ import com.sunilpaulmathew.snotz.activities.NoteActivity;
 import com.sunilpaulmathew.snotz.activities.QRCodeScannerActivity;
 import com.sunilpaulmathew.snotz.activities.SettingsActivity;
 import com.sunilpaulmathew.snotz.adapters.NotesAdapter;
-import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.QRCodeUtils;
 import com.sunilpaulmathew.snotz.utils.Utils;
 import com.sunilpaulmathew.snotz.utils.dialogs.DeleteNoteDialog;
@@ -54,7 +50,7 @@ import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
-import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzEntry;
 
 import java.util.List;
 import java.util.Objects;
@@ -69,14 +65,14 @@ public class sNotzFragment extends Fragment {
 
     private TextInputEditText mSearchWord;
     private ContentLoadingProgressBar mProgressBar;
-    private MaterialCardView mAddNoteCard;
+    private MaterialButton mAddIcon;
     private NotesAdapter mNotesAdapter;
     private RecyclerView mRecyclerView;
     private boolean mExit;
     private final Handler mHandler = new Handler();
-    private List<sNotzItems> mData = null;
+    private List<sNotzEntry> mData = null;
     private static int mExtraNoteId, mSpanCount = 1;
-    private static String mExternalNote = null, mSearchText = null;
+    private static String mExternalNote = null, mPermissionRequest = null, mSearchText = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,33 +95,17 @@ public class sNotzFragment extends Fragment {
         MaterialButton mInfoButton = mRootView.findViewById(R.id.info_button);
         MaterialButton mSortButton = mRootView.findViewById(R.id.sort_button);
         MaterialButton mSettingsButton = mRootView.findViewById(R.id.settings_button);
-        AppCompatImageButton mAddIcon = mRootView.findViewById(R.id.add_note_icon);
-        mAddNoteCard = mRootView.findViewById(R.id.add_note_card);
+        mAddIcon = mRootView.findViewById(R.id.add_note_icon);
         mSearchWord = mRootView.findViewById(R.id.search_word);
         mProgressBar = mRootView.findViewById(R.id.progress);
         mRecyclerView = mRootView.findViewById(R.id.recycler_view);
-
-        // This is temporary and will be removed in future
-        if (!CheckLists.getOldChecklists(requireActivity()).isEmpty() && !sCommonUtils.getBoolean("restoreMessageShown", false, requireActivity())) {
-            new MaterialAlertDialogBuilder(requireActivity())
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle(R.string.app_name)
-                    .setCancelable(false)
-                    .setMessage("Checklists from the previous version of sNotz is found in \"" + requireActivity().getExternalFilesDir("checklists") + "\". If they are valuable, please restore them individually by\n" +
-                            "\n1. Go to \"" + requireActivity().getExternalFilesDir("checklists") + "\"" +
-                            "\n2. Add a \".txt\" extension to the checklist files to be restored" +
-                            "\n3. Simply click on them and choose to open with sNotz")
-                    .setPositiveButton(R.string.ok, (dialog, which) -> sCommonUtils.saveBoolean("restoreMessageShown", true, requireActivity())).show();
-        }
 
         mAppTitle.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
         mSettingsButton.setIconTint(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
         mInfoButton.setIconTint(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
         mQRCodeButton.setIconTint(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
         mProgressBar.setBackgroundColor(sCommonUtils.getColor(R.color.color_black, requireActivity()));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mProgressBar.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
-        }
+        mProgressBar.setIndeterminateTintList(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
         mSearchButton.setIconTint(ColorStateList.valueOf(sNotzColor.getAppAccentColor(requireActivity())));
         mSearchWord.setTextColor(sNotzColor.getAppAccentColor(requireActivity()));
         mSearchWord.setHintTextColor(sNotzColor.getAppAccentColor(requireActivity()));
@@ -153,7 +133,7 @@ public class sNotzFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
+                int position = viewHolder.getBindingAdapterPosition();
                 new DeleteNoteDialog(mData.get(position).isChecklist() ? Objects.requireNonNull(sNotzWidgets.getWidgetText(
                         mData.get(position).getNote())) : mData.get(position).getNote(), requireActivity()) {
 
@@ -200,15 +180,16 @@ public class sNotzFragment extends Fragment {
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                mAddNoteCard.setVisibility(newState == RecyclerView.SCROLL_STATE_IDLE ? View.VISIBLE : View.GONE);
+                mAddIcon.setVisibility(newState == RecyclerView.SCROLL_STATE_IDLE ? View.VISIBLE : View.GONE);
             }
         });
 
-        mAddIcon.setColorFilter(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()) : sNotzColor.getAccentColor(requireActivity()));
-        mAddNoteCard.setCardBackgroundColor(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()) : sNotzColor.getTextColor(requireActivity()));
-        mAddNoteCard.setStrokeColor(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()) : sNotzColor.getTextColor(requireActivity()));
+        mAddIcon.setTextColor(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()) : sNotzColor.getAccentColor(requireActivity()));
+        mAddIcon.setIconTint(ColorStateList.valueOf(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(0, sCommonUtils.getColor(R.color.color_teal, requireActivity()), requireActivity()) : sNotzColor.getAccentColor(requireActivity())));
+        mAddIcon.setBackgroundColor(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()) : sNotzColor.getTextColor(requireActivity()));
+        mAddIcon.setStrokeColor(ColorStateList.valueOf(sNotzColor.isRandomColorScheme(requireActivity()) ? sNotzColor.getMaterial3Colors(1, sCommonUtils.getColor(R.color.color_white, requireActivity()), requireActivity()) : sNotzColor.getTextColor(requireActivity())));
 
-        mAddNoteCard.setOnClickListener(v -> {
+        mAddIcon.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), NoteActivity.class);
             addItem.launch(intent);
         });
@@ -253,9 +234,8 @@ public class sNotzFragment extends Fragment {
                 switch (item.getItemId()) {
                     case 0:
                         if (Utils.isPermissionDenied(Manifest.permission.CAMERA, requireActivity())) {
-                            Utils.requestPermission(new String[] {
-                                    Manifest.permission.CAMERA
-                            }, requireActivity());
+                            mPermissionRequest = Manifest.permission.CAMERA;
+                            requestPermissionLauncher.launch(Manifest.permission.CAMERA);
                         } else {
                             Intent scanner = new Intent(requireActivity(), QRCodeScannerActivity.class);
                             addItem.launch(scanner);
@@ -263,9 +243,8 @@ public class sNotzFragment extends Fragment {
                         break;
                     case 1:
                         if (Build.VERSION.SDK_INT < 29 && Utils.isPermissionDenied(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, requireActivity())) {
-                            Utils.requestPermission(new String[] {
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                            },requireActivity());
+                            mPermissionRequest = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+                            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
                         } else {
                             Intent pickImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             try {
@@ -384,7 +363,7 @@ public class sNotzFragment extends Fragment {
 
     private sExecutor deleteNote(int position) {
         return new sExecutor() {
-            private List<sNotzItems> data;
+            private List<sNotzEntry> data;
             @Override
             public void onPreExecute() {
                 mProgressBar.setVisibility(View.VISIBLE);
@@ -393,7 +372,7 @@ public class sNotzFragment extends Fragment {
 
             @Override
             public void doInBackground() {
-                for (sNotzItems rawItems : data) {
+                for (sNotzEntry rawItems : data) {
                     if (rawItems.getNoteID() == mData.get(position).getNoteID()) {
                         data.remove(rawItems);
                         mData.remove(position);
@@ -405,6 +384,7 @@ public class sNotzFragment extends Fragment {
 
             @Override
             public void onPostExecute() {
+                if (!isAdded()) return;
                 mNotesAdapter.notifyItemRemoved(position);
                 mNotesAdapter.notifyItemRangeChanged(position, mNotesAdapter.getItemCount());
                 mNotesAdapter.reset();
@@ -428,6 +408,7 @@ public class sNotzFragment extends Fragment {
 
             @Override
             public void onPostExecute() {
+                if (!isAdded()) return;
                 try {
                     mRecyclerView.setAdapter(mNotesAdapter);
                 } catch (NullPointerException ignored) {}
@@ -436,7 +417,7 @@ public class sNotzFragment extends Fragment {
             }
 
             private void setNoteFromIntent() {
-                mNotesAdapter = new NotesAdapter(mData, mSpanCount, addItem);
+                mNotesAdapter = new NotesAdapter(mData, mSpanCount, addItem, requireActivity());
                 if (mExternalNote == null && mExtraNoteId == Integer.MIN_VALUE) return;
                 if (mExternalNote != null) {
                     Intent createNote = new Intent(requireActivity(), NoteActivity.class);
@@ -444,7 +425,7 @@ public class sNotzFragment extends Fragment {
                     createNote.putExtra(NoteActivity.NOTE_ID_INTENT, -1);
                     addItem.launch(createNote);
                 } else {
-                    for (sNotzItems items : sNotzData.getRawData(requireActivity())) {
+                    for (sNotzEntry items : sNotzData.getRawData(requireActivity())) {
                         if (items.getNoteID() == mExtraNoteId) {
                             Intent intent = getIntent(items);
                             addItem.launch(intent);
@@ -457,7 +438,7 @@ public class sNotzFragment extends Fragment {
             }
 
             @NonNull
-            private Intent getIntent(sNotzItems items) {
+            private Intent getIntent(sNotzEntry items) {
                 Intent intent;
                 intent = new Intent(requireActivity(), NoteActivity.class);
                 intent.putExtra(NoteActivity.NOTE_INTENT, items.getNote());
@@ -477,8 +458,8 @@ public class sNotzFragment extends Fragment {
                     new sExecutor() {
                         private boolean hidden, isUpdate, toDelete;
                         private int colorBackground, colorText, id, position = RecyclerView.NO_POSITION;
-                        private List<sNotzItems> data;
-                        private sNotzItems item;
+                        private List<sNotzEntry> data;
+                        private sNotzEntry item;
                         private String note;
                         @Override
                         public void onPreExecute() {
@@ -498,7 +479,7 @@ public class sNotzFragment extends Fragment {
                         public void doInBackground() {
                             position = getPosition();
                             if (toDelete) {
-                                for (sNotzItems rawItems : data) {
+                                for (sNotzEntry rawItems : data) {
                                     if (rawItems.getNoteID() == id) {
                                         data.remove(rawItems);
                                         if (position != RecyclerView.NO_POSITION) {
@@ -510,7 +491,7 @@ public class sNotzFragment extends Fragment {
                             } else if (isUpdate) {
                                 for (int i=0; i<data.size(); i++) {
                                     if (data.get(i).getNoteID() == id) {
-                                        item = new sNotzItems(note, System.currentTimeMillis(), hidden, colorBackground, colorText, data.get(i).getNoteID());
+                                        item = new sNotzEntry(note, System.currentTimeMillis(), hidden, colorBackground, colorText, data.get(i).getNoteID());
                                         data.set(i, item);
                                         if (position != RecyclerView.NO_POSITION) {
                                             if (item.isHidden() && !sCommonUtils.getBoolean("hidden_note", false, requireActivity())) {
@@ -523,7 +504,7 @@ public class sNotzFragment extends Fragment {
                                     }
                                 }
                             } else {
-                                item = new sNotzItems(note, System.currentTimeMillis(), hidden, colorBackground, colorText, id);
+                                item = new sNotzEntry(note, System.currentTimeMillis(), hidden, colorBackground, colorText, id);
                                 data.add(item);
                                 if (!item.isHidden() || sCommonUtils.getBoolean("hidden_note", false, requireActivity())) {
                                     mData.add(0, item);
@@ -543,6 +524,7 @@ public class sNotzFragment extends Fragment {
 
                         @Override
                         public void onPostExecute() {
+                            if (!isAdded()) return;
                             if (toDelete) {
                                 mNotesAdapter.notifyItemRemoved(position);
                             } else if (isUpdate) {
@@ -580,6 +562,22 @@ public class sNotzFragment extends Fragment {
             }
     );
 
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    if (Manifest.permission.CAMERA.equals(mPermissionRequest)) {
+                        Intent scanner = new Intent(requireActivity(), QRCodeScannerActivity.class);
+                        addItem.launch(scanner);
+                    } else {
+                        Intent pickImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        try {
+                            pickImageForQRReader.launch(pickImage);
+                        } catch (ActivityNotFoundException ignored) {}
+                    }
+                }
+            }
+    );
+
     private final ActivityResultLauncher<Intent> appSettingTasks = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -596,7 +594,7 @@ public class sNotzFragment extends Fragment {
                         addItem.launch(createNote);
                     } else if (dataBaseString != null) {
                         new sExecutor() {
-                            private List<sNotzItems> data;
+                            private List<sNotzEntry> data;
 
                             @Override
                             public void onPreExecute() {
@@ -607,8 +605,8 @@ public class sNotzFragment extends Fragment {
                             @Override
                             public void doInBackground() {
                                 int i = sNotzUtils.generateNoteID(requireActivity());
-                                for (sNotzItems items : sNotzUtils.getNotesFromBackup(dataBaseString, requireActivity())) {
-                                    data.add(new sNotzItems(items.getNote(), items.getTimeStamp(), items.isHidden(), items.getColorBackground(), items.getColorText(), i));
+                                for (sNotzEntry items : sNotzUtils.getNotesFromBackup(dataBaseString, requireActivity())) {
+                                    data.add(new sNotzEntry(items.getNote(), items.getTimeStamp(), items.isHidden(), items.getColorBackground(), items.getColorText(), i));
                                     i++;
                                 }
 

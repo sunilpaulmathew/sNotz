@@ -14,7 +14,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.AppSettings;
 import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
-import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzEntry;
 
 import java.util.List;
 
@@ -26,9 +26,9 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
 public class WidgetAdapter extends RecyclerView.Adapter<WidgetAdapter.ViewHolder> {
 
     private int mExpandPosition = RecyclerView.NO_POSITION;
-    private final List<sNotzItems> data;
+    private final List<sNotzEntry> data;
     private static ClickListener mClickListener;
-    public WidgetAdapter(List<sNotzItems> data) {
+    public WidgetAdapter(List<sNotzEntry> data) {
         this.data = data;
     }
 
@@ -41,21 +41,23 @@ public class WidgetAdapter extends RecyclerView.Adapter<WidgetAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull WidgetAdapter.ViewHolder holder, int position) {
-        holder.mCard.setStrokeColor(this.data.get(position).getColorBackground());
-        holder.mCard.setCardBackgroundColor(this.data.get(position).getColorBackground());
-        if (this.data.get(position).isChecklist()) {
-            holder.mTitle.setText(sNotzWidgets.getWidgetText(this.data.get(position).getNote()));
+        sNotzEntry notesEntry = this.data.get(position);
+        holder.mCard.setStrokeColor(notesEntry.getColorBackground());
+        holder.mCard.setCardBackgroundColor(notesEntry.getColorBackground());
+        if (notesEntry.isChecklist()) {
+            holder.mTitle.setText(sNotzWidgets.getWidgetText(notesEntry.getNote()));
         } else {
-            holder.mTitle.setText(this.data.get(position).getNote());
+            holder.mTitle.setText(notesEntry.getNote());
         }
-        holder.mTitle.setTextColor(this.data.get(position).getColorText());
+        holder.mTitle.setTextColor(notesEntry.getColorText());
         holder.mTitle.setMaxLines(mExpandPosition != position ? 1 : Integer.MAX_VALUE);
         holder.mTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, sCommonUtils.getInt("font_size", 18, holder.mTitle.getContext()));
         holder.mTitle.setTypeface(null, AppSettings.getStyle(holder.mTitle.getContext()));
         holder.mExpand.setImageDrawable(sCommonUtils.getDrawable(mExpandPosition != position ? R.drawable.ic_expand :
                 R.drawable.ic_collapse,holder.mExpand.getContext()));
         holder.mExpand.setOnClickListener(v -> setExpandStatus(position));
-        holder.mExpand.setColorFilter(data.get(position).getColorText());
+        holder.mExpand.setColorFilter(notesEntry.getColorText());
+        AppSettings.setSlideInAnimation(holder.itemView, position);
     }
 
     private void setExpandStatus(int position) {
@@ -88,7 +90,7 @@ public class WidgetAdapter extends RecyclerView.Adapter<WidgetAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-            mClickListener.onItemClick(getAdapterPosition(), view);
+            mClickListener.onItemClick(getBindingAdapterPosition(), view);
         }
     }
 

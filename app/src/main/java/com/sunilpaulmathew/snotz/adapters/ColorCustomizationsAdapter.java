@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
+import com.sunilpaulmathew.snotz.utils.AppSettings;
+import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListsEntry;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ import java.util.ArrayList;
  */
 public class ColorCustomizationsAdapter extends RecyclerView.Adapter<ColorCustomizationsAdapter.ViewHolder> {
 
-    private final ArrayList<CheckListItems> mData;
+    private final ArrayList<CheckListsEntry> mData;
     private static ClickListener mClickListener;
 
-    public ColorCustomizationsAdapter(ArrayList<CheckListItems> data) {
+    public ColorCustomizationsAdapter(ArrayList<CheckListsEntry> data) {
         this.mData = data;
     }
 
@@ -39,6 +40,7 @@ public class ColorCustomizationsAdapter extends RecyclerView.Adapter<ColorCustom
         holder.mText.setText(this.mData.get(position).getTitle());
         holder.mCircle.setCardBackgroundColor(sNotzColor.getDefaultColor(position, holder.mCircle.getContext()));
         holder.mCircle.setStrokeColor(sNotzColor.getDefaultColor(position, holder.mCircle.getContext()));
+        AppSettings.setSlideInAnimation(holder.itemView, position);
     }
 
     @Override
@@ -59,7 +61,7 @@ public class ColorCustomizationsAdapter extends RecyclerView.Adapter<ColorCustom
 
         @Override
         public void onClick(View view) {
-            mClickListener.onItemClick(getAdapterPosition(), view);
+            mClickListener.onItemClick(getBindingAdapterPosition(), view);
         }
     }
 

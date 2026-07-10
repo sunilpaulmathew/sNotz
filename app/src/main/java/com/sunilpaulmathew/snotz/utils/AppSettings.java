@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.R;
@@ -264,6 +266,25 @@ public class AppSettings {
             sFileUtils.create(sNotz, new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), text));
         }
         sCommonUtils.toast(activity.getString(R.string.backup_notes_message, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + text), activity).show();
+    }
+
+    public static void setSlideInAnimation(final View viewToAnimate, int position) {
+        // Only animate items appearing for the first time
+        if (position > -1) {
+            viewToAnimate.setTranslationY(50f);
+            viewToAnimate.setAlpha(0f);
+
+            viewToAnimate.animate()
+                    .translationY(0f)
+                    .alpha(1f)
+                    .setDuration(150)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .start();
+        } else {
+            // Reset properties to ensure recycled views are displayed correctly
+            viewToAnimate.setTranslationY(0f);
+            viewToAnimate.setAlpha(1f);
+        }
     }
 
 }

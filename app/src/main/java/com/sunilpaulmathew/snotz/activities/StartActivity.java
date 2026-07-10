@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
@@ -24,7 +23,7 @@ import in.sunilpaulmathew.sCommon.ThemeUtils.sThemeUtils;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 19, 2020
  */
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
 
     private AppCompatImageView mAppLogo;
     private MaterialTextView mAuthenticationStatus;
@@ -34,7 +33,7 @@ public class StartActivity extends AppCompatActivity {
         // Initialize App Theme
         sThemeUtils.initializeAppTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_start, R.id.layout_main);
 
         mAppLogo = findViewById(R.id.app_logo);
         mAuthenticationStatus = findViewById(R.id.authentication_status);

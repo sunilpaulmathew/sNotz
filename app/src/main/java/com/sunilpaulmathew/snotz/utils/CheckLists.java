@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListsEntry;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,9 +29,9 @@ public class CheckLists {
         return null;
     }
 
-    public static JsonArray getChecklists(List<CheckListItems> items) {
+    public static JsonArray getChecklists(List<CheckListsEntry> items) {
         JsonArray jsonArray = new JsonArray();
-        for (CheckListItems item : items) {
+        for (CheckListsEntry item : items) {
             if (item.getTitle() != null && !item.getTitle().trim().isEmpty()) {
                 JsonObject checklist = new JsonObject();
                 checklist.addProperty("title", item.getTitle());
@@ -52,7 +52,7 @@ public class CheckLists {
         return mData;
     }
 
-    public static String getChecklistString(List<CheckListItems> items) {
+    public static String getChecklistString(List<CheckListsEntry> items) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("checklist", getChecklists(items));
         return jsonObject.toString();

@@ -7,7 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sunilpaulmathew.snotz.R;
-import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzItems;
+import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzEntry;
 
 import java.io.File;
 import java.util.Collections;
@@ -24,9 +24,9 @@ import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
  */
 public class sNotzData {
 
-    public static List<sNotzItems> getData(Context context, String searchText) {
-        List<sNotzItems> mData = new CopyOnWriteArrayList<>();
-        for (sNotzItems items : getRawData(context)) {
+    public static List<sNotzEntry> getData(Context context, String searchText) {
+        List<sNotzEntry> mData = new CopyOnWriteArrayList<>();
+        for (sNotzEntry items : getRawData(context)) {
             boolean isVisible;
             if (sCommonUtils.getInt("show_all", 0, context) == 2) {
                 isVisible = !items.isChecklist();
@@ -53,13 +53,13 @@ public class sNotzData {
         }
         if (sCommonUtils.getInt("sort_notes", 2, context) == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Collections.sort(mData, Comparator.comparingLong(sNotzItems::getTimeStamp));
+                Collections.sort(mData, Comparator.comparingLong(sNotzEntry::getTimeStamp));
             } else {
                 Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(String.valueOf(lhs.getTimeStamp()), String.valueOf(rhs.getTimeStamp())));
             }
         } else if (sCommonUtils.getInt("sort_notes", 2, context) == 1) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Collections.sort(mData, Comparator.comparingLong(sNotzItems::getColorBackground));
+                Collections.sort(mData, Comparator.comparingLong(sNotzEntry::getColorBackground));
             } else {
                 Collections.sort(mData, (lhs, rhs) -> String.CASE_INSENSITIVE_ORDER.compare(String.valueOf(lhs.getColorBackground()), String.valueOf(rhs.getColorBackground())));
             }
@@ -72,13 +72,13 @@ public class sNotzData {
         return mData;
     }
 
-    public static List<sNotzItems> getRawData(Context context) {
-        List<sNotzItems> mData = new CopyOnWriteArrayList<>();
+    public static List<sNotzEntry> getRawData(Context context) {
+        List<sNotzEntry> mData = new CopyOnWriteArrayList<>();
         String json = context.getFilesDir().getPath() + "/snotz";
         if (sFileUtils.exist(new File(json))) {
             JsonArray sNotz = Objects.requireNonNull(getJSONObject(sFileUtils.read(new File(json)))).getAsJsonArray("sNotz");
             for (int i = 0; i < sNotz.size(); i++) {
-                mData.add(new sNotzItems(
+                mData.add(new sNotzEntry(
                                 getNote(sNotz.get(i).getAsJsonObject()),
                                 getDate(sNotz.get(i).getAsJsonObject()),
                                 isHidden(sNotz.get(i).getAsJsonObject()),

@@ -83,14 +83,14 @@ public class Security {
                     if (login) {
                         // Launch MainActivity
                         launchMainActivity(activity);
-                    } else if (position == 4) {
+                    } else if (position == 5) {
                         removePIN(activity);
                         sCommonUtils.toast(activity.getString(R.string.pin_protection_status, activity.getString(R.string.deactivated)), activity).show();
-                    } else if (position == 5) {
+                    } else if (position == 6) {
                         sCommonUtils.saveBoolean("hidden_note", !sCommonUtils.getBoolean("hidden_note", false, activity), activity);
                         AppSettings.setReloadIntent(activity.getIntent(), activity);
                         activity.finish();
-                    } else {
+                    } else if (position == 18) {
                         sFileUtils.delete(new File(activity.getFilesDir(),"snotz"));
                         AppSettings.setReloadIntent(activity.getIntent(), activity);
                         activity.finish();
