@@ -1,5 +1,7 @@
 package com.sunilpaulmathew.snotz.activities;
 
+import android.graphics.text.LineBreaker;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 
@@ -27,6 +29,10 @@ public class ReadNoteActivity extends BaseActivity {
 
         MaterialTextView mContents = findViewById(R.id.contents);
         NestedScrollView mScrollView = findViewById(R.id.scroll_view);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            mContents.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+        }
 
         String mNote = getIntent().getStringExtra(NOTE_INTENT);
 

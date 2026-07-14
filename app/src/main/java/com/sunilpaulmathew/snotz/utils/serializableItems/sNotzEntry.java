@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class sNotzEntry implements Serializable {
 
-    private final boolean mHidden;
+    private boolean mHidden;
     private final int mColorBackground, mColorText, mID;
     private final long mTimeStamp;
     private final String mNote;
@@ -43,12 +43,16 @@ public class sNotzEntry implements Serializable {
         return mID;
     }
 
+    public long getTimeStamp() {
+        return mTimeStamp;
+    }
+
     public String getNote() {
         return mNote;
     }
 
-    public long getTimeStamp() {
-        return mTimeStamp;
+    public void isHidden(boolean hidden) {
+        this.mHidden = hidden;
     }
 
 }

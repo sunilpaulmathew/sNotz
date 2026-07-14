@@ -42,16 +42,6 @@ public class CheckLists {
         return jsonArray;
     }
 
-    public static List<File> getOldChecklists(Context context) {
-        List<File> mData = new ArrayList<>();
-        for (File checklists : Objects.requireNonNull(Objects.requireNonNull(context.getExternalFilesDir("checklists")).listFiles())) {
-            if (CheckLists.isValidCheckList(sFileUtils.read(checklists))) {
-                mData.add(checklists);
-            }
-        }
-        return mData;
-    }
-
     public static String getChecklistString(List<CheckListsEntry> items) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("checklist", getChecklists(items));

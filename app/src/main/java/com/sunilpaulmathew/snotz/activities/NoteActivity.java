@@ -278,7 +278,7 @@ public class NoteActivity extends BaseActivity {
                 Intent readOnlyMode = new Intent(this, ReadNoteActivity.class);
                 readOnlyMode.putExtra(ReadNoteActivity.NOTE_INTENT, mNote);
                 startActivity(readOnlyMode);
-                this.finish();
+                finish();
             } else {
                 View checkBoxView = View.inflate(this, R.layout.layout_checkbox, null);
                 MaterialCheckBox checkBox = checkBoxView.findViewById(R.id.checkbox);

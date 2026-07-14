@@ -52,6 +52,7 @@
     <string name="discard">Discard</string>
     <string name="discard_note">Discard changes made on this page?</string>
     <string name="duplicate">Duplicate</string>
+    <string name="edit">Edit</string>
     <string name="exit">Exit</string>
     <string name="faq">FAQ</string>
     <string name="faq_summary">Read frequently asked questions</string>
@@ -100,6 +101,7 @@
     <string name="qr_code_scan">Scan QR Code</string>
     <string name="rate_us">Rate Us</string>
     <string name="rate_us_Summary">Rate or/and Review sNotz in PlayStore</string>
+    <string name="reading_mode">Read-only mode</string>
     <string name="reading_mode_message">Restart this note in read-only mode?</string>
     <string name="reading_mode_warning">Warning: Please save this note before continuing. Recent changes will be otherwise ignored.</string>
     <string name="reminder_manage">Manage Reminder</string>

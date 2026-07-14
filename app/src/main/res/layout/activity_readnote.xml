@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:scrollbars="vertical"
-    android:layout_margin="5dp" >
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="5dp"
+    android:scrollbars="vertical" >
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/contents"

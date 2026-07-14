@@ -4,66 +4,83 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:longClickable="true"
-    app:cardCornerRadius="10dp"
-    android:layout_margin="5dp"
-    android:padding="5dp" >
+    android:layout_marginHorizontal="5dp"
+    app:cardUseCompatPadding="true"
+    android:longClickable="false"
+    app:cardCornerRadius="10dp" >
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="5dp" >
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/menu"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_dots" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/expand"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintEnd_toStartOf="@id/menu"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_expand" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/contents"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/content_hint"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/expand"
+                    android:focusable="false"
+                    android:padding="5dp" />
 
                 <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:id="@+id/progress_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/contents"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" >
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/contents"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/content_hint"
-                            android:layout_marginEnd="50dp"
-                            android:focusable="false"
-                            android:padding="10dp" />
-
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/expand"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="end|top"
-                            android:background="@null" />
+                        <include layout="@layout/progress_bar" />
                 </FrameLayout>
 
-                <include layout="@layout/progress_bar" />
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/lock"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/progress_container"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:visibility="gone" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/date"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-15dp"
-                    android:orientation="horizontal"
-                    android:padding="5dp" >
-
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/lock"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@null"
-                            android:visibility="gone"
-                            android:clickable="false" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:focusable="false"
-                            android:textStyle="bold"
-                            android:textSize="12sp"
-                            android:gravity="end" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <include layout="@layout/layout_note_actions" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                    app:layout_constraintTop_toBottomOf="@id/progress_container"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/lock"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:gravity="end"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
