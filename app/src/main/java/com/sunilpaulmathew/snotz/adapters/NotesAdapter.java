@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -143,11 +144,18 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             mContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, sCommonUtils.getInt("font_size", 18, itemView.getContext()));
             mContents.setTypeface(null, AppSettings.getStyle(itemView.getContext()));
             mContents.setMaxLines(mExpandPosition != layoutPosition ? 1 : Integer.MAX_VALUE);
+
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mContents.getLayoutParams();
+            if (mExpandPosition != layoutPosition) {
+                mExpand.setImageDrawable(sCommonUtils.getDrawable(R.drawable.ic_expand, itemView.getContext()));
+                params.setMargins(getMarginInPx(0), getMarginInPx(0), getMarginInPx(80), getMarginInPx(0));
+            } else {
+                mExpand.setImageDrawable(sCommonUtils.getDrawable(R.drawable.ic_collapse, itemView.getContext()));
+                params.setMargins(getMarginInPx(0), getMarginInPx(30), getMarginInPx(0), getMarginInPx(20));
+            }
+            mContents.setLayoutParams(params);
+
             mExpand.setVisibility(spanCount > 1 ? View.GONE : View.VISIBLE);
-            mExpand.setImageDrawable(sCommonUtils.getDrawable(mExpandPosition != layoutPosition ? R.drawable.ic_expand :
-                    R.drawable.ic_collapse,itemView.getContext()));
-            mExpand.setColorFilter(sCommonUtils.getInt("text_color", sCommonUtils.getColor(R.color.color_white,
-                    itemView.getContext()), itemView.getContext()));
             mExpand.setColorFilter(notesEntry.getColorText());
             mMenu.setColorFilter(notesEntry.getColorText());
             mRVCard.setCardBackgroundColor(notesEntry.getColorBackground());
@@ -159,6 +167,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             mLock.setColorFilter(notesEntry.getColorText());
             mLock.setVisibility(notesEntry.isChecklist() || notesEntry.isHidden() ? View.VISIBLE : View.GONE);
             mProgress.setIndeterminateTintList(ColorStateList.valueOf(notesEntry.getColorText()));
+        }
+
+        private int getMarginInPx(int marginInDp) {
+            return  (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    marginInDp,
+                    mContents.getContext().getResources().getDisplayMetrics()
+            );
         }
     }
 

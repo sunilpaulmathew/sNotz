@@ -6,6 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_marginHorizontal="5dp"
     app:cardUseCompatPadding="true"
+    android:layout_gravity="center"
     android:longClickable="false"
     app:cardCornerRadius="10dp" >
 
@@ -14,6 +15,17 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="5dp"
             android:paddingVertical="5dp" >
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/contents"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/content_hint"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:focusable="false"
+                    android:padding="5dp" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/menu"
@@ -32,17 +44,6 @@
                     app:layout_constraintEnd_toStartOf="@id/menu"
                     app:layout_constraintTop_toTopOf="parent"
                     android:src="@drawable/ic_expand" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/contents"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/content_hint"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/expand"
-                    android:focusable="false"
-                    android:padding="5dp" />
 
                 <FrameLayout
                     android:id="@+id/progress_container"
