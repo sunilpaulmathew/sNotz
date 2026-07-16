@@ -5,16 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.sunilpaulmathew.snotz.MainActivity;
 import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.adapters.SettingsAdapter;
 import com.sunilpaulmathew.snotz.interfaces.AuthenticatorInterface;
+import com.sunilpaulmathew.snotz.utils.dialogs.RestoreNoteDialog;
 
 import java.io.File;
 
 import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
-import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
 import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
 
 /*
@@ -122,39 +121,26 @@ public class Security {
             if (sNotz.exists() && !sNotzData.getRawData(activity).isEmpty() && sNotz.length() != sNotzAutoBackup.length()) {
                 AppSettings.backupData(sNotz, sNotzAutoBackup, activity);
             } else if ((!sNotz.exists() || sNotzData.getRawData(activity).isEmpty()) && sNotzAutoBackup.exists()) {
-                new MaterialAlertDialogBuilder(activity)
-                        .setIcon(R.mipmap.ic_launcher)
-                        .setTitle(R.string.app_name)
-                        .setMessage(activity.getString(R.string.restore_backup_message))
-                        .setCancelable(false)
-                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                            sFileUtils.delete(sNotzAutoBackup);
-                            activity.startActivity(mainActivity);
-                            activity.finish();
-                        })
-                        .setPositiveButton(R.string.restore, (dialog, which) ->
-                                new sExecutor() {
-                                    @Override
-                                    public void onPreExecute() {
-                                    }
+                new RestoreNoteDialog(sFileUtils.read(sNotzAutoBackup), true, activity) {
+                    @Override
+                    public void negativeButtonLister() {
+                        start(mainActivity, activity);
+                    }
 
-                                    @Override
-                                    public void doInBackground() {
-                                        sFileUtils.copy(sNotzAutoBackup, sNotz);
-                                    }
-
-                                    @Override
-                                    public void onPostExecute() {
-                                        activity.startActivity(mainActivity);
-                                        activity.finish();
-                                    }
-                                }.execute()
-                        ).show();
+                    @Override
+                    public void positiveButtonLister() {
+                        start(mainActivity, activity);
+                    }
+                };
                 return;
             }
         }
 
-        activity.startActivity(mainActivity);
+        start(mainActivity, activity);
+    }
+
+    private static void start(Intent intent, Activity activity) {
+        activity.startActivity(intent);
         activity.finish();
     }
 

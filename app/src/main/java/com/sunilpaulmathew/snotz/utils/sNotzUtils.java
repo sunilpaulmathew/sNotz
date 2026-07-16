@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.google.gson.Gson;
@@ -19,7 +17,6 @@ import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzEntry;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,21 +26,6 @@ import in.sunilpaulmathew.sCommon.FileUtils.sFileUtils;
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 01, 2021
  */
 public class sNotzUtils {
-
-    public static List<sNotzEntry> getNotesFromBackup(String backupData, Context context) {
-        List<sNotzEntry> mRestoreData = new ArrayList<>();
-        JsonArray sNotz = Objects.requireNonNull(sNotzData.getJSONObject(backupData)).getAsJsonArray("sNotz");
-        for (int i = 0; i < sNotz.size(); i++) {
-            mRestoreData.add(new sNotzEntry(sNotzData.getNote(sNotz.get(i).getAsJsonObject()),
-                    sNotzData.getDate(sNotz.get(i).getAsJsonObject()),
-                    sNotzData.isHidden(sNotz.get(i).getAsJsonObject()),
-                    sNotzData.getBackgroundColor(sNotz.get(i).getAsJsonObject(), context),
-                    sNotzData.getTextColor(sNotz.get(i).getAsJsonObject(), context),
-                    sNotzData.getNoteID(sNotz.get(i).getAsJsonObject()))
-            );
-        }
-        return mRestoreData;
-    }
 
     public static String sNotzToText(Context context) {
         StringBuilder sb = new StringBuilder();
@@ -62,7 +44,6 @@ public class sNotzUtils {
         return sNotzData.getJSONObject(backupData) != null && Objects.requireNonNull(sNotzData.getJSONObject(backupData)).getAsJsonArray("sNotz") != null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static Drawable getColoredDrawable(int color, int drawable, Context context) {
         Drawable d = ContextCompat.getDrawable(context, drawable);
         if (d != null) {
@@ -109,17 +90,6 @@ public class sNotzUtils {
         note.addProperty("colorBackground", colorBg);
         note.addProperty("colorText", colorTxt);
         note.addProperty("noteID", noteID);
-        return note;
-    }
-
-    public static JsonObject getNote(int id, sNotzEntry items) {
-        JsonObject note = new JsonObject();
-        note.addProperty("note", items.getNote());
-        note.addProperty("date", items.getTimeStamp());
-        note.addProperty("hidden", items.isHidden());
-        note.addProperty("colorBackground", items.getColorBackground());
-        note.addProperty("colorText", items.getColorText());
-        note.addProperty("noteID", id != Integer.MIN_VALUE ? id : items.getNoteID());
         return note;
     }
 

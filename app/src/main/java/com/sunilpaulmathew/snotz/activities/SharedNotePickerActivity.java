@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.sunilpaulmathew.snotz.R;
 import com.sunilpaulmathew.snotz.utils.NotePicker;
 
 import java.io.BufferedInputStream;
@@ -28,9 +25,6 @@ public class SharedNotePickerActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.progress_bar, R.id.progress);
-
-        ProgressBar mProgressBar = findViewById(R.id.progress);
 
         if (Objects.equals(getIntent().getAction(), Intent.ACTION_SEND)) {
             // Handle notes shared by Other Apps
@@ -53,7 +47,7 @@ public class SharedNotePickerActivity extends BaseActivity {
                 mNote = getIntent().getStringExtra(Intent.EXTRA_TEXT);
             }
 
-            new NotePicker(mNote, mProgressBar, this).handleNotes();
+            new NotePicker(mNote, this).handleNotes();
         }
     }
 

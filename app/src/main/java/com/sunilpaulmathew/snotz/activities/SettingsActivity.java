@@ -27,6 +27,7 @@ import com.sunilpaulmathew.snotz.utils.CheckLists;
 import com.sunilpaulmathew.snotz.utils.Encryption;
 import com.sunilpaulmathew.snotz.utils.Security;
 import com.sunilpaulmathew.snotz.utils.Utils;
+import com.sunilpaulmathew.snotz.utils.dialogs.RestoreNoteDialog;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 import com.sunilpaulmathew.snotz.utils.sNotzData;
 import com.sunilpaulmathew.snotz.utils.sNotzUtils;
@@ -366,33 +367,37 @@ public class SettingsActivity extends BaseActivity {
                         for (int jsonResult = bis.read(); jsonResult != -1; jsonResult = bis.read()) {
                             buf.write((byte) jsonResult);
                         }
-                        if (sNotzUtils.validBackup(Encryption.decrypt(buf.toString("UTF-8")))) {
-                            mJSONString = Encryption.decrypt(buf.toString("UTF-8"));
-                        } else if (sNotzUtils.validBackup(buf.toString("UTF-8"))) {
-                            mJSONString = buf.toString("UTF-8");
-                        } else if (CheckLists.isValidCheckList(buf.toString("UTF-8"))) {
+
+                        if (CheckLists.isValidCheckList(buf.toString("UTF-8"))) {
                             intent.putExtra("checkList", buf.toString("UTF-8"));
                             setResult(Activity.RESULT_OK, intent);
                             finish();
                         } else {
-                            sCommonUtils.toast(getString(R.string.restore_error), this).show();
-                            return;
+                            if (sNotzUtils.validBackup(Encryption.decrypt(buf.toString("UTF-8")))) {
+                                mJSONString = Encryption.decrypt(buf.toString("UTF-8"));
+                            } else if (sNotzUtils.validBackup(buf.toString("UTF-8"))) {
+                                mJSONString = buf.toString("UTF-8");
+                            } else {
+                                sCommonUtils.toast(getString(R.string.restore_error), this).show();
+                                return;
+                            }
+
+                            new RestoreNoteDialog(mJSONString, false, this) {
+                                @Override
+                                public void negativeButtonLister() {
+                                }
+
+                                @Override
+                                public void positiveButtonLister() {
+                                    intent.putExtra("reload", true);
+                                    setResult(Activity.RESULT_OK, intent);
+                                    finish();
+                                }
+                            };
                         }
                     } catch (IOException ignored) {
                         sCommonUtils.toast(getString(R.string.restore_error), this).show();
                     }
-
-                    new MaterialAlertDialogBuilder(this)
-                            .setIcon(R.mipmap.ic_launcher)
-                            .setTitle(R.string.app_name)
-                            .setMessage(getString(R.string.restore_notes_question))
-                            .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
-                            })
-                            .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                                intent.putExtra("dataBase", mJSONString);
-                                setResult(Activity.RESULT_OK, intent);
-                                finish();
-                            }).show();
                 }
             }
     );

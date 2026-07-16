@@ -56,7 +56,6 @@ import com.sunilpaulmathew.snotz.utils.sNotzWidgets;
 import com.sunilpaulmathew.snotz.utils.serializableItems.MenuEntry;
 import com.sunilpaulmathew.snotz.utils.serializableItems.sNotzEntry;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -758,56 +757,12 @@ public class sNotzFragment extends Fragment {
                     Intent intent = result.getData();
                     boolean reload = intent.getBooleanExtra("reload", false);
                     boolean recreate = intent.getBooleanExtra("recreate", false);
-                    String dataBaseString = intent.getStringExtra("dataBase");
                     String checkListString = intent.getStringExtra("checkList");
                     if (checkListString != null) {
                         Intent createNote = new Intent(requireActivity(), NoteActivity.class);
                         createNote.putExtra(NoteActivity.NOTE_INTENT, checkListString);
                         createNote.putExtra(NoteActivity.NOTE_ID_INTENT, -1);
                         addItem.launch(createNote);
-                    } else if (dataBaseString != null) {
-                        new sExecutor() {
-                            private final Activity activity = requireActivity();
-                            private List<sNotzEntry> originalData;
-                            private List<sNotzEntry> backupItems;
-                            private int startingId;
-
-                            @Override
-                            public void onPreExecute() {
-                                mProgressBar.setVisibility(View.VISIBLE);
-                                originalData = sNotzData.getRawData(requireActivity());
-                                backupItems = sNotzUtils.getNotesFromBackup(dataBaseString, activity);
-                                startingId = sNotzUtils.generateNoteID(activity);
-                            }
-
-                            @Override
-                            public void doInBackground() {
-
-                                List<sNotzEntry> updatedList = new ArrayList<>(originalData);
-
-                                int currentId = startingId;
-                                for (sNotzEntry item : backupItems) {
-                                    updatedList.add(new sNotzEntry(
-                                            item.getNote(),
-                                            item.getTimeStamp(),
-                                            item.isHidden(),
-                                            item.getColorBackground(),
-                                            item.getColorText(),
-                                            currentId
-                                    ));
-                                    currentId++;
-                                }
-
-                                updateDataBase(updatedList, activity);
-                            }
-
-                            @Override
-                            public void onPostExecute() {
-                                if (!isAdded()) return;
-
-                                loadUI(mProgressBar, mSearchText).execute();
-                            }
-                        }.execute();
                     } else if (recreate) {
                         requireActivity().recreate();
                     } else if (reload) {
