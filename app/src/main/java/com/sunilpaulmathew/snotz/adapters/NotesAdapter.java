@@ -98,6 +98,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         if (mExpandPosition != position) {
             notifyItemChanged(mExpandPosition);
             mExpandPosition = position;
+            clickListener.scrollToPosition(position);
         } else {
             mExpandPosition = RecyclerView.NO_POSITION;
         }
@@ -182,6 +183,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         void onItemClick(sNotzEntry entry, int position, boolean isPositionExpanded);
 
         void onMenuClick(sNotzEntry entry, int position, boolean isPositionExpanded);
+
+        void scrollToPosition(int position);
     }
 
 }

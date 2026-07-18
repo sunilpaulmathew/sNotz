@@ -541,6 +541,11 @@ public class sNotzFragment extends Fragment {
                             }
                         };
                     }
+                    @Override
+                    public void scrollToPosition(int position) {
+                        if (position == RecyclerView.NO_POSITION) return;
+                        mRecyclerView.smoothScrollToPosition(position);
+                    }
                 });
 
                 if (mRecyclerView != null) {
@@ -679,7 +684,7 @@ public class sNotzFragment extends Fragment {
                                             updatedList.add(0, item);
                                             mData = updatedList;
                                             mNotesAdapter.updateData(mData);
-                                            mRecyclerView.scrollToPosition(0);
+                                            mRecyclerView.smoothScrollToPosition(0);
                                         }
                                         break;
 
