@@ -20,7 +20,6 @@ import com.sunilpaulmathew.snotz.utils.serializableItems.CheckListsEntry;
 import com.sunilpaulmathew.snotz.utils.sNotzColor;
 
 import java.util.List;
-import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 10, 2021
@@ -73,27 +72,27 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.View
             }
             @Override
             public void afterTextChanged(Editable s) {
-                if (s != null && !s.toString().trim().isEmpty()) {
-                    String newText = s.toString().trim().replace("\n", "");
-                    if (s.toString().trim().startsWith("\n")) {
-                        editText.setText(newText);
-                        return;
-                    }
-                    if (s.toString().endsWith("\n")) {
-                        editText.setText(newText);
-                        if (position == data.size() - 1) {
-                            data.add(data.size(), new CheckListsEntry(null, false, false));
-                            editText.setSelection(Objects.requireNonNull(editText.getText()).length());
-                        }
-                    } else if (s.toString().contains("\n")) {
-                        editText.setText(newText);
-                    }
-                    data.get(position).setTitle(newText);
-                    data.get(position).isModified(true);
-                } else if (s != null && s.toString().equals("\n")) {
+                if (s == null) return;
+                String original = s.toString();
+
+                if (original.endsWith("\n") && !original.trim().isEmpty()) {
+                    String cleanedCurrentText = original.replace("\n", "");
                     editText.setText(null);
+                    int insertPosition = position + 1;
+                    data.add(insertPosition, new CheckListsEntry(cleanedCurrentText, data.get(position).isChecked(), true));
+                    notifyItemInserted(insertPosition);
+                    return;
+                }
+
+                if (original.contains("\n")) {
+                    String cleaned = original.replace("\n", "");
+                    editText.setText(cleaned);
+                    editText.setSelection(cleaned.length());
+                    data.get(position).setTitle(cleaned);
+                    data.get(position).isModified(true);
                 } else {
-                    data.get(position).setTitle("");
+                    data.get(position).setTitle(original);
+                    data.get(position).isModified(true);
                 }
             }
         });
