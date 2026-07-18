@@ -471,9 +471,7 @@ public class sNotzFragment extends Fragment {
                         menu.add(new MenuEntry(getString(R.string.edit), R.drawable.ic_note, 0));
                         menu.add(new MenuEntry(getString(R.string.share), R.drawable.ic_share, 1));
                         menu.add(new MenuEntry(getString(R.string.duplicate), R.drawable.ic_duplicate, 2));
-                        if (!notesEntry.isChecklist()) {
-                            menu.add(new MenuEntry(getString(R.string.hidden_note), R.drawable.ic_eye, true, notesEntry.isHidden(), 3));
-                        }
+                        menu.add(new MenuEntry(getString(R.string.hidden_note), R.drawable.ic_eye, true, notesEntry.isHidden(), 3));
                         if (sNotzReminders.isReminderSet(notesEntry.getNoteID(), activity)) {
                             menu.add(new MenuEntry(getString(R.string.reminder_manage), R.drawable.ic_notification_on, 4));
                         } else {

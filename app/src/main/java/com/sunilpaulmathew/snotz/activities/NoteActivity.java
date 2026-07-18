@@ -396,11 +396,15 @@ public class NoteActivity extends BaseActivity {
                         mModified = !CheckLists.getChecklistString(mData).isEmpty();
                         delete = false;
                     } else {
-                        for (CheckListsEntry items : mData) {
-                            if (items.isModified()) {
-                                mModified = true;
+                        if (isNoteModified) {
+                            mModified = true;
+                        } else {
+                            for (CheckListsEntry items : mData) {
+                                if (items.isModified()) {
+                                    mModified = true;
+                                }
+                                delete = items.getTitle().trim().isEmpty();
                             }
-                            delete = items.getTitle().trim().isEmpty();
                         }
                     }
                 } else {

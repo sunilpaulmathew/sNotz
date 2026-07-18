@@ -164,7 +164,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             mDate.setText(DateFormat.getDateTimeInstance().format(notesEntry.getTimeStamp()));
             mDate.setTextColor(notesEntry.getColorText());
             mDate.setVisibility(View.VISIBLE);
-            mLock.setImageDrawable(sCommonUtils.getDrawable(notesEntry.isChecklist() ? R.drawable.ic_checklist : R.drawable.ic_lock_opened, itemView.getContext()));
+            mLock.setImageDrawable(sCommonUtils.getDrawable(notesEntry.isHidden() ? R.drawable.ic_lock :  notesEntry.isChecklist() ? R.drawable.ic_checklist : R.drawable.ic_lock_opened, itemView.getContext()));
             mLock.setColorFilter(notesEntry.getColorText());
             mLock.setVisibility(notesEntry.isChecklist() || notesEntry.isHidden() ? View.VISIBLE : View.GONE);
             mProgress.setIndeterminateTintList(ColorStateList.valueOf(notesEntry.getColorText()));
