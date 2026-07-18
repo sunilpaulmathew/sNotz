@@ -144,4 +144,7 @@
     <string name="show_notes">"Bare notater"</string>
     <string name="start">"Start"</string>
     <string name="widget_choose_message">"Velg notat eller sjekkliste"</string>
+    <string name="backup_notes_auto">"Aktiver auto-sikkerhetskopiering"</string>
+    <string name="backup_notes_auto_summary">"Sikkerhetskopier appdataene til et annet sted med jevne mellomrom (anbefalt)"</string>
+    <string name="qr_code_save_hint">"Lagre denne QR-koden som?"</string>
 </resources>

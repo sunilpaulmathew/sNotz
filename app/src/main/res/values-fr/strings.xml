@@ -27,7 +27,7 @@
     <string name="faq_summary">"Lire les questions fréquemment posées (FAQ)"</string>
     <string name="hidden_note">"Note masquée"</string>
     <string name="hidden_note_message">"Visitez la page « Paramètres » pour modifier la visibilité des notes masquées"</string>
-    <string name="invite_friends">"Inviter un ami"</string>
+    <string name="invite_friends">"Inviter des amis"</string>
     <string name="invite_friends_Summary">"Inviter vos amis à essayer sNotz"</string>
     <string name="long_click_note_message">"Cliquer longuement sur une note pour accéder aux options avancées, telles que « partager », « masquer » et « supprimer »"</string>
     <string name="more_apps">"Plus d'applications"</string>
@@ -37,9 +37,9 @@
     <string name="ok">"OK"</string>
     <string name="press_back_exit">"Appuyez à nouveau sur le bouton « Retour » pour quitter"</string>
     <string name="rate_us">"Notez nous"</string>
-    <string name="rate_us_Summary">"Noter et/ou évaluer sNotz dans le PlayStore"</string>
+    <string name="rate_us_Summary">"Notez et/ou évaluez sNotz dans le PlayStore"</string>
     <string name="report_issue">"Signaler un problème"</string>
-    <string name="restore_error">"Vous avez sélectionné un fichier de sauvegarde non valide. Abandon"</string>
+    <string name="restore_error">"Vous avez sélectionné un fichier de sauvegarde non valide. Requête annulée"</string>
     <string name="restore_notes">"Restaurer les notes"</string>
     <string name="restore_notes_summary">"Restaurer des notes à partir d'un fichier de sauvegarde"</string>
     <string name="restore_notes_question">"Restaurer les notes à partir du fichier sélectionné ?"</string>
@@ -85,7 +85,6 @@
     <string name="pin_protection_status">"La protection par code PIN est %s"</string>
     <string name="pin_protection_message">"Utilisez un code PIN à 4 chiffres pour sécuriser sNotz"</string>
     <string name="reminder_message">"sNotz vous rappellera cette note à %s"</string>
-    <string name="reminder_set">"Définir un rappel"</string>
     <string name="replace">"Remplacer"</string>
     <string name="warning">"Avertissement"</string>
     <string name="customize_note">"Personnalisations des notes"</string>
@@ -118,4 +117,35 @@
     <string name="qr_code_generate_error_message">"Échec de la génération du code QR"</string>
     <string name="qr_code_read">"Lire depuis l'image"</string>
     <string name="qr_code_scan">"Scanner le QR Code"</string>
+    <string name="note_color_random">"Couleurs Aléatoires"</string>
+    <string name="note_color_random_message">"Veuillez désactiver 'Couleurs Aléatoires' afin d'utiliser cette fonction"</string>
+    <string name="note_color_random_summary">"Appliquer aléatoirement les couleurs lors de la création de nouvelles notes"</string>
+    <string name="exit">"Quitter"</string>
+    <string name="restore">"Récupérer"</string>
+    <string name="restore_backup_message">"Vos notes ont récemment été supprimées. Voulez-vous les récupérer depuis la dernière sauvegarde automatique ?
+
+        Attention : La sauvegarde automatique sera définitivement supprimée après l'annulation de ce message."</string>
+    <string name="backup_checklist_message">"La liste sélectionnée est enregistrée en tant que '%s' "</string>
+    <string name="duplicate">"Dupliquer"</string>
+    <string name="modify">"Modifier"</string>
+    <string name="check_list">"Liste cochable"</string>
+    <string name="color_accent">"Couleur d'accentuation"</string>
+    <string name="color_accent_summary">"Choisir la couleur d'accentuation par défaut de sNotz"</string>
+    <string name="customize_colors">"Personnaliser les couleurs"</string>
+    <string name="note">"Note"</string>
+    <string name="reminder_manage">"Gérer Rappel"</string>
+    <string name="reminder_set">"Créer un Rappel"</string>
+    <string name="show">"Afficher"</string>
+    <string name="show_all">"Notes &amp; Listes"</string>
+    <string name="show_checklists">"Liste seulement"</string>
+    <string name="show_notes">"Notes seulement"</string>
+    <string name="start">"Commencer"</string>
+    <string name="widget_choose_message">"Choisir une Note ou une Liste"</string>
+    <string name="backup_notes_auto">"Activer la sauvegarde automatique"</string>
+    <string name="backup_notes_auto_summary">"Sauvegarder occasionnellement les données de l'application dans lieu secondaire (recommandé)"</string>
+    <string name="notification_accepted_message">"J'en suis"</string>
+    <string name="notification_request_summary">"Veuillez noter: Afin d'exécuter cette fonction sur votre appareil, sNotz nécessite que vous lui accordiez la permission d'envoyer des notifications."</string>
+    <string name="notification_request_title">"Recevez des notifications pour vos notes!"</string>
+    <string name="notification_request_denied_toast">"La permission pour envoyer des notifications depuis sNotz a été refusée."</string>
+    <string name="qr_code_save_hint">"Enregistrer ce QR-code en tant que ?"</string>
 </resources>

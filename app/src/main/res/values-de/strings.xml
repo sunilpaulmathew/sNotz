@@ -85,7 +85,6 @@
     <string name="pin_protection_status">"PIN-Schutz ist %s"</string>
     <string name="pin_protection_message">"Nutze eine 4-stellige Zahl um sNotz zu schützen"</string>
     <string name="reminder_message">"sNotz wird Dich zu dieser Notiz am %s erinnern"</string>
-    <string name="reminder_set">"Erinnerung einstellen"</string>
     <string name="replace">"Ersetzen"</string>
     <string name="warning">"Warnung"</string>
     <string name="customize_note">"Anpassung von Notizen"</string>
@@ -128,4 +127,13 @@
     <string name="restore_backup_message">"Ihre Notizen wurden entfernt. Möchten Sie diese aus dem letzten automatischen Backup wiederherstellen?
 
         Warnung: Wenn Sie diese Nachricht mit Abbrechen schließen, geht das automatische Backup für immer verloren."</string>
+    <string name="backup_checklist_message">"Die gewählte Liste ist als '%s' gespeichert"</string>
+    <string name="duplicate">"Duplizieren"</string>
+    <string name="modify">"Modifizieren"</string>
+    <string name="note">"Notiz"</string>
+    <string name="reminder_set">"Erinnerung einstellen"</string>
+    <string name="show_notes">"Nur Notiz"</string>
+    <string name="backup_notes_auto_summary">"Speichert gelengtlich die App-Dateien in einem zweiten Speicherort (empfohlen)"</string>
+    <string name="notification_accepted_message">"Ich bin dabei"</string>
+    <string name="qr_code_save_hint">"Speichert diesen QR-Code als ?"</string>
 </resources>
