@@ -71,7 +71,7 @@ A list of people who contributed to this project is available [here](Credits.md)
 
 ## License
 
-    Copyright (C) 2020-2025 sunilpaulmathew <sunil.kde@gmail.com>
+    Copyright (C) 2020-2026 sunilpaulmathew <sunil.kde@gmail.com>
 
     sNotz is a free softwares: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
