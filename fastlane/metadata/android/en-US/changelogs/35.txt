@@ -1,0 +1,7 @@
+* Greatly improved overall notes handling, replacing old popup menus with modern, sleek views and updated icons.
+* Improved the checklist functionality for a smoother user experience.
+* Better text margin management on the main screen for a cleaner look.
+* Completely rewritten and enhanced the database restoring dialog.
+* Removed outdated styles to keep the app lightweight.
+* Improved app settings page, and overall stability.
+* Updated German, French, Norwegian, and Turkish translations.

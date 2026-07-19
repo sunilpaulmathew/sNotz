@@ -1,4 +1,0 @@
-* Now targets latest Android
-* Removed billing and credit pages from app.
-* Updated Spanish translations.
-* Miscellaneous changes.

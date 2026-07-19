@@ -6,6 +6,16 @@ include_in_header: true
 
 <h2 style="color: blue">What's New</h2>
 
+<h3 style="color: green">v0.35</h3>
+- Greatly improved overall notes handling, replacing old popup menus with modern, sleek views and updated drawables.
+- Improved the checklist functionality for a smoother user experience.
+- Better text margin management on the main screen for a cleaner look.
+- Improved RecyclerView scrolling behavior.
+- Completely rewritten and enhanced the database restoring dialog.
+- Removed outdated styles to keep the app lightweight.
+- Improved core adapters, the settings page, and overall stability.
+- Updated German, French, Norwegian, and Turkish translations.
+
 <h3 style="color: green">v0.34</h3>
 - Now targets latest Android
 - Removed billing and credit pages from app.
